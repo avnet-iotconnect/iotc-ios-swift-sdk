@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import IoTConnect
+import IoTConnect_2_0
 
 class ViewController: UIViewController {
 
