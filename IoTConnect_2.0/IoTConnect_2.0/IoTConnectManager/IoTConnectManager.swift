@@ -39,6 +39,19 @@ class IoTConnectManager {
     init() {}
     
     //MARK: - Method - SDK-Initialiase
+    
+    /**
+    - parameters:
+        - cpId: comoany ID
+        - uniqueId:Device unique identifier
+        - env: Device environment
+        - sdkOptions:Device SDKOptions for SSL Certificates and Offline Storage
+        - deviceCallback
+        - twinUpdateCallback
+     
+     - Returns
+        returns nothing
+     */
     init(cpId: String, uniqueId: String, env: String, sdkOptions: SDKClientOption?, deviceCallback: @escaping GetDeviceCallBackBlock, twinUpdateCallback: @escaping GetDeviceCallBackBlock) {
 
         objCommon = Common(cpId, uniqueId)
@@ -82,6 +95,12 @@ class IoTConnectManager {
     }
     
     //MARK:- Sample API check
+    /*
+     sample api call to get base urls
+     
+     - Returns
+        returns nothing
+     */
     fileprivate func sampleAPI() {
         HTTPManager().getBaseUrls { (data) in
             self.saveFile(data: data)
@@ -91,16 +110,32 @@ class IoTConnectManager {
         }
     }
     
+    /*
+     sample API call for sync call API
+        
+     - Returns
+        returns nothing
+     */
     fileprivate func sampleAPI2(data: Discovery) {
         let cpid = "nine"
         let uniqueId = "ios"
-        HTTPManager().syncCall(dynamicBaseUrl: data.baseUrl, cpid: cpid, uniqueId: uniqueId) { (data) in
+        HTTPManager().syncCall(dynamicBaseUrl: data.d.bu, cpid: cpid, uniqueId: uniqueId) { (data) in
             self.sampleMqttConnection(cpid: cpid, uniqueId: uniqueId, iotObj: data)
         } failure: { (error) in
             print(error)
         }
     }
     
+    /**
+     
+     - Parameters:
+                - cpid: Provide a company identifier
+                - uniqueId:  Device unique identifier
+                - iotObj:
+    - Returns
+        returns nothing
+            
+     **/
     fileprivate func sampleMqttConnection(cpid: String, uniqueId: String, iotObj: IoTData) {
         let config = CocoaMqttConfig(cpid: cpid,
                                      uniqueId: uniqueId,
@@ -113,6 +148,16 @@ class IoTConnectManager {
             print(status ? "Mqtt Connected ✅" : "Mqtt Failed 🚫")
         }
     }
+    
+    /**
+            save date of Discovery API response
+            
+        - Parameters
+            -data: Discovery API response model class
+            
+        - Returns
+            returns nothing
+     */
     
     fileprivate func saveFile(data: Discovery) {
         if let data = try? JSONEncoder().encode(data) {
@@ -136,6 +181,17 @@ class IoTConnectManager {
     }
     
     //MARK: - Methods - SDK
+    
+    /**
+            send data on MQTT
+            
+     - paramteres
+        - data:data in [String:Any] format
+     
+     - Returns
+        Returns nothing
+     
+     */
     func sendData(data: [[String:Any]]) {
         if data.count > 0 {
             if dictSyncResponse.count > 0 {
@@ -167,6 +223,16 @@ class IoTConnectManager {
         
     }
     
+    /**
+            send Ack on MQTT
+            
+     - paramteres
+        - data:data in [String:Any] format
+     
+     - Returns
+        Returns nothing
+     
+     */
     func sendAck(data: [[String:Any]], msgType: String) {
         if data.count == 0 || msgType.isEmpty {
             objCommon.manageDebugLog(code: Log.Errors.ERR_CM02, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
@@ -193,6 +259,13 @@ class IoTConnectManager {
         }
     }
     
+    /**
+     getAllTwins
+     
+        Returns
+         - returns nothing
+     */
+    
     func getAllTwins() {
         if dictSyncResponse.count > 0 {
             objMQTTClient.getAllTwins()
@@ -200,6 +273,17 @@ class IoTConnectManager {
             objCommon.manageDebugLog(code: Log.Errors.ERR_TP04, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
+    
+    /**
+     Update twins
+     
+     - parameters:
+     - key: key in String format
+     - value: value as any
+     
+     - returns:
+     Returns nothing
+     */
     
     func updateTwin(key: String, value: Any) {
         if dictSyncResponse.count > 0 {
@@ -215,6 +299,16 @@ class IoTConnectManager {
         }
     }
     
+    /**
+     Dispose description
+     
+     - parameters:
+     - sdkconnection: description
+     
+     - returns:
+     Returns nothing
+     */
+    
     func dispose(sdkconnection: String = "") {
         if dictSyncResponse.count > 0 {
             objMQTTClient.disconnect()
@@ -225,6 +319,16 @@ class IoTConnectManager {
             objCommon.manageDebugLog(code: Log.Info.INFO_DC01, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
         }
     }
+    
+    /**
+     Get attaributs
+
+     - parameters:
+     - callBack:
+     
+     - returns:
+     Returns nothing
+     */
     
     func getAttributes(callBack: @escaping (Bool, [[String:Any]]?, String) -> ()) {
         if dictSyncResponse.count > 0 {

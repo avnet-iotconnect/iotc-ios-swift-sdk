@@ -3,6 +3,8 @@
 //  IoTConnect
 
 import Foundation
+import CocoaMQTT
+
 
 typealias GetMQTTStatusCallBackBlock = (Any?, Int) -> Void
 
@@ -25,6 +27,19 @@ class MQTTClient {
     private var boolAlreadyConnectedYN: Bool = false
     
     //MARK: - MQTT-Init
+    /**
+        initialise MQTTClient
+     
+    - parameters:
+        - cpId: comoany ID
+        - uniqueId:Device unique identifier
+        - sdkOptions:Device SDKOptions for SSL Certificates and Offline Storage
+        - boolCertiPathFlagYN: Boolean for if cert path is available or not
+        - debugYN: boolean for want to debug or not
+     
+     - Returns
+        returns nothing
+     */
     init(_ cpId: String, _ uniqueId: String, _ sdkOptions: SDKClientOption, _ boolCertiPathFlagYN: Bool, _ debugYN: Bool) {
         strCPID = cpId
         strUniqueID = uniqueId
@@ -49,7 +64,11 @@ class MQTTClient {
         mqtt!.enableSSL = true
         
         var boolToConnectYN = false
-        if (dictSyncResponse["at"] as! Int == AuthType.CA_SIGNED || dictSyncResponse["at"] as! Int == AuthType.CA_SELF_SIGNED) {
+        
+//        self.dictSyncResponse = dataDevice["d"] as? [String : Any]
+        let metaInfo = dictSyncResponse["meta"] as? [String:Any]
+        
+        if (metaInfo?["at"] as! Int == AuthType.CA_SIGNED || metaInfo?["at"] as! Int == AuthType.CA_SELF_SIGNED) {
             if CERT_PATH_FLAG {
                 var sslSettings: [String: NSObject] = [:]
                 let pwd = dataSDKOptions.SSL.Password
@@ -531,7 +550,9 @@ extension MQTTClient: CocoaMQTTDelegate {
         TRACE("ack: \(ack)")
         if ack == .accept {
             blockHandler?(["sdkStatus": "connect"], 1)
-            mqtt.subscribe(dataSyncResponse[keyPath:"p.sub"] as! String, qos: .qos1)
+            let p = dataSyncResponse["p"] as? [String:Any]
+            let topics = p?["topics"] as? [String:Any]
+            mqtt.subscribe(topics?["c2d"] as! String, qos: .qos1)
             mqtt.subscribe(SDKConstants.TwinPropertySubTopic, qos: .qos1)
             mqtt.subscribe(SDKConstants.TwinResponseSubTopic, qos: .qos1)
             objCommon.manageDebugLog(code: Log.Info.INFO_IN02, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)

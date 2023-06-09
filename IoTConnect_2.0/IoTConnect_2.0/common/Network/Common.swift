@@ -17,16 +17,20 @@ class Common {
     
     //MARK: Get Base URL
     func getBaseURL(strURL: String, callBack: @escaping (Bool, Any) -> ()) {
+        print("getBaseURL \(strURL)")
         let dataTaskMain = URLSession.shared.dataTask(with: URL(string: strURL)!) { (data, response, error) in
             if error == nil {
+               
                 let errorParse: Error? = nil
                 let jsonData = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+                print("getBaseURL response \(jsonData)")
                 if jsonData == nil {
                     callBack(false, errorParse as Any)
                 } else {
                     callBack(true, jsonData as Any)
                 }
             } else {
+                print("getBaseURL error \(String(describing: error))")
                 callBack(false, error as Any)
             }
         }
@@ -41,13 +45,16 @@ class Common {
             postData = try? JSONSerialization.data(withJSONObject: aPass, options: .prettyPrinted)
         }
         // Convert POST string parameters to data using UTF8 Encoding
-        urlRequest.httpMethod = "POST"
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.setValue("\(UInt(postData!.count))", forHTTPHeaderField: "Content-Length")
-        urlRequest.httpBody = postData
+        //kirtan
+        urlRequest.httpMethod = "GET"//"POST"
+//        urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
+//        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        urlRequest.setValue("\(UInt(postData!.count))", forHTTPHeaderField: "Content-Length")
+//        urlRequest.httpBody = postData
         
+        print("makeSyncCall \(strURL)")
         let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            print("makeSyncCall response\(response)")
             completionHandler(data, response, error)
         }
         dataTask.resume()

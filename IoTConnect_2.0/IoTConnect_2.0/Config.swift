@@ -9,15 +9,32 @@ import Foundation
 struct SDKURL {
     static let discoveryHost = "https://discovery.iotconnect.io"
     
+    /**
+    get the Discovery URL
+     
+    params:
+     - strDiscoveryURL:You can find your associated discovery URL in the Key Vault of your account.If you do not find the discovery URL, your account will be using the default discovery URL
+     https://discovery.iotconnect.io/
+     - cpId:Provide a company identifier
+     - lang:
+     - ver:version of SDK
+     - env:Device environment
+     
+     Returns:
+     Returns the Discovery URL.
+     */
+    
     static func discovery(_ strDiscoveryURL:String, _ cpId:String, _ lang:String, _ ver:String, _ env:String) -> String {
-        return String(format: "\(strDiscoveryURL)/api/sdk/cpid/\(cpId)/lang/\(lang)/ver/\(ver)/env/\(env)")
+//        return String(format: "\(strDiscoveryURL)/api/sdk/cpid/\(cpId)/lang/\(lang)/ver/\(ver)/env/\(env)")
+        //kirtan
+        return String(format: "\(strDiscoveryURL)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)")
     }
 }
 
 struct SDKConstants {
     static let DevelopmentSDKYN = true //...For release SDK, this flag need to make false
     static let Language = "M_ios"
-    static let Version = "2.0"
+    static let Version = "2.1"
     static let protocolMQTT = "mqtt"
     static let protocolHTTP = "http"
     static let protocolAMQP = "amqp"

@@ -9,6 +9,19 @@ import Foundation
 
 extension IoTConnectManager {
     //MARK: - Instance Methods
+    
+    /**
+    - initialize IoTConnectManager
+     
+    - parameters:
+        - cpId: comoany ID
+        - uniqueId:Device unique identifier
+        - deviceCallback
+        - twinUpdateCallback
+    
+     - Returns
+        returns nothing
+     */
     func initialize(cpId: String, uniqueId: String, deviceCallback: @escaping GetDeviceCallBackBlock, twinUpdateCallback: @escaping GetDeviceCallBackBlock) {
         dictReference = [:]
         dictSyncResponse = [:]
@@ -22,7 +35,7 @@ extension IoTConnectManager {
                 if let dataRef = data as? [String : Any] {
                     self.objCommon.manageDebugLog(code: Log.Info.INFO_IN07, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                     self.dictReference = dataRef
-                    self.initaliseCall()
+                    self.initaliseCall(uniqueId: uniqueId)
                 } else {
                     self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN09, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                 }
@@ -33,12 +46,24 @@ extension IoTConnectManager {
             }
         }
     }
-    private func initaliseCall() {
+    
+    /**
+    - initialize initaliseCall
+     
+    - parameters:
+        - uniqueId:Device unique identifier
+      
+     - Returns
+        returns nothing
+     */
+    
+    private func initaliseCall( uniqueId: String) {
         if boolCanCallInialiseYN {
             boolCanCallInialiseYN = false
             dictSyncResponse.removeAll()
-
-            objCommon.makeSyncCall(withBaseURL: dictReference["baseUrl"] as! String + "sync", withData: [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.attribute: true, DeviceSync.Request.setting: true, DeviceSync.Request.protocolKey: true, DeviceSync.Request.device: true, DeviceSync.Request.sdkConfig: true, DeviceSync.Request.rule: true]]) { (data, response, error) in
+            //kirtan
+            let bu = dictReference[keyPath:"d.bu"]//d?["bu"]
+            objCommon.makeSyncCall(withBaseURL: bu as! String + "/uid/"+"\(uniqueId)", withData: [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.attribute: true, DeviceSync.Request.setting: true, DeviceSync.Request.protocolKey: true, DeviceSync.Request.device: true, DeviceSync.Request.sdkConfig: true, DeviceSync.Request.rule: true]]) { (data, response, error) in
                 
                 if error == nil {
                     let errorParse: Error? = nil
@@ -58,7 +83,7 @@ extension IoTConnectManager {
                             if SDKConstants.DevelopmentSDKYN {
                                 self.blockHandlerDeviceCallBack(["sdkStatus": "success", "data": dataDevice["d"]])
                             }
-                            if dataDevice[keyPath:"d.rc"] as! Int == DeviceSync.Response.OK {//...OK
+                            if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.OK {//...OK
                                 
                                 if !self.dataSDKOptions.OfflineStorage.Disabled {
                                     self.objCommon.createPredeffinedLogDirecctories(folderName: "logs/offline/\(self.strCPId!)_\(self.strUniqueId!)")
@@ -71,8 +96,9 @@ extension IoTConnectManager {
                                     self.timerNotRegister = nil
                                 }
                                 self.dictSyncResponse = dataDevice["d"] as? [String : Any]
+                                let metaInfo = self.dictSyncResponse["meta"] as? [String:Any]
                                 
-                                if dataDevice[keyPath: "d.at"] as! Int == AuthType.CA_SIGNED || dataDevice[keyPath: "d.at"] as! Int == AuthType.CA_SELF_SIGNED && !self.CERT_PATH_FLAG {
+                                if metaInfo?["at"] as! Int == AuthType.CA_SIGNED || metaInfo?["at"] as! Int == AuthType.CA_SELF_SIGNED && !self.CERT_PATH_FLAG {
                                     
                                     self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN06, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                                     
@@ -164,6 +190,16 @@ extension IoTConnectManager {
             }
         }
     }
+    
+    /**
+    -start Timer For ReInitialiseDSC
+     
+    - parameters:
+        - durationSyncFrequency: timeInterval as double
+      
+     - Returns
+        returns nothing
+     */
     private func startTimerForReInitialiseDSC(durationSyncFrequency: Double) {
         self.timerNotRegister = Timer(timeInterval: durationSyncFrequency, target: self, selector: #selector(self.reInitialise), userInfo: nil, repeats: true)
         RunLoop.main.add(self.timerNotRegister!, forMode: .default)
@@ -171,8 +207,18 @@ extension IoTConnectManager {
     }
     @objc private func reInitialise() {
         self.objCommon.manageDebugLog(code: Log.Info.INFO_IN06, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-        initaliseCall()
+        initaliseCall(uniqueId: strUniqueId)
     }
+    
+    /**
+    -startMQTTCall
+     
+    - parameters:
+        - dataSyncResponse:  data as [String:Any] format
+      
+     - Returns
+        returns nothing
+     */
     private func startMQTTCall(dataSyncResponse: [String:Any]) {
         if dataSyncResponse["p"] != nil {
             
@@ -221,6 +267,14 @@ extension IoTConnectManager {
             
         }
     }
+    
+    /**
+    - parameters:
+        - strkey:  key in string format
+      
+     - Returns
+        returns nothing
+     */
     private func getUpdatedSyncResponseFor(strKey: String) {
         var dict: [String:Any]?
         if strKey == CommandType.ATTRIBUTE_INFO_UPDATE {//...AttributeChanged
@@ -235,7 +289,9 @@ extension IoTConnectManager {
             dict = [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.sdkConfig: true]]
         }
         if dict != nil {
-            objCommon.makeSyncCall(withBaseURL: dictReference["baseUrl"] as! String + "sync", withData: dict) { (data, response, error) in
+            //kirtan
+            let bu = dictReference[keyPath:"d.bu"]
+            objCommon.makeSyncCall(withBaseURL: bu as! String + "sync", withData: dict) { (data, response, error) in
                 if error == nil {
                     let errorParse: Error? = nil
                     let dataDeviceTemp = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
@@ -289,6 +345,15 @@ extension IoTConnectManager {
     }
     
     //MARK: - SendData: Logic Methods
+    /**
+    -set data format to send on MQTT
+     
+    - parameters:
+        - data:  data in [String:Any] format
+      
+     - Returns
+        returns nothing
+     */
     func setSendDataFormat(data: [[String:Any]]) {
         let timeNow = objCommon.now()
         let dict = dictSyncResponse!
@@ -329,6 +394,17 @@ extension IoTConnectManager {
             }
         }
     }
+    /**
+    load data to send on MQTT
+     
+    - parameters:
+        - dictSDKInput:  data in [String:Any] format
+        - dictSaved:
+        - timeInput:
+      
+     - Returns
+        returns data in [String: Any] format
+     */
     private func loadDataToSendIoTHub(fromSDKInput dictSDKInput: [String: Any], withData dictSaved: [String: Any], withTime timeInput: String) -> [String: Any] {
         var dictDevice = [String : Any]()
         let uniqueIds = dictSaved["d"].flatMap{($0 as! [[String:Any]]).map { $0["id"] }} as! [String]
@@ -441,6 +517,19 @@ extension IoTConnectManager {
         
         return ["faultdata": dictDataFault, "rptdata": dictDataRpt]
     }
+    /**
+     getAttributeForm
+     
+    - parameters:
+        - dictAttribute:  data in [String:Any] format
+        - strKey:
+        - idValue:
+        - boolYNParent:
+        - strTag:
+      
+     - Returns
+        returns data in [String: Any] format
+     */
     private func getAttributeForm(with dictAttribute: [String: Any], withForKey strKey: String, withValue idValue: Any, withIsParent boolYNParent: Bool, withTag strTag: String) -> [String: Any] {
         var dictResultAttribute = [String: Any]()
         for dict: [String: Any] in dictAttribute["d"] as! [[String: Any]] {
@@ -507,6 +596,12 @@ extension IoTConnectManager {
         return true
     }
     //MARK: - Method - Reachability Methods
+    /**
+        check internet available or not
+            
+        - Returns
+                returns boll value for available or not
+     */
     func checkInternetAvailable() -> Bool {
         let networkStatus = try! Reachability().connection
         
@@ -522,6 +617,9 @@ extension IoTConnectManager {
         }
     }
     
+    /*
+     observer for whenver rechability changed
+     */
     func reachabilityObserver() {
         self.reachability = try! Reachability()
         NotificationCenter.default.addObserver(self, selector:#selector(self.reachabilityChanged), name: NSNotification.Name.reachabilityChanged, object: nil)
@@ -531,6 +629,9 @@ extension IoTConnectManager {
         }
     }
     
+    /*
+     observer function will be called whenever reachability changed
+     */
     @objc private func reachabilityChanged(note: Notification) {
         let reachability = note.object as! Reachability
         
@@ -562,6 +663,15 @@ extension IoTConnectManager {
         }
     }
     //MARK: - Method - Custom Methods
+    /*
+     startEdgeDeviceProcess
+     
+     - Parameters
+        - dictSyncResponse: date as [String:Any] format
+     
+     - Returns
+        returns nothing
+     */
     private func startEdgeDeviceProcess(dictSyncResponse: [String:Any]) {
         let boolEdgeDevice = dictSyncResponse["ee"] as! Bool
         var dictSyncResponseTemp = dictSyncResponse

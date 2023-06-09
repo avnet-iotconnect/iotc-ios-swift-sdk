@@ -7,7 +7,7 @@
 
 #ifndef MQTTwihtoutPods_Bridging_Header_h
 #define MQTTwihtoutPods_Bridging_Header_h
-#import "GCDAsyncSocket.h"
-#import "GCDAsyncUdpSocket.h"
+//#import "GCDAsyncSocket.h"
+//#import "GCDAsyncUdpSocket.h"
 
 #endif /* MQTTwihtoutPods_Bridging_Header_h */

@@ -74,18 +74,20 @@ class ViewController: UIViewController {
  */
         
         //This code works for token base authentication
-        let objConfig = IoTConnectConfig(cpId: "{replace-with-your-id}",
-                                                 uniqueId: "{replace-with-your-id}",
-                                                 env: .QA,
-                                                 mqttConnectionType: .userCredntialAuthentication,
-                                                 sdkOptions: nil)
+//        let objConfig = IoTConnectConfig(cpId: "{replace-with-your-id}",
+//                                                 uniqueId: "{replace-with-your-id}",
+//                                                 env: .QA,
+//                                                 mqttConnectionType: .userCredntialAuthentication,
+//                                                 sdkOptions: nil)
+        let objConfig = IoTConnectConfig(cpId: "qaiot106", uniqueId: "SmplDevice", env: .QA, mqttConnectionType: .userCredntialAuthentication, sdkOptions: nil)
+
         
         SDKClient.shared.initialize(config: objConfig)
-        
+//
         SDKClient.shared.getDeviceCallBack { (message) in
             print("message: ", message as Any)
         }
-        
+
         SDKClient.shared.getTwinUpdateCallBack { (twinMessage) in
             print("twinMessage: ", twinMessage as Any)
         }
