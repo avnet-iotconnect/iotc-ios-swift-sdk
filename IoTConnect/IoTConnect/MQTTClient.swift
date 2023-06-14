@@ -47,7 +47,7 @@ class MQTTClient {
 //        mqtt!.keepAlive = 600
         mqtt!.delegate = self
         mqtt!.enableSSL = true
-        
+         
         var boolToConnectYN = false
         if (dictSyncResponse["at"] as! Int == AuthType.CA_SIGNED || dictSyncResponse["at"] as! Int == AuthType.CA_SELF_SIGNED) {
             if CERT_PATH_FLAG {

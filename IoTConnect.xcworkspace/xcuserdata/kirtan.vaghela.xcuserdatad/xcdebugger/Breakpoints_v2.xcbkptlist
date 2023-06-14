@@ -71,69 +71,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "621B32AE-96D1-418C-857D-F81292E89CFC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "initialize(cpId:uniqueId:deviceCallback:twinUpdateCallback:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "621B32AE-96D1-418C-857D-F81292E89CFC - da67f149dcb8e2ad"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool, Any) -&gt; () in IoTConnect_2_0.IoTConnectManager.initialize(cpId: Swift.String, uniqueId: Swift.String, deviceCallback: (Swift.Optional&lt;Any&gt;) -&gt; (), twinUpdateCallback: (Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "IoTConnect_2_0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "1620">
-               </Location>
-               <Location
-                  uuid = "621B32AE-96D1-418C-857D-F81292E89CFC - 1067d63b84ddf2c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IoTConnect_2_0.IoTConnectManager.initialize(cpId: Swift.String, uniqueId: Swift.String, deviceCallback: (Swift.Optional&lt;Any&gt;) -&gt; (), twinUpdateCallback: (Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "IoTConnect_2_0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "864">
-               </Location>
-               <Location
-                  uuid = "621B32AE-96D1-418C-857D-F81292E89CFC - da67f149dcb8e28e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool, Any) -&gt; () in IoTConnect_2_0.IoTConnectManager.initialize(cpId: Swift.String, uniqueId: Swift.String, deviceCallback: (Swift.Optional&lt;Any&gt;) -&gt; (), twinUpdateCallback: (Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "IoTConnect_2_0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "172">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "1C2A31D7-783D-4CD9-82C9-1F3ACC7425DC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -150,47 +87,47 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2AFB3120-E513-4EAD-A1F9-7A745AFE4D69"
+            uuid = "3732BAF3-B24A-4D10-9354-6E53094B9265"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/common/Network/Common.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "init(cpId:uniqueId:env:sdkOptions:deviceCallback:twinUpdateCallback:)"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "getAttributes(dictSyncResponse:callBack:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "2AFB3120-E513-4EAD-A1F9-7A745AFE4D69 - e51e6f97c1ab9565"
+                  uuid = "3732BAF3-B24A-4D10-9354-6E53094B9265 - f094408b80a9db1"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "IoTConnect_2_0.IoTConnectManager.init(cpId: Swift.String, uniqueId: Swift.String, env: Swift.String, sdkOptions: Swift.Optional&lt;IoTConnect_2_0.SDKClientOption&gt;, deviceCallback: (Swift.Optional&lt;Any&gt;) -&gt; (), twinUpdateCallback: (Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; IoTConnect_2_0.IoTConnectManager"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in IoTConnect_2_0.Common.getAttributes(dictSyncResponse: Swift.Dictionary&lt;Swift.String, Any&gt;, callBack: (Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;, Swift.String) -&gt; ()) -&gt; ()"
                   moduleName = "IoTConnect_2_0"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
+                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/common/Network/Common.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "3952">
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "812">
                </Location>
                <Location
-                  uuid = "2AFB3120-E513-4EAD-A1F9-7A745AFE4D69 - e51e6f97c1ab9565"
+                  uuid = "3732BAF3-B24A-4D10-9354-6E53094B9265 - 14918b4f5fc5e775"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "IoTConnect_2_0.IoTConnectManager.init(cpId: Swift.String, uniqueId: Swift.String, env: Swift.String, sdkOptions: Swift.Optional&lt;IoTConnect_2_0.SDKClientOption&gt;, deviceCallback: (Swift.Optional&lt;Any&gt;) -&gt; (), twinUpdateCallback: (Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; IoTConnect_2_0.IoTConnectManager"
+                  symbolName = "closure #1 (Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; Swift.Dictionary&lt;Swift.String, Any&gt; in closure #1 @Swift.MainActor () -&gt; () in IoTConnect_2_0.Common.getAttributes(dictSyncResponse: Swift.Dictionary&lt;Swift.String, Any&gt;, callBack: (Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;, Swift.String) -&gt; ()) -&gt; ()"
                   moduleName = "IoTConnect_2_0"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
+                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/common/Network/Common.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "1784">
+                  startingLineNumber = "156"
+                  endingLineNumber = "156"
+                  offsetFromSymbolStart = "124">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -198,127 +135,127 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A65B4DF6-004C-4D73-A460-8EF14BF36969"
+            uuid = "47986A4D-BBBA-4C02-A6D0-898AF5FE26D0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/SDKClient.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "getAttributes(callBack:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BF79265C-28B2-4228-83AD-6ACB5578854B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "init(cpId:uniqueId:env:sdkOptions:deviceCallback:twinUpdateCallback:)"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
+            landmarkName = "getAttributes(callBack:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "A65B4DF6-004C-4D73-A460-8EF14BF36969 - e51e6f97c1ab940c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IoTConnect_2_0.IoTConnectManager.init(cpId: Swift.String, uniqueId: Swift.String, env: Swift.String, sdkOptions: Swift.Optional&lt;IoTConnect_2_0.SDKClientOption&gt;, deviceCallback: (Swift.Optional&lt;Any&gt;) -&gt; (), twinUpdateCallback: (Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; IoTConnect_2_0.IoTConnectManager"
-                  moduleName = "IoTConnect_2_0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "4968">
-               </Location>
-               <Location
-                  uuid = "A65B4DF6-004C-4D73-A460-8EF14BF36969 - e51e6f97c1ab946d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IoTConnect_2_0.IoTConnectManager.init(cpId: Swift.String, uniqueId: Swift.String, env: Swift.String, sdkOptions: Swift.Optional&lt;IoTConnect_2_0.SDKClientOption&gt;, deviceCallback: (Swift.Optional&lt;Any&gt;) -&gt; (), twinUpdateCallback: (Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; IoTConnect_2_0.IoTConnectManager"
-                  moduleName = "IoTConnect_2_0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "80"
-                  endingLineNumber = "80"
-                  offsetFromSymbolStart = "3160">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BAF5E881-0B77-4A0D-99F7-A223DCEC39F8"
+            uuid = "0C92C2F4-059C-4E21-BDE9-8D67AB14796D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "init(cpId:uniqueId:env:sdkOptions:deviceCallback:twinUpdateCallback:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "BAF5E881-0B77-4A0D-99F7-A223DCEC39F8 - 8eb6b4edfc1f2ef6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IoTConnect_2_0.IoTConnectManager.sampleAPI2(data: IoTConnect_2_0.Discovery) -&gt; ()"
-                  moduleName = "IoTConnect_2_0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "95"
-                  endingLineNumber = "95"
-                  offsetFromSymbolStart = "80">
-               </Location>
-               <Location
-                  uuid = "BAF5E881-0B77-4A0D-99F7-A223DCEC39F8 - e51e6f97c1ab965f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IoTConnect_2_0.IoTConnectManager.init(cpId: Swift.String, uniqueId: Swift.String, env: Swift.String, sdkOptions: Swift.Optional&lt;IoTConnect_2_0.SDKClientOption&gt;, deviceCallback: (Swift.Optional&lt;Any&gt;) -&gt; (), twinUpdateCallback: (Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; IoTConnect_2_0.IoTConnectManager"
-                  moduleName = "IoTConnect_2_0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "4972">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "18D31E0E-A015-4ECD-AA3A-1A1198D1B604"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IoTConnect_2.0/IoTConnect_2.0/Config.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "discovery(_:_:_:_:_:)"
+            startingLineNumber = "426"
+            endingLineNumber = "426"
+            landmarkName = "getAttributes(callBack:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1737B93D-3869-4B11-AE64-2BB86C111A06"
+            uuid = "C7BA5443-DF30-4A7D-8E2D-302941149256"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "initialize(cpId:uniqueId:deviceCallback:twinUpdateCallback:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C7BA5443-DF30-4A7D-8E2D-302941149256 - da67f149dcb8e058"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Any) -&gt; () in IoTConnect_2_0.IoTConnectManager.initialize(cpId: Swift.String, uniqueId: Swift.String, deviceCallback: (Swift.Optional&lt;Any&gt;) -&gt; (), twinUpdateCallback: (Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "IoTConnect_2_0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "1044">
+               </Location>
+               <Location
+                  uuid = "C7BA5443-DF30-4A7D-8E2D-302941149256 - da67f149dcb8e058"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Any) -&gt; () in IoTConnect_2_0.IoTConnectManager.initialize(cpId: Swift.String, uniqueId: Swift.String, deviceCallback: (Swift.Optional&lt;Any&gt;) -&gt; (), twinUpdateCallback: (Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "IoTConnect_2_0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "1148">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1D49ADEE-7A71-4525-B626-5795FD5F0C67"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "connectSDK()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FAB24177-983A-433D-B127-40E27D3B360A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "initaliseCall(uniqueId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -326,16 +263,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D05770C4-4638-4ADB-AFF2-944E81C1F5A1"
+            uuid = "F961AEC2-6E81-4659-A9CF-9B49678C1EA1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "initaliseCall(uniqueId:)"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
+            landmarkName = "dispose(sdkconnection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A68A21BA-EAA5-47AC-94FD-121EA1FD6FEB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/MqttClient/MqttClientService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "disconnectCocoaMqtt(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "05EFAE72-A9A8-4BDE-A160-11E5A206763D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/MqttClient/MqttClientService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "mqttDidDisconnect(_:withError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

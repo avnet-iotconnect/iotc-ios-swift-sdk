@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension IoTConnectManager {
     //MARK: - Instance Methods
@@ -63,7 +64,7 @@ extension IoTConnectManager {
             dictSyncResponse.removeAll()
             //kirtan
             let bu = dictReference[keyPath:"d.bu"]//d?["bu"]
-            objCommon.makeSyncCall(withBaseURL: bu as! String + "/uid/"+"\(uniqueId)", withData: [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.attribute: true, DeviceSync.Request.setting: true, DeviceSync.Request.protocolKey: true, DeviceSync.Request.device: true, DeviceSync.Request.sdkConfig: true, DeviceSync.Request.rule: true]]) { (data, response, error) in
+            objCommon.makeSyncCall(withBaseURL: (bu as? String ?? "") + "/uid/"+"\(uniqueId)", withData: [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.attribute: true, DeviceSync.Request.setting: true, DeviceSync.Request.protocolKey: true, DeviceSync.Request.device: true, DeviceSync.Request.sdkConfig: true, DeviceSync.Request.rule: true]]) { (data, response, error) in
                 
                 if error == nil {
                     let errorParse: Error? = nil
@@ -115,7 +116,7 @@ extension IoTConnectManager {
                                     
                                 }
                                 
-                            } else if dataDevice[keyPath:"d.rc"] as! Int == DeviceSync.Response.DEVICE_NOT_REGISTERED {//...Not Register
+                            } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.DEVICE_NOT_REGISTERED {//...Not Register
                                 
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN09, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
@@ -127,11 +128,11 @@ extension IoTConnectManager {
                                     self.startTimerForReInitialiseDSC(durationSyncFrequency: dblSyncFrequency)
                                 }
                                 
-                            } else if dataDevice[keyPath:"d.rc"] as! Int == DeviceSync.Response.AUTO_REGISTER {//...Auto Register
+                            } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.AUTO_REGISTER {//...Auto Register
                                 
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN10, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
-                            } else if dataDevice[keyPath:"d.rc"] as! Int == DeviceSync.Response.DEVICE_NOT_FOUND {//...Not Found
+                            } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.DEVICE_NOT_FOUND {//...Not Found
                                 
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN11, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
@@ -143,7 +144,7 @@ extension IoTConnectManager {
                                     self.startTimerForReInitialiseDSC(durationSyncFrequency: dblSyncFrequency)
                                 }
                                 
-                            } else if dataDevice[keyPath:"d.rc"] as! Int == DeviceSync.Response.DEVICE_INACTIVE {//...Inactive
+                            } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.DEVICE_INACTIVE {//...Inactive
                                 
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN12, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
@@ -155,11 +156,11 @@ extension IoTConnectManager {
                                     self.startTimerForReInitialiseDSC(durationSyncFrequency: dblSyncFrequency)
                                 }
                                 
-                            } else if dataDevice[keyPath:"d.rc"] as! Int == DeviceSync.Response.OBJECT_MOVED {//...Discovery URL
+                            } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.OBJECT_MOVED {//...Discovery URL
                                 
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN13, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
-                            } else if dataDevice[keyPath:"d.rc"] as! Int == DeviceSync.Response.CPID_NOT_FOUND {//...CPID Not Found
+                            } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.CPID_NOT_FOUND {//...CPID Not Found
                                 
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN14, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
@@ -179,7 +180,7 @@ extension IoTConnectManager {
                     
                     print("Error parsing DSC: \(String(describing: error))")
                     self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: error!.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
-                    
+                
                     if SDKConstants.DevelopmentSDKYN {
                         self.blockHandlerDeviceCallBack(["sdkStatus": "error"])
                     }

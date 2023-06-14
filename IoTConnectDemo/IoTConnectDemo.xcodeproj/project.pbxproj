@@ -19,6 +19,7 @@
 		C0C04CD626D015DA00182C45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */; };
 		DD36C4412A304EF9008BA007 /* IoTConnect_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */; };
 		DDA60A602A2F176300F686BF /* IoTConnect_2_0.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DDC0C2972A38958A001793C5 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0C2962A38958A001793C5 /* RadioButtonController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,6 +51,7 @@
 		C0C04CD726D015DA00182C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDC0C2962A38958A001793C5 /* RadioButtonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				9285F66B26D62EEF00BC30DC /* TableHeaderView */,
+				DDC0C2962A38958A001793C5 /* RadioButtonController.swift */,
 				C0C04CC926D015D900182C45 /* AppDelegate.swift */,
 				9285F67026D62F5000BC30DC /* PropertyCell.swift */,
 				C0C04CCB26D015D900182C45 /* SceneDelegate.swift */,
@@ -198,6 +201,7 @@
 				C0C04CCE26D015D900182C45 /* ViewController.swift in Sources */,
 				C0C04CCA26D015D900182C45 /* AppDelegate.swift in Sources */,
 				C0C04CCC26D015D900182C45 /* SceneDelegate.swift in Sources */,
+				DDC0C2972A38958A001793C5 /* RadioButtonController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,16 +348,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 85Z6DRR6M5;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 85Z6DRR6M5;
 				INFOPLIST_FILE = IoTConnectDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.IoTConnectDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Emergency Distribution Profile 2023";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,16 +373,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 85Z6DRR6M5;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 85Z6DRR6M5;
 				INFOPLIST_FILE = IoTConnectDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.IoTConnectDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Emergency Distribution Profile 2023";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
