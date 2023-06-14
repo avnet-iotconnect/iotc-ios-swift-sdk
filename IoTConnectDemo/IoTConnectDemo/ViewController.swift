@@ -120,11 +120,23 @@ class ViewController: UIViewController {
                     if let msg = msg["sdkStatus"] as? String{
                         if msg == "error"{
                             self.presentAlert(title: "Error")
+                            DispatchQueue.main.async {
+                                self.btnConnect.backgroundColor = .blue
+                            }
+                           
                         }else if msg == "connect"{
                             
                             DispatchQueue.main.async {
                                 self.devivceStatus = .connected
                                 self.btnConnect.setTitle("Disconnect", for: .normal)
+                                self.btnConnect.backgroundColor = .green
+                            }
+                        }else if msg == "Disconnect"{
+                            
+                            DispatchQueue.main.async {
+                                self.devivceStatus = .disconnected
+                                self.btnConnect.setTitle("Connect", for: .normal)
+                                self.btnConnect.backgroundColor = .blue
                             }
                         }
                     }
