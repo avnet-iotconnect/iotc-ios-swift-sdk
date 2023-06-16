@@ -56,16 +56,20 @@ struct SDKConstants {
 }
 
 struct CommandType {
-    static let CORE_COMMAND = "0x01"
-    static let FIRMWARE_UPDATE = "0x02"
-    static let ATTRIBUTE_INFO_UPDATE = "0x10"
-    static let SETTING_INFO_UPDATE = "0x11"
-    static let PASSWORD_INFO_UPDATE = "0x12"
-    static let DEVICE_INFO_UPDATE = "0x13"
-    static let RULE_INFO_UPDATE = "0x15"
-    static let DEVICE_CONNECTION_STATUS = "0x16"
-    static let DATA_FREQUENCY_UPDATE = "0x17"
-    static let STOP_SDK_CONNECTION = "0x99"
+    static let CORE_COMMAND = 101//"0x01"
+    static let FIRMWARE_UPDATE = 102//"0x02"
+    static let ATTRIBUTE_INFO_UPDATE = 110//"0x10"
+    static let SETTING_INFO_UPDATE = 111//"0x11"
+    static let PASSWORD_INFO_UPDATE = 112//"0x12"
+    static let DEVICE_INFO_UPDATE = 113//"0x13"
+    static let RULE_INFO_UPDATE = 115//"0x15"
+    static let DEVICE_CONNECTION_STATUS = 116//"0x16"
+    static let DATA_FREQUENCY_UPDATE = 117//"0x17"
+    static let STOP_SDK_CONNECTION = 199//"0x99"
+    static let DEVICE_DELETED = 106
+    static let DEVICE_DISABLED = 107
+    static let DEVICE_RELEASED = 108
+    static let STOP_OPERATION = 109
 }
 
 struct DataType {

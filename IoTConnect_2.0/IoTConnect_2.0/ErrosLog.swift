@@ -39,6 +39,16 @@ struct Log {//class
         case ERR_DC02 = "Connection not available"
         case ERR_GA02 = "Attributes data not found"
         case ERR_PS01 = "JSON parsing error"    //...New
+        case ERR_1     = "Device not found. Device is not whitelisted to                        platform"
+        case ERR_2     = "Device is not active"
+        case ERR_3     = "Un-Associated. Device has not any template associated with it"
+        case ERR_4     = "Device is not acquired. Device is created but it is in release state"
+        case ERR_5     = "Device is disabled. It’s disabled from IoTHub by Platform Admin"
+       case ERR_6      = "Company not found as SID is not valid"
+       case ERR_7     = "Subscription is expired"
+       case ERR_8     = "Connection Not Allowed"
+       case ERR_9     = "Invalid Bootstrap Certificate"
+       case ERR_10    = "Invalid Operational Certificate"
     }
     enum Info: String {
         case INFO_IN01 = "Device information received successfully"
@@ -76,4 +86,33 @@ struct Log {//class
         case INFO_DC01 = "Device already disconnected"
         case INFO_GA01 = "Get attributes successfully"
     }
+    
+    static func getAPIErrorMsg(errorCode:Int)->String{
+        switch errorCode{
+            case 1:
+                return  Log.Errors.ERR_1.rawValue
+            case 2:
+                return Log.Errors.ERR_2.rawValue
+            case 3:
+                return Log.Errors.ERR_3.rawValue
+            case 4:
+                return Log.Errors.ERR_4.rawValue
+            case 5:
+                return Log.Errors.ERR_5.rawValue
+            case 6:
+                return Log.Errors.ERR_6.rawValue
+            case 7:
+                return Log.Errors.ERR_7.rawValue
+            case 8:
+                return Log.Errors.ERR_8.rawValue
+            case 9:
+                return Log.Errors.ERR_9.rawValue
+            case 10:
+                return Log.Errors.ERR_10.rawValue
+            default:
+            return "Error"
+        }
+    }
+    
 }
+

@@ -36,7 +36,13 @@ extension IoTConnectManager {
                 if let dataRef = data as? [String : Any] {
                     self.objCommon.manageDebugLog(code: Log.Info.INFO_IN07, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                     self.dictReference = dataRef
-                    self.initaliseCall(uniqueId: uniqueId)
+                    if self.dictReference[keyPath:"d.ec"] as! Int == 0{
+                        self.initaliseCall(uniqueId: uniqueId)
+                    }else{
+                        let errorDict = ["error":Log.getAPIErrorMsg(errorCode: self.dictReference[keyPath:"d.ec"] as? Int ?? 15)]
+                        deviceCallback(errorDict)
+                        self.objCommon.manageDebugLog(code: self.dictReference[keyPath:"d.ec"] ?? 15, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+                    }
                 } else {
                     self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN09, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                 }
@@ -117,7 +123,8 @@ extension IoTConnectManager {
                                 }
                                 
                             } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.DEVICE_NOT_REGISTERED {//...Not Register
-                                
+                                let errorDict = ["error":Log.getAPIErrorMsg(errorCode: dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
+                                self.blockHandlerDeviceCallBack(errorDict)
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN09, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
                                 if self.timerNotRegister == nil {
@@ -129,11 +136,13 @@ extension IoTConnectManager {
                                 }
                                 
                             } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.AUTO_REGISTER {//...Auto Register
-                                
+                                let errorDict = ["error":Log.getAPIErrorMsg(errorCode: dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
+                                self.blockHandlerDeviceCallBack(errorDict)
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN10, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
                             } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.DEVICE_NOT_FOUND {//...Not Found
-                                
+                                let errorDict = ["error":Log.getAPIErrorMsg(errorCode: dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
+                                self.blockHandlerDeviceCallBack(errorDict)
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN11, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
                                 if self.timerNotRegister == nil {
@@ -145,7 +154,8 @@ extension IoTConnectManager {
                                 }
                                 
                             } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.DEVICE_INACTIVE {//...Inactive
-                                
+                                let errorDict = ["error":Log.getAPIErrorMsg(errorCode:  dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
+                                self.blockHandlerDeviceCallBack(errorDict)
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN12, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
                                 if self.timerNotRegister == nil {
@@ -157,14 +167,21 @@ extension IoTConnectManager {
                                 }
                                 
                             } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.OBJECT_MOVED {//...Discovery URL
-                                
+                                let errorDict = ["error":Log.getAPIErrorMsg(errorCode: dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
+                                self.blockHandlerDeviceCallBack(errorDict)
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN13, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
                             } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.CPID_NOT_FOUND {//...CPID Not Found
-                                
+                                let errorDict = ["error":Log.getAPIErrorMsg(errorCode: dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
+                                self.blockHandlerDeviceCallBack(errorDict)
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN14, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
                             } else {
+                                let errorDict = ["error":Log.getAPIErrorMsg(errorCode: dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
+                                self.blockHandlerDeviceCallBack(errorDict)
+////                                deviceCallback(errorDict)
+//
+//                                self.objCommon.manageDebugLog(code: self.dictReference[keyPath:"d.ec"] ?? 15, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                                 
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN15, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
@@ -247,7 +264,7 @@ extension IoTConnectManager {
                 if (typeAction == 1 && SDKConstants.DevelopmentSDKYN) || typeAction == 2 {
                     self.blockHandlerDeviceCallBack(dataToPass)
                 } else if typeAction == 3 {
-                    self.getUpdatedSyncResponseFor(strKey: dataToPass as! String)
+                    self.getUpdatedSyncResponseFor(strKey: dataToPass as! Int)
                 } else if typeAction == 4 {
                     var dataTwin: [String:Any] = [:]
                     dataTwin["desired"] = dataToPass
@@ -276,7 +293,7 @@ extension IoTConnectManager {
      - Returns
         returns nothing
      */
-    private func getUpdatedSyncResponseFor(strKey: String) {
+    private func getUpdatedSyncResponseFor(strKey: Int) {
         var dict: [String:Any]?
         if strKey == CommandType.ATTRIBUTE_INFO_UPDATE {//...AttributeChanged
             dict = [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.attribute: true]]

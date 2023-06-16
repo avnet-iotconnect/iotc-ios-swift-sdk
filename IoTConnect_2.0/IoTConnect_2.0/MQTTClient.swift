@@ -600,41 +600,45 @@ extension MQTTClient: CocoaMQTTDelegate {
                         blockHandler?(objectMessage, 5)
                         boolCanProceedYN = false
                     } else {
-                        if objectMessage["ct"] as! String == CommandType.CORE_COMMAND {//...DeviceCommand
+                        if objectMessage["ct"] as! Int == CommandType.CORE_COMMAND {//...DeviceCommand
                             
                             objCommon.manageDebugLog(code: Log.Info.INFO_CM01, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
                             blockHandler?(objectMessage, 2)
                             boolCanProceedYN = false
                             
-                        } else if objectMessage["ct"] as! String == CommandType.FIRMWARE_UPDATE {//...FirmwareUpgrade
+                        } else if objectMessage["ct"] as! Int == CommandType.FIRMWARE_UPDATE {//...FirmwareUpgrade
                             
                             objCommon.manageDebugLog(code: Log.Info.INFO_CM02, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
                             blockHandler?(objectMessage, 2)
                             boolCanProceedYN = false
                             
-                        } else if [CommandType.ATTRIBUTE_INFO_UPDATE, CommandType.SETTING_INFO_UPDATE, CommandType.PASSWORD_INFO_UPDATE, CommandType.DEVICE_INFO_UPDATE, CommandType.DATA_FREQUENCY_UPDATE].contains(objectMessage["ct"] as! String) {
+                        } else if [CommandType.ATTRIBUTE_INFO_UPDATE, CommandType.SETTING_INFO_UPDATE, CommandType.PASSWORD_INFO_UPDATE, CommandType.DEVICE_INFO_UPDATE, CommandType.DATA_FREQUENCY_UPDATE].contains(objectMessage["ct"] as! Int) {
                             
-                            if CommandType.ATTRIBUTE_INFO_UPDATE == objectMessage["ct"] as! String {
+                            if CommandType.ATTRIBUTE_INFO_UPDATE == objectMessage["ct"] as! Int {
                                 objCommon.manageDebugLog(code: Log.Info.INFO_CM03, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
-                            } else if CommandType.SETTING_INFO_UPDATE == objectMessage["ct"] as! String {
+                            } else if CommandType.SETTING_INFO_UPDATE == objectMessage["ct"] as! Int {
                                 objCommon.manageDebugLog(code: Log.Info.INFO_CM04, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
-                            } else if CommandType.PASSWORD_INFO_UPDATE == objectMessage["ct"] as! String {
+                            } else if CommandType.PASSWORD_INFO_UPDATE == objectMessage["ct"] as! Int {
                                 objCommon.manageDebugLog(code: Log.Info.INFO_CM05, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
-                            } else if CommandType.DEVICE_INFO_UPDATE == objectMessage["ct"] as! String {
+                            } else if CommandType.DEVICE_INFO_UPDATE == objectMessage["ct"] as! Int {
                                 objCommon.manageDebugLog(code: Log.Info.INFO_CM06, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
-                            } else if CommandType.DATA_FREQUENCY_UPDATE == objectMessage["ct"] as! String {
+                            } else if CommandType.DATA_FREQUENCY_UPDATE == objectMessage["ct"] as! Int {
                                 objCommon.manageDebugLog(code: Log.Info.INFO_CM11, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
                             }
                             
-                            blockHandler?(objectMessage["ct"] as! String, 3)
+                            blockHandler?(objectMessage["ct"] as! Int, 3)
                             boolCanProceedYN = false
                             
-                        } else if objectMessage["ct"] as! String == CommandType.STOP_SDK_CONNECTION {
+                        } else if objectMessage["ct"] as! Int == CommandType.STOP_SDK_CONNECTION{
                             
                             objCommon.manageDebugLog(code: Log.Info.INFO_CM08, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
                             blockHandler?(CommandType.STOP_SDK_CONNECTION, 6)
                             boolCanProceedYN = false
                             
+                        }else if objectMessage["ct"] as! Int == CommandType.DEVICE_CONNECTION_STATUS || objectMessage["ct"] as! Int == CommandType.DEVICE_DELETED || objectMessage["ct"] as! Int == CommandType.DEVICE_DISABLED || objectMessage["ct"] as! Int == CommandType.DEVICE_RELEASED || objectMessage["ct"] as! Int == CommandType.STOP_OPERATION{
+                            objCommon.manageDebugLog(code: Log.Info.INFO_CM01, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
+                            let dict = ["sdkStatus":"WillDisconnect"]
+                            blockHandler?(dict, 2)//objectMessage
                         }
                     }
                 }
@@ -670,10 +674,9 @@ extension MQTTClient: CocoaMQTTDelegate {
         objCommon.manageDebugLog(code: Log.Info.INFO_IN03, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
         print(err)
         if err == nil{
-            blockHandler?(["sdkStatus": "Disconnect"], 1)
+            blockHandler?(["sdkStatus": "DidDisconnect"], 1)
         }else{
             blockHandler?(["sdkStatus": "error"], 1)
         }
-       
     }
 }

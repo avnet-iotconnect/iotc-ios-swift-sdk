@@ -27,6 +27,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnPOC: UIButton!
     @IBOutlet weak var btnQA: UIButton!
     @IBOutlet weak var btnDev: UIButton!
+    @IBOutlet weak var lblStatus: UILabel!
+    @IBOutlet weak var viewLoader: UIView!
     
     //MARK:Variable
     var env:Environment = .QA
@@ -65,16 +67,16 @@ class ViewController: UIViewController {
     }
 
     //MARK: - Custom Methods
-    @IBAction private func clickActions(sender: AnyObject) {
-        if sender.isEqual(btnConnect) {
-            if self.devivceStatus == .disconnected{
-                connectSDK()
-            }else{
-                SDKClient.shared.dispose()
-            }
-           
-        }
-    }
+//    @IBAction private func clickActions(sender: AnyObject) {
+//        if sender.isEqual(btnConnect) {
+//            if self.devivceStatus == .disconnected{
+//                connectSDK()
+//            }else{
+//                SDKClient.shared.dispose()
+//            }
+//
+//        }
+//    }
     func connectSDK() {
         
         //This code works for certificate authentication
@@ -107,6 +109,7 @@ class ViewController: UIViewController {
         //        let objConfig = IoTConnectConfig(cpId: "qaiot106", uniqueId: "SmplDevice", env: .QA, mqttConnectionType: .userCredntialAuthentication, sdkOptions: nil)
         
         if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
+            self.viewLoader.isHidden = false
             let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .userCredntialAuthentication, sdkOptions: nil)
             
             SDKClient.shared.initialize(config: objConfig)
@@ -114,6 +117,7 @@ class ViewController: UIViewController {
             SDKClient.shared.getDeviceCallBack { (message) in
                 print("message: ", message as Any)
                 DispatchQueue.main.async {
+                    self.viewLoader.isHidden = true
                     self.txtView.text = "\(message)"
                 }
                 if let msg = message as? [String:Any]{
@@ -121,23 +125,42 @@ class ViewController: UIViewController {
                         if msg == "error"{
                             self.presentAlert(title: "Error")
                             DispatchQueue.main.async {
-                                self.btnConnect.backgroundColor = .blue
+                                self.devivceStatus = .disconnected
+                                self.btnStatus.backgroundColor = .red
+                                self.lblStatus.text = statusText.disconnected.rawValue
+                                self.btnConnect.setTitle("Connect", for: .normal)
                             }
-                           
-                        }else if msg == "connect"{
                             
+                        }else if msg == "connect"{
                             DispatchQueue.main.async {
                                 self.devivceStatus = .connected
                                 self.btnConnect.setTitle("Disconnect", for: .normal)
-                                self.btnConnect.backgroundColor = .green
+                                self.btnStatus.backgroundColor = .green
+                                self.lblStatus.text = statusText.connected.rawValue
                             }
-                        }else if msg == "Disconnect"{
-                            
+                        }else if msg == "DidDisconnect"{
                             DispatchQueue.main.async {
                                 self.devivceStatus = .disconnected
                                 self.btnConnect.setTitle("Connect", for: .normal)
-                                self.btnConnect.backgroundColor = .blue
+                                self.btnStatus.backgroundColor = .red
+                                self.lblStatus.text = statusText.disconnected.rawValue
                             }
+                        }else if msg == "WillDisconnect"{
+                            SDKClient.shared.dispose()
+                        }
+                    }
+//                    else if let msg = msg["ct"] as? Int{
+//                        if msg == 106 ||
+//                            msg == 107 ||
+//                            msg == 108 ||
+//                            msg == 109 ||
+//                            msg == 116{
+//                            SDKClient.shared.dispose()
+//                        }
+//                    }
+                    else if let msg = msg["error"]{
+                        DispatchQueue.main.async {
+                            self.txtView.text = msg as? String
                         }
                     }
                 }
@@ -150,7 +173,12 @@ class ViewController: UIViewController {
 //                }
             }
         }else{
-            presentAlert(title: "Please enter value")
+            if txtCPID.text!.isEmpty{
+                presentAlert(title: "Please enter CPID valur")
+            }else{
+                presentAlert(title: "Please enter unique ID value")
+            }
+           
         }
     }
     
@@ -164,6 +192,15 @@ class ViewController: UIViewController {
     }
     
 //MARK: IBAction events
+    
+    @IBAction func btnConnectTapped(_ sender: Any) {
+        if self.devivceStatus == .disconnected{
+            connectSDK()
+        }else{
+            SDKClient.shared.dispose()
+        }
+    }
+    
     
     @IBAction func btnAvnetTapped(_ sender: UIButton) {
         radioController.buttonArrayUpdated(buttonSelected: sender)
