@@ -87,6 +87,7 @@
 		C0C3394C26D7EAFF00EE6BE1 /* CacheModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3394B26D7EAFF00EE6BE1 /* CacheModel.swift */; };
 		C0C3395226D7ED3400EE6BE1 /* CacheManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3395126D7ED3400EE6BE1 /* CacheManagerDelegate.swift */; };
 		C0E1D92C26D6BC7A00B576FE /* IoTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E1D92B26D6BC7A00B576FE /* IoTData.swift */; };
+		DD9FD7F62A28A60F007ED90E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FD7F52A28A60F007ED90E /* Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,6 +159,7 @@
 		C0C3394B26D7EAFF00EE6BE1 /* CacheModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheModel.swift; sourceTree = "<group>"; };
 		C0C3395126D7ED3400EE6BE1 /* CacheManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerDelegate.swift; sourceTree = "<group>"; };
 		C0E1D92B26D6BC7A00B576FE /* IoTData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IoTData.swift; sourceTree = "<group>"; };
+		DD9FD7F52A28A60F007ED90E /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 		06AA0F042656337100FC8F55 /* IoTConnect */ = {
 			isa = PBXGroup;
 			children = (
+				DD9FD74B2A28A122007ED90E /* common */,
 				06AA0F052656337100FC8F55 /* IoTConnect.h */,
 				06AA0F0E265633CE00FC8F55 /* SDKClient.swift */,
 				065D8AAA265BD24100B4B083 /* Config.swift */,
@@ -199,8 +202,6 @@
 				C0A85A9426D9842400251B23 /* MqttClient */,
 				C0C3393826D7E20300EE6BE1 /* Storage */,
 				C0C04CED26D01AF500182C45 /* Models */,
-				C0906FCC26D0587A00245C44 /* Network */,
-				C04B539126D43EC700A9F1DF /* Utilities */,
 				C04B539926D4462200A9F1DF /* OtherFramwork */,
 				06AA0F062656337100FC8F55 /* Info.plist */,
 			);
@@ -269,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				C04B539226D43EF300A9F1DF /* Date+Extension.swift */,
+				DD9FD7F52A28A60F007ED90E /* Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -339,6 +341,15 @@
 				C0C3394526D7E3BE00EE6BE1 /* CacheService.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		DD9FD74B2A28A122007ED90E /* common */ = {
+			isa = PBXGroup;
+			children = (
+				C0906FCC26D0587A00245C44 /* Network */,
+				C04B539126D43EC700A9F1DF /* Utilities */,
+			);
+			path = common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,6 +466,7 @@
 				92AF28992667A9B5008E9A46 /* FramePingResp.swift in Sources */,
 				92AF289C2667A9B5008E9A46 /* CocoaMQTT.swift in Sources */,
 				92AF28A22667A9B5008E9A46 /* CocoaMQTTDeliver.swift in Sources */,
+				DD9FD7F62A28A60F007ED90E /* Extension.swift in Sources */,
 				92AF289A2667A9B5008E9A46 /* CocoaMQTTLogger.swift in Sources */,
 				0627363826CFE69D00B9A037 /* ErrosLog.swift in Sources */,
 				C04B538F26D43C8000A9F1DF /* Discovery.swift in Sources */,
