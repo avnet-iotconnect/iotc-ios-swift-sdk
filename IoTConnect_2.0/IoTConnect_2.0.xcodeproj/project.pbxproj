@@ -42,6 +42,7 @@
 		DD9FD7F82A28A627007ED90E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FD7F72A28A627007ED90E /* Extension.swift */; };
 		DDAFECAB2A3049F500547420 /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = DDAFECAA2A3049F500547420 /* CocoaMQTT */; };
 		DDAFECAD2A3049F500547420 /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = DDAFECAC2A3049F500547420 /* CocoaMQTTWebSocket */; };
+		DDFA261F2A432D030008F072 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA261E2A432D030008F072 /* Identity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -94,6 +95,7 @@
 		DD9FD7AD2A28A266007ED90E /* CocoaMqttConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaMqttConfig.swift; sourceTree = "<group>"; };
 		DD9FD7F72A28A627007ED90E /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		DDA956092A30A61D003B3F99 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		DDFA261E2A432D030008F072 /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 				DD9FD7682A28A266007ED90E /* Discovery.swift */,
 				DD9FD7692A28A266007ED90E /* IoTConnectConfig.swift */,
 				DD9FD76A2A28A266007ED90E /* IoTData.swift */,
+				DDFA261E2A432D030008F072 /* Identity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				DD9FD7B12A28A266007ED90E /* Config.swift in Sources */,
 				DD9FD7EE2A28A266007ED90E /* MqttClientDelegate.swift in Sources */,
 				DD9FD7E42A28A266007ED90E /* Date+Extension.swift in Sources */,
+				DDFA261F2A432D030008F072 /* Identity.swift in Sources */,
 				DD9FD7E22A28A266007ED90E /* NetworkConstants.swift in Sources */,
 				DD9FD7DE2A28A266007ED90E /* Common.swift in Sources */,
 				DD9FD7E12A28A266007ED90E /* HTTPManager.swift in Sources */,

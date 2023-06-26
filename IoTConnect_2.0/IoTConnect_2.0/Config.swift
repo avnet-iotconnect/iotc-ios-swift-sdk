@@ -70,6 +70,11 @@ struct CommandType {
     static let DEVICE_DISABLED = 107
     static let DEVICE_RELEASED = 108
     static let STOP_OPERATION = 109
+    static let GET_DEVICE_TEMPLATE_ATTRIBUTE = 201
+    static let GET_DEVICE_TEMPLATE_TWIN = 202
+    static let GET_EDGE_RULE = 203
+    static let GET_CHILD_DEVICE = 204
+    static let GET_PENDING_OTAS = 205
 }
 
 struct DataType {

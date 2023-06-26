@@ -18,6 +18,9 @@ class IoTConnectManager {
     //MARK:- Variables
     var blockHandlerDeviceCallBack : GetDeviceCallBackBlock!
     var blockHandlerTwinUpdateCallBack : GetTwinUpdateCallBackBlock!
+    var blockHandlerGetAttribuesCallBack : GetAttributesCallbackBlock!
+    var blockHandlerGetTwinsCallBack : GetTwinCallBackBlock!
+    var blockHandlerGetChildDevicesCallback : GetChildDevicesCallBackBlock!
     var strCPId: String!
     var strUniqueId: String!
     var strEnv: Environment = .PROD
@@ -34,6 +37,8 @@ class IoTConnectManager {
     var CERT_PATH_FLAG: Bool = true
     var reachability: Reachability?
     var intervalObj: [Any] = []
+    var repeatTimerCount = 0
+    var identity:Identity?
 
     
     init() {}
@@ -52,7 +57,7 @@ class IoTConnectManager {
      - Returns
         returns nothing
      */
-    init(cpId: String, uniqueId: String, env: String, sdkOptions: SDKClientOption?, deviceCallback: @escaping GetDeviceCallBackBlock, twinUpdateCallback: @escaping GetDeviceCallBackBlock) {
+    init(cpId: String, uniqueId: String, env: String, sdkOptions: SDKClientOption?, deviceCallback: @escaping GetDeviceCallBackBlock, twinUpdateCallback: @escaping GetDeviceCallBackBlock, attributeCallBack: @escaping GetAttributesCallbackBlock, twinsCallBack: @escaping GetTwinCallBackBlock,getChildCallback: @escaping GetChildDevicesCallBackBlock) {
 
         objCommon = Common(cpId, uniqueId)
         strCPId = cpId
@@ -91,7 +96,7 @@ class IoTConnectManager {
         objMQTTClient.boolIsInternetAvailableYN = checkInternetAvailable()
         reachabilityObserver()
 
-        initialize(cpId: cpId, uniqueId: uniqueId, deviceCallback: deviceCallback, twinUpdateCallback: twinUpdateCallback)
+        initialize(cpId: cpId, uniqueId: uniqueId, deviceCallback: deviceCallback, twinUpdateCallback: twinUpdateCallback, getAttributesCallback: attributeCallBack,getTwinsCallback: twinsCallBack, getChildDevucesCallback: getChildCallback)
     }
     
     //MARK:- Sample API check
@@ -330,100 +335,150 @@ class IoTConnectManager {
      Returns nothing
      */
     
-    func getAttributes(callBack: @escaping (Bool, [[String:Any]]?, String) -> ()) {
+    func getAttributes(callBack: @escaping GetAttributesCallbackBlock) -> () {
         if dictSyncResponse.count > 0 {
-            objCommon.getAttributes(dictSyncResponse: dictSyncResponse) { (data, msg) in
-                print("data: ", data as Any)
-                var sdkDataArray: [[String:Any]] = []
-                (self.dictSyncResponse["d"] as! [[String:Any]]).forEach { (device) in
-                    var attArray: [String:Any] = ["device": ["id": device["id"], "tg": device["tg"] ?? nil], "attributes": []] //device.tg == "" ? undefined : device.tg
-                    let attributeData = data!["attribute"] as! [[String:Any]]
-                    attributeData.forEach { (attribData) in
-                        var attrib = attribData
-                        if (attrib["p"] as! String == "") {// Parent
-                            if (attrib["dt"] as? Int == 2) {
-                                print("attrib: ", attrib)
-                                attrib.removeValue(forKey: "agt")
-                                var pcAttributes = [
-                                    "ln" : attrib["p"],
-                                    "dt": self.objCommon.dataTypeToString(value: attrib["dt"] as! Int),
-                                    "tw": attrib["tw"] ?? nil,
-                                    "d" : []
-                                ]
-                                
-                                (attrib["d"] as! [[String:Any]]).forEach { (attData) in
-                                    let att = attData
-                                    if(att["tg"] as! String == device["tg"] as! String) {// Parent
-                                        let cAttribute = [
-                                            "ln": att["ln"],
-                                            "dt": self.objCommon.dataTypeToString(value: att["dt"] as! Int),
-                                            "dv": att["dv"],
-                                            "tg": att["tg"] ?? nil,
-                                            "tw": att["tw"] ?? nil
-                                        ]
-                                        
-                                        var dA = pcAttributes["d"] as! [[String:Any]]
-                                        dA.append(cAttribute as [String : Any])
-                                        pcAttributes["d"] = dA
-                                    }
-                                }
-                                
-                            } else {
-                                (attrib["d"] as! [[String:Any]]).forEach { (attData) in
-                                    var att = attData
-                                    if(att["tg"] as! String == device["tg"] as! String) {// Parent
-                                        if(att["tg"] as! String == "") {
-                                            att.removeValue(forKey: "tg")
-                                        }
-                                        att.removeValue(forKey: "agt")
-                                        att["dt"] = self.objCommon.dataTypeToString(value: att["dt"] as! Int)
-                                        var attributesA = attArray["attributes"] as! [[String:Any]]
-                                        attributesA.append(att)
-                                        attArray["attributes"] = attributesA
-                                    }
-                                }
-                            }
-                        } else {
-                            if (attrib["tg"] as! String == device["tg"] as! String) {// Parent
-                                attrib.removeValue(forKey: "agt")
-                                var pcAttributes = [
-                                    "ln" : attrib["p"] ?? "",
-                                  "dt": self.objCommon.dataTypeToString(value: attrib["dt"] as! Int),
-                                  "tg": attrib["tg"] ?? "",
-                                  "tw": attrib["tw"] ?? "",
-                                  "d" : []
-                                ] as [String : Any]
-                                (attrib["d"] as! [[String:Any]]).forEach { (attData) in
-                                    let att = attData
-                                    if(att["tg"] as! String == device["tg"] as! String) {// Parent
-                                        let cAttribute = [
-                                            "ln": att["ln"],
-                                            "dt": self.objCommon.dataTypeToString(value: att["dt"] as! Int),
-                                            "dv": att["dv"],
-                                            "tg": att["tg"] ?? nil,
-                                            "tw": att["tw"] ?? nil
-                                        ]
-                                        
-                                        var dA = pcAttributes["d"] as! [[String:Any]]
-                                        dA.append(cAttribute as [String : Any])
-                                        pcAttributes["d"] = dA
-                                    }
-                                }
-                                var pcAttributesA = attArray["attributes"] as! [[String:Any]]
-                                pcAttributesA.append(pcAttributes as [String : Any])
-                                attArray["attributes"] = pcAttributesA
-                            }
-                        }
-                    }
-                    sdkDataArray.append(attArray)
-                }
-                print("sdkDataArray: ", sdkDataArray)
-                self.objCommon.manageDebugLog(code: Log.Info.INFO_GA01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-                callBack(true, sdkDataArray, "Attribute get successfully.")
-            }
+            objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE])
+            self.objCommon.manageDebugLog(code: Log.Info.INFO_GA01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
+//            if let hasData = dictSyncResponse["has"] as? [String:Any]{
+//                if let d = hasData["d"] as? Int{
+//                    if d == 1{
+//                        objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_CHILD_DEVICE])
+//                    }
+//                }
+//                if let attr = hasData["attr"] as? Int{
+//                    if attr == 1{
+//                        objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE])
+//                    }
+//                }
+//                if let set = hasData["set"] as? Int{
+//                    if set == 1{
+//                        objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_TWIN])
+//                    }
+//                }
+//                if let i = hasData["r"] as? Int{
+//                    if i == 1{
+//                        objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_EDGE_RULE])
+//                    }
+//                }
+//                if let ota = hasData["ota"] as? Int{
+//                    if ota == 1{
+//                        objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_PENDING_OTAS])
+//                    }
+//                }
+//            }
+           
+//            objCommon.getAttributes(dictSyncResponse: dictSyncResponse) { (data, msg) in
+//                print("data: ", data as Any)
+//                var sdkDataArray: [[String:Any]] = []
+//
+//                (self.dictSyncResponse["d"] as! [[String:Any]]).forEach { (device) in
+//                    var attArray: [String:Any] = ["device": ["id": device["id"], "tg": device["tg"] ?? nil], "attributes": []] //device.tg == "" ? undefined : device.tg
+//                    let attributeData = data!["attribute"] as! [[String:Any]]
+//                    attributeData.forEach { (attribData) in
+//                        var attrib = attribData
+//                        if (attrib["p"] as! String == "") {// Parent
+//                            if (attrib["dt"] as? Int == 2) {
+//                                print("attrib: ", attrib)
+//                                attrib.removeValue(forKey: "agt")
+//                                var pcAttributes = [
+//                                    "ln" : attrib["p"],
+//                                    "dt": self.objCommon.dataTypeToString(value: attrib["dt"] as! Int),
+//                                    "tw": attrib["tw"] ?? nil,
+//                                    "d" : []
+//                                ]
+//
+//                                (attrib["d"] as! [[String:Any]]).forEach { (attData) in
+//                                    let att = attData
+//                                    if(att["tg"] as! String == device["tg"] as! String) {// Parent
+//                                        let cAttribute = [
+//                                            "ln": att["ln"],
+//                                            "dt": self.objCommon.dataTypeToString(value: att["dt"] as! Int),
+//                                            "dv": att["dv"],
+//                                            "tg": att["tg"] ?? nil,
+//                                            "tw": att["tw"] ?? nil
+//                                        ]
+//
+//                                        var dA = pcAttributes["d"] as! [[String:Any]]
+//                                        dA.append(cAttribute as [String : Any])
+//                                        pcAttributes["d"] = dA
+//                                    }
+//                                }
+//
+//                            } else {
+//                                (attrib["d"] as! [[String:Any]]).forEach { (attData) in
+//                                    var att = attData
+//                                    if(att["tg"] as! String == device["tg"] as! String) {// Parent
+//                                        if(att["tg"] as! String == "") {
+//                                            att.removeValue(forKey: "tg")
+//                                        }
+//                                        att.removeValue(forKey: "agt")
+//                                        att["dt"] = self.objCommon.dataTypeToString(value: att["dt"] as! Int)
+//                                        var attributesA = attArray["attributes"] as! [[String:Any]]
+//                                        attributesA.append(att)
+//                                        attArray["attributes"] = attributesA
+//                                    }
+//                                }
+//                            }
+//                        } else {
+//                            if (attrib["tg"] as! String == device["tg"] as! String) {// Parent
+//                                attrib.removeValue(forKey: "agt")
+//                                var pcAttributes = [
+//                                    "ln" : attrib["p"] ?? "",
+//                                  "dt": self.objCommon.dataTypeToString(value: attrib["dt"] as! Int),
+//                                  "tg": attrib["tg"] ?? "",
+//                                  "tw": attrib["tw"] ?? "",
+//                                  "d" : []
+//                                ] as [String : Any]
+//                                (attrib["d"] as! [[String:Any]]).forEach { (attData) in
+//                                    let att = attData
+//                                    if(att["tg"] as! String == device["tg"] as! String) {// Parent
+//                                        let cAttribute = [
+//                                            "ln": att["ln"],
+//                                            "dt": self.objCommon.dataTypeToString(value: att["dt"] as! Int),
+//                                            "dv": att["dv"],
+//                                            "tg": att["tg"] ?? nil,
+//                                            "tw": att["tw"] ?? nil
+//                                        ]
+//
+//                                        var dA = pcAttributes["d"] as! [[String:Any]]
+//                                        dA.append(cAttribute as [String : Any])
+//                                        pcAttributes["d"] = dA
+//                                    }
+//                                }
+//                                var pcAttributesA = attArray["attributes"] as! [[String:Any]]
+//                                pcAttributesA.append(pcAttributes as [String : Any])
+//                                attArray["attributes"] = pcAttributesA
+//                            }
+//                        }
+//                    }
+//                    sdkDataArray.append(attArray)
+//                }
+//                print("sdkDataArray: ", sdkDataArray)
+//                self.objCommon.manageDebugLog(code: Log.Info.INFO_GA01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
+//                callBack(true, sdkDataArray, "Attribute get successfully.")
+//            }
         } else {
             objCommon.manageDebugLog(code: Log.Errors.ERR_GA02, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
-            callBack(false, nil, "Attributes data not found")
+            callBack("Attributes data not found")
+//            callBack(false, nil, "Attributes data not found")
+        }
+    }
+    
+    func getTwins(callBack: @escaping GetTwinCallBackBlock) -> () {
+        if dictSyncResponse.count > 0 {
+            objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_TWIN])
+        }else{
+            objCommon.manageDebugLog(code: Log.Errors.ERR_GA03, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            callBack("Twins data not found")
+        }
+    }
+    
+    func getChildDevices(callBack: GetChildDevicesCallBackBlock) -> () {
+        if dictSyncResponse.count > 0 {
+            objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_CHILD_DEVICE])
+        }else{
+            objCommon.manageDebugLog(code: Log.Errors.ERR_GA04, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            callBack("Child Devices data not found")
         }
     }
     

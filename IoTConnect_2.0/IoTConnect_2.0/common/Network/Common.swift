@@ -40,10 +40,10 @@ class Common {
     func makeSyncCall(withBaseURL strURL: String, withData dictToPass: [AnyHashable: Any]?, withBlock completionHandler: @escaping (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void) {
         
         var urlRequest : URLRequest = URLRequest(url: URL(string: strURL)!)
-        var postData: Data? = nil
-        if let aPass = dictToPass {
-            postData = try? JSONSerialization.data(withJSONObject: aPass, options: .prettyPrinted)
-        }
+//        var postData: Data? = nil
+//        if let aPass = dictToPass {
+//            postData = try? JSONSerialization.data(withJSONObject: aPass, options: .prettyPrinted)
+//        }
         // Convert POST string parameters to data using UTF8 Encoding
         //kirtan
         urlRequest.httpMethod = "GET"//"POST"
@@ -149,26 +149,28 @@ class Common {
     }
     func getAttributes(dictSyncResponse: [String:Any], callBack: @escaping ([String:Any]?, String) -> ()) {
         DispatchQueue.main.async {
-            var newAttributeObj = dictSyncResponse["att"] as! [[String:Any]]
+            var newAttributeObj = dictSyncResponse[keyPath: "p.topics.di"]
+            //dictSyncResponse["att"] as! [[String:Any]]
             let isEdgeDevice = dictSyncResponse["ee"] as! Bool
             
-            newAttributeObj = newAttributeObj.map { (attributes) -> [String:Any] in
-                var dataAttributes = attributes
-                if !isEdgeDevice {
-                    dataAttributes.removeValue(forKey: "tw")
-                    dataAttributes.removeValue(forKey: "agt")
-                }
-                dataAttributes["d"] = (dataAttributes["d"] as! [[String:Any]]).map({ (data) -> [String : Any] in
-                    var dataDevice = data
-                    if !isEdgeDevice {
-                        dataDevice.removeValue(forKey: "tw")
-                        dataDevice.removeValue(forKey: "agt")
-                    }
-                    dataDevice.removeValue(forKey: "sq")
-                    return dataDevice
-                })
-                return dataAttributes
-            }
+            
+//            newAttributeObj = newAttributeObj.map { (attributes) -> [String:Any] in
+//                var dataAttributes = attributes
+//                if !isEdgeDevice {
+//                    dataAttributes.removeValue(forKey: "tw")
+//                    dataAttributes.removeValue(forKey: "agt")
+//                }
+//                dataAttributes["d"] = (dataAttributes["d"] as! [[String:Any]]).map({ (data) -> [String : Any] in
+//                    var dataDevice = data
+//                    if !isEdgeDevice {
+//                        dataDevice.removeValue(forKey: "tw")
+//                        dataDevice.removeValue(forKey: "agt")
+//                    }
+//                    dataDevice.removeValue(forKey: "sq")
+//                    return dataDevice
+//                })
+//                return dataAttributes
+//            }
             callBack(["attribute": newAttributeObj], "Data sync successfully.")
         }
     }

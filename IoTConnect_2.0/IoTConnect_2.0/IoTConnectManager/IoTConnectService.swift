@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 extension IoTConnectManager {
+    
     //MARK: - Instance Methods
     
     /**
@@ -23,11 +24,14 @@ extension IoTConnectManager {
      - Returns
         returns nothing
      */
-    func initialize(cpId: String, uniqueId: String, deviceCallback: @escaping GetDeviceCallBackBlock, twinUpdateCallback: @escaping GetDeviceCallBackBlock) {
+    func initialize(cpId: String, uniqueId: String, deviceCallback: @escaping GetDeviceCallBackBlock, twinUpdateCallback: @escaping GetDeviceCallBackBlock, getAttributesCallback: @escaping GetAttributesCallbackBlock, getTwinsCallback: @escaping GetTwinCallBackBlock, getChildDevucesCallback: @escaping GetChildDevicesCallBackBlock) {
         dictReference = [:]
         dictSyncResponse = [:]
         blockHandlerDeviceCallBack = deviceCallback
         blockHandlerTwinUpdateCallBack = twinUpdateCallback
+        blockHandlerGetAttribuesCallBack = getAttributesCallback
+        blockHandlerGetTwinsCallBack = getTwinsCallback
+        blockHandlerGetChildDevicesCallback = getChildDevucesCallback
         boolCanCallInialiseYN = true
         objCommon.createDirectoryFoldersForLogs()
         objCommon.manageDebugLog(code: Log.Info.INFO_IN04, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
@@ -77,16 +81,23 @@ extension IoTConnectManager {
          
                     let dataDeviceTemp = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
                     
+                    
                     if dataDeviceTemp == nil {
                         
                         print("Error parsing DSC: \(String(describing: errorParse))")
                         self.objCommon.manageDebugLog(code: Log.Errors.ERR_PS01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: errorParse?.localizedDescription ?? "", logFlag: false, isDebugEnabled: self.boolDebugYN)
-                        
+                        self.blockHandlerDeviceCallBack(["sdkStatus": "error"])
                     } else {
                         let dataDevice = dataDeviceTemp as! [String:Any]
+                       
+                        if let jsonData = try? JSONDecoder().decode(Identity.self, from: data!) {
+                            self.identity = jsonData
+                        } else {
+                          print("Error parsing syncCall Response")
+                        }
                         if dataDevice["d"] != nil {
                             self.objCommon.manageDebugLog(code: Log.Info.INFO_IN01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-                            
+                            print("identity pos data\(self.identity?.d?.has)")
                             if SDKConstants.DevelopmentSDKYN {
                                 self.blockHandlerDeviceCallBack(["sdkStatus": "success", "data": dataDevice["d"]])
                             }
@@ -102,7 +113,12 @@ extension IoTConnectManager {
                                     self.timerNotRegister?.invalidate()
                                     self.timerNotRegister = nil
                                 }
+                              
+                                
                                 self.dictSyncResponse = dataDevice["d"] as? [String : Any]
+//                                self.getAttributes { isSuccess, data, msg in
+//
+//                                }
                                 let metaInfo = self.dictSyncResponse["meta"] as? [String:Any]
                                 
                                 if metaInfo?["at"] as! Int == AuthType.CA_SIGNED || metaInfo?["at"] as! Int == AuthType.CA_SELF_SIGNED && !self.CERT_PATH_FLAG {
@@ -219,13 +235,23 @@ extension IoTConnectManager {
         returns nothing
      */
     private func startTimerForReInitialiseDSC(durationSyncFrequency: Double) {
+        self.repeatTimerCount = 0
         self.timerNotRegister = Timer(timeInterval: durationSyncFrequency, target: self, selector: #selector(self.reInitialise), userInfo: nil, repeats: true)
         RunLoop.main.add(self.timerNotRegister!, forMode: .default)
         self.timerNotRegister!.fire()
     }
     @objc private func reInitialise() {
-        self.objCommon.manageDebugLog(code: Log.Info.INFO_IN06, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-        initaliseCall(uniqueId: strUniqueId)
+        if self.repeatTimerCount < 5{
+            print("reInitialise")
+            self.repeatTimerCount += 1
+            self.objCommon.manageDebugLog(code: Log.Info.INFO_IN06, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
+            initaliseCall(uniqueId: strUniqueId)
+        }else{
+            if self.timerNotRegister != nil {
+                self.timerNotRegister?.invalidate()
+                self.timerNotRegister = nil
+            }
+        }
     }
     
     /**
@@ -250,6 +276,10 @@ extension IoTConnectManager {
                 //typeAction == 4   //...For Get Desired and Reported twin property
                 //typeAction == 5   //...For Get All Twin Property
                 //typeAction == 6   //...For Perform Dispose
+                //typeAction == 7   //...For Device attribute
+                //typeAction == 8   //...For Device twins
+                //typeAction == 9   //...For Getting child devices
+                
                 if typeAction == 1 {
                     if let dataMessage = dataToPass as? [String:Any] {
                         if let strMsgStatus = dataMessage["sdkStatus"] as? String {
@@ -276,8 +306,18 @@ extension IoTConnectManager {
                     self.blockHandlerTwinUpdateCallBack(dataTwin)
                 } else if typeAction == 6 {
                     self.dispose(sdkconnection: dataToPass as! String)
+                }else if typeAction == 7{
+                    self.blockHandlerDeviceCallBack(dataToPass)
+                    self.blockHandlerGetAttribuesCallBack(dataToPass)
                 }
-                
+                else if typeAction == 8{
+                    self.blockHandlerDeviceCallBack(dataToPass)
+                    self.blockHandlerGetTwinsCallBack(dataToPass)
+                }
+                else if typeAction == 9{
+                    self.blockHandlerDeviceCallBack(dataToPass)
+                    self.blockHandlerGetChildDevicesCallback(dataToPass)
+                }
             }
         } else {
             

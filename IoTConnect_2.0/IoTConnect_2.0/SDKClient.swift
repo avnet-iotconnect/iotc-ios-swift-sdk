@@ -6,6 +6,10 @@ import Foundation
 
 public typealias GetDeviceCallBackBlock = (Any?) -> ()
 public typealias GetTwinUpdateCallBackBlock = (Any?) -> ()
+public typealias GetAttributesCallbackBlock = (Any?) -> ()
+public typealias GetTwinCallBackBlock = (Any?) -> ()
+public typealias GetChildDevicesCallBackBlock = (Any?) -> ()
+
 
 public class SDKClient {
     // Singleton SDK object
@@ -14,6 +18,9 @@ public class SDKClient {
     fileprivate var iotConnectManager: IoTConnectManager!// = IoTConnectManager.sharedInstance
     private var blockHandlerDeviceCallBack : GetDeviceCallBackBlock?
     private var blockHandlerTwinUpdateCallBack : GetTwinUpdateCallBackBlock?
+    private var blockHandlerGetAttributesCallBack : GetAttributesCallbackBlock?
+    private var blockHandlerGetTwinsCallBack : GetTwinCallBackBlock?
+    private var blockHandlerGetChildDevicesCallBack : GetChildDevicesCallBackBlock?
     
     /**
      Initialize configuration for IoTConnect SDK
@@ -35,6 +42,18 @@ public class SDKClient {
         }, twinUpdateCallback: { (twinMessage) in
             if self.blockHandlerTwinUpdateCallBack != nil {
                 self.blockHandlerTwinUpdateCallBack!(twinMessage)
+            }
+        }, attributeCallBack: { (attributesMsg) in
+            if self.blockHandlerGetAttributesCallBack != nil{
+                self.blockHandlerGetAttributesCallBack!(attributesMsg)
+            }
+        }, twinsCallBack: { (twinsMsg) in
+            if self.blockHandlerGetTwinsCallBack != nil{
+                self.blockHandlerGetTwinsCallBack!(twinsMsg)
+            }
+        }, getChildCallback: { (msg) in
+            if self.blockHandlerGetChildDevicesCallBack != nil{
+                self.blockHandlerGetChildDevicesCallBack!(msg)
             }
         })
     }
@@ -146,9 +165,21 @@ public class SDKClient {
      - returns:
      Returns nothing
      */
-    public func getAttributes(callBack: @escaping (Bool, [[String:Any]]?, String) -> ()) {
+    public func getAttributes(callBack: @escaping GetAttributesCallbackBlock) -> () {
+        blockHandlerGetAttributesCallBack = callBack
         iotConnectManager.getAttributes(callBack: callBack)
     }
+    
+    public func getTwins(callBack: @escaping GetTwinCallBackBlock) -> () {
+        blockHandlerGetTwinsCallBack = callBack
+        iotConnectManager.getTwins(callBack: callBack)
+    }
+    
+    public func getChildDevices(callBack: @escaping GetChildDevicesCallBackBlock) -> () {
+        blockHandlerGetChildDevicesCallBack = callBack
+        iotConnectManager.getChildDevices(callBack: callBack)
+    }
+    
     
     /**
      Get device callback
@@ -179,6 +210,7 @@ public class SDKClient {
      Returns nothing
      */
     public func getTwinUpdateCallBack(twinUpdateCallback: @escaping GetTwinUpdateCallBackBlock) -> () {
+        
         blockHandlerTwinUpdateCallBack = twinUpdateCallback
     }
 }
