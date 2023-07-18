@@ -6,3 +6,36 @@
 //
 
 import Foundation
+
+extension Dictionary where Key == String, Value == Any {
+    
+    mutating func append(anotherDict:[String:Any]) {
+        for (key, value) in anotherDict {
+            self.updateValue(value, forKey: key)
+        }
+    }
+}
+
+extension NSRegularExpression {
+    
+    convenience init(_ pattern: String) {
+        do {
+            try self.init(pattern: pattern)
+        } catch {
+            preconditionFailure("Illegal regular expression: \(pattern).")
+        }
+    }
+    
+    func matches(_ string: String) -> Bool {
+        let range = NSRange(location: 0, length: string.utf16.count)
+        return firstMatch(in: string, options: [], range: range) != nil
+    }
+}
+
+extension String {
+    func toDouble() -> Double? {
+        return NumberFormatter().number(from: self)?.doubleValue
+    }
+}
+
+

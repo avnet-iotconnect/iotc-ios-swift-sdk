@@ -556,7 +556,10 @@ extension MQTTClient: CocoaMQTTDelegate {
         TRACE("new state: \(state)")
     }
     func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
-        //TRACE("Publish message: \(String(describing: message.string?.description)), id: \(id)")
+        TRACE("Publish message: \(String(describing: message.string?.description)), id: \(id)")
+    }
+    func mqtt(_ mqtt: CocoaMQTT, didPublishComplete id: UInt16) {
+        TRACE("didPublishComplete: id: \(id)")
     }
     func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
         //TRACE("id: \(id)")

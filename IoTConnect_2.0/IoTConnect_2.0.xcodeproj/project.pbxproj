@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD31D1CF2A4D978F00DA1BD5 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD31D1CE2A4D978F00DA1BD5 /* Attributes.swift */; };
 		DD9FD75A2A28A1DD007ED90E /* IoTConnect_2_0.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9FD7592A28A1DD007ED90E /* IoTConnect_2_0.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DD9FD7AE2A28A266007ED90E /* MQTTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FD7602A28A265007ED90E /* MQTTClient.swift */; };
 		DD9FD7AF2A28A266007ED90E /* IoTConnect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD9FD7612A28A265007ED90E /* IoTConnect.h */; };
@@ -59,6 +60,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DD31D1CE2A4D978F00DA1BD5 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 		DD9FD7562A28A1DD007ED90E /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD9FD7592A28A1DD007ED90E /* IoTConnect_2_0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IoTConnect_2_0.h; sourceTree = "<group>"; };
 		DD9FD7602A28A265007ED90E /* MQTTClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MQTTClient.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				DD9FD7692A28A266007ED90E /* IoTConnectConfig.swift */,
 				DD9FD76A2A28A266007ED90E /* IoTData.swift */,
 				DDFA261E2A432D030008F072 /* Identity.swift */,
+				DD31D1CE2A4D978F00DA1BD5 /* Attributes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				DD9FD7F82A28A627007ED90E /* Extension.swift in Sources */,
 				DD9FD7E92A28A266007ED90E /* CacheModel.swift in Sources */,
 				DD9FD7ED2A28A266007ED90E /* MqttClientService.swift in Sources */,
+				DD31D1CF2A4D978F00DA1BD5 /* Attributes.swift in Sources */,
 				DD9FD7EF2A28A266007ED90E /* MqttClientManager.swift in Sources */,
 				DD9FD7B22A28A266007ED90E /* OfflineStorageOption.swift in Sources */,
 				DD9FD7EC2A28A266007ED90E /* IoTConnectDelegate.swift in Sources */,

@@ -101,14 +101,14 @@ class MQTTClient {
             mqtt!.disconnect()
             // mqtt = nil
             objCommon.manageDebugLog(code: Log.Info.INFO_IN03, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
-            blockHandler?(["cmdType": CommandType.DEVICE_CONNECTION_STATUS,
-                           "data": ["cpid": strCPID,
+            blockHandler?(["ct": CommandType.DEVICE_CONNECTION_STATUS,
+                           "d": ["cpid": strCPID,
                                     "guid": "",
                                     "uniqueId": strUniqueID,
                                     "command": false,
                                     "ack": false,
                                     "ackId": "",
-                                    "cmdType": CommandType.DEVICE_CONNECTION_STATUS]], 2)
+                                    "ct": CommandType.DEVICE_CONNECTION_STATUS]], 2)
         } else {
             objCommon.manageDebugLog(code: Log.Errors.ERR_DC02, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         }
@@ -439,7 +439,7 @@ class MQTTClient {
                 dataOfflineResult["od"] = 1
                 
                 if (dataOfflineResult["mt"] != nil) || dataOfflineResult["mt"] as? Int == 0 {
-                    publishTopicOnMQTT(withData: dataOfflineResult)
+                    publishTopicOnMQTT(withData: dataOfflineResult, topic: "")
                 } else {
                     if dataOfflineResult["cpId"] != nil {
                         dataOfflineResult.removeValue(forKey: "cpId")
@@ -468,12 +468,18 @@ class MQTTClient {
         }
     }
     //MARK: - Publish Data On MQTT
-    func publishTopicOnMQTT(withData dictSDKToHub: [String: Any]) {
-        print("publishTopicOnMQTT: \(dictSDKToHub)")
+    func publishTopicOnMQTT(withData dictSDKToHub: [String: Any], topic:String) {
+        print("publishTopicOnMQTT: \(dictSDKToHub) \(topic)")
+        var topicToSend = ""
+        if topic == ""{
+            topicToSend = dataSyncResponse[keyPath:"p.topics.di"] as! String
+        }else{
+            topicToSend = topic
+        }
         do {
             let jsonData =  try JSONSerialization.data(withJSONObject: dictSDKToHub, options: .prettyPrinted)
             let  message = String(data: jsonData, encoding: .utf8)!
-            publishDataOnMQTT(dictSDKToHubForOS: dictSDKToHub, strPubTopic: dataSyncResponse[keyPath:"p.topics.di"] as! String, strMessageToPass: message)// p.pub
+            publishDataOnMQTT(dictSDKToHubForOS: dictSDKToHub, strPubTopic: topicToSend, strMessageToPass: message)// p.pub
         } catch let error {
             print("parse error: \(error.localizedDescription)")
             objCommon.manageDebugLog(code: Log.Errors.ERR_CM01, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
@@ -563,14 +569,14 @@ extension MQTTClient: CocoaMQTTDelegate {
                 }
             }
             blockHandler?([
-                "cmdType": CommandType.DEVICE_CONNECTION_STATUS,
-                "data": ["cpid": strCPID,
+                "ct": CommandType.DEVICE_CONNECTION_STATUS,
+                "d": ["cpid": strCPID,
                          "guid": "",
                          "uniqueId": strUniqueID,
                          "command": true,
                          "ack": false,
                          "ackId": "",
-                         "cmdType": CommandType.DEVICE_CONNECTION_STATUS]], 2)
+                         "ct": CommandType.DEVICE_CONNECTION_STATUS]], 2)
         }
     }
     func mqtt(_ mqtt: CocoaMQTT, didStateChangeTo state: CocoaMQTTConnState) {
@@ -579,30 +585,32 @@ extension MQTTClient: CocoaMQTTDelegate {
             if let hasData = dataSyncResponse["has"] as? [String:Any]{
                 if let d = hasData["d"] as? Int{
                     if d == 1{
-                        self.publishTopicOnMQTT(withData:["mt":CommandType.GET_CHILD_DEVICE])
+                        self.publishTopicOnMQTT(withData:["mt":CommandType.GET_CHILD_DEVICE], topic: "")
                     }
                 }
                 if let attr = hasData["attr"] as? Int{
                     if attr == 1{
-                        self.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE])
+                        self.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE], topic: "")
                     }
                 }
                 if let set = hasData["set"] as? Int{
                     if set == 1{
-                    self.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_TWIN])
+                        self.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_TWIN], topic: "")
                     }
                 }
                 if let i = hasData["r"] as? Int{
                     if i == 1{
-                        self.publishTopicOnMQTT(withData:["mt":CommandType.GET_EDGE_RULE])
+                        self.publishTopicOnMQTT(withData:["mt":CommandType.GET_EDGE_RULE], topic: "")
                     }
                 }
                 if let ota = hasData["ota"] as? Int{
                     if ota == 1{
-                        self.publishTopicOnMQTT(withData:["mt":CommandType.GET_PENDING_OTAS])
+                        self.publishTopicOnMQTT(withData:["mt":CommandType.GET_PENDING_OTAS], topic: "")
                     }
                 }
             }
+        }else if state == .disconnected{
+            
         }
     }
     func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
@@ -633,6 +641,16 @@ extension MQTTClient: CocoaMQTTDelegate {
                         if let msg = objectMessage["d"] as? [String:Any]{
                             if msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE{
                                 objCommon.manageDebugLog(code: Log.Info.INFO_GA01, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
+                                do {
+                                    let json = try JSONSerialization.data(withJSONObject: msg)
+                                    let decoder = JSONDecoder()
+                                    let decodedAttributes = try decoder.decode(AttributesData.self, from: json)
+                                    IoTConnectManager.sharedInstance.attributes = decodedAttributes
+                                    
+                                } catch {
+                                    print(error)
+                                }
+                                print("Did recive 201 MQTTClient")
                                 blockHandler?(objectMessage,7)
                             }else if msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_TWIN{
                                 objCommon.manageDebugLog(code: Log.Info.INFO_GA02, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
@@ -640,6 +658,8 @@ extension MQTTClient: CocoaMQTTDelegate {
                             }else if msg["ct"] as? Int == CommandType.GET_CHILD_DEVICE{
                                 objCommon.manageDebugLog(code: Log.Info.INFO_GA03, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 blockHandler?(objectMessage,9)
+                            }else if msg["ct"] as? Int == CommandType.GET_EDGE_RULE{
+                                blockHandler?(objectMessage,10)
                             }
 //                            if msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE ||
 //                                msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_TWIN ||
@@ -685,7 +705,8 @@ extension MQTTClient: CocoaMQTTDelegate {
                             boolCanProceedYN = false
                             
                         }
-                        else if objectMessage["ct"] as! Int == CommandType.DEVICE_CONNECTION_STATUS || objectMessage["ct"] as! Int == CommandType.DEVICE_DELETED || objectMessage["ct"] as! Int == CommandType.DEVICE_DISABLED || objectMessage["ct"] as! Int == CommandType.DEVICE_RELEASED || objectMessage["ct"] as? Int == CommandType.STOP_OPERATION{
+                        else if objectMessage["ct"] as? Int == CommandType.DEVICE_CONNECTION_STATUS || objectMessage["ct"] as?
+                                    Int == CommandType.DEVICE_DELETED || objectMessage["ct"] as! Int == CommandType.DEVICE_DISABLED || objectMessage["ct"] as! Int == CommandType.DEVICE_RELEASED || objectMessage["ct"] as? Int == CommandType.STOP_OPERATION{
                             objCommon.manageDebugLog(code: Log.Info.INFO_CM01, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
                             //                            let dict = ["sdkStatus":"WillDisconnect"]
                             let dict = ["ct":objectMessage["ct"] as! Int]

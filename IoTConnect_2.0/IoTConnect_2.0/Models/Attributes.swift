@@ -1,8 +1,8 @@
 //
 //  Attributes.swift
-//  IoTConnectDemo
+//  IoTConnect_2.0
 //
-//  Created by kirtan.vaghela on 20/06/23.
+//  Created by kirtan.vaghela on 29/06/23.
 //
 
 import Foundation
@@ -16,6 +16,7 @@ struct AttributesData: Codable {
     let ct: Int?
     let dt: String?
     let ec: Int?
+    var connectedTime:Date?
 }
 
 // MARK: - Att
@@ -27,8 +28,10 @@ struct Att: Codable {
 
 struct AttData: Codable {
     let dt: Int?
-    let dv, ln,tw,tg: String?
+    let dv, ln,tg: String?
+    var tw:String?
     let sq: Int?
     var p:String? = ""
     var value:String?
+    var connectedTime:Date?
 }

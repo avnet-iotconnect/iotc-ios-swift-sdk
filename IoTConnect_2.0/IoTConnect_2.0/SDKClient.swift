@@ -70,7 +70,7 @@ public class SDKClient {
      - returns:
      Returns nothing
      */
-    public func sendData(data: [[String:Any]]) {
+    public func sendData(data: [String:Any]) {
         iotConnectManager.sendData(data: data)
     }
     

@@ -70,6 +70,7 @@ struct CommandType {
     static let DEVICE_DISABLED = 107
     static let DEVICE_RELEASED = 108
     static let STOP_OPERATION = 109
+    static let IDENTITIY_RESPONSE = 200
     static let GET_DEVICE_TEMPLATE_ATTRIBUTE = 201
     static let GET_DEVICE_TEMPLATE_TWIN = 202
     static let GET_EDGE_RULE = 203
@@ -125,4 +126,20 @@ struct DeviceSync {
         static let OBJECT_MOVED = 5
         static let CPID_NOT_FOUND = 6
     }
+}
+
+struct SupportedDataType{
+    static let nonObjVal      = 0
+    static let intValue        = 1
+    static let longVal        = 2
+    static let decimalVal     = 3
+    static let strVal         = 4
+    static let timeVal        = 5
+    static let dateValue      = 6
+    static let dateTimeVal    = 7
+    static let bitValue       = 8
+    static let boolValue      = 9
+//    static let durationValue  = 10
+    static let latLongVal     = 10
+    static let objValue       = 12
 }
