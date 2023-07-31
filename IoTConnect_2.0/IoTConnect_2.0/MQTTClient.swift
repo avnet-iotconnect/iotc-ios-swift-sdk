@@ -652,14 +652,18 @@ extension MQTTClient: CocoaMQTTDelegate {
                                 }
                                 print("Did recive 201 MQTTClient")
                                 blockHandler?(objectMessage,7)
+                                boolCanProceedYN = false
                             }else if msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_TWIN{
                                 objCommon.manageDebugLog(code: Log.Info.INFO_GA02, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 blockHandler?(objectMessage,8)
+                                boolCanProceedYN = false
                             }else if msg["ct"] as? Int == CommandType.GET_CHILD_DEVICE{
                                 objCommon.manageDebugLog(code: Log.Info.INFO_GA03, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 blockHandler?(objectMessage,9)
+                                boolCanProceedYN = false
                             }else if msg["ct"] as? Int == CommandType.GET_EDGE_RULE{
                                 blockHandler?(objectMessage,10)
+                                boolCanProceedYN = false
                             }
 //                            if msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE ||
 //                                msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_TWIN ||
@@ -714,6 +718,7 @@ extension MQTTClient: CocoaMQTTDelegate {
                         }else if objectMessage["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE{
                             objCommon.manageDebugLog(code: Log.Info.INFO_GA01, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                             blockHandler?(objectMessage,7)
+                            boolCanProceedYN = false
                         }
                     }
                 }
@@ -747,7 +752,7 @@ extension MQTTClient: CocoaMQTTDelegate {
         //                                "ackId": "",
         //                                "ct": CommandType.DEVICE_CONNECTION_STATUS]], 2)
         objCommon.manageDebugLog(code: Log.Info.INFO_IN03, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
-        print(err)
+//        print(err)
         if err == nil{
             //            blockHandler?(["sdkStatus": "DidDisconnect"], 1)
             blockHandler?(["ct": CommandType.DEVICE_CONNECTION_STATUS,

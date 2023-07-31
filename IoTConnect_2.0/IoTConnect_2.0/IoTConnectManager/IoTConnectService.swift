@@ -98,8 +98,9 @@ extension IoTConnectManager {
                         }
                         if dataDevice["d"] != nil {
                             self.objCommon.manageDebugLog(code: Log.Info.INFO_IN01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-                            print("identity pos data\(self.identity?.d?.has)")
+                            print("identity pos data\(String(describing: self.identity?.d?.has))")
                             if SDKConstants.DevelopmentSDKYN {
+                                print("blockHandlerDeviceCallBack initialise call \(dataDevice)")
                                 self.blockHandlerDeviceCallBack(["sdkStatus": "success", "data": dataDevice["d"]])
                             }
                             if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.OK {//...OK
@@ -322,14 +323,13 @@ extension IoTConnectManager {
                     self.blockHandlerDeviceCallBack(dataToPass)
                     self.blockHandlerGetChildDevicesCallback(dataToPass)
                 }  else if typeAction == 10{
-                    self.blockHandlerDeviceCallBack(dataToPass)
-                    self.blockHandlerGetChildDevicesCallback(dataToPass)
+                    print("Edge rule match \(String(describing: dataToPass))")
+//                    self.blockHandlerDeviceCallBack(dataToPass)
+//                    self.blockHandlerGetChildDevicesCallback(dataToPass)
                 }
             }
         } else {
-            
             self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN11, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
-            
         }
     }
     
@@ -671,8 +671,8 @@ extension IoTConnectManager {
         let networkStatus = try! Reachability().connection
         
         switch networkStatus {
-        case nil:
-            return false
+//        case nil:
+//            return false
         case .cellular:
             return true
         case .wifi:
@@ -740,7 +740,7 @@ extension IoTConnectManager {
     private func startEdgeDeviceProcess(dictSyncResponse: [String:Any]) {
         let boolEdgeDevice = dictSyncResponse[keyPath: "meta.edge"] as? Int
         //dictSyncResponse["ee"] as! Bool
-        var dictSyncResponseTemp = dictSyncResponse
+//        var dictSyncResponseTemp = dictSyncResponse
         if boolEdgeDevice == 1 {
             if let attributes = IoTConnectManager.sharedInstance.attributes{
                 IoTConnectManager.sharedInstance.attributes?.connectedTime = Date()
@@ -750,9 +750,8 @@ extension IoTConnectManager {
                             if let d = att[i].d?[j]{
                                 arrAttData.append(d)
                                 var tw = d.tw ?? ""
-                                var twUnit = String(tw.removeLast())
+                                let twUnit = String(tw.removeLast())
                                 var timeInterval = tw.toDouble()
-//                                let lastChar = tw.last
                                 
                                 if twUnit == "h"{
                                     timeInterval = (tw.toDouble() ?? 0.0) * 3600
@@ -761,7 +760,19 @@ extension IoTConnectManager {
                                 }
                                 tw = String(tw.dropLast())
                                 
-                                timerEdgeDevice.append( Timer.scheduledTimer(timeInterval: timeInterval ?? 0.0, target: self, selector: #selector(fireTimerForEdgeDevice), userInfo: d, repeats: true))
+                                let parentName = att[i].p
+                                
+                                if parentName?.isEmpty == true ||
+                                    parentName == nil{
+                                    timerEdgeDevice.append( Timer.scheduledTimer(timeInterval: timeInterval ?? 0.0, target: self, selector: #selector(fireTimerForEdgeDevice), userInfo: d, repeats: true))
+                                }else{
+                                    var attD = d
+                                    attD.p = parentName ?? ""
+                                    timerEdgeDevice.append( Timer.scheduledTimer(timeInterval: timeInterval ?? 0.0, target: self, selector: #selector(fireTimerForEdgeDevice), userInfo: attD, repeats: true))
+                                    break
+                                }
+                                
+                              
                                 
 //                                timerEdgeDevice =
 //                                Timer.scheduledTimer(timeInterval: timeInterval ?? 0.0, target: self, selector: #selector(fireTimerForEdgeDevice), userInfo: d, repeats: true)
@@ -786,64 +797,65 @@ extension IoTConnectManager {
     @objc func fireTimerForEdgeDevice(timer:Timer){
         print("timer userInfo \(timer.userInfo ?? "")")
         if let userInfo = timer.userInfo as? AttData{
-            let ln = userInfo.ln ?? ""
+            let ln = (userInfo.p == nil ? userInfo.ln ?? "" : userInfo.p)!//userInfo.ln ?? ""
 
             if !arrCalcDictEdgeDevice.isEmpty{
-                var dictD = arrCalcDictEdgeDevice["d"] as? [String:Any]
-                if dictD?.isEmpty == false{
-                    if let val = dictD?[ln]{
+                for i in 0...arrCalcDictEdgeDevice.count-1{
+                    print("fire timer \(i)")
+                    var dictD = arrCalcDictEdgeDevice[i]["d"] as? [String:Any]
+                    if let valDict = dictD?[ln]{
+                        print("Dict found")
                         let dataToSend = [
-                            "dt":arrCalcDictEdgeDevice["dt"] ?? "",
+                            "dt":arrCalcDictEdgeDevice[i]["dt"] ?? "",
                             "d":[
                                 [
-                                "id":arrCalcDictEdgeDevice["id"] ?? "",
-                                "tg":arrCalcDictEdgeDevice["tg"] ?? "",
-                                "dt":arrCalcDictEdgeDevice["dt"] ?? "",
-                                "d":[
-                                    "\(ln)":val
+                                    "id":arrCalcDictEdgeDevice[i]["id"] ?? "",
+                                    "tg":arrCalcDictEdgeDevice[i]["tg"] ?? "",
+                                    "dt":arrCalcDictEdgeDevice[i]["dt"] ?? "",
+                                    "d":[
+                                        "\(ln )":valDict
                                     ]
-                            ]]] as [String : Any]
+                                ]]] as [String : Any]
                         let topic = dictSyncResponse[keyPath:"p.topics.erpt"] as! String
                         objMQTTClient.publishTopicOnMQTT(withData: dataToSend, topic: topic)
-                        dictD?.removeValue(forKey: "\(ln)")
-                        arrCalcDictEdgeDevice["d"] = dictD
-                        print("arrCalcDictEdgeDevice \(arrCalcDictEdgeDevice)")
+                        dictD?.removeValue(forKey: "\(ln )")
+                                               arrCalcDictEdgeDevice[i]["d"] = dictD
+                                               print("arrCalcDictEdgeDevice \(arrCalcDictEdgeDevice)")
                         if let firstIndexData = arrDataEdgeDevices.firstIndex(where: {$0[ln] != nil}){
                             arrDataEdgeDevices.remove(at: firstIndexData)
                             print("arrDataEdgeDevices \(arrDataEdgeDevices)")
                         }
+                        break
                     }
                 }
+//                var dictD = arrCalcDictEdgeDevice["d"] as? [String:Any]
+//                if dictD?.isEmpty == false{
+//                    if let val = dictD?[ln ?? ""]{
+//                        let dataToSend = [
+//                            "dt":arrCalcDictEdgeDevice["dt"] ?? "",
+//                            "d":[
+//                                [
+//                                "id":arrCalcDictEdgeDevice["id"] ?? "",
+//                                "tg":arrCalcDictEdgeDevice["tg"] ?? "",
+//                                "dt":arrCalcDictEdgeDevice["dt"] ?? "",
+//                                "d":[
+//                                    "\(ln ?? "")":val
+//                                    ]
+//                            ]]] as [String : Any]
+//                        let topic = dictSyncResponse[keyPath:"p.topics.erpt"] as! String
+//                        objMQTTClient.publishTopicOnMQTT(withData: dataToSend, topic: topic)
+//                        dictD?.removeValue(forKey: "\(ln ?? "")")
+//                        arrCalcDictEdgeDevice["d"] = dictD
+//                        print("arrCalcDictEdgeDevice \(arrCalcDictEdgeDevice)")
+//                        if let firstIndexData = arrDataEdgeDevices.firstIndex(where: {$0[ln ?? ""] != nil}){
+//                            arrDataEdgeDevices.remove(at: firstIndexData)
+//                            print("arrDataEdgeDevices \(arrDataEdgeDevices)")
+//                        }
+//                    }
+//                }
             }else{
                 print("arrCalcDictEdgeDevice is empty")
             }
-            
-            
-//            if arrCalcDictEdgeDevice.count > 0{
-//                var arrD = arrCalcDictEdgeDevice[0]["d"] as? [[String:Any]]
-//
-//                if let firstIndexCalcDict = arrD?.firstIndex(where: {$0[ln] != nil}){
-//                    let data = arrD?[firstIndexCalcDict]
-//                    if let arrValues = data{
-//                        let dataToSend = ["dt":arrCalcDictEdgeDevice[0]["dt"] ?? "",
-//                                          "d":[[
-//                                            "id":arrCalcDictEdgeDevice[0]["id"] ?? "",
-//                                            "tg":arrCalcDictEdgeDevice[0]["tg"] ?? "",
-//                                            "dt":arrCalcDictEdgeDevice[0]["dt"] ?? "",
-//                                            "d":data
-//                                          ]]
-//                        ] as [String : Any]
-//
-//                        let topic = dictSyncResponse[keyPath:"p.topics.erpt"] as! String
-//                        objMQTTClient.publishTopicOnMQTT(withData: dataToSend, topic: topic)
-//                        arrD?.remove(at: firstIndexCalcDict)
-//                        arrCalcDictEdgeDevice[0]["d"] = arrD
-//                        print("arrCalcDictEdgeDevice after send \(arrCalcDictEdgeDevice)")
-//                    }
-//                }else{
-//                    print("ln is not found on arr")
-//                }
-//            }
         }else{
             print("userinfo is not decoded")
         }
