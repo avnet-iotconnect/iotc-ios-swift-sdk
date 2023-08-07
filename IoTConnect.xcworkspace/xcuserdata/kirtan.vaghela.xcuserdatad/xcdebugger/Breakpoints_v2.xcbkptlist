@@ -224,7 +224,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1548"
             endingLineNumber = "1548"
-            landmarkName = "getAttributes(callBack:)"
+            landmarkName = "dispose(sdkconnection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -272,8 +272,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "853"
             endingLineNumber = "853"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "5902F2E1-1608-4EC0-BB3D-C4E189608D03 - 8eed36f5fb253194"
@@ -365,8 +365,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "851"
             endingLineNumber = "851"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "159EF7FE-0FB4-4792-9FAF-F5FF8B0CE42B - 8eed36f5fb2531d2"
@@ -428,8 +428,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "874"
             endingLineNumber = "874"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "C1070B45-FAAB-4432-B571-B6CB306290AF - 8eed36f5fb25328b"
@@ -476,8 +476,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "894"
             endingLineNumber = "894"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "78D8A5B4-4F2F-4F2E-BA16-80D3BA85CC6D - 9d34c1c9369ca464"
@@ -906,8 +906,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "867"
             endingLineNumber = "867"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -922,8 +922,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "862"
             endingLineNumber = "862"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "DA1467FA-016A-490C-9CB4-E9DF46069002 - 9d34c1c9369c58c8"
@@ -970,8 +970,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "904"
             endingLineNumber = "904"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -986,8 +986,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1336"
             endingLineNumber = "1336"
-            landmarkName = "validateNumber(value:dv:dataType:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1002,8 +1002,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1332"
             endingLineNumber = "1332"
-            landmarkName = "validateNumber(value:dv:dataType:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1018,8 +1018,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "704"
             endingLineNumber = "704"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1034,8 +1034,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "771"
             endingLineNumber = "771"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1111,9 +1111,9 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "744"
-            endingLineNumber = "744"
-            landmarkName = "startEdgeDeviceProcess(dictSyncResponse:)"
+            startingLineNumber = "745"
+            endingLineNumber = "745"
+            landmarkName = "validateData(data:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1161,8 +1161,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "817"
             endingLineNumber = "817"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1177,8 +1177,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "993"
             endingLineNumber = "993"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1191,9 +1191,9 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "750"
-            endingLineNumber = "750"
-            landmarkName = "startEdgeDeviceProcess(dictSyncResponse:)"
+            startingLineNumber = "751"
+            endingLineNumber = "751"
+            landmarkName = "validateData(data:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1239,9 +1239,9 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "747"
-            endingLineNumber = "747"
-            landmarkName = "startEdgeDeviceProcess(dictSyncResponse:)"
+            startingLineNumber = "748"
+            endingLineNumber = "748"
+            landmarkName = "validateData(data:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1304,8 +1304,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1364"
             endingLineNumber = "1364"
-            landmarkName = "validateNumber(value:dv:dataType:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1400,8 +1400,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "822"
             endingLineNumber = "822"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1544,8 +1544,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "766"
             endingLineNumber = "766"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1560,8 +1560,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "804"
             endingLineNumber = "804"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1576,8 +1576,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "682"
             endingLineNumber = "682"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "C684E153-6CAE-4624-BF78-A955AA596F4D - b07cf5aef77d9a99"
@@ -1624,8 +1624,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "685"
             endingLineNumber = "685"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "E36DB6DC-11D9-41E0-8F8F-C3BCAF8D7E5D - 96408ae118c87d86"
@@ -1672,8 +1672,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "797"
             endingLineNumber = "797"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "75B0E3EB-9841-4DB9-8C57-30DE44FF7B84 - 96408ae118c876ee"
@@ -1720,8 +1720,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "800"
             endingLineNumber = "800"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1862,8 +1862,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "696"
             endingLineNumber = "696"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1878,8 +1878,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "710"
             endingLineNumber = "710"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "4A24CF01-C003-4E8B-BDDB-8A9ABF280934 - 96408ae118c87f0b"
@@ -1926,8 +1926,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "727"
             endingLineNumber = "727"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1942,8 +1942,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "701"
             endingLineNumber = "701"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1958,8 +1958,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "775"
             endingLineNumber = "775"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1974,8 +1974,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1356"
             endingLineNumber = "1356"
-            landmarkName = "validateNumber(value:dv:dataType:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1990,8 +1990,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1352"
             endingLineNumber = "1352"
-            landmarkName = "validateNumber(value:dv:dataType:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2006,8 +2006,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1347"
             endingLineNumber = "1347"
-            landmarkName = "validateNumber(value:dv:dataType:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2022,8 +2022,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1345"
             endingLineNumber = "1345"
-            landmarkName = "validateNumber(value:dv:dataType:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2038,8 +2038,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1260"
             endingLineNumber = "1260"
-            landmarkName = "validateBit(value:dv:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2052,9 +2052,9 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "799"
-            endingLineNumber = "799"
-            landmarkName = "fireTimerForEdgeDevice(timer:)"
+            startingLineNumber = "800"
+            endingLineNumber = "800"
+            landmarkName = "validateData(data:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2068,9 +2068,9 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "860"
-            endingLineNumber = "860"
-            landmarkName = "fireTimerForEdgeDevice(timer:)"
+            startingLineNumber = "861"
+            endingLineNumber = "861"
+            landmarkName = "validateData(data:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2134,8 +2134,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "889"
             endingLineNumber = "889"
-            landmarkName = "validateData(data:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2150,8 +2150,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1242"
             endingLineNumber = "1242"
-            landmarkName = "isDateValid(dateVal:dateFormat:)"
-            landmarkType = "7">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2166,8 +2166,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1062"
             endingLineNumber = "1062"
-            landmarkName = "checkisValValid(val:dt:dv:)"
-            landmarkType = "9">
+            landmarkName = "IoTConnectManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

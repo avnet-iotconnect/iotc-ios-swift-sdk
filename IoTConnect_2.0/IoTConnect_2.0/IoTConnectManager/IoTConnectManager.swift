@@ -46,7 +46,7 @@ class IoTConnectManager {
     var arrDataEdgeDevices = [[String:Any]]()
     var arrCalcDictEdgeDevice = [[String:Any]]()
     var timerEdgeDevice = [Timer]()
-    
+    var edgeRules:ModelEdgeRule?
     
     init() {}
     
@@ -664,775 +664,799 @@ class IoTConnectManager {
         return [arrFloat.min()?.clean ?? "0",arrFloat.max()?.clean ?? "0",sumStr,avgStr,"\(arrFloat.count)",latestVal]
     }
     
-    func validateData(data: [String:Any]){
-        let arrData = data["d"] as? [[String:Any]]
-        var dictValidData = [String:Any]()
-        var dictInValidData = [String:Any]()
-        let boolEdgeDevice = dictSyncResponse[keyPath: "meta.edge"] as? Int
-        
-        if arrData?.count ?? 0 > 1{
-            print("contains child device")
-            var arrDictValidData = [[String:Any]]()
-            var arrDictInValidData = [[String:Any]]()
-            let arrAtt = IoTConnectManager.sharedInstance.attributes
-            print("att \(String(describing: arrAtt?.att?.count))")
-            
-            for i in 0...(arrData?.count ?? 0)-1{
-                if let dictValD = arrData?[i]["d"] as? [String:Any]{
-                    dictValD.forEach({ (dictkey:String,val:Any) in
-                        print("key_val gateway \(dictkey) \(val) i\(i)")
-                        
-                        for j in 0...(arrAtt?.att?.count ?? 0)-1{
-//                            var isDataFound = false
-                            if let valDict = val as? [String:Any]{
-                                for (valDictKey,dictValue) in valDict{
-                                    print("valDictKey \(valDictKey) dictValue \(dictValue)")
-//                                    isDataFound = false
-                                    var arrFilterD = arrAtt?.att?[j].d?.filter({$0.ln == valDictKey})
-                                    if arrFilterD?.count ?? 0 > 0{
-                                        print("arrFilterD gateway \(String(describing: arrFilterD))")
-//                                        var dict = [String:Any]()
-                                        let isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
-                                        if isValidData{
-//                                            dict = dictValidData
-
-                                            if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
-                                                arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:[valDictKey:dictValue]],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "" )
-//                                                arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [valDictKey:dictValue],id: "",tg: arrFilterD?[0].tg,dt: arrData?[0]["dt"] as? String ?? "")
-                                            }
-                                            if arrDictValidData.count == 0{
-                                                arrDictValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]
-                                                )
-                                                
-                                            }else{
-//                                                let filterExistData = arrDictValidData.filter({$0["id"] as? String == arrData?[i]["id"] as! String})
-                                                
-                                                if let index = arrDictValidData.firstIndex(where: {$0["id"] as? String  == arrData?[i]["id"] as? String}) {
-                                                    var dVal = arrDictValidData[index]["d"] as? [String:Any]
-                                                    let attDict = dVal?[dictkey] as? [String:Any]
-                                                    print("attDict \(String(describing: attDict))")
-                                                    let newDict = [valDictKey:dictValue]
-                                                    if attDict == nil{
-                                                        dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
-                                                    }else{
-                                                        dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                            return current
-                                                        })
-                                                    }
-                                                    arrDictValidData[index]["d"]  = dVal
-                                                    print("arrDictValidData \(arrDictValidData)")
-                                                }else{
-                                                    arrDictValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]             
-                                                    )
-                                                    print("arrDictValidData \(arrDictValidData)")
-                                                }
-                                            }
-                                        }else{
-//                                            dict = dictInValidData
-                                            if arrDictInValidData.count == 0{
-                                                arrDictInValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]
-                                                                          
-                                                )
-                                                print("arrDictInValidData \(arrDictInValidData)")
-                                            }else{
-                                                if let index = arrDictInValidData.firstIndex(where: {$0["id"] as? String  == arrData?[i]["id"] as? String}) {
-                                                    var dVal = arrDictInValidData[index]["d"] as? [String:Any]
-                                                    let attDict = dVal?[dictkey] as? [String:Any]
+//    func validateData(data: [String:Any]){
+//        let arrData = data["d"] as? [[String:Any]]
+//        var dictValidData = [String:Any]()
+//        var dictInValidData = [String:Any]()
+//        let boolEdgeDevice = dictSyncResponse[keyPath: "meta.edge"] as? Int
+//        
+//        if arrData?.count ?? 0 > 1{
+//            print("contains child device")
+//            var arrDictValidData = [[String:Any]]()
+//            var arrDictInValidData = [[String:Any]]()
+//            let arrAtt = IoTConnectManager.sharedInstance.attributes
+//            print("att \(String(describing: arrAtt?.att?.count))")
+//            
+//            for i in 0...(arrData?.count ?? 0)-1{
+//                if let dictValD = arrData?[i]["d"] as? [String:Any]{
+//                    dictValD.forEach({ (dictkey:String,val:Any) in
+//                        print("key_val gateway \(dictkey) \(val) i\(i)")
+//                        
+//                        for j in 0...(arrAtt?.att?.count ?? 0)-1{
+////                            var isDataFound = false
+//                            if let valDict = val as? [String:Any]{
+//                                for (valDictKey,dictValue) in valDict{
+//                                    print("valDictKey \(valDictKey) dictValue \(dictValue)")
+////                                    isDataFound = false
+//                                    var arrFilterD = arrAtt?.att?[j].d?.filter({$0.ln == valDictKey})
+//                                    if arrFilterD?.count ?? 0 > 0{
+//                                        print("arrFilterD gateway \(String(describing: arrFilterD))")
+////                                        var dict = [String:Any]()
+//                                        let isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+//                                        if isValidData{
+////                                            dict = dictValidData
+//
+//                                            if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
+//                                                arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:[valDictKey:dictValue]],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "" )
+////                                                arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [valDictKey:dictValue],id: "",tg: arrFilterD?[0].tg,dt: arrData?[0]["dt"] as? String ?? "")
+//                                            }
+//                                            if arrDictValidData.count == 0{
+//                                                arrDictValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]
+//                                                )
+//                                                
+//                                            }else{
+////                                                let filterExistData = arrDictValidData.filter({$0["id"] as? String == arrData?[i]["id"] as! String})
+//                                                
+//                                                if let index = arrDictValidData.firstIndex(where: {$0["id"] as? String  == arrData?[i]["id"] as? String}) {
+//                                                    var dVal = arrDictValidData[index]["d"] as? [String:Any]
+//                                                    let attDict = dVal?[dictkey] as? [String:Any]
 //                                                    print("attDict \(String(describing: attDict))")
-                                                    let newDict = [valDictKey:dictValue]
-                                                    if attDict == nil{
-                                                        dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
-                                                    }else{
-                                                        dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                            return current
-                                                        })
-                                                    }
-                                                   
-                                                    arrDictInValidData[index]["d"]  = dVal
-                                                    print("arrDictInValidData \(arrDictInValidData)")
-                                                    
-                                                }else{
-                                                    arrDictInValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]
-                                                    )
-                                                    print("arrDictInValidData \(arrDictInValidData)")
-                                                }
-                                            }
-                                        }
-                                        arrFilterD?.removeAll()
-                                    }
-                                }
-                            }else{
-                                let arrFilterD = arrAtt?.att?[j].d?.filter({$0.ln == dictkey})
-                                if arrFilterD?.count ?? 0 > 0{
-    //                                print("arrFilterD \(arrFilterD)")
-//                                    isDataFound = true
-                                    let isValidData = checkisValValid(val: val as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
-                                  
-                                    if isValidData{
-//                                        dictValidData.append(anotherDict: [dictkey:val])
-                                        
-                                        if boolEdgeDevice == 1, let _ = Double(val as? String ?? ""){
-                                            arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:val],id: arrData?[i]["id"] as? String,tg: arrData?[i]["tg"] as? String,dt: arrData?[0]["dt"] as? String ?? "")
-                                        }
-                                        if let index = arrDictValidData.firstIndex(where: {$0["tg"] as? String  == arrData?[i]["tg"] as? String}) {
-                                            var dVal = arrDictValidData[index]["d"] as? [String:Any]
-                                            let newDict = [dictkey:val]
-                                            dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                return current
-                                            })
-                                            arrDictValidData[index]["d"]  = dVal
-                                        }else{
-                                            arrDictValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:val]]
-                                                                    
-                                            )
-                                        }
-                                        print("arrDictValidData gateway \(arrDictValidData)")
-                                    }else{
-//                                        dictInValidData.append(anotherDict: [dictkey:val])
-//                                        print("dictInValidData gateway \(dictInValidData)")
-                                        if let index = arrDictInValidData.firstIndex(where: {$0["tg"] as? String  == arrData?[i]["tg"] as? String}) {
-                                            var dVal = arrDictInValidData[index]["d"] as? [String:Any]
-//
-                                            let newDict = [dictkey:val]
-                                            dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                return current
-                                            })
-                                            arrDictInValidData[index]["d"]  = dVal
-                                        }else{
-                                            arrDictInValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:val]])
-                                        }
-                                        print("arrDictInValidData gateway \(arrDictInValidData)")
-                                    }
-                                    break
-                                }
-                            }
-                        }
-                    })
-                }
-            }
-            
-            if !arrDictValidData.isEmpty{
-                dictValidData = ["dt":data["dt"] ?? "","d":arrDictValidData]
-
-                if boolEdgeDevice == 1{
-                    
-                }else{
-                    let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
-                    prevSendDataTime = Date()
-                    objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
-                }
-               
-                print("final dictValidData gateway \(dictValidData)")
-            }
-            
-            if !arrDictInValidData.isEmpty{
-                dictInValidData = ["dt":data["dt"] ?? "","d":arrDictInValidData]
-                
-                if boolEdgeDevice == 1{
-                    
-                }else{
-                    let topic = dictSyncResponse[keyPath:"p.topics.flt"] as! String
-                    prevSendDataTime = Date()
-                    objMQTTClient.publishTopicOnMQTT(withData: dictInValidData, topic: topic)
-                    print("final dictInValidData gateway \(dictInValidData)")
-                }
-            }
-        }else{
-            print("count is 1")
-            let dictValD = arrData?[0]["d"] as? [String:Any]
-
-            dictValD?.forEach {
-                print("key_val \($0.key) \($0.value)")
-                let dictValDKey = $0.key
-                let value = $0.value
-//                print("attributes \(key) \(String(describing: self.attributes)) \(IoTConnectManager.sharedInstance.attributes)")
-                
-                let arrAtt = IoTConnectManager.sharedInstance.attributes
-                print("att \(String(describing: arrAtt?.att?.count))")
-                 
-                for i in 0...(arrAtt?.att?.count ?? 0)-1{
-                    print("arrAtt?.att \(i)")
-//                    var isDataFound = false
-//                    for j in 0...(arrAtt?.att?[i].d?.count ?? 0)-1{
-//                        print("arrAtt?.att?[i].d \(j) \(key) \(String(describing: arrAtt?.att?[i].d))")
-                        if let valDict = value as? [String:Any]{
-                            for (valDictKey,dictValue) in valDict{
-//                                isDataFound = false
-                                var arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == valDictKey})
-                                if arrFilterD?.count ?? 0 > 0{
-                                    print("arrFilterD \(String(describing: arrFilterD))")
-                                    var dict = [String:Any]()
-//                                    isDataFound = true
-//
-                                    let isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
-                                    if isValidData{
-                                        dict = dictValidData
-                                    }else{
-                                        dict = dictInValidData
-                                    }
-                                    
-                                    if dict[$0.key] != nil{
-                                        let val = dict[$0.key] as? [String:Any]
-                                        let newVal = [valDictKey:dictValue] as? [String:Any]
-                                        dict[$0.key] = val?.merging(newVal ?? [:], uniquingKeysWith: { current, _ in
-                                            return current
-                                        })
-                                        print("dictValidData \(valDictKey) \(dictValidData)")
-                                    }else{
-                                        dict.updateValue([valDictKey:dictValue], forKey:$0.key)
-                                    }
-                                    arrFilterD?.removeAll()
-                                    if isValidData{
-                                       dictValidData = dict
-
-                                        if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
-                                            arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:[valDictKey:dictValue]],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "" )
-                                        }
-                                    }else{
-                                        dictInValidData = dict
-                                    }
-                                    print("dictValidData \(valDictKey) \(dictValidData)")
-                                    print("dictInValidData \(valDictKey) \(dictInValidData)")
-//                                    break
-                                }
-//                                if isDataFound {
-//                                    break
-//                                }
-                            }
-                        }else{
-                            let arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == dictValDKey})
-                            if arrFilterD?.count ?? 0 > 0{
-//                                print("arrFilterD \(arrFilterD)")
-//                                isDataFound = true
-                                let isValidData = checkisValValid(val: value as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
-                                if isValidData{
-                                    dictValidData.append(anotherDict: [$0.key:$0.value])
-                                    print("dictValidData \(dictValidData)")
-
-                                    if boolEdgeDevice == 1, let _ = Double(value as? String ?? ""){
-                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:value],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "")
-                                        
-                                        // var arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == key})
-//                                        if arrValidData.count > 0{
-//                                            for i in 0...arrValidData.count-1{
-//                                                for(validDataKey,validDataValue) in arrValidData[i]{
-//                                                    if key == validDataKey{
-//                                                        print("key \(key) exist \(arrValidData[i])")
-//                                                        var arrVal =   arrValidData[i][validDataKey] as? [String]
-//                                                        arrVal?.append(value as? String ?? "")
-//                                                        print("arrValidData \(arrValidData[i])")
+//                                                    let newDict = [valDictKey:dictValue]
+//                                                    if attDict == nil{
+//                                                        dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
 //                                                    }else{
-//                                                        arrValidData.append([key:[value]])
-//                                                        print("arrValidData \(arrValidData)")
+//                                                        dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                            return current
+//                                                        })
 //                                                    }
+//                                                    arrDictValidData[index]["d"]  = dVal
+//                                                    print("arrDictValidData \(arrDictValidData)")
+//                                                }else{
+//                                                    arrDictValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]             
+//                                                    )
+//                                                    print("arrDictValidData \(arrDictValidData)")
 //                                                }
 //                                            }
 //                                        }else{
-//                                            arrValidData.append([key:[value]])
+////                                            dict = dictInValidData
+//                                            if arrDictInValidData.count == 0{
+//                                                arrDictInValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]
+//                                                                          
+//                                                )
+//                                                print("arrDictInValidData \(arrDictInValidData)")
+//                                            }else{
+//                                                if let index = arrDictInValidData.firstIndex(where: {$0["id"] as? String  == arrData?[i]["id"] as? String}) {
+//                                                    var dVal = arrDictInValidData[index]["d"] as? [String:Any]
+//                                                    let attDict = dVal?[dictkey] as? [String:Any]
+////                                                    print("attDict \(String(describing: attDict))")
+//                                                    let newDict = [valDictKey:dictValue]
+//                                                    if attDict == nil{
+//                                                        dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
+//                                                    }else{
+//                                                        dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                            return current
+//                                                        })
+//                                                    }
+//                                                   
+//                                                    arrDictInValidData[index]["d"]  = dVal
+//                                                    print("arrDictInValidData \(arrDictInValidData)")
+//                                                    
+//                                                }else{
+//                                                    arrDictInValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]
+//                                                    )
+//                                                    print("arrDictInValidData \(arrDictInValidData)")
+//                                                }
+//                                            }
 //                                        }
-//                                        let diff = Int(Date().timeIntervalSince(arrAtt?.connectedTime ?? Date()))
-//
-//                                        if diff >= Int(arrFilterD?[0].tw ?? "") ?? 0{
-//
-//                                        }
-                                        
-                                    }
-                                }else{
-                                    dictInValidData.append(anotherDict: [$0.key:$0.value])
-                                    print("dictInValidData \(dictInValidData)")
-                                }
-                                break
-                            }
-                        }
-//                    }
-//                    if isDataFound {
-//                        break
-//                    }
-                }
-
-               
-                
-//                if let strVal = value as? String{
-//                    if let intVal = Int(strVal){
-//                        print("intVal \($0.value)")
-//                    }else{
-//                        print("strVal \($0.value)")
-//                    }
-//                }else if let dictVal = value as? [String:Any]{
-//                    print("dictVal \($0.value)")
-//                    dictVal.forEach {_ in
-//
-//                    }
-//                }else{
-//                    print("val \($0.key) \($0.value)")
-//                }
-            }
-            
-            if !dictValidData.isEmpty{
-//                if boolEdgeDevice == 1{
-//                    for (key,val) in dictValidData{
-//                        if let valDict = val as? [String:Any]{
-//                            print("val is Dict")
-//                        }else
-//                        {
-//                            for i in 0...arrDataEdgeDevices.count-1{
-//                                for(validDataKey,_) in arrDataEdgeDevices[i]{
-//                                    if key == validDataKey{
-//
-//
+//                                        arrFilterD?.removeAll()
 //                                    }
+//                                }
+//                            }else{
+//                                let arrFilterD = arrAtt?.att?[j].d?.filter({$0.ln == dictkey})
+//                                if arrFilterD?.count ?? 0 > 0{
+//    //                                print("arrFilterD \(arrFilterD)")
+////                                    isDataFound = true
+//                                    let isValidData = checkisValValid(val: val as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+//                                  
+//                                    if isValidData{
+////                                        dictValidData.append(anotherDict: [dictkey:val])
+//                                        
+//                                        if boolEdgeDevice == 1, let _ = Double(val as? String ?? ""){
+//                                            arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:val],id: arrData?[i]["id"] as? String,tg: arrData?[i]["tg"] as? String,dt: arrData?[0]["dt"] as? String ?? "")
+//                                        }
+//                                        if let index = arrDictValidData.firstIndex(where: {$0["tg"] as? String  == arrData?[i]["tg"] as? String}) {
+//                                            var dVal = arrDictValidData[index]["d"] as? [String:Any]
+//                                            let newDict = [dictkey:val]
+//                                            dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                return current
+//                                            })
+//                                            arrDictValidData[index]["d"]  = dVal
+//                                        }else{
+//                                            arrDictValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:val]]
+//                                                                    
+//                                            )
+//                                        }
+//                                        print("arrDictValidData gateway \(arrDictValidData)")
+//                                    }else{
+////                                        dictInValidData.append(anotherDict: [dictkey:val])
+////                                        print("dictInValidData gateway \(dictInValidData)")
+//                                        if let index = arrDictInValidData.firstIndex(where: {$0["tg"] as? String  == arrData?[i]["tg"] as? String}) {
+//                                            var dVal = arrDictInValidData[index]["d"] as? [String:Any]
+////
+//                                            let newDict = [dictkey:val]
+//                                            dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                return current
+//                                            })
+//                                            arrDictInValidData[index]["d"]  = dVal
+//                                        }else{
+//                                            arrDictInValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:val]])
+//                                        }
+//                                        print("arrDictInValidData gateway \(arrDictInValidData)")
+//                                    }
+//                                    break
+//                                }
+//                            }
+//                        }
+//                    })
+//                }
+//            }
+//            
+//            if !arrDictValidData.isEmpty{
+//                dictValidData = ["dt":data["dt"] ?? "","d":arrDictValidData]
 //
+//                if boolEdgeDevice == 1{
+//                
+//                }else{
+//                    let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
+//                    prevSendDataTime = Date()
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
+//                }
+//               
+//                print("final dictValidData gateway \(dictValidData)")
+//            }
+//            
+//            if !arrDictInValidData.isEmpty{
+//                dictInValidData = ["dt":data["dt"] ?? "","d":arrDictInValidData]
+//                
+//                if boolEdgeDevice == 1{
+//                    
+//                }else{
+//                    let topic = dictSyncResponse[keyPath:"p.topics.flt"] as! String
+//                    prevSendDataTime = Date()
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictInValidData, topic: topic)
+//                    print("final dictInValidData gateway \(dictInValidData)")
+//                }
+//            }
+//        }else{
+//            print("count is 1")
+//            let dictValD = arrData?[0]["d"] as? [String:Any]
+//
+//            dictValD?.forEach {
+//                print("key_val \($0.key) \($0.value)")
+//                let dictValDKey = $0.key
+//                let value = $0.value
+////                print("attributes \(key) \(String(describing: self.attributes)) \(IoTConnectManager.sharedInstance.attributes)")
+//                
+//                let arrAtt = IoTConnectManager.sharedInstance.attributes
+//                print("att \(String(describing: arrAtt?.att?.count))")
+//                 
+//                for i in 0...(arrAtt?.att?.count ?? 0)-1{
+//                    print("arrAtt?.att \(i)")
+////                    var isDataFound = false
+////                    for j in 0...(arrAtt?.att?[i].d?.count ?? 0)-1{
+////                        print("arrAtt?.att?[i].d \(j) \(key) \(String(describing: arrAtt?.att?[i].d))")
+//                        if let valDict = value as? [String:Any]{
+//                            for (valDictKey,dictValue) in valDict{
+////                                isDataFound = false
+//                                var arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == valDictKey})
+//                                if arrFilterD?.count ?? 0 > 0{
+//                                    print("arrFilterD \(String(describing: arrFilterD))")
+//                                    var dict = [String:Any]()
+////                                    isDataFound = true
+////
+//                                    let isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+//                                    if isValidData{
+//                                        dict = dictValidData
+//                                    }else{
+//                                        dict = dictInValidData
+//                                    }
+//                                    
+//                                    if dict[$0.key] != nil{
+//                                        let val = dict[$0.key] as? [String:Any]
+//                                        let newVal = [valDictKey:dictValue] as? [String:Any]
+//                                        dict[$0.key] = val?.merging(newVal ?? [:], uniquingKeysWith: { current, _ in
+//                                            return current
+//                                        })
+//                                        print("dictValidData \(valDictKey) \(dictValidData)")
+//                                    }else{
+//                                        dict.updateValue([valDictKey:dictValue], forKey:$0.key)
+//                                    }
+//                                    arrFilterD?.removeAll()
+//                                    if isValidData{
+//                                       dictValidData = dict
+//
+//                                        if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
+//                                            arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:[valDictKey:dictValue]],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "" )
+//                                        }
+//                                    }else{
+//                                        dictInValidData = dict
+//                                    }
+//                                    print("dictValidData \(valDictKey) \(dictValidData)")
+//                                    print("dictInValidData \(valDictKey) \(dictInValidData)")
+////                                    break
+//                                }
+////                                if isDataFound {
+////                                    break
+////                                }
+//                            }
+//                        }else{
+//                            let arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == dictValDKey})
+//                            if arrFilterD?.count ?? 0 > 0{
+////                                print("arrFilterD \(arrFilterD)")
+////                                isDataFound = true
+//                                let isValidData = checkisValValid(val: value as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+//                                if isValidData{
+//                                    dictValidData.append(anotherDict: [$0.key:$0.value])
+//                                    print("dictValidData \(dictValidData)")
+//
+//                                    if boolEdgeDevice == 1, let _ = Double(value as? String ?? ""){
+//                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:value],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "")
+//                                        
+//                                        // var arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == key})
+////                                        if arrValidData.count > 0{
+////                                            for i in 0...arrValidData.count-1{
+////                                                for(validDataKey,validDataValue) in arrValidData[i]{
+////                                                    if key == validDataKey{
+////                                                        print("key \(key) exist \(arrValidData[i])")
+////                                                        var arrVal =   arrValidData[i][validDataKey] as? [String]
+////                                                        arrVal?.append(value as? String ?? "")
+////                                                        print("arrValidData \(arrValidData[i])")
+////                                                    }else{
+////                                                        arrValidData.append([key:[value]])
+////                                                        print("arrValidData \(arrValidData)")
+////                                                    }
+////                                                }
+////                                            }
+////                                        }else{
+////                                            arrValidData.append([key:[value]])
+////                                        }
+////                                        let diff = Int(Date().timeIntervalSince(arrAtt?.connectedTime ?? Date()))
+////
+////                                        if diff >= Int(arrFilterD?[0].tw ?? "") ?? 0{
+////
+////                                        }
+//                                        
+//                                    }
+//                                }else{
+//                                    dictInValidData.append(anotherDict: [$0.key:$0.value])
+//                                    print("dictInValidData \(dictInValidData)")
+//                                }
+//                                break
+//                            }
+//                        }
+////                    }
+////                    if isDataFound {
+////                        break
+////                    }
+//                }
+//
+//               
+//                
+////                if let strVal = value as? String{
+////                    if let intVal = Int(strVal){
+////                        print("intVal \($0.value)")
+////                    }else{
+////                        print("strVal \($0.value)")
+////                    }
+////                }else if let dictVal = value as? [String:Any]{
+////                    print("dictVal \($0.value)")
+////                    dictVal.forEach {_ in
+////
+////                    }
+////                }else{
+////                    print("val \($0.key) \($0.value)")
+////                }
+//            }
+//            
+//            if !dictValidData.isEmpty{
+////                if boolEdgeDevice == 1{
+////                    for (key,val) in dictValidData{
+////                        if let valDict = val as? [String:Any]{
+////                            print("val is Dict")
+////                        }else
+////                        {
+////                            for i in 0...arrDataEdgeDevices.count-1{
+////                                for(validDataKey,_) in arrDataEdgeDevices[i]{
+////                                    if key == validDataKey{
+////
+////
+////                                    }
+////
+////                                }
+////                            }
+////                        }
+////                    }
+////                }
+//            
+//             
+// 
+//                if boolEdgeDevice != 1{
+//                    dictValidData = ["dt":data["dt"] ?? "","d":[["dt":arrData?[0]["dt"] ?? "","id":arrData?[0]["id"] ?? "","tg":arrData?[0]["tg"] ?? "","d":dictValidData]]]
+//                    prevSendDataTime = Date()
+//                    let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
+//                }else{
+//                    print("dictValidData edgeDevice \(dictValidData)")
+//                    if let ruleData = edgeRules{
+//                        if let rule = ruleData.d?.r?[0].con{
+//                            var arrRules = rule.components(separatedBy: "AMD")
+//                            
+//                            if arrRules.count > 0{
+//                                for i in 0...arrRules.count-1{
+//                                    let rule = arrRules[i].components(separatedBy: " ")
+//                                    print("Rule seperated \(rule)")
+//                                    let att = rule[0].components(separatedBy: ".")
+//                                    if att.count == 1{
+//                                        if let val  = dictValidData[att[0]]{
+//                                           
+//                                        }
+//                                    }else{
+//                                        
+//                                    }
 //                                }
 //                            }
 //                        }
 //                    }
+//                    
 //                }
-            
-                dictValidData = ["dt":data["dt"] ?? "","d":[["dt":arrData?[0]["dt"] ?? "","id":arrData?[0]["id"] ?? "","tg":arrData?[0]["tg"] ?? "","d":dictValidData]]]
- 
-                if boolEdgeDevice != 1{
-                    prevSendDataTime = Date()
-                    let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
-                    objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
-                }
-            }
-            
-            if !dictInValidData.isEmpty{
-                dictInValidData = ["dt":data["dt"] ?? "","d":[["dt":arrData?[0]["dt"],"id":arrData?[0]["id"],"tg":arrData?[0]["tg"],"d":dictInValidData]]]
-                
-                if boolEdgeDevice != 1{
-                    prevSendDataTime = Date()
-                    let topic = dictSyncResponse[keyPath:"p.topics.flt"] as! String
-                    objMQTTClient.publishTopicOnMQTT(withData: dictInValidData, topic: topic)
-                }
-            }
-        }
-        
-        func checkisValValid(val:String,dt:Int,dv:String?)-> Bool{
-            switch dt{
-            case SupportedDataType.intValue:
-                if Int32(val) != nil{
-                    if validateNumber(value: val, dv: dv, dataType: SupportedDataType.intValue) == true{
-                        return true
-                    }else{
-                        return false
-                    }
-                }else{
-                    if val.isEmpty && (dv == nil || dv?.isEmpty == true){
-                        return true
-                    }
-                    if !val.isEmpty{
-                        if let doubleVal = Double(val){
-                            let roundVal = Int32(round(doubleVal))
-                            if validateNumber(value: "\(roundVal)", dv: dv, dataType: SupportedDataType.intValue) == true{
-                                return true
-                            }else{
-                                return false
-                            }
-                        }
-                    }
-                    return false
-                }
-                
-            case SupportedDataType.boolValue:
-                let isValid = self.validateBoolValue(value: val, dv: dv)
-                if isValid{
-                    return true
-                }else{
-                    return false
-                }
-            case SupportedDataType.strVal:
-                //remaining
-                let isValid = self.validateNumber(value: val, dv: dv, dataType: SupportedDataType.decimalVal)
-                if isValid{
-                    return true
-                }else{
-                    return false
-                }
-            case SupportedDataType.bitValue:
-                let isValid = self.validateBit(value: val, dv: dv)
-                
-                if isValid{
-                    return true
-                }else{
-                    return false
-                }
-                
-            case SupportedDataType.dateValue:
-                let isValid = validateDate(value: val, dateFormat: "YYYY-MM-dd", dv: dv)
-                
-                if (isValid){
-                    return true
-                }else{
-                    return false
-                }
-                
-            case SupportedDataType.dateTimeVal:
-                let isValid = validateDate(value: val, dateFormat:"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" , dv: dv)//"YYYY-MM-ddTHH:MM:SS.SSSZ"
-                //"yyyy-MM-dd'T'HH:mm:ssZ"
-                //yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
-                
-                if isValid{
-                    return true
-                }else{
-                    return false
-                }
-                
-            case SupportedDataType.decimalVal:
-                if let floatVal = Float(val){
-                    //range is -7.9*1028
-                    if floatVal.isLessThanOrEqualTo(8121.2) &&
-                        floatVal >= -8121.2
-                    {
-                        if validateNumber(value: val, dv: dv, dataType: SupportedDataType.decimalVal) == true{
-                            return true
-                        }else{
-                            return false
-                        }
-                    }else{
-                        return false
-                    }
-                }
-                if val.isEmpty && (dv == nil || dv?.isEmpty == true){
-                    return true
-                }
-                return false
-                
-            case SupportedDataType.latLongVal:
-                //[10,8] [11,8]
-                if validateLatLong(value: val,dv: dv){
-                    return true
-                }
-                
-                return false
-                
-            case SupportedDataType.longVal:
-                if Int64(val) != nil{
-                    if validateNumber(value: val, dv: dv, dataType: SupportedDataType.longVal) == true{
-                        return true
-                    }else{
-                        return false
-                    }
-                }else{
-                    if val.isEmpty && (dv == nil || dv?.isEmpty == true){
-                        return true
-                    }
-                    if !val.isEmpty{
-                        if let doubleVal = Double(val){
-                            let roundVal = Int64(round(doubleVal))
-                            if validateNumber(value: "\(roundVal)", dv: dv, dataType: SupportedDataType.intValue) == true{
-                                return true
-                            }else{
-                                return false
-                            }
-                        }
-                    }
-                    return false
-                }
-                
-            case SupportedDataType.timeVal:
-                if dv == nil || dv?.isEmpty == true{
-                    if val.isEmpty == true{
-                        return true
-                    }
-                }
-                let arrVal = val.components(separatedBy: ":")
-                if arrVal.count >= 3{
-                    let isValid = validateDate(value: val, dateFormat: "HH:mm:ss", dv: dv)
-                    
-                    if isValid{
-                        return true
-                    }else{
-                        return false
-                    }
-                }else
-                {
-                    return false
-                }
-                
-            default:
-                return false
-            }
-        }
-    }
-    
-    func validateDate(value:String,dateFormat:String,dv:String?)->Bool{
-        if value.isEmpty == true && (dv == nil || dv?.isEmpty == true){
-            return true
-        }
-        if let validDate = isDateValid(dateVal: value, dateFormat: dateFormat){
-            if dv == nil || dv?.isEmpty == true{
-//                if value.isEmpty == true{
-//                    return true
-//                }
-//                if isDateValid(dateVal: value, dateFormat: dateFormat) != nil{
-                    return true
-//                }else{
-//                    return false
-//                }
-            }else{
-                var newDateArr = dv?.components(separatedBy: ",")
-                let arrToData = newDateArr?.filter({$0.contains("to")})
-                newDateArr?.removeAll(where: {$0.contains("to")})
-                
-                if newDateArr?.contains(value) == true{
-                    return true
-                }
-                
-                if arrToData?.count  ?? 0 > 0{
-                    for i in 0...(arrToData?.count ?? 0)-1{
-                        let toArr = arrToData?[i].components(separatedBy: "to")
-                        //                    let range = (Int(toArr?[0].trimmingCharacters(in:.whitespaces) ?? "") ?? 0)...(Int(toArr?[1].trimmingCharacters(in: .whitespaces) ?? "") ?? 0)
-                        
-                        if let startDate = isDateValid(dateVal: toArr?[0].trimmingCharacters(in: .whitespaces) ?? "", dateFormat: dateFormat),let  endDate =  isDateValid(dateVal: toArr?[1].trimmingCharacters(in: .whitespaces) ?? "", dateFormat: dateFormat){
-                            let dateRange = startDate...endDate
-                            if dateRange.contains(validDate)
-                            {
-                                return true
-                            }
-                        }
-                    }
-                }
-            }
-        }
-            
-//            if newDateArr?.count ?? 0 > 0{
-//                if newDateArr?.contains(value) == true{
-//                    return true
-//                }
-////                else{
-////                    return false
-////                }
 //            }
-           
-            
-//            let newDateRange = dv?.components(separatedBy: "to")
-            
-//            if newDateRange?.count ?? 0 > 1{
-//                if let validDate = isDateValid(dateVal: value, dateFormat: dateFormat){
-//                    if let startDate = isDateValid(dateVal: newDateRange?[0] ?? "", dateFormat: dateFormat),let  endDate =  isDateValid(dateVal: newDateRange?[1] ?? "", dateFormat: dateFormat){
-//                        let dateRange = startDate...endDate
-//                        if dateRange.contains(validDate)
-//                        {
-//                            return true
-//                        }
-////                        else{
-////                            return false
-////                        }
+//            
+//            if !dictInValidData.isEmpty{
+//                dictInValidData = ["dt":data["dt"] ?? "","d":[["dt":arrData?[0]["dt"],"id":arrData?[0]["id"],"tg":arrData?[0]["tg"],"d":dictInValidData]]]
+//                
+//                if boolEdgeDevice != 1{
+//                    prevSendDataTime = Date()
+//                    let topic = dictSyncResponse[keyPath:"p.topics.flt"] as! String
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictInValidData, topic: topic)
+//                }
+//            }
+//        }
+//        
+//        func checkisValValid(val:String,dt:Int,dv:String?)-> Bool{
+//            switch dt{
+//            case SupportedDataType.intValue:
+//                if Int32(val) != nil{
+//                    if validateNumber(value: val, dv: dv, dataType: SupportedDataType.intValue) == true{
+//                        return true
 //                    }else{
 //                        return false
 //                    }
 //                }else{
+//                    if val.isEmpty && (dv == nil || dv?.isEmpty == true){
+//                        return true
+//                    }
+//                    if !val.isEmpty{
+//                        if let doubleVal = Double(val){
+//                            let roundVal = Int32(round(doubleVal))
+//                            if validateNumber(value: "\(roundVal)", dv: dv, dataType: SupportedDataType.intValue) == true{
+//                                return true
+//                            }else{
+//                                return false
+//                            }
+//                        }
+//                    }
 //                    return false
 //                }
-//            }
-            
-//            if dv == value{
-//                return true
-//            }
-//        }
-//
-        return false
-    }
-    
-    func isDateValid(dateVal:String,dateFormat:String)->Date?{
-        let dateFormatter = DateFormatter()
-//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = dateFormat
-        if let date = dateFormatter.date(from:dateVal){
-            return date
-        }else{
-            return nil
-        }
-    }
-    
-    func validateBit(value:String,dv:String?)->Bool{
-        if (dv == nil || (dv?.isEmpty) == true) {
-            if value.isEmpty == true{
-                return true
-            }
-            if (value == "0" || value == "1"){
-                return true
-            }else{
-                return false
-            }
-        }else{
-            if (value == dv){
-                return true
-            }else{
-                return false
-            }
-        }
-       
-//        else{
-//            let newDV = dv?.components(separatedBy: ",")
-//
-//            if newDV?.count ?? 0 > 0{
-//                if newDV?.contains(value) == true{
+//                
+//            case SupportedDataType.boolValue:
+//                let isValid = self.validateBoolValue(value: val, dv: dv)
+//                if isValid{
 //                    return true
 //                }else{
 //                    return false
 //                }
+//            case SupportedDataType.strVal:
+//                //remaining
+//                let isValid = self.validateNumber(value: val, dv: dv, dataType: SupportedDataType.decimalVal)
+//                if isValid{
+//                    return true
+//                }else{
+//                    return false
+//                }
+//            case SupportedDataType.bitValue:
+//                let isValid = self.validateBit(value: val, dv: dv)
+//                
+//                if isValid{
+//                    return true
+//                }else{
+//                    return false
+//                }
+//                
+//            case SupportedDataType.dateValue:
+//                let isValid = validateDate(value: val, dateFormat: "YYYY-MM-dd", dv: dv)
+//                
+//                if (isValid){
+//                    return true
+//                }else{
+//                    return false
+//                }
+//                
+//            case SupportedDataType.dateTimeVal:
+//                let isValid = validateDate(value: val, dateFormat:"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" , dv: dv)//"YYYY-MM-ddTHH:MM:SS.SSSZ"
+//                //"yyyy-MM-dd'T'HH:mm:ssZ"
+//                //yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+//                
+//                if isValid{
+//                    return true
+//                }else{
+//                    return false
+//                }
+//                
+//            case SupportedDataType.decimalVal:
+//                if let floatVal = Float(val){
+//                    //range is -7.9*1028
+//                    if floatVal.isLessThanOrEqualTo(8121.2) &&
+//                        floatVal >= -8121.2
+//                    {
+//                        if validateNumber(value: val, dv: dv, dataType: SupportedDataType.decimalVal) == true{
+//                            return true
+//                        }else{
+//                            return false
+//                        }
+//                    }else{
+//                        return false
+//                    }
+//                }
+//                if val.isEmpty && (dv == nil || dv?.isEmpty == true){
+//                    return true
+//                }
+//                return false
+//                
+//            case SupportedDataType.latLongVal:
+//                //[10,8] [11,8]
+//                if validateLatLong(value: val,dv: dv){
+//                    return true
+//                }
+//                
+//                return false
+//                
+//            case SupportedDataType.longVal:
+//                if Int64(val) != nil{
+//                    if validateNumber(value: val, dv: dv, dataType: SupportedDataType.longVal) == true{
+//                        return true
+//                    }else{
+//                        return false
+//                    }
+//                }else{
+//                    if val.isEmpty && (dv == nil || dv?.isEmpty == true){
+//                        return true
+//                    }
+//                    if !val.isEmpty{
+//                        if let doubleVal = Double(val){
+//                            let roundVal = Int64(round(doubleVal))
+//                            if validateNumber(value: "\(roundVal)", dv: dv, dataType: SupportedDataType.intValue) == true{
+//                                return true
+//                            }else{
+//                                return false
+//                            }
+//                        }
+//                    }
+//                    return false
+//                }
+//                
+//            case SupportedDataType.timeVal:
+//                if dv == nil || dv?.isEmpty == true{
+//                    if val.isEmpty == true{
+//                        return true
+//                    }
+//                }
+//                let arrVal = val.components(separatedBy: ":")
+//                if arrVal.count >= 3{
+//                    let isValid = validateDate(value: val, dateFormat: "HH:mm:ss", dv: dv)
+//                    
+//                    if isValid{
+//                        return true
+//                    }else{
+//                        return false
+//                    }
+//                }else
+//                {
+//                    return false
+//                }
+//                
+//            default:
+//                return false
 //            }
+//        }
+//    }
+    
+//    func validateDate(value:String,dateFormat:String,dv:String?)->Bool{
+//        if value.isEmpty == true && (dv == nil || dv?.isEmpty == true){
+//            return true
+//        }
+//        if let validDate = isDateValid(dateVal: value, dateFormat: dateFormat){
+//            if dv == nil || dv?.isEmpty == true{
+////                if value.isEmpty == true{
+////                    return true
+////                }
+////                if isDateValid(dateVal: value, dateFormat: dateFormat) != nil{
+//                    return true
+////                }else{
+////                    return false
+////                }
+//            }else{
+//                var newDateArr = dv?.components(separatedBy: ",")
+//                let arrToData = newDateArr?.filter({$0.contains("to")})
+//                newDateArr?.removeAll(where: {$0.contains("to")})
+//
+//                if newDateArr?.contains(value) == true{
+//                    return true
+//                }
+//
+//                if arrToData?.count  ?? 0 > 0{
+//                    for i in 0...(arrToData?.count ?? 0)-1{
+//                        let toArr = arrToData?[i].components(separatedBy: "to")
+//                        //                    let range = (Int(toArr?[0].trimmingCharacters(in:.whitespaces) ?? "") ?? 0)...(Int(toArr?[1].trimmingCharacters(in: .whitespaces) ?? "") ?? 0)
+//
+//                        if let startDate = isDateValid(dateVal: toArr?[0].trimmingCharacters(in: .whitespaces) ?? "", dateFormat: dateFormat),let  endDate =  isDateValid(dateVal: toArr?[1].trimmingCharacters(in: .whitespaces) ?? "", dateFormat: dateFormat){
+//                            let dateRange = startDate...endDate
+//                            if dateRange.contains(validDate)
+//                            {
+//                                return true
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+////            if newDateArr?.count ?? 0 > 0{
+////                if newDateArr?.contains(value) == true{
+////                    return true
+////                }
+//////                else{
+//////                    return false
+//////                }
+////            }
+//
+//
+////            let newDateRange = dv?.components(separatedBy: "to")
+//
+////            if newDateRange?.count ?? 0 > 1{
+////                if let validDate = isDateValid(dateVal: value, dateFormat: dateFormat){
+////                    if let startDate = isDateValid(dateVal: newDateRange?[0] ?? "", dateFormat: dateFormat),let  endDate =  isDateValid(dateVal: newDateRange?[1] ?? "", dateFormat: dateFormat){
+////                        let dateRange = startDate...endDate
+////                        if dateRange.contains(validDate)
+////                        {
+////                            return true
+////                        }
+//////                        else{
+//////                            return false
+//////                        }
+////                    }else{
+////                        return false
+////                    }
+////                }else{
+////                    return false
+////                }
+////            }
+//
+////            if dv == value{
+////                return true
+////            }
+////        }
+////
+//        return false
+//    }
+//
+//    func isDateValid(dateVal:String,dateFormat:String)->Date?{
+//        let dateFormatter = DateFormatter()
+////        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        dateFormatter.dateFormat = dateFormat
+//        if let date = dateFormatter.date(from:dateVal){
+//            return date
+//        }else{
+//            return nil
+//        }
+//    }
+//
+//    func validateBit(value:String,dv:String?)->Bool{
+//        if (dv == nil || (dv?.isEmpty) == true) {
+//            if value.isEmpty == true{
+//                return true
+//            }
+//            if (value == "0" || value == "1"){
+//                return true
+//            }else{
+//                return false
+//            }
+//        }else{
 //            if (value == dv){
 //                return true
+//            }else{
+//                return false
 //            }
 //        }
-        
-//        if (value != "0" && value != "1"){
-//            return false
-//        }
-        
-//        return false
-    }
-    
-    func validateBoolValue(value:String,dv:String?)->Bool{
-        if dv != nil && dv?.isEmpty == false{
-//            let newDV = dv?.components(separatedBy: ",")
-//            if newDV?.count ?? 0 > 0{
-//                if newDV?.contains(value) == true{
+//
+////        else{
+////            let newDV = dv?.components(separatedBy: ",")
+////
+////            if newDV?.count ?? 0 > 0{
+////                if newDV?.contains(value) == true{
+////                    return true
+////                }else{
+////                    return false
+////                }
+////            }
+////            if (value == dv){
+////                return true
+////            }
+////        }
+//
+////        if (value != "0" && value != "1"){
+////            return false
+////        }
+//
+////        return false
+//    }
+//
+//    func validateBoolValue(value:String,dv:String?)->Bool{
+//        if dv != nil && dv?.isEmpty == false{
+////            let newDV = dv?.components(separatedBy: ",")
+////            if newDV?.count ?? 0 > 0{
+////                if newDV?.contains(value) == true{
+////                    return true
+////                }else{
+////                    return false
+////                }
+////            }else{
+//                if value == dv{
 //                    return true
 //                }else{
 //                    return false
 //                }
-//            }else{
-                if value == dv{
-                    return true
-                }else{
-                    return false
-                }
-//            }
-        }
-            if value == "True" ||
-                value == "False" ||
-                value == "true" ||
-                value == "false"{
-                return true
-            }
-        
-        if dv == nil || dv?.isEmpty == true{
-            if value.isEmpty == true{
-                return true
-            }
-        }
-        
-        return false
-    }
-    
-    func validateNumber(value:String,dv:String?,dataType:Int)->Bool{
-        if dv == nil || dv?.isEmpty == true{
-//            if value.isEmpty{
-                return true
-//            }
-        }else{
-            var dvInComma = dv?.components(separatedBy: ",")
-            let arrToData = dvInComma?.filter({$0.contains("to")})
-            dvInComma?.removeAll(where: {$0.contains("to")})
-
-            if dvInComma?.contains(value) == true{
-                return true
-            }
-            
-            if arrToData?.count ?? 0 > 0{
-                for i in 0...(arrToData?.count ?? 0)-1{
-                    let toArr = arrToData?[i].components(separatedBy: "to")
-                    if dataType == SupportedDataType.decimalVal{
-                        var arrFloat = [Float]()
-                        for item in toArr! {
-                            arrFloat.append((item.trimmingCharacters(in: .whitespaces) as NSString).floatValue)
-                        }
-                        
-                        if let val = Float(value){
-                            if checkValInRange(arrRange: arrFloat, value: val) == true{
-                                return true
-                            }
-                        }
-                       
-                        
-                        if dv == value{
-                            return true
-                        }
-                        
-                        return false
-//                        if checkFloatValInRange(arrRange: toArr!, value: value) == true{
-//                            return true
-//                        }
-                    }else if dataType == SupportedDataType.intValue{
-                        let arrInt32 = toArr?.compactMap { Int32($0.trimmingCharacters(in: .whitespaces)) }
-                        
-                        if let val = Int32(value){
-                            if checkValInRange(arrRange: arrInt32 ?? [], value: val) == true{
-                                return true
-                            }
-                        }
-                        
-                        if dv == value{
-                            return true
-                        }
-                        
-                        return false
-                    }else if dataType == SupportedDataType.longVal{
-                        let arrInt64 = toArr?.compactMap { Int64($0.trimmingCharacters(in: .whitespaces)) }
-                        
-                        if let val = Int64(value){
-                            if checkValInRange(arrRange: arrInt64 ?? [], value: val) == true{
-                                return true
-                            }
-                        }
-                        
-                        if dv == value{
-                            return true
-                        }
-                        
-                        return false
-                    }
-                }
-            }
-            
-           
-            
-//            let dvTo = dv?.components(separatedBy: "to")
-            
-//            if dvTo?.count ?? 0 > 0{
-//                if checkValInRange(arrRange: dvTo!, value: value) == true{
-//                    return true
-//                }
-////                if let firstVal = Float(dvInComma?[0] ?? ""),let seccondVal = Float(dvInComma?[1] ?? ""){
-////                    let range = firstVal...seccondVal
-////                    if range.contains(Float(value) ?? 0.0){
-////                        return true
-////                    }
-////                }
-//            }
-            
-//            if dv == value{
+////            }
+//        }
+//            if value == "True" ||
+//                value == "False" ||
+//                value == "true" ||
+//                value == "false"{
 //                return true
 //            }
-                
-           
-        }
-        return false
-    }
-    
-    func validateLatLong(value:String,dv:String?)->Bool{
-        if dv == nil || dv?.isEmpty == true{
-            if value.isEmpty{
-                return true
-            }
-        }
-        let regex = NSRegularExpression("\\[\\d*\\.?\\d*\\,\\d*\\.?\\d*\\]")
-        return regex.matches(value)
-    }
-    
-    func checkValInRange<T:Comparable>(arrRange:[T],value:T)->Bool{
-        if arrRange.count > 0{
-            let range = arrRange[0]...arrRange[1]
-            if range.contains(value){
-                return true
-            }
-        }
-        return false
-    }
+//
+//        if dv == nil || dv?.isEmpty == true{
+//            if value.isEmpty == true{
+//                return true
+//            }
+//        }
+//
+//        return false
+//    }
+//
+//    func validateNumber(value:String,dv:String?,dataType:Int)->Bool{
+//        if dv == nil || dv?.isEmpty == true{
+////            if value.isEmpty{
+//                return true
+////            }
+//        }else{
+//            var dvInComma = dv?.components(separatedBy: ",")
+//            let arrToData = dvInComma?.filter({$0.contains("to")})
+//            dvInComma?.removeAll(where: {$0.contains("to")})
+//
+//            if dvInComma?.contains(value) == true{
+//                return true
+//            }
+//
+//            if arrToData?.count ?? 0 > 0{
+//                for i in 0...(arrToData?.count ?? 0)-1{
+//                    let toArr = arrToData?[i].components(separatedBy: "to")
+//                    if dataType == SupportedDataType.decimalVal{
+//                        var arrFloat = [Float]()
+//                        for item in toArr! {
+//                            arrFloat.append((item.trimmingCharacters(in: .whitespaces) as NSString).floatValue)
+//                        }
+//
+//                        if let val = Float(value){
+//                            if checkValInRange(arrRange: arrFloat, value: val) == true{
+//                                return true
+//                            }
+//                        }
+//
+//
+//                        if dv == value{
+//                            return true
+//                        }
+//
+//                        return false
+////                        if checkFloatValInRange(arrRange: toArr!, value: value) == true{
+////                            return true
+////                        }
+//                    }else if dataType == SupportedDataType.intValue{
+//                        let arrInt32 = toArr?.compactMap { Int32($0.trimmingCharacters(in: .whitespaces)) }
+//
+//                        if let val = Int32(value){
+//                            if checkValInRange(arrRange: arrInt32 ?? [], value: val) == true{
+//                                return true
+//                            }
+//                        }
+//
+//                        if dv == value{
+//                            return true
+//                        }
+//
+//                        return false
+//                    }else if dataType == SupportedDataType.longVal{
+//                        let arrInt64 = toArr?.compactMap { Int64($0.trimmingCharacters(in: .whitespaces)) }
+//
+//                        if let val = Int64(value){
+//                            if checkValInRange(arrRange: arrInt64 ?? [], value: val) == true{
+//                                return true
+//                            }
+//                        }
+//
+//                        if dv == value{
+//                            return true
+//                        }
+//
+//                        return false
+//                    }
+//                }
+//            }
+//
+//
+//
+////            let dvTo = dv?.components(separatedBy: "to")
+//
+////            if dvTo?.count ?? 0 > 0{
+////                if checkValInRange(arrRange: dvTo!, value: value) == true{
+////                    return true
+////                }
+//////                if let firstVal = Float(dvInComma?[0] ?? ""),let seccondVal = Float(dvInComma?[1] ?? ""){
+//////                    let range = firstVal...seccondVal
+//////                    if range.contains(Float(value) ?? 0.0){
+//////                        return true
+//////                    }
+//////                }
+////            }
+//
+////            if dv == value{
+////                return true
+////            }
+//
+//
+//        }
+//        return false
+//    }
+//
+//    func validateLatLong(value:String,dv:String?)->Bool{
+//        if dv == nil || dv?.isEmpty == true{
+//            if value.isEmpty{
+//                return true
+//            }
+//        }
+//        let regex = NSRegularExpression("\\[\\d*\\.?\\d*\\,\\d*\\.?\\d*\\]")
+//        return regex.matches(value)
+//    }
+//
+//    func checkValInRange<T:Comparable>(arrRange:[T],value:T)->Bool{
+//        if arrRange.count > 0{
+//            let range = arrRange[0]...arrRange[1]
+//            if range.contains(value){
+//                return true
+//            }
+//        }
+//        return false
+//    }
     
 //    func checkFloatValInRange(arrRange:[String],value:String)->Bool{
 //        if let firstVal = Float(arrRange[0].trimmingCharacters(in: .whitespaces) ),let seccondVal = Float(arrRange[1].trimmingCharacters(in: .whitespaces) ){
@@ -1693,28 +1717,7 @@ class IoTConnectManager {
     
 }
 
-class CustomTimer: Timer {
 
-    static var sharedTimers: [CustomTimer] = []
-
-    static func invalidateAllTimers() {
-        for timer in CustomTimer.sharedTimers {
-            timer.invalidate()
-        }
-    }
-
-    // Use appropriate initializer and super calls.
-    convenience init() {
-        self.init()
-        CustomTimer.sharedTimers.append(self)
-    }
-    
-    deinit {
-        CustomTimer.sharedTimers.removeAll { (timer) -> Bool in
-            return timer === self
-        }
-    }
-}
 
 
 
