@@ -697,6 +697,10 @@ extension IoTConnectManager {
 
                                             if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
                                                 arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:[valDictKey:dictValue]],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "" )
+                                                
+                                                if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
+                                                    createResponseForEdgeRuleDeviceTelemetryData(dict: [dictkey:[valDictKey:dictValue]])
+                                                }
 //                                                arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [valDictKey:dictValue],id: "",tg: arrFilterD?[0].tg,dt: arrData?[0]["dt"] as? String ?? "")
                                             }
                                             if arrDictValidData.count == 0{
@@ -772,6 +776,11 @@ extension IoTConnectManager {
                                         
                                         if boolEdgeDevice == 1, let _ = Double(val as? String ?? ""){
                                             arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:val],id: arrData?[i]["id"] as? String,tg: arrData?[i]["tg"] as? String,dt: arrData?[0]["dt"] as? String ?? "")
+                                            
+                                            if edgeRules != nil,!(val as? String ?? "").isEmpty{
+                                                createResponseForEdgeRuleDeviceTelemetryData(dict:[dictkey:val])
+                                            }
+                                            
                                         }
                                         if let index = arrDictValidData.firstIndex(where: {$0["tg"] as? String  == arrData?[i]["tg"] as? String}) {
                                             var dVal = arrDictValidData[index]["d"] as? [String:Any]
@@ -815,7 +824,7 @@ extension IoTConnectManager {
                 
                 if boolEdgeDevice == 1{
                     print("dictValidData edgeDevice \(dictValidData)")
-                    responseForEdgeRuleMatch(dictValidData: dictValidData)
+                    sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0]["id"] as? String ?? "", tag: arrData?[0]["tg"] as? String ?? "")
                 }else{
                     let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
                     prevSendDataTime = Date()
@@ -887,6 +896,10 @@ extension IoTConnectManager {
 
                                         if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
                                             arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:[valDictKey:dictValue]],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "" )
+                                            
+                                            if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
+                                                createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:[valDictKey:dictValue]])
+                                            }
                                         }
                                     }else{
                                         dictInValidData = dict
@@ -912,6 +925,9 @@ extension IoTConnectManager {
                                     if boolEdgeDevice == 1, let _ = Double(value as? String ?? ""){
                                         arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:value],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "")
                                         
+                                        if let ruleData = edgeRules{
+                                            createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:value])
+                                        }
                                         // var arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == key})
 //                                        if arrValidData.count > 0{
 //                                            for i in 0...arrValidData.count-1{
@@ -995,7 +1011,7 @@ extension IoTConnectManager {
                     objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
                 }else{
                     print("dictValidData edgeDevice \(dictValidData)")
-                    responseForEdgeRuleMatch(dictValidData: dictValidData)
+                    sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0]["id"] as? String ?? "", tag: arrData?[0]["tg"] as? String ?? "")
 //                    if let ruleData = edgeRules{
 //                        if let rule = ruleData.d?.r?[0].con{
 //                            var arrRules = rule.components(separatedBy: " ")//rule.components(separatedBy: "AMD")
@@ -1217,25 +1233,44 @@ extension IoTConnectManager {
                 return false
             }
         }
+        
+        func createResponseForEdgeRuleDeviceTelemetryData(dict:[String:Any]){
+            dict.forEach({ (dictkey:String,dictVal:Any) in
+                if let valDict = dictVal as? [String:Any]{
+                    for (valDictKey,valDictValue) in valDict{
+                        if dictForEdgeRuleData[dictkey] != nil{
+                            var dict = dictForEdgeRuleData[dictkey] as? [String:Any]
+                            dict?.append(anotherDict:valDict)
+                            dictForEdgeRuleData[dictkey] = dict
+                        }else{
+                            dictForEdgeRuleData.append(anotherDict: dict)
+                        }
+                    }
+                }else{
+                    dictForEdgeRuleData.append(anotherDict: [dictkey:dictVal])
+                }
+            })
+            print("dictForEdgeRuleData \(dictForEdgeRuleData)")
+        }
     }
     
-    func responseForEdgeRuleMatch(dictValidData:[String:Any]){
+    func sendMessageForEdgeRuleMatch(dictValidData:[String:Any],dictDeviceTelemetry:[String:Any],id:String,tag:String){
         if let ruleData = edgeRules{
             if let rule = ruleData.d?.r?[0].con{
-                var dictValidDataCopy = dictValidData
-                dictValidDataCopy = dictValidDataCopy.filter { ($0.value as AnyObject).isEmpty == false }.mapValues { $0 }
-                print("dictValidDataCopy \(dictValidDataCopy) \(dictValidData)")
+//                var dictValidDataCopy = dictValidData
+//                dictValidDataCopy = dictValidDataCopy.filter { ($0.value as AnyObject).isEmpty == false }.mapValues { $0 }
+//                print("dictValidDataCopy \(dictValidDataCopy) \(dictValidData)")
                 
                 var arrRules = rule.components(separatedBy: " ")//rule.components(separatedBy: "AMD")
                 arrRules.removeAll(where: {$0 == "AND"})
                 
                 if arrRules.count > 0{
                     var arrValidRule = [String:Any]()
-                    var dictData = [String:Any]()
-                    var arrTulesCopy = arrRules
+//                    var dictData = [String:Any]()
+                    var arrRulesCopy = arrRules
                     
-                    while(arrTulesCopy.count != 0){
-                        let ruleArr = Array(arrTulesCopy.prefix(3))
+                    while(arrRulesCopy.count != 0){
+                        let ruleArr = Array(arrRulesCopy.prefix(3))
                         //                                    for i in 0...ruleArr.count-1{
                         //                                    let rule = arrRules[i].components(separatedBy: " ")
                         //                                    print("Rule seperated \(rule)")
@@ -1244,12 +1279,11 @@ extension IoTConnectManager {
                         if att.count == 1{
                             if att[0].contains("#"){
                                 print("\(att[0]) contains #")
-                                let validData = handleHashSeperatedAtt(ruleArr: ruleArr)
-                                print("valid data \(validData)")
-                            }else if let val  = dictValidData[att[0]] as? String{
+                                handleHashSeperatedAtt(ruleArr: ruleArr)
+                            }else if let val  = dictValidData[att[0]] as? String, !val.isEmpty{
                                 let isRuleMatch = checkEdgeRuleVal(valToCompare: Float(val) ?? 0.0, strOperator:ruleArr[1], valToCompareWith: Float(ruleArr[2]) ?? 0.0)
-                                print("isRuleMatch \(isRuleMatch)")
-                                dictData.append(anotherDict: [att[0]:val])
+                                print("isRuleMatch \(isRuleMatch) \(ruleArr[0]) \(val)")
+//                                dictData.append(anotherDict: [att[0]:val])
                                 if isRuleMatch{
                                     arrValidRule.append(anotherDict: [att[0]:val])
                                     //                                                arrValidRule.append([att[0]:val])
@@ -1257,9 +1291,7 @@ extension IoTConnectManager {
                                 //                                                print("arrValidrule \(arrValidRule)")
                             }
                         }else{
-                            let validData = handleHashSeperatedAtt(ruleArr: ruleArr)
-                            print("valid data \(validData)")
-                            
+                            handleHashSeperatedAtt(ruleArr: ruleArr)
                             //                            let arrHashSeperated = att[0].components(separatedBy: "#")
                             //                            print("hashSeperated \(arrHashSeperated)")
                             //                            if arrHashSeperated.count == 1{
@@ -1305,25 +1337,40 @@ extension IoTConnectManager {
                             //                                }
                             //                            }
                         }
-                        print("arrValidrule \(arrValidRule) dictData \(dictData)")
+                        //                        print("arrValidrule \(arrValidRule) dataDeviceTelemetry \(dictDeviceTelemetry)")
                         //                                    }
-                        arrTulesCopy.removeFirst(3)
+                        arrRulesCopy.removeFirst(3)
                     }
+                    print("arrValidrule \(arrValidRule) dataDeviceTelemetry \(dictDeviceTelemetry)")
                     
-                    
-                    func handleHashSeperatedAtt(ruleArr:[String]) -> [String:Any]{
+                    if !arrValidRule.isEmpty{
+                        let dictToSend = ["dt":objCommon.now(),
+                                          "d":[["rg": edgeRules?.d?.r?[0].g ?? "",
+                                                "ct":edgeRules?.d?.r?[0].con ?? "",
+                                                "cv": arrValidRule,
+                                                "sg": edgeRules?.d?.r?[0].es ?? "",
+                                                "d":[dictDeviceTelemetry],
+                                                "id": id,
+                                                "dt":objCommon.now(),
+                                                "tg":tag
+                                               ]]
+                        ] as [String : Any]
+                        let topic = dictSyncResponse[keyPath:"p.topics.erm"] as! String
+                        objMQTTClient.publishTopicOnMQTT(withData: dictToSend, topic: topic)
+                    }
+
+                    func handleHashSeperatedAtt(ruleArr:[String]){
 //                        var arrValidRule = [String:Any]()
-                        
                         let att = ruleArr[0].components(separatedBy: ".")
                         let arrHashSeperated = att[0].components(separatedBy: "#")
                         print("hashSeperated \(arrHashSeperated)")
                         if arrHashSeperated.count == 1{
                             if let dict  = dictValidData[att[0]] as? [String:Any]{
-                                if let val = dict[att[1]] as? String{
+                                if let val = dict[att[1]] as? String,!val.isEmpty{
                                     let isRuleMatch = checkEdgeRuleVal(valToCompare: Float(val) ?? 0.0, strOperator:ruleArr[1], valToCompareWith: Float(ruleArr[2]) ?? 0.0)
-                                    print("isRuleMatch \(isRuleMatch)")
+                                    print("isRuleMatch \(isRuleMatch) \(ruleArr[0]) \(val)")
             //                        dictData.append(anotherDict: [att[0]:val])
-                                    dictData = addValInNestedDict(dict: dictData, parentName: att[0], attName: att[1], val: val)
+//                                    dictData = addValInNestedDict(dict: dictData, parentName: att[0], attName: att[1], val: val)
                                     if isRuleMatch{
                                         arrValidRule = addValInNestedDict(dict: arrValidRule, parentName: att[0], attName: att[1], val: val)
 //                                        if let objDict = arrValidRule[att[0]] as? [String:Any]{
@@ -1349,7 +1396,6 @@ extension IoTConnectManager {
                                     dict = dictVal
                                 }
                                 
-                                
                                 if att.count == 1{
                                     val =  dict?[arrHashSeperated[1]] as? String ?? ""
                                     attName = arrHashSeperated[1]
@@ -1358,10 +1404,10 @@ extension IoTConnectManager {
                                     attName = att[1]
                                 }
                                
-            //                    if let val = dict?[att[1]] as? String{
-                                dictData = addValInNestedDict(dict: dictData, parentName: arrHashSeperated[1], attName: attName, val: val)
+                                if !val.isEmpty{
+//                                    dictData = addValInNestedDict(dict: dictData, parentName: arrHashSeperated[1], attName: attName, val: val)
                                     let isRuleMatch = checkEdgeRuleVal(valToCompare: Float(val) ?? 0.0, strOperator:ruleArr[1], valToCompareWith: Float(ruleArr[2]) ?? 0.0)
-                                    print("isRuleMatch \(isRuleMatch)")
+                                    print("isRuleMatch \(isRuleMatch) \(ruleArr[0]) \(val)")
                                     
                                     if isRuleMatch{
                                         if att.count == 1{
@@ -1369,89 +1415,22 @@ extension IoTConnectManager {
                                         }else{
                                             arrValidRule = addValInNestedDict(dict: arrValidRule, parentName: arrHashSeperated[1], attName: attName, val: val)
                                         }
-//                                        else if let objDict = arrValidRule[arrHashSeperated[1]] as? [String:Any]{
-//                                            var dict = objDict
-//                                            dict.append(anotherDict: [attName:val])
-//                                            arrValidRule = [arrHashSeperated[1]:dict]
-//                                        }else{
-//                                            arrValidRule[arrHashSeperated[1]] = [attName:val]
-//                                        }
+                                        //                                        else if let objDict = arrValidRule[arrHashSeperated[1]] as? [String:Any]{
+                                        //                                            var dict = objDict
+                                        //                                            dict.append(anotherDict: [attName:val])
+                                        //                                            arrValidRule = [arrHashSeperated[1]:dict]
+                                        //                                        }else{
+                                        //                                            arrValidRule[arrHashSeperated[1]] = [attName:val]
+                                        //                                        }
                                     }
-            //                    }
+                                }
                             }
                         }
-                        return arrValidRule
+//                        return arrValidRule
                     }
                 }
             }
         }
-        
-//        func handleHashSeperatedAtt(ruleArr:[String]) -> [String:Any]{
-//            var arrValidRule = [String:Any]()
-//
-//            let att = ruleArr[0].components(separatedBy: ".")
-//            let arrHashSeperated = att[0].components(separatedBy: "#")
-//            print("hashSeperated \(arrHashSeperated)")
-//            if arrHashSeperated.count == 1{
-//                if let dict  = dictValidData[att[0]] as? [String:Any]{
-//                    if let val = dict[att[1]] as? String{
-//                        let isRuleMatch = checkEdgeRuleVal(valToCompare: Float(val) ?? 0.0, strOperator:ruleArr[1], valToCompareWith: Float(ruleArr[2]) ?? 0.0)
-//                        print("isRuleMatch \(isRuleMatch)")
-////                        dictData.append(anotherDict: [att[0]:val])
-//                        if isRuleMatch{
-//                            if let objDict = arrValidRule[att[0]] as? [String:Any]{
-//                                var dict = objDict
-//                                dict.append(anotherDict: [att[1]:val])
-//                                arrValidRule = [att[0]:dict]
-//                            }else{
-//                                arrValidRule[att[0]] = [att[1]:val]
-//                            }
-//                        }
-//                    }
-//                }
-//            }else{
-//                var val = ""
-//                var attName = ""
-//                let arrDictD = dictValidData["d"] as? [[String:Any]]
-//
-//                if let firstIndexP = arrDictD?.firstIndex(where: {$0["tg"] as! String == arrHashSeperated[0]}){
-//                    print("hashSeerated filter \(arrDictD?[firstIndexP])")
-//                    var dict = arrDictD?[firstIndexP] as? [String:Any]
-//                    dict = dict?["d"] as? [String:Any]
-//                    if let dictVal = dict?[arrHashSeperated[1]] as? [String:Any]{
-//                        dict = dictVal
-//                    }
-//
-//
-//                    if att.count == 1{
-//                        val =  dict?[arrHashSeperated[1]] as? String ?? ""
-//                        attName = arrHashSeperated[1]
-//                    }else{
-//                        val =  dict?[att[1]] as? String ?? ""
-//                        attName = att[1]
-//                    }
-//
-////                    if let val = dict?[att[1]] as? String{
-//                        let isRuleMatch = checkEdgeRuleVal(valToCompare: Float(val) ?? 0.0, strOperator:ruleArr[1], valToCompareWith: Float(ruleArr[2]) ?? 0.0)
-//                        print("isRuleMatch \(isRuleMatch)")
-//
-//                        if isRuleMatch{
-//                            if att.count == 1{
-//                                arrValidRule = [attName:val]
-//                            }
-//                            else if let objDict = arrValidRule[arrHashSeperated[1]] as? [String:Any]{
-//                                var dict = objDict
-//                                dict.append(anotherDict: [attName:val])
-//                                arrValidRule = [arrHashSeperated[1]:dict]
-//                            }else{
-//                                arrValidRule[arrHashSeperated[1]] = [attName:val]
-//                            }
-//                        }
-////                    }
-//                }
-//            }
-//            return arrValidRule
-//        }
     }
     
     func checkEdgeRuleVal(valToCompare:Float,strOperator:String,valToCompareWith:Float)-> Bool{
