@@ -13,8 +13,14 @@ enum statusText:String{
 }
 
 struct CommandType {
+    static let DEVICE_COMMAND = 0
+    static let OTA_COMMAND = 1
+    static let MODULE_COMMAND = 2
     static let CORE_COMMAND = 101//"0x01"
-    static let FIRMWARE_UPDATE = 102//"0x02"
+    static let REFRESH_TWIN = 102//"0x02"
+    static let REFRESH_EDGE_RULE = 103
+    static let REFRESH_CHILD_DEVICE = 104
+    static let DATA_FREQUENCY_CHANGE = 105
     static let ATTRIBUTE_INFO_UPDATE = 110//"0x10"
     static let SETTING_INFO_UPDATE = 111//"0x11"
     static let PASSWORD_INFO_UPDATE = 112//"0x12"

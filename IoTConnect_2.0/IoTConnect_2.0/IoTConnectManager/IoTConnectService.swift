@@ -325,8 +325,6 @@ extension IoTConnectManager {
                 }  else if typeAction == 10{
                     print("Edge rule match \(String(describing: dataToPass))")
                     self.parseEdgeRuleResponse(response: dataToPass as! [String : Any])
-//                    self.blockHandlerDeviceCallBack(dataToPass)
-//                    self.blockHandlerGetChildDevicesCallback(dataToPass)
                 }
             }
         } else {
@@ -925,7 +923,7 @@ extension IoTConnectManager {
                                     if boolEdgeDevice == 1, let _ = Double(value as? String ?? ""){
                                         arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:value],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "")
                                         
-                                        if let ruleData = edgeRules{
+                                        if edgeRules != nil{
                                             createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:value])
                                         }
                                         // var arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == key})
@@ -1237,7 +1235,7 @@ extension IoTConnectManager {
         func createResponseForEdgeRuleDeviceTelemetryData(dict:[String:Any]){
             dict.forEach({ (dictkey:String,dictVal:Any) in
                 if let valDict = dictVal as? [String:Any]{
-                    for (valDictKey,valDictValue) in valDict{
+//                    for (valDictKey,valDictValue) in valDict{
                         if dictForEdgeRuleData[dictkey] != nil{
                             var dict = dictForEdgeRuleData[dictkey] as? [String:Any]
                             dict?.append(anotherDict:valDict)
@@ -1245,7 +1243,7 @@ extension IoTConnectManager {
                         }else{
                             dictForEdgeRuleData.append(anotherDict: dict)
                         }
-                    }
+//                    }
                 }else{
                     dictForEdgeRuleData.append(anotherDict: [dictkey:dictVal])
                 }
@@ -1389,7 +1387,7 @@ extension IoTConnectManager {
                             let arrDictD = dictValidData["d"] as? [[String:Any]]
                             
                             if let firstIndexP = arrDictD?.firstIndex(where: {$0["tg"] as! String == arrHashSeperated[0]}){
-                                print("hashSeerated filter \(arrDictD?[firstIndexP])")
+                                print("hashSeerated filter \(arrDictD?[firstIndexP] ?? [:])")
                                 var dict = arrDictD?[firstIndexP] as? [String:Any]
                                 dict = dict?["d"] as? [String:Any]
                                 if let dictVal = dict?[arrHashSeperated[1]] as? [String:Any]{

@@ -222,8 +222,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1548"
-            endingLineNumber = "1548"
+            startingLineNumber = "1568"
+            endingLineNumber = "1568"
             landmarkName = "dispose(sdkconnection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,8 +238,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "getUpdatedSyncResponseFor(strKey:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -270,8 +270,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "853"
-            endingLineNumber = "853"
+            startingLineNumber = "873"
+            endingLineNumber = "873"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
             <Locations>
@@ -363,8 +363,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "851"
-            endingLineNumber = "851"
+            startingLineNumber = "871"
+            endingLineNumber = "871"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
             <Locations>
@@ -426,8 +426,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "874"
-            endingLineNumber = "874"
+            startingLineNumber = "894"
+            endingLineNumber = "894"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
             <Locations>
@@ -474,8 +474,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "894"
-            endingLineNumber = "894"
+            startingLineNumber = "914"
+            endingLineNumber = "914"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
             <Locations>
@@ -570,8 +570,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1024"
-            endingLineNumber = "1024"
+            startingLineNumber = "788"
+            endingLineNumber = "788"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
             <Locations>
@@ -618,8 +618,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1026"
-            endingLineNumber = "1026"
+            startingLineNumber = "790"
+            endingLineNumber = "790"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
             <Locations>
@@ -744,8 +744,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1032"
-            endingLineNumber = "1032"
+            startingLineNumber = "796"
+            endingLineNumber = "796"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -760,8 +760,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "704"
-            endingLineNumber = "704"
+            startingLineNumber = "469"
+            endingLineNumber = "469"
             landmarkName = "manageIdnetityreponse(response:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -776,8 +776,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "700"
-            endingLineNumber = "700"
+            startingLineNumber = "465"
+            endingLineNumber = "465"
             landmarkName = "manageIdnetityreponse(response:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -808,8 +808,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "connectSDK()"
             landmarkType = "7">
          </BreakpointContent>
@@ -872,8 +872,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "867"
-            endingLineNumber = "867"
+            startingLineNumber = "887"
+            endingLineNumber = "887"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -888,8 +888,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "862"
-            endingLineNumber = "862"
+            startingLineNumber = "882"
+            endingLineNumber = "882"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
             <Locations>
@@ -936,8 +936,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "904"
-            endingLineNumber = "904"
+            startingLineNumber = "924"
+            endingLineNumber = "924"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -952,8 +952,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1336"
-            endingLineNumber = "1336"
+            startingLineNumber = "1356"
+            endingLineNumber = "1356"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -968,8 +968,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1332"
-            endingLineNumber = "1332"
+            startingLineNumber = "1352"
+            endingLineNumber = "1352"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -984,8 +984,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "704"
-            endingLineNumber = "704"
+            startingLineNumber = "724"
+            endingLineNumber = "724"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1000,8 +1000,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "771"
-            endingLineNumber = "771"
+            startingLineNumber = "791"
+            endingLineNumber = "791"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1016,8 +1016,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "596"
-            endingLineNumber = "596"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
             landmarkName = "loadData(data:)"
             landmarkType = "7">
             <Locations>
@@ -1079,8 +1079,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "749"
-            endingLineNumber = "749"
+            startingLineNumber = "747"
+            endingLineNumber = "747"
             landmarkName = "validateData(data:)"
             landmarkType = "7">
             <Locations>
@@ -1127,8 +1127,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "817"
-            endingLineNumber = "817"
+            startingLineNumber = "837"
+            endingLineNumber = "837"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1143,8 +1143,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "993"
-            endingLineNumber = "993"
+            startingLineNumber = "1013"
+            endingLineNumber = "1013"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1159,8 +1159,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "755"
-            endingLineNumber = "755"
+            startingLineNumber = "753"
+            endingLineNumber = "753"
             landmarkName = "validateData(data:)"
             landmarkType = "7">
             <Locations>
@@ -1207,8 +1207,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "752"
-            endingLineNumber = "752"
+            startingLineNumber = "750"
+            endingLineNumber = "750"
             landmarkName = "validateData(data:)"
             landmarkType = "7">
             <Locations>
@@ -1270,8 +1270,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1364"
-            endingLineNumber = "1364"
+            startingLineNumber = "1384"
+            endingLineNumber = "1384"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1286,74 +1286,10 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "525"
-            endingLineNumber = "525"
-            landmarkName = "getDevicesArray()"
+            startingLineNumber = "315"
+            endingLineNumber = "315"
+            landmarkName = "getChildDevicesAttributes()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "44B0F976-7ECE-40E0-AF1E-82B984E96BB3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "421"
-            endingLineNumber = "421"
-            landmarkName = "getSimpleDeviceData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "442FE984-043A-47AE-8CAE-9A4B72BB5777"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
-            landmarkName = "getSimpleDeviceData()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "442FE984-043A-47AE-8CAE-9A4B72BB5777 - b41c8b194365bbde"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IoTConnectDemo.ViewController.getSimpleDeviceData() -&gt; ()"
-                  moduleName = "IoTConnectDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnectDemo/IoTConnectDemo/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "464"
-                  endingLineNumber = "464"
-                  offsetFromSymbolStart = "3512">
-               </Location>
-               <Location
-                  uuid = "442FE984-043A-47AE-8CAE-9A4B72BB5777 - b41c8b194365bbde"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IoTConnectDemo.ViewController.getSimpleDeviceData() -&gt; ()"
-                  moduleName = "IoTConnectDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnectDemo/IoTConnectDemo/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "464"
-                  endingLineNumber = "464"
-                  offsetFromSymbolStart = "5820">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1366,8 +1302,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "822"
-            endingLineNumber = "822"
+            startingLineNumber = "842"
+            endingLineNumber = "842"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1382,8 +1318,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "562"
-            endingLineNumber = "562"
+            startingLineNumber = "352"
+            endingLineNumber = "352"
             landmarkName = "loadData(data:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1398,8 +1334,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "604"
-            endingLineNumber = "604"
+            startingLineNumber = "392"
+            endingLineNumber = "392"
             landmarkName = "loadData(data:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1414,8 +1350,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "686"
-            endingLineNumber = "686"
+            startingLineNumber = "451"
+            endingLineNumber = "451"
             landmarkName = "loadData(data:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1430,8 +1366,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "695"
-            endingLineNumber = "695"
+            startingLineNumber = "460"
+            endingLineNumber = "460"
             landmarkName = "loadData(data:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1446,8 +1382,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "566"
-            endingLineNumber = "566"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "loadData(data:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1462,9 +1398,9 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "518"
-            endingLineNumber = "518"
-            landmarkName = "getDevicesArray()"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
+            landmarkName = "getChildDevicesAttributes()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1478,9 +1414,9 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
-            landmarkName = "getDevicesArray()"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
+            landmarkName = "getChildDevicesAttributes()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1494,8 +1430,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "486"
-            endingLineNumber = "486"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "getParentArray()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1510,8 +1446,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "766"
-            endingLineNumber = "766"
+            startingLineNumber = "786"
+            endingLineNumber = "786"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1526,8 +1462,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "804"
-            endingLineNumber = "804"
+            startingLineNumber = "824"
+            endingLineNumber = "824"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1542,8 +1478,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "682"
-            endingLineNumber = "682"
+            startingLineNumber = "702"
+            endingLineNumber = "702"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
             <Locations>
@@ -1590,8 +1526,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "685"
-            endingLineNumber = "685"
+            startingLineNumber = "705"
+            endingLineNumber = "705"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
             <Locations>
@@ -1638,8 +1574,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "797"
-            endingLineNumber = "797"
+            startingLineNumber = "817"
+            endingLineNumber = "817"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
             <Locations>
@@ -1686,8 +1622,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "800"
-            endingLineNumber = "800"
+            startingLineNumber = "820"
+            endingLineNumber = "820"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1702,8 +1638,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "663"
-            endingLineNumber = "663"
+            startingLineNumber = "442"
+            endingLineNumber = "442"
             landmarkName = "loadData(data:)"
             landmarkType = "7">
             <Locations>
@@ -1750,8 +1686,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "658"
-            endingLineNumber = "658"
+            startingLineNumber = "437"
+            endingLineNumber = "437"
             landmarkName = "loadData(data:)"
             landmarkType = "7">
             <Locations>
@@ -1828,8 +1764,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "696"
-            endingLineNumber = "696"
+            startingLineNumber = "716"
+            endingLineNumber = "716"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1844,8 +1780,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "710"
-            endingLineNumber = "710"
+            startingLineNumber = "730"
+            endingLineNumber = "730"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
             <Locations>
@@ -1892,8 +1828,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "727"
-            endingLineNumber = "727"
+            startingLineNumber = "747"
+            endingLineNumber = "747"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1908,8 +1844,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "701"
-            endingLineNumber = "701"
+            startingLineNumber = "721"
+            endingLineNumber = "721"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1924,8 +1860,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "775"
-            endingLineNumber = "775"
+            startingLineNumber = "795"
+            endingLineNumber = "795"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1940,8 +1876,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1356"
-            endingLineNumber = "1356"
+            startingLineNumber = "1376"
+            endingLineNumber = "1376"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1956,8 +1892,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1352"
-            endingLineNumber = "1352"
+            startingLineNumber = "1372"
+            endingLineNumber = "1372"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1972,8 +1908,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1347"
-            endingLineNumber = "1347"
+            startingLineNumber = "1367"
+            endingLineNumber = "1367"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -1988,8 +1924,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1345"
-            endingLineNumber = "1345"
+            startingLineNumber = "1365"
+            endingLineNumber = "1365"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -2004,8 +1940,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1260"
-            endingLineNumber = "1260"
+            startingLineNumber = "1280"
+            endingLineNumber = "1280"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -2020,8 +1956,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "809"
-            endingLineNumber = "809"
+            startingLineNumber = "807"
+            endingLineNumber = "807"
             landmarkName = "validateData(data:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2036,8 +1972,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "889"
-            endingLineNumber = "889"
+            startingLineNumber = "909"
+            endingLineNumber = "909"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -2052,8 +1988,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1242"
-            endingLineNumber = "1242"
+            startingLineNumber = "1262"
+            endingLineNumber = "1262"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -2068,8 +2004,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1062"
-            endingLineNumber = "1062"
+            startingLineNumber = "1082"
+            endingLineNumber = "1082"
             landmarkName = "IoTConnectManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -2212,42 +2148,10 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1359"
-            endingLineNumber = "1359"
+            startingLineNumber = "1357"
+            endingLineNumber = "1357"
             landmarkName = "sendMessageForEdgeRuleMatch(dictValidData:dictDeviceTelemetry:id:tag:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "400E5B5D-87B0-47CF-8582-DF27E0902B2C - 71d72f278e6395b5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "handleHashSeperatedAtt(ruleArr: Swift.Array&lt;Swift.String&gt;) -&gt; Swift.Dictionary&lt;Swift.String, Any&gt;"
-                  moduleName = "IoTConnect_2_0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1269"
-                  endingLineNumber = "1269"
-                  offsetFromSymbolStart = "260">
-               </Location>
-               <Location
-                  uuid = "400E5B5D-87B0-47CF-8582-DF27E0902B2C - 7f48dad8f892bff9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IoTConnect_2_0.IoTConnectManager.responseForEdgeRuleMatch(dictValidData: Swift.Dictionary&lt;Swift.String, Any&gt;, dictDeviceTelemetry: Swift.Dictionary&lt;Swift.String, Any&gt;, id: Swift.String, tag: Swift.String) -&gt; ()"
-                  moduleName = "IoTConnect_2_0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1362"
-                  endingLineNumber = "1362"
-                  offsetFromSymbolStart = "8684">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2296,6 +2200,134 @@
                   offsetFromSymbolStart = "5080">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "045895F4-0776-4123-801E-0D5A08C3F08C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "684"
+            endingLineNumber = "684"
+            landmarkName = "calcEdgeData(arrValues:latestVal:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "045895F4-0776-4123-801E-0D5A08C3F08C - a2ae777e77fca124"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IoTConnect_2_0.IoTConnectManager.calcEdgeData(arrValues: Swift.Array&lt;Swift.String&gt;, latestVal: Swift.String) -&gt; Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "IoTConnect_2_0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "664"
+                  endingLineNumber = "664"
+                  offsetFromSymbolStart = "1568">
+               </Location>
+               <Location
+                  uuid = "045895F4-0776-4123-801E-0D5A08C3F08C - a2ae777e77fca124"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IoTConnect_2_0.IoTConnectManager.calcEdgeData(arrValues: Swift.Array&lt;Swift.String&gt;, latestVal: Swift.String) -&gt; Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "IoTConnect_2_0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "664"
+                  endingLineNumber = "664"
+                  offsetFromSymbolStart = "1972">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "313AB880-B965-41C3-8DFB-A566CA018F3E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "460"
+            endingLineNumber = "460"
+            landmarkName = "storeEdgeDeviceData(arr:dictVal:id:tg:dt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3100465E-1331-47E7-AE90-275F80EBBF47"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "506"
+            endingLineNumber = "506"
+            landmarkName = "storeEdgeDeviceData(arr:dictVal:id:tg:dt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5198DCB0-9FD2-45B7-BF72-D91F7F831191"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "519"
+            endingLineNumber = "519"
+            landmarkName = "storeEdgeDeviceData(arr:dictVal:id:tg:dt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F2928F8E-48CB-4868-963A-392F3E190B06"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "532"
+            endingLineNumber = "532"
+            landmarkName = "storeEdgeDeviceData(arr:dictVal:id:tg:dt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D02C0711-2408-4356-9326-502F31E87283"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "667"
+            endingLineNumber = "667"
+            landmarkName = "storeEdgeDeviceData(arr:dictVal:id:tg:dt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

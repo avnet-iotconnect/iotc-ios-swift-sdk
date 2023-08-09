@@ -11,7 +11,8 @@ public class SDKClient {
     // Singleton SDK object
     public static let shared = SDKClient()
     
-    fileprivate var iotConnectManager: IoTConnectManager!// = IoTConnectManager.sharedInstance
+//    fileprivate var iotConnectManager: IoTConnectManager!// = IoTConnectManager.sharedInstance
+    fileprivate var iotConnectManager:IoTConnectManager?
     private var blockHandlerDeviceCallBack : GetDeviceCallBackBlock?
     private var blockHandlerTwinUpdateCallBack : GetTwinUpdateCallBackBlock?
     
@@ -52,7 +53,7 @@ public class SDKClient {
      Returns nothing
      */
     public func sendData(data: [[String:Any]]) {
-        iotConnectManager.sendData(data: data)
+        iotConnectManager?.sendData(data: data)
     }
     
     /**
@@ -68,7 +69,7 @@ public class SDKClient {
      Returns nothing
      */
     public func sendLog(data: [String: Any]?) {
-        iotConnectManager.sendLog(data: data)
+        iotConnectManager?.sendLog(data: data)
     }
     
     /**
@@ -85,7 +86,7 @@ public class SDKClient {
      Returns nothing
      */
     public func sendAck(data: [[String:Any]], msgType: String) {
-        iotConnectManager.sendAck(data: data, msgType: msgType)
+        iotConnectManager?.sendAck(data: data, msgType: msgType)
     }
     
     /**
@@ -98,7 +99,7 @@ public class SDKClient {
      Returns nothing
      */
     public func getAllTwins() {
-        iotConnectManager.getAllTwins()
+        iotConnectManager?.getAllTwins()
     }
     
     /**
@@ -115,7 +116,7 @@ public class SDKClient {
      Returns nothing
      */
     public func updateTwin(key: String, value: Any) {
-        iotConnectManager.updateTwin(key: key, value: value)
+        iotConnectManager?.updateTwin(key: key, value: value)
     }
     
     /**
@@ -131,7 +132,7 @@ public class SDKClient {
      Returns nothing
      */
     public func dispose(sdkconnection: String = "") {
-        iotConnectManager.dispose(sdkconnection: sdkconnection)
+        iotConnectManager?.dispose(sdkconnection: sdkconnection)
     }
     
     /**
@@ -147,7 +148,7 @@ public class SDKClient {
      Returns nothing
      */
     public func getAttributes(callBack: @escaping (Bool, [[String:Any]]?, String) -> ()) {
-        iotConnectManager.getAttributes(callBack: callBack)
+        iotConnectManager?.getAttributes(callBack: callBack)
     }
     
     /**

@@ -109,6 +109,10 @@ public class SDKClient {
         iotConnectManager.sendAck(data: data, msgType: msgType)
     }
     
+    public func sendAckCmd(ackGuid:String,status:String, msg:String = "",childId:String = "") {
+        iotConnectManager.sendAckCmd(ackGuid: ackGuid, status: status,msg: msg,childId: childId)
+    }
+    
     /**
      Get all twins
      
@@ -169,7 +173,7 @@ public class SDKClient {
      */
     public func getAttributes(callBack: @escaping GetAttributesCallbackBlock) -> () {
         blockHandlerGetAttributesCallBack = callBack
-        iotConnectManager.getAttributes(callBack: callBack)
+        iotConnectManager?.getAttributes(callBack: callBack)
     }
     
     public func getTwins(callBack: @escaping GetTwinCallBackBlock) -> () {
