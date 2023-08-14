@@ -34,6 +34,7 @@ class IoTConnectManager {
     var CERT_PATH_FLAG: Bool = true
     var reachability: Reachability?
     var intervalObj: [Any] = []
+    
 
     
     init() {}

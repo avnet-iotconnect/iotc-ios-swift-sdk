@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 extension IoTConnectManager {
+    
     //MARK: - Instance Methods
     
     /**
@@ -23,11 +24,14 @@ extension IoTConnectManager {
      - Returns
         returns nothing
      */
-    func initialize(cpId: String, uniqueId: String, deviceCallback: @escaping GetDeviceCallBackBlock, twinUpdateCallback: @escaping GetDeviceCallBackBlock) {
+    func initialize(cpId: String, uniqueId: String, deviceCallback: @escaping GetDeviceCallBackBlock, twinUpdateCallback: @escaping GetDeviceCallBackBlock, getAttributesCallback: @escaping GetAttributesCallbackBlock, getTwinsCallback: @escaping GetTwinCallBackBlock, getChildDevucesCallback: @escaping GetChildDevicesCallBackBlock) {
         dictReference = [:]
         dictSyncResponse = [:]
         blockHandlerDeviceCallBack = deviceCallback
         blockHandlerTwinUpdateCallBack = twinUpdateCallback
+        blockHandlerGetAttribuesCallBack = getAttributesCallback
+        blockHandlerGetTwinsCallBack = getTwinsCallback
+        blockHandlerGetChildDevicesCallback = getChildDevucesCallback
         boolCanCallInialiseYN = true
         objCommon.createDirectoryFoldersForLogs()
         objCommon.manageDebugLog(code: Log.Info.INFO_IN04, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
@@ -72,21 +76,29 @@ extension IoTConnectManager {
             let bu = dictReference[keyPath:"d.bu"]//d?["bu"]
             objCommon.makeSyncCall(withBaseURL: (bu as? String ?? "") + "/uid/"+"\(uniqueId)", withData: [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.attribute: true, DeviceSync.Request.setting: true, DeviceSync.Request.protocolKey: true, DeviceSync.Request.device: true, DeviceSync.Request.sdkConfig: true, DeviceSync.Request.rule: true]]) { (data, response, error) in
                 
+                self.blockHandlerDeviceCallBack?(data)
                 if error == nil {
                     let errorParse: Error? = nil
          
                     let dataDeviceTemp = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
                     
+                    
                     if dataDeviceTemp == nil {
                         
                         print("Error parsing DSC: \(String(describing: errorParse))")
                         self.objCommon.manageDebugLog(code: Log.Errors.ERR_PS01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: errorParse?.localizedDescription ?? "", logFlag: false, isDebugEnabled: self.boolDebugYN)
-                        
+                        self.blockHandlerDeviceCallBack(["sdkStatus": "error"])
                     } else {
                         let dataDevice = dataDeviceTemp as! [String:Any]
+                       
+                        if let jsonData = try? JSONDecoder().decode(Identity.self, from: data!) {
+                            self.identity = jsonData
+                        } else {
+                          print("Error parsing syncCall Response")
+                        }
                         if dataDevice["d"] != nil {
                             self.objCommon.manageDebugLog(code: Log.Info.INFO_IN01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-                            
+                            print("identity pos data\(self.identity?.d?.has)")
                             if SDKConstants.DevelopmentSDKYN {
                                 self.blockHandlerDeviceCallBack(["sdkStatus": "success", "data": dataDevice["d"]])
                             }
@@ -102,7 +114,12 @@ extension IoTConnectManager {
                                     self.timerNotRegister?.invalidate()
                                     self.timerNotRegister = nil
                                 }
+                              
+                                
                                 self.dictSyncResponse = dataDevice["d"] as? [String : Any]
+//                                self.getAttributes { isSuccess, data, msg in
+//
+//                                }
                                 let metaInfo = self.dictSyncResponse["meta"] as? [String:Any]
                                 
                                 if metaInfo?["at"] as! Int == AuthType.CA_SIGNED || metaInfo?["at"] as! Int == AuthType.CA_SELF_SIGNED && !self.CERT_PATH_FLAG {
@@ -219,13 +236,23 @@ extension IoTConnectManager {
         returns nothing
      */
     private func startTimerForReInitialiseDSC(durationSyncFrequency: Double) {
+        self.repeatTimerCount = 0
         self.timerNotRegister = Timer(timeInterval: durationSyncFrequency, target: self, selector: #selector(self.reInitialise), userInfo: nil, repeats: true)
         RunLoop.main.add(self.timerNotRegister!, forMode: .default)
         self.timerNotRegister!.fire()
     }
     @objc private func reInitialise() {
-        self.objCommon.manageDebugLog(code: Log.Info.INFO_IN06, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-        initaliseCall(uniqueId: strUniqueId)
+        if self.repeatTimerCount < 5{
+            print("reInitialise")
+            self.repeatTimerCount += 1
+            self.objCommon.manageDebugLog(code: Log.Info.INFO_IN06, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
+            initaliseCall(uniqueId: strUniqueId)
+        }else{
+            if self.timerNotRegister != nil {
+                self.timerNotRegister?.invalidate()
+                self.timerNotRegister = nil
+            }
+        }
     }
     
     /**
@@ -241,7 +268,7 @@ extension IoTConnectManager {
         if dataSyncResponse["p"] != nil {
             
             self.objCommon.manageDebugLog(code: Log.Info.INFO_IN05, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
-            //startEdgeDeviceProcess(dictSyncResponse: dataSyncResponse)
+//            startEdgeDeviceProcess(dictSyncResponse: dataSyncResponse)
             self.objMQTTClient.initiateMQTT(dictSyncResponse: dataSyncResponse) { (dataToPass, typeAction) in
                 
                 //typeAction == 1   //...For Development Call Back
@@ -250,6 +277,11 @@ extension IoTConnectManager {
                 //typeAction == 4   //...For Get Desired and Reported twin property
                 //typeAction == 5   //...For Get All Twin Property
                 //typeAction == 6   //...For Perform Dispose
+                //typeAction == 7   //...For Device attribute
+                //typeAction == 8   //...For Device twins
+                //typeAction == 9   //...For Getting child devices
+                //typeAction == 10  //...For Getting Edge rules
+                
                 if typeAction == 1 {
                     if let dataMessage = dataToPass as? [String:Any] {
                         if let strMsgStatus = dataMessage["sdkStatus"] as? String {
@@ -276,8 +308,23 @@ extension IoTConnectManager {
                     self.blockHandlerTwinUpdateCallBack(dataTwin)
                 } else if typeAction == 6 {
                     self.dispose(sdkconnection: dataToPass as! String)
+                }else if typeAction == 7{
+                    print("Did recive 201 startMQTTCall")
+                    self.startEdgeDeviceProcess(dictSyncResponse: self.dictSyncResponse)
+                    self.blockHandlerDeviceCallBack(dataToPass)
+                    self.blockHandlerGetAttribuesCallBack(dataToPass)
                 }
-                
+                else if typeAction == 8{
+                    self.blockHandlerDeviceCallBack(dataToPass)
+                    self.blockHandlerGetTwinsCallBack(dataToPass)
+                }
+                else if typeAction == 9{
+                    self.blockHandlerDeviceCallBack(dataToPass)
+                    self.blockHandlerGetChildDevicesCallback(dataToPass)
+                }  else if typeAction == 10{
+                    self.blockHandlerDeviceCallBack(dataToPass)
+                    self.blockHandlerGetChildDevicesCallback(dataToPass)
+                }
             }
         } else {
             
@@ -389,7 +436,7 @@ extension IoTConnectManager {
                         dictRptResult["d"] = [dictData["rptdata"]]
                         dictRptResult["sdk"] = ["l": SDKConstants.Language, "v": SDKConstants.Version, "e": strEnv.rawValue]
                         print("If-dictRptResult)")
-                        objMQTTClient.publishTopicOnMQTT(withData: dictRptResult)
+                        objMQTTClient.publishTopicOnMQTT(withData: dictRptResult, topic: "")
                     } else {
                         print("Else-dictRptResult")
                     }
@@ -402,7 +449,7 @@ extension IoTConnectManager {
                         dictFaultResult["d"] = [dictData["faultdata"]]
                         dictFaultResult["sdk"] = ["l": SDKConstants.Language, "v": SDKConstants.Version, "e": strEnv.rawValue]
                         print("If-dictFaultResult");
-                        objMQTTClient.publishTopicOnMQTT(withData: dictFaultResult)
+                        objMQTTClient.publishTopicOnMQTT(withData: dictFaultResult, topic: "")
                     } else {
                         print("Else-dictFaultResult")
                     }
@@ -691,17 +738,114 @@ extension IoTConnectManager {
         returns nothing
      */
     private func startEdgeDeviceProcess(dictSyncResponse: [String:Any]) {
-        let boolEdgeDevice = dictSyncResponse["ee"] as! Bool
+        let boolEdgeDevice = dictSyncResponse[keyPath: "meta.edge"] as? Int
+        //dictSyncResponse["ee"] as! Bool
         var dictSyncResponseTemp = dictSyncResponse
-        if boolEdgeDevice {
-            objCommon.setEdgeConfiguration(attributes: dictSyncResponseTemp["att"] as! [[String:Any]], uniqueId: strUniqueId, devices: dictSyncResponseTemp["d"] as! [[String:Any]]) { (res) in
-                if (res["status"] as! Bool) {
-                    dictSyncResponseTemp["edgeData"] = res[keyPath:"data.mainObj"]
-                    (res[keyPath:"data.intObj"] as! [[String:Any]]).forEach { (data) in
-                        self.objCommon.setIntervalForEdgeDevice(tumblingWindowTime: data["tumblingWindowTime"] as! String, timeType: data["lastChar"] as! String, edgeAttributeKey: data["edgeAttributeKey"] as! String, uniqueId: data["uniqueId"] as! String, attrTag: data["attrTag"] as! String, env: self.strEnv.rawValue, offlineConfig: self.dataSDKOptions.OfflineStorage, intervalObj: self.intervalObj, cpId: self.strCPId, isDebug: self.boolDebugYN)
+        if boolEdgeDevice == 1 {
+            if let attributes = IoTConnectManager.sharedInstance.attributes{
+                IoTConnectManager.sharedInstance.attributes?.connectedTime = Date()
+                if let att = attributes.att{
+                    for i in 0...att.count-1{
+                        for j in 0...(att[i].d?.count ?? 0)-1{
+                            if let d = att[i].d?[j]{
+                                arrAttData.append(d)
+                                var tw = d.tw ?? ""
+                                var twUnit = String(tw.removeLast())
+                                var timeInterval = tw.toDouble()
+//                                let lastChar = tw.last
+                                
+                                if twUnit == "h"{
+                                    timeInterval = (tw.toDouble() ?? 0.0) * 3600
+                                }else if twUnit == "m"{
+                                    timeInterval = (tw.toDouble() ?? 0.0) * 60
+                                }
+                                tw = String(tw.dropLast())
+                                
+                                timerEdgeDevice.append( Timer.scheduledTimer(timeInterval: timeInterval ?? 0.0, target: self, selector: #selector(fireTimerForEdgeDevice), userInfo: d, repeats: true))
+                                
+//                                timerEdgeDevice =
+//                                Timer.scheduledTimer(timeInterval: timeInterval ?? 0.0, target: self, selector: #selector(fireTimerForEdgeDevice), userInfo: d, repeats: true)
+                            }
+                        }
                     }
                 }
             }
+            
+    
+//            objCommon.setEdgeConfiguration(attributes: dictSyncResponseTemp["att"] as! [[String:Any]], uniqueId: strUniqueId, devices: dictSyncResponseTemp["d"] as! [[String:Any]]) { (res) in
+//                if (res["status"] as! Bool) {
+//                    dictSyncResponseTemp["edgeData"] = res[keyPath:"data.mainObj"]
+//                    (res[keyPath:"data.intObj"] as! [[String:Any]]).forEach { (data) in
+//                        self.objCommon.setIntervalForEdgeDevice(tumblingWindowTime: data["tumblingWindowTime"] as! String, timeType: data["lastChar"] as! String, edgeAttributeKey: data["edgeAttributeKey"] as! String, uniqueId: data["uniqueId"] as! String, attrTag: data["attrTag"] as! String, env: self.strEnv.rawValue, offlineConfig: self.dataSDKOptions.OfflineStorage, intervalObj: self.intervalObj, cpId: self.strCPId, isDebug: self.boolDebugYN)
+//                    }
+//                }
+//            }
+        }
+    }
+    
+    @objc func fireTimerForEdgeDevice(timer:Timer){
+        print("timer userInfo \(timer.userInfo ?? "")")
+        if let userInfo = timer.userInfo as? AttData{
+            let ln = userInfo.ln ?? ""
+
+            if !arrCalcDictEdgeDevice.isEmpty{
+                var dictD = arrCalcDictEdgeDevice["d"] as? [String:Any]
+                if dictD?.isEmpty == false{
+                    if let val = dictD?[ln]{
+                        let dataToSend = [
+                            "dt":arrCalcDictEdgeDevice["dt"] ?? "",
+                            "d":[
+                                [
+                                "id":arrCalcDictEdgeDevice["id"] ?? "",
+                                "tg":arrCalcDictEdgeDevice["tg"] ?? "",
+                                "dt":arrCalcDictEdgeDevice["dt"] ?? "",
+                                "d":[
+                                    "\(ln)":val
+                                    ]
+                            ]]] as [String : Any]
+                        let topic = dictSyncResponse[keyPath:"p.topics.erpt"] as! String
+                        objMQTTClient.publishTopicOnMQTT(withData: dataToSend, topic: topic)
+                        dictD?.removeValue(forKey: "\(ln)")
+                        arrCalcDictEdgeDevice["d"] = dictD
+                        print("arrCalcDictEdgeDevice \(arrCalcDictEdgeDevice)")
+                        if let firstIndexData = arrDataEdgeDevices.firstIndex(where: {$0[ln] != nil}){
+                            arrDataEdgeDevices.remove(at: firstIndexData)
+                            print("arrDataEdgeDevices \(arrDataEdgeDevices)")
+                        }
+                    }
+                }
+            }else{
+                print("arrCalcDictEdgeDevice is empty")
+            }
+            
+            
+//            if arrCalcDictEdgeDevice.count > 0{
+//                var arrD = arrCalcDictEdgeDevice[0]["d"] as? [[String:Any]]
+//
+//                if let firstIndexCalcDict = arrD?.firstIndex(where: {$0[ln] != nil}){
+//                    let data = arrD?[firstIndexCalcDict]
+//                    if let arrValues = data{
+//                        let dataToSend = ["dt":arrCalcDictEdgeDevice[0]["dt"] ?? "",
+//                                          "d":[[
+//                                            "id":arrCalcDictEdgeDevice[0]["id"] ?? "",
+//                                            "tg":arrCalcDictEdgeDevice[0]["tg"] ?? "",
+//                                            "dt":arrCalcDictEdgeDevice[0]["dt"] ?? "",
+//                                            "d":data
+//                                          ]]
+//                        ] as [String : Any]
+//
+//                        let topic = dictSyncResponse[keyPath:"p.topics.erpt"] as! String
+//                        objMQTTClient.publishTopicOnMQTT(withData: dataToSend, topic: topic)
+//                        arrD?.remove(at: firstIndexCalcDict)
+//                        arrCalcDictEdgeDevice[0]["d"] = arrD
+//                        print("arrCalcDictEdgeDevice after send \(arrCalcDictEdgeDevice)")
+//                    }
+//                }else{
+//                    print("ln is not found on arr")
+//                }
+//            }
+        }else{
+            print("userinfo is not decoded")
         }
     }
 }

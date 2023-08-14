@@ -100,3 +100,4 @@ struct DeviceSync {
         static let CPID_NOT_FOUND = 6
     }
 }
+

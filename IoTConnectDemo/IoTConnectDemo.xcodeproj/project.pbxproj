@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,8 +18,11 @@
 		C0C04CD326D015DA00182C45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD226D015DA00182C45 /* Assets.xcassets */; };
 		C0C04CD626D015DA00182C45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */; };
 		DD36C4412A304EF9008BA007 /* IoTConnect_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */; };
+		DDA1BAF02A41810F00DBA886 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA1BAEF2A41810F00DBA886 /* Attributes.swift */; };
 		DDA60A602A2F176300F686BF /* IoTConnect_2_0.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DDBB4AA72A40891C00783F26 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DDBB4AA62A40891C00783F26 /* IQKeyboardManagerSwift */; };
 		DDC0C2972A38958A001793C5 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0C2962A38958A001793C5 /* RadioButtonController.swift */; };
+		DDD1BEF72A52F50800B00F52 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD1BEF62A52F50800B00F52 /* Identity.swift */; };
 		DDFA34642A3C297400232B5C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA34632A3C297400232B5C /* Enums.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,8 +54,10 @@
 		C0C04CD526D015DA00182C45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0C04CD726D015DA00182C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDA1BAEF2A41810F00DBA886 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 		DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC0C2962A38958A001793C5 /* RadioButtonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonController.swift; sourceTree = "<group>"; };
+		DDD1BEF62A52F50800B00F52 /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
 		DDFA34632A3C297400232B5C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +67,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD36C4412A304EF9008BA007 /* IoTConnect_2_0.framework in Frameworks */,
+				DDBB4AA72A40891C00783F26 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +103,7 @@
 		C0C04CC826D015D900182C45 /* IoTConnectDemo */ = {
 			isa = PBXGroup;
 			children = (
+				DDA1BAEE2A4180FB00DBA886 /* Models */,
 				9285F66B26D62EEF00BC30DC /* TableHeaderView */,
 				DDC0C2962A38958A001793C5 /* RadioButtonController.swift */,
 				C0C04CC926D015D900182C45 /* AppDelegate.swift */,
@@ -122,6 +129,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DDA1BAEE2A4180FB00DBA886 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DDA1BAEF2A41810F00DBA886 /* Attributes.swift */,
+				DDD1BEF62A52F50800B00F52 /* Identity.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -140,6 +156,7 @@
 			);
 			name = IoTConnectDemo;
 			packageProductDependencies = (
+				DDBB4AA62A40891C00783F26 /* IQKeyboardManagerSwift */,
 			);
 			productName = IoTConnectDemo;
 			productReference = C0C04CC626D015D900182C45 /* IoTConnectDemo.app */;
@@ -169,6 +186,7 @@
 			);
 			mainGroup = C0C04CBD26D015D900182C45;
 			packageReferences = (
+				DDBB4AA52A40891C00783F26 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = C0C04CC726D015D900182C45 /* Products */;
 			projectDirPath = "";
@@ -200,7 +218,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9285F67126D62F5000BC30DC /* PropertyCell.swift in Sources */,
+				DDD1BEF72A52F50800B00F52 /* Identity.swift in Sources */,
 				9285F66F26D62EEF00BC30DC /* TableHeaderView.swift in Sources */,
+				DDA1BAF02A41810F00DBA886 /* Attributes.swift in Sources */,
 				C0C04CCE26D015D900182C45 /* ViewController.swift in Sources */,
 				C0C04CCA26D015D900182C45 /* AppDelegate.swift in Sources */,
 				DDFA34642A3C297400232B5C /* Enums.swift in Sources */,
@@ -419,6 +439,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DDBB4AA52A40891C00783F26 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DDBB4AA62A40891C00783F26 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDBB4AA52A40891C00783F26 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C0C04CBE26D015D900182C45 /* Project object */;
 }

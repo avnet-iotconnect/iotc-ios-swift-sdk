@@ -38,6 +38,8 @@ struct Log {//class
         case ERR_OS04 = "Unable to scan directory"
         case ERR_DC02 = "Connection not available"
         case ERR_GA02 = "Attributes data not found"
+        case ERR_GA03 = "Twins data not found"
+        case ERR_GA04 = "Child devices data not found"
         case ERR_PS01 = "JSON parsing error"    //...New
         case ERR_1     = "Device not found. Device is not whitelisted to                        platform"
         case ERR_2     = "Device is not active"
@@ -85,6 +87,8 @@ struct Log {//class
         case INFO_OS06 = "Offline data publish :: Send/Total :: "
         case INFO_DC01 = "Device already disconnected"
         case INFO_GA01 = "Get attributes successfully"
+        case INFO_GA02 = "Get twind successfully"
+        case INFO_GA03 = "Get child devices successfully"
     }
     
     static func getAPIErrorMsg(errorCode:Int)->String{

@@ -28,11 +28,13 @@ struct D: Codable {
     let ec: Int                                         // Error Code:0 – No error
     let bu: String                                      // Base URL of the                                                           Identity service
     let logMqtt: LogMqtt                                // MQTT connection                                                           details to optionally                                                     send device logging
+    let logHTTPS:String?
     let pf: String
 
     enum CodingKeys: String, CodingKey {
         case ec, bu
         case logMqtt = "log:mqtt"
+        case logHTTPS = "log:https"
         case pf
     }
 }
