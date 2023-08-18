@@ -341,15 +341,15 @@ extension IoTConnectManager {
      */
     private func getUpdatedSyncResponseFor(strKey: Int) {
         var dict: [String:Any]?
-        if strKey == CommandType.ATTRIBUTE_INFO_UPDATE {//...AttributeChanged
+        if strKey == CommandType.ATTRIBUTE_INFO_UPDATE.rawValue {//...AttributeChanged
             dict = [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.attribute: true]]
-        } else if strKey == CommandType.SETTING_INFO_UPDATE {//...SettingChanged
+        } else if strKey == CommandType.SETTING_INFO_UPDATE.rawValue {//...SettingChanged
             dict = [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.setting: true]]
-        } else if strKey == CommandType.PASSWORD_INFO_UPDATE {//...PasswordChanged
+        } else if strKey == CommandType.PASSWORD_INFO_UPDATE.rawValue {//...PasswordChanged
             dict = [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.protocolKey: true]]
-        } else if strKey == CommandType.DEVICE_INFO_UPDATE {//...DeviceChanged
+        } else if strKey == CommandType.DEVICE_INFO_UPDATE.rawValue {//...DeviceChanged
             dict = [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.device: true]]
-        } else if strKey == CommandType.DATA_FREQUENCY_UPDATE {//...DataFrequencyUpdated
+        } else if strKey == CommandType.DATA_FREQUENCY_UPDATE.rawValue {//...DataFrequencyUpdated
             dict = [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.sdkConfig: true]]
         }
         if dict != nil {
@@ -373,20 +373,20 @@ extension IoTConnectManager {
                             
                             if dataDevice[keyPath:"d.rc"] as! Int == DeviceSync.Response.OK {
                                 var dictToUpdate = self.dictSyncResponse
-                                if strKey == CommandType.ATTRIBUTE_INFO_UPDATE {
+                                if strKey == CommandType.ATTRIBUTE_INFO_UPDATE.rawValue {
                                     dictToUpdate?["att"] = dataDevice[keyPath:"d.att"]
-                                } else if strKey == CommandType.SETTING_INFO_UPDATE {
+                                } else if strKey == CommandType.SETTING_INFO_UPDATE.rawValue {
                                     dictToUpdate?["set"] = dataDevice[keyPath:"d.set"]
-                                } else if strKey == CommandType.PASSWORD_INFO_UPDATE {
+                                } else if strKey == CommandType.PASSWORD_INFO_UPDATE.rawValue {
                                     dictToUpdate?["p"] = dataDevice[keyPath:"d.p"]
                                     if dictToUpdate != nil {
                                         self.startMQTTCall(dataSyncResponse: dictToUpdate!)
                                     } else {
                                         self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN11, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                                     }
-                                } else if strKey == CommandType.DEVICE_INFO_UPDATE {
+                                } else if strKey == CommandType.DEVICE_INFO_UPDATE.rawValue {
                                     dictToUpdate?["d"] = dataDevice[keyPath:"d.d"]
-                                } else if strKey == CommandType.DATA_FREQUENCY_UPDATE {
+                                } else if strKey == CommandType.DATA_FREQUENCY_UPDATE.rawValue {
                                     dictToUpdate?["sc"] = dataDevice[keyPath:"d.sc"]
                                 }
                                 if dictToUpdate != nil {
@@ -1075,7 +1075,11 @@ extension IoTConnectManager {
             }
             
             if !dictInValidData.isEmpty{
-                dictInValidData = ["dt":data["dt"] ?? "","d":[["dt":arrData?[0]["dt"],"id":arrData?[0]["id"],"tg":arrData?[0]["tg"],"d":dictInValidData]]]
+                dictInValidData = ["dt":data["dt"] ?? "",
+                                   "d":[["dt":arrData?[0]["dt"],
+                                         "id":arrData?[0]["id"],
+                                         "tg":arrData?[0]["tg"],
+                                         "d":dictInValidData]]]
                 
                 if boolEdgeDevice != 1{
                     prevSendDataTime = Date()
@@ -1290,50 +1294,6 @@ extension IoTConnectManager {
                             }
                         }else{
                             handleHashSeperatedAtt(ruleArr: ruleArr)
-                            //                            let arrHashSeperated = att[0].components(separatedBy: "#")
-                            //                            print("hashSeperated \(arrHashSeperated)")
-                            //                            if arrHashSeperated.count == 1{
-                            //                                if let dict  = dictValidData[att[0]] as? [String:Any]{
-                            //                                    if let val = dict[att[1]] as? String{
-                            //                                        let isRuleMatch = checkEdgeRuleVal(valToCompare: Float(val) ?? 0.0, strOperator:ruleArr[1], valToCompareWith: Float(ruleArr[2]) ?? 0.0)
-                            //                                        print("isRuleMatch \(isRuleMatch)")
-                            //                                        dictData.append(anotherDict: [att[0]:val])
-                            //                                        if isRuleMatch{
-                            //                                            if let objDict = arrValidRule[att[0]] as? [String:Any]{
-                            //                                                var dict = objDict
-                            //                                                dict.append(anotherDict: [att[1]:val])
-                            //                                                arrValidRule = [att[0]:dict]
-                            //                                            }else{
-                            //                                                arrValidRule[att[0]] = [att[1]:val]
-                            //                                            }
-                            //                                        }
-                            //                                    }
-                            //                                }
-                            //                            }else{
-                            //                                let arrDictD = dictValidData["d"] as? [[String:Any]]
-                            //
-                            //                                if let firstIndexP = arrDictD?.firstIndex(where: {$0["tg"] as! String == arrHashSeperated[0]}){
-                            //                                    print("hashSeerated filter \(arrDictD?[firstIndexP])")
-                            //                                    var dict = arrDictD?[firstIndexP] as? [String:Any]
-                            //                                    dict = dict?["d"] as? [String:Any]
-                            //                                    dict = dict?[arrHashSeperated[1]] as? [String:Any]
-                            //                                    if let val = dict?[att[1]] as? String{
-                            //                                        let isRuleMatch = checkEdgeRuleVal(valToCompare: Float(val) ?? 0.0, strOperator:ruleArr[1], valToCompareWith: Float(ruleArr[2]) ?? 0.0)
-                            //                                        print("isRuleMatch \(isRuleMatch)")
-                            //
-                            //                                        if isRuleMatch{
-                            //                                            if let objDict = arrValidRule[arrHashSeperated[1]] as? [String:Any]{
-                            //                                                var dict = objDict
-                            //                                                dict.append(anotherDict: [att[1]:val])
-                            //                                                arrValidRule = [arrHashSeperated[1]:dict]
-                            //                                            }else{
-                            //                                                arrValidRule[arrHashSeperated[1]] = [att[1]:val]
-                            //                                            }
-                            //                                        }
-                            //                                    }
-                            //
-                            //                                }
-                            //                            }
                         }
                         //                        print("arrValidrule \(arrValidRule) dataDeviceTelemetry \(dictDeviceTelemetry)")
                         //                                    }
@@ -1953,8 +1913,5 @@ extension IoTConnectManager {
                 print("Error parsing EdgeRule Response")
             }
         }
-    }
-    
-    
-    
+    } 
 }

@@ -27,7 +27,6 @@ class PropertyCell: UITableViewCell {
             let parentName = data[index].p
             let ln = data[index].ln
             self.txtField.placeholder = !(parentName?.isEmpty ?? true) ? "\(parentName ?? ""):\(ln ?? "")" : "\(ln ?? "")"
-//            arrParentData[ip.section]["Tag"]?[0][ip.row].value = textField.text ?? ""
             self.txtField.text = data[index].value ?? ""
         }
     }

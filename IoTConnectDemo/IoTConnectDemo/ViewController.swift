@@ -16,7 +16,7 @@ public enum DeviceConnectionStatus{
 
 class ViewController: UIViewController {
     
-    //MARK: @IBOutlet
+//MARK: @IBOutlet
     @IBOutlet var btnStatus : UIButton!
     @IBOutlet var btnConnect : UIButton!
     @IBOutlet var txtCPID,txtUniqueID : UITextField!
@@ -40,13 +40,13 @@ class ViewController: UIViewController {
     private var btnDisConnectTitle = "DISCONNECT"
     private let tblViewRowheight = 44.0
     private var noOfSecrions = 0
-    var env:Environment = .QA
-    var devivceStatus:DeviceConnectionStatus = .disconnected
-    let radioController: RadioButtonController = RadioButtonController()
-    var noOfAttributes = 0
-    var arAttributes = [String]()
-    var dictAttributes:[String:Any]?
-    var attributeData:AttributesData?
+    private var env:Environment = .QA
+    private var devivceStatus:DeviceConnectionStatus = .disconnected
+    private let radioController: RadioButtonController = RadioButtonController()
+    private var noOfAttributes = 0
+    private var arAttributes = [String]()
+    private var dictAttributes:[String:Any]?
+    private var attributeData:AttributesData?
     private var arrChildDevicesAttributes:[[String:Any]]?
     private var isGetDevicesCalled = false
     private var arrChildAttributeData = [[String:[[AttData]]]]()
@@ -124,6 +124,7 @@ class ViewController: UIViewController {
             
             SDKClient.shared.initialize(config: objConfig)
             
+            //callback fro connect,disconnect,identity,attribute,get child device and get twins reponse
             SDKClient.shared.getDeviceCallBack { (message) in
                 print("message: ", message as Any)
                 DispatchQueue.main.async {
@@ -135,7 +136,7 @@ class ViewController: UIViewController {
                 if let msg = message as? [String:Any]{
                     if let msg = msg["d"] as? [String:Any]{
                         if let commandType = msg["ct"] as? Int{
-                            if commandType == CommandType.DEVICE_CONNECTION_STATUS{
+                            if commandType == CommandType.DEVICE_CONNECTION_STATUS.rawValue{
                                 if let command = msg["command"] as? Bool {
                                     if command == true{
                                         self.setConnectStatusUI()
@@ -143,30 +144,19 @@ class ViewController: UIViewController {
                                         self.setDisconnectUI()
                                     }
                                 }
-                            }else if commandType == CommandType.IDENTITIY_RESPONSE{
+                            }else if commandType == CommandType.IDENTITIY_RESPONSE.rawValue{
                                 self.manageIdnetityreponse(response: msg)
                             }
-                            else if  msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE{
+                            else if  msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE.rawValue{
                                 print("Did recive 201 VC")
                                 self.manageAttributeResponse(response: msg)
                             }
-                            else   if  msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_TWIN{
+                            else   if  msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_TWIN.rawValue{
                                 DispatchQueue.main.async {
                                     self.txtView.text = "\(msg)"
                                 }
-                            }else   if  msg["ct"] as? Int == CommandType.GET_CHILD_DEVICE{
-                                if let msg = msg["d"] as? [[String:Any]]{
-                                    self.noOfSecrions = msg.count
-                                    self.is204Received = true
-                                    print("no of sections \(msg.count)")
-                                    self.arrChildDevicesAttributes = msg
-                                    if !self.isGetDevicesCalled && self.is201Received{
-                                        self.getChildDevicesAttributes()
-                                    }
-                                }
-                                DispatchQueue.main.async {
-                                    self.txtView.text = "\(msg)"
-                                }
+                            }else   if  msg["ct"] as? Int == CommandType.GET_CHILD_DEVICE.rawValue{
+                                self.getChildDevices(message: msg)
                             }
                         }
                     }
@@ -177,16 +167,16 @@ class ViewController: UIViewController {
                         }
                     }
                     else if let commandType = msg["ct"] as? Int{
-                        if commandType == CommandType.DEVICE_DELETED ||
-                            commandType == CommandType.DEVICE_DISABLED ||
-                            commandType == CommandType.DEVICE_RELEASED ||
-                            commandType == CommandType.STOP_OPERATION ||
-                            commandType == CommandType.DEVICE_CONNECTION_STATUS{
+                        if commandType == CommandType.DEVICE_DELETED.rawValue ||
+                            commandType == CommandType.DEVICE_DISABLED.rawValue ||
+                            commandType == CommandType.DEVICE_RELEASED.rawValue ||
+                            commandType == CommandType.STOP_OPERATION.rawValue ||
+                            commandType == CommandType.DEVICE_CONNECTION_STATUS.rawValue{
                             SDKClient.shared.dispose()
                             self.setDisconnectUI()
-                        }else if commandType == CommandType.DEVICE_COMMAND{
+                        }else if commandType == CommandType.DEVICE_COMMAND.rawValue{
                             self.sendAckMessage(cloudMsg: msg)
-                        }else if commandType == CommandType.CORE_COMMAND{
+                        }else if commandType == CommandType.CORE_COMMAND.rawValue{
                             SDKClient.shared.getAttributes { response in
                                 print("Att reponse \(response)")
                                 self.manageAttributeResponse(response: response as? [String : Any] ?? [:])
@@ -207,7 +197,7 @@ class ViewController: UIViewController {
                         let dataDevice = dataDeviceTemp as! [String:Any]
                         if let msg = dataDevice["d"] as? [String:Any]{
                             if let commandType = msg["ct"] as? Int{
-                                if commandType == CommandType.IDENTITIY_RESPONSE{
+                                if commandType == CommandType.IDENTITIY_RESPONSE.rawValue{
                                     self.manageIdnetityreponse(response: dataDevice)
                                 }
                             }
@@ -231,12 +221,12 @@ class ViewController: UIViewController {
         }
     }
     
+    //get SimpleDevice Data
     func getSimpleDeviceData(){
-//        print("index \(index)")
         var data = self.attributeData
         let attCount = data?.att?.count ?? 0
         var dCount = 0
-        var arr = [[AttData]]()
+        var arrAttData = [[AttData]]()
         
         for i in 0...attCount-1{
             dCount += data?.att?[i].d?.count ?? 0
@@ -244,17 +234,17 @@ class ViewController: UIViewController {
             let p = data?.att?[i].p
             print("simple device p \(String(describing: data?.att?[i])) \(String(describing: data?.att?[i].p))")
              
-            if arr.count > 0{
+            if arrAttData.count > 0{
                 for k in 0...(data?.att?[i].d?.count ?? 0)-1{
                     data?.att?[i].d?[k].p = p
-                    arr[0].insert((data?.att?[i].d?[k])!, at: arr[0].count)
+                    arrAttData[0].insert((data?.att?[i].d?[k])!, at: arrAttData[0].count)
                 }
             }else{
                 data?.att?[i].d?[i].p = p
-                arr.append( (data?.att?[i].d)!)
+                arrAttData.append( (data?.att?[i].d)!)
             }
         }
-        arrSimpleDeviceData.append(["Tag":arr])
+        arrSimpleDeviceData.append(["Tag":arrAttData])
         if arrSimpleDeviceData[0]["Tag"]?.count ?? 0 > 0{
             print("final arr \(arrSimpleDeviceData) \(arrSimpleDeviceData[0]["Tag"]?[0].count ?? 0)")
             noOfAttributes = arrSimpleDeviceData[0]["Tag"]?[0].count ?? 0
@@ -263,27 +253,28 @@ class ViewController: UIViewController {
 
     func getParentArray(){
         let arrAttCount = self.attributeData?.att?.count
-        var arr = [[AttData]]()
+        var arrAttData = [[AttData]]()
         let parentTag = self.identity?.d?.meta?.gtw?.tg
        
         for i in 0...(arrAttCount ?? 0)-1{
             let p = self.attributeData?.att![i].p
+            //Filter data which have same parent tag
             var filteredArr = self.attributeData?.att![i].d?.filter({$0.tg == parentTag})
             print("filteredArr parent \(String(describing: filteredArr))")
             if filteredArr?.count ?? 0 > 0{
                 for m in 0...(filteredArr!.count)-1{
                     filteredArr?[m].p = p
                 }
-                if arr.count > 0{
+                if arrAttData.count > 0{
                     for k in 0...filteredArr!.count-1{
-                        arr[0].insert((filteredArr?[k])!, at: arr[0].count)
+                        arrAttData[0].insert((filteredArr?[k])!, at: arrAttData[0].count)
                     }
                 }else{
-                    arr.append(filteredArr!)
+                    arrAttData.append(filteredArr!)
                 }
             }
         }
-        arrParentData.append(["Tag":arr])
+        arrParentData.append(["Tag":arrAttData])
         if arrParentData[0]["Tag"]?.count ?? 0 > 0{
             print("final parent filter arr \(arrParentData) \(arrParentData[0]["Tag"]?[0].count ?? 0)")
             noOfAttributes = arrParentData[0]["Tag"]?[0].count ?? 0
@@ -292,6 +283,7 @@ class ViewController: UIViewController {
     }
     
     func getChildDevicesAttributes(){
+        //check is there child attribute else get parent attribute
         if self.arrChildDevicesAttributes?.count ?? 0 > 0 &&
             self.attributeData?.att?.count ?? 0 > 0{
             self.isGetDevicesCalled = true
@@ -527,6 +519,22 @@ class ViewController: UIViewController {
         }
     }
     
+    func getChildDevices(message:[String:Any]){
+        if let msg = message["d"] as? [[String:Any]]{
+            self.noOfSecrions = msg.count
+            self.is204Received = true
+            print("no of sections \(msg.count)")
+            self.arrChildDevicesAttributes = msg
+            if !self.isGetDevicesCalled && self.is201Received{
+                self.getChildDevicesAttributes()
+            }
+        }
+        DispatchQueue.main.async {
+            self.txtView.text = "\(message)"
+        }
+    }
+
+//MARK: Helper functions
     func sendAckMessage(cloudMsg:[String:Any]){
         SDKClient.shared.sendAckCmd(ackGuid: cloudMsg["ack"] as? String ?? "", status: "6",msg: "Cloud message received",childId: cloudMsg["id"] as? String ?? "")
     }
@@ -738,11 +746,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         }
         func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableHeaderView") as! TableHeaderView
-//            if section == 0 {
-//                headerView.lblSectionTitle.text = "Section 1"
-//            } else {
-//                headerView.lblSectionTitle.text = "Section 2"
-//            }
+
             if self.arrChildDevicesAttributes?.count ?? 0 <= section{
                 headerView.lblSectionTitle.text = "TAG::p:\(self.txtUniqueID.text ?? "")"
             }else{
@@ -753,7 +757,6 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
             let view = UIView()
             headerView.frame.size.width = tableView.frame.size.width
             view.frame = headerView.frame
-//            view.backgroundColor = .clear
             view.isUserInteractionEnabled = true
             view.addSubview(headerView)
             return view
@@ -781,7 +784,6 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         let cell : PropertyCell = tableView.dequeueReusableCell(withIdentifier: "PropertyCell", for: indexPath) as! PropertyCell
         cell.selectionStyle = .none
         cell.txtField.delegate = self
-//        cell.textLabel?.text = "\(indexPath.row)"
         if self.arrChildDevicesAttributes?.count ?? 0 > indexPath.section{
             cell.setAttData(data: (arrChildAttributeData[indexPath.section]["Tag"]?[0])!,index: indexPath.row)
         }else if arrParentData.count > 0{
@@ -795,25 +797,10 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
 
         return cell
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("dids select ")
-    }
 }
 
 extension ViewController:UITextFieldDelegate{
-    
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        
-//    }
-//    
-//    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-//        var v : UIView = textField
-//        repeat { v = v.superview! } while !(v is UITableViewCell)
-//        let cell = v as! PropertyCell // or UITableViewCell or whatever
-//        let ip = self.tblProperty.indexPath(for:cell)!
-//        print("textFieldDidEndEditing \(textField.text) \(ip.section) \(ip.row)")
-//    }
-    
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var v : UIView = textField
         repeat { v = v.superview! } while !(v is UITableViewCell)
@@ -840,7 +827,6 @@ extension ViewController:UITextFieldDelegate{
 
 
 extension Dictionary where Key == String, Value == Any {
-    
     mutating func append(anotherDict:[String:Any]) {
         for (key, value) in anotherDict {
             self.updateValue(value, forKey: key)
