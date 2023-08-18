@@ -110,7 +110,7 @@ public class SDKClient {
     }
     
     public func sendAckCmd(ackGuid:String,status:String, msg:String = "",childId:String = "") {
-        iotConnectManager.sendAckCmd(ackGuid: ackGuid, status: status,msg: msg,childId: childId)
+//        iotConnectManager.sendAckCmd(ackGuid: ackGuid, status: status,msg: msg,childId: childId)
     }
     
     /**
