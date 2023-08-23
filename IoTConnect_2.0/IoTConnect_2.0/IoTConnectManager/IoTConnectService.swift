@@ -116,7 +116,6 @@ extension IoTConnectManager {
                                     self.timerNotRegister = nil
                                 }
                               
-                                
                                 self.dictSyncResponse = dataDevice["d"] as? [String : Any]
 //                                self.getAttributes { isSuccess, data, msg in
 //
@@ -272,6 +271,8 @@ extension IoTConnectManager {
 //            startEdgeDeviceProcess(dictSyncResponse: dataSyncResponse)
             self.objMQTTClient.initiateMQTT(dictSyncResponse: dataSyncResponse) { (dataToPass, typeAction) in
                 
+                print("typeAction \(typeAction) \(dataToPass ?? "")")
+                
                 //typeAction == 1   //...For Development Call Back
                 //typeAction == 2   //...For Device Command Fire
                 //typeAction == 3   //...For Updated Sync Response
@@ -282,6 +283,14 @@ extension IoTConnectManager {
                 //typeAction == 8   //...For Device twins
                 //typeAction == 9   //...For Getting child devices
                 //typeAction == 10  //...For Getting Edge rules
+                //typeAction == 11  //...For Attribite update
+                //typeAction == 12  //...For Device command
+                //typeAction == 13  //...For Refresh child device
+                //typeAction == 14  //...For Rule change update
+                //typeAction == 15  //...For OTA Command
+                //typeAction == 16  //...For Module Command
+                //typeAction == 17  //...For OnCreate Device
+                //typeAction == 18  //...For Delete Device
                 
                 if typeAction == 1 {
                     if let dataMessage = dataToPass as? [String:Any] {
@@ -325,6 +334,28 @@ extension IoTConnectManager {
                 }  else if typeAction == 10{
                     print("Edge rule match \(String(describing: dataToPass))")
                     self.parseEdgeRuleResponse(response: dataToPass as! [String : Any])
+                } else if typeAction == 11{
+                    print("Attribute update \(String(describing: dataToPass))")
+//                    self.callBackDelegate?.onDeviceCommandCallback(response: dataToPass as? [String : Any] ?? [:], error: nil)
+                    self.callBackDelegate?.onAttrChangeCommand(response: dataToPass as? [String : Any] ?? [:])
+                }else if typeAction == 12{
+                    self.callBackDelegate?.onDeviceCommandCallback(response: dataToPass as? [String : Any] ?? [:], error: nil)
+                }else if typeAction == 13{
+                    self.callBackDelegate?.onDeviceChangeCommand(response: dataToPass as? [String : Any] ?? [:])
+                }else if typeAction == 14{
+                    self.objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_EDGE_RULE.rawValue], topic: "")
+                    self.callBackDelegate?.onRuleChangeCommand(response: dataToPass as? [String : Any] ?? [:])
+                }else if typeAction == 15{
+                    self.callBackDelegate?.onOTACommand(response: dataToPass as? [String : Any] ?? [:])
+                }
+                else if typeAction == 16{
+                    self.callBackDelegate?.onModuleCommand(response: dataToPass as? [String : Any] ?? [:])
+                } else if typeAction == 17{
+                    self.callBackDelegate?.onCreateChildDevice(response: dataToPass as? [String : Any] ?? [:])
+//                    self.objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_CHILD_DEVICE.rawValue], topic: "")
+                } else if typeAction == 18{
+                    self.callBackDelegate?.onDeleteChildDevice(response: dataToPass as? [String : Any] ?? [:])
+//                    self.objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_CHILD_DEVICE.rawValue], topic: "")
                 }
             }
         } else {
@@ -374,6 +405,9 @@ extension IoTConnectManager {
                             if dataDevice[keyPath:"d.rc"] as! Int == DeviceSync.Response.OK {
                                 var dictToUpdate = self.dictSyncResponse
                                 if strKey == CommandType.ATTRIBUTE_INFO_UPDATE.rawValue {
+//=======
+//                                if strKey == CommandType.REFRESH_ATTRIBUTE {
+//>>>>>>> Stashed changes
                                     dictToUpdate?["att"] = dataDevice[keyPath:"d.att"]
                                 } else if strKey == CommandType.SETTING_INFO_UPDATE.rawValue {
                                     dictToUpdate?["set"] = dataDevice[keyPath:"d.set"]
@@ -1913,5 +1947,16 @@ extension IoTConnectManager {
                 print("Error parsing EdgeRule Response")
             }
         }
-    } 
+//<<<<<<< Updated upstream
+//    }
+//=======
+    }
+    
+//    func onDeviceCommand(comnpletion:@escaping (_ response:[String:Any]?,_ error:String?)-> ()){
+//
+//    }
+    
+    
+//
+//>>>>>>> Stashed changes
 }

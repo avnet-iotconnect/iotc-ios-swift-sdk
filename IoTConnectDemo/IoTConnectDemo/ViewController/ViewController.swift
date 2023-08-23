@@ -85,6 +85,26 @@ class ViewController: UIViewController {
         txtView.layer.borderWidth = 1
         txtView.layer.borderColor = UIColor.darkGray.cgColor
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        SDKClient.shared.getChildDevices { response in
+            if let responseDict = response as? [String:Any]{
+                if let msgDict = responseDict["d"] as? [String:Any]{
+                    if let arrDict = msgDict["d"] as? [[String:Any]]{
+                        self.noOfSecrions = arrDict.count
+                        self.is204Received = true
+                        print("no of sections \(arrDict.count)")
+                        self.arrChildDevicesAttributes = arrDict
+                        //                    if  self.is201Received{
+                        self.getChildDevicesAttributes()
+                        //                    }
+                    }
+                }
+            }
+        }
+    }
 
     //MARK: - Custom Methods
     func connectSDK() {
@@ -152,6 +172,7 @@ class ViewController: UIViewController {
                                 self.manageAttributeResponse(response: msg)
                             }
                             else   if  msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_TWIN.rawValue{
+                                print("GET_DEVICE_TEMPLATE_TWIN \(msg)")
                                 DispatchQueue.main.async {
                                     self.txtView.text = "\(msg)"
                                 }
@@ -174,15 +195,37 @@ class ViewController: UIViewController {
                             commandType == CommandType.DEVICE_CONNECTION_STATUS.rawValue{
                             SDKClient.shared.dispose()
                             self.setDisconnectUI()
-                        }else if commandType == CommandType.DEVICE_COMMAND.rawValue{
-                            self.sendAckMessage(cloudMsg: msg)
-                        }else if commandType == CommandType.CORE_COMMAND.rawValue{
-                            SDKClient.shared.getAttributes { response in
-                                print("Att reponse \(response)")
-                                self.manageAttributeResponse(response: response as? [String : Any] ?? [:])
-                            }
+                        }else if commandType == CommandType.DATA_FREQUENCY_CHANGE.rawValue{
+                            print("DF changed \(msg)")
+                            SDKClient.shared.onFrequencyChangeCommand(dfValue: msg["df"] as? Int ?? 0)
                         }
                     }
+                    //                    else if commandType == CommandType.DEVICE_COMMAND.rawValue{
+                    //                            self.sendAckMessage(cloudMsg: msg)
+                    //                        }else if commandType == CommandType.REFRESH_ATTRIBUTE.rawValue{
+                    //                            SDKClient.shared.getAttributes { response in
+                    //                                print("Att reponse \(response ?? "")")
+                    //                                self.manageAttributeResponse(response: response as? [String : Any] ?? [:])
+                    //                            }
+                    ////=======
+                    //                        }else if commandType == CommandType.DATA_FREQUENCY_CHANGE.rawValue{
+                    //                            print("DF changed \(msg)")
+                    //                            SDKClient.shared.onFrequencyChangeCommand(dfValue: msg["df"] as? Int ?? 0)
+                    //                        }else if commandType == CommandType.REFRESH_CHILD_DEVICE.rawValue{
+                    //                            self.arrChildAttributeData.removeAll()
+                    //                            self.isGetDevicesCalled = false
+                    //                            self.arrSimpleDeviceData.removeAll()
+                    //                            if self.is204Received{
+                    //                                self.arrChildAttributeData.removeAll()
+                    //                                self.arrParentData.removeAll()
+                    ////>>>>>>> Stashed changes
+                    //                            }
+                    //                            DispatchQueue.main.async {
+                    //                                self.tblProperty.reloadData()
+                    //                            }
+                    //                            self.manageAttributeResponse(response: msg)
+                    //                        }
+                    //                    }
                     else if let msgError = msg["error"]{
                         DispatchQueue.main.async {
                             self.txtView.text = msgError as? String
@@ -206,12 +249,24 @@ class ViewController: UIViewController {
                 }
             }
             
-            SDKClient.shared.getTwinUpdateCallBack { (twinMessage) in
-                print("twinMessage: ", twinMessage as Any)
-                DispatchQueue.main.async {
-                    self.txtView.text = "\(twinMessage ?? "")"
-                }
+            SDKClient.shared.onDeviceCommand { response in
+                print("response onDeviceCommand vc \(response ?? [:])")
+                self.txtView.text = "\(response ?? "")"
+                let msg = response as? [String:Any]
+                SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "6", msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
             }
+            
+            SDKClient.shared.onOTACommand { response in
+                let msg = response as? [String:Any]
+                SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
+            }
+            
+            SDKClient.shared.onModuleCommand { response in
+                print("On module command response \(response ?? [:])")
+                let msg = response as? [String:Any]
+                SDKClient.shared.sendAckModule(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
+            }
+            
         }else{
             if txtCPID.text!.isEmpty{
                 presentAlert(title: "Please enter CPID value")
@@ -256,7 +311,7 @@ class ViewController: UIViewController {
         var arrAttData = [[AttData]]()
         let parentTag = self.identity?.d?.meta?.gtw?.tg
        
-        for i in 0...(arrAttCount ?? 0)-1{
+        for i in 0...(arrAttCount ?? 1)-1{
             let p = self.attributeData?.att![i].p
             //Filter data which have same parent tag
             var filteredArr = self.attributeData?.att![i].d?.filter({$0.tg == parentTag})
@@ -274,7 +329,11 @@ class ViewController: UIViewController {
                 }
             }
         }
-        arrParentData.append(["Tag":arrAttData])
+        if arrParentData.count > 0{
+            arrParentData[0] = ["Tag":arrAttData]
+        }else{
+            arrParentData.append(["Tag":arrAttData])
+        }
         if arrParentData[0]["Tag"]?.count ?? 0 > 0{
             print("final parent filter arr \(arrParentData) \(arrParentData[0]["Tag"]?[0].count ?? 0)")
             noOfAttributes = arrParentData[0]["Tag"]?[0].count ?? 0
@@ -460,6 +519,9 @@ class ViewController: UIViewController {
                 if let meta = self.identity?.d?.meta{
                     if meta.gtw != nil{
                         isDeviceGateway = true
+                        DispatchQueue.main.async {
+                            self.manageBtnControl(btn: self.btnChildDevicesOperation, isEnable: true)
+                        }
                         if let has = self.identity?.d?.has{
                             if let d = has.d, d == 1{
                                 is204WillCalled = true
@@ -538,7 +600,7 @@ class ViewController: UIViewController {
     func sendAckMessage(cloudMsg:[String:Any]){
         SDKClient.shared.sendAckCmd(ackGuid: cloudMsg["ack"] as? String ?? "", status: "6",msg: "Cloud message received",childId: cloudMsg["id"] as? String ?? "")
     }
-    
+
     func getTblViewHeight(){
         var totalCount = noOfSecrions
         totalCount += noOfAttributes + 1 //1 for headerview
@@ -578,7 +640,7 @@ class ViewController: UIViewController {
             self.lblStatus.text = statusText.disconnected.rawValue
             self.viewLblTag.isHidden = true
             self.tblProperty.isHidden = true
-            self.btnChildDevicesOperation.isEnabled = false
+            self.manageBtnControl(btn: self.btnChildDevicesOperation, isEnable: false)
         }
         disableMsgBtns()
     }
@@ -690,15 +752,12 @@ class ViewController: UIViewController {
         //            }
         //        }
         
-//        SDKClient.shared.getTwins(callBack: {(message) in
-//            print("Get twins callback message \(message)")
-//        })
-        
-//        SDKClient.shared.getChildDevices(callBack: {(message) in
-//            print("Get child device callback message \(message)")
-//        })
-       
-    }
+        SDKClient.shared.getTwins(callBack: {(message) in
+            print("Get twins callback message \(message ?? "")")
+            self.txtView.text = "\(message ?? "")"
+        })
+
+    } 
     
     @IBAction func btnSendDataTapped(_ sender: Any) {
         DispatchQueue.main.async {
@@ -715,8 +774,22 @@ class ViewController: UIViewController {
 //        SDKClient.shared.getAttributes { resposnse in
 //            print("Did recive 201 Attribute response \(resposnse)")
 //        }
+    }
+    
+    
+    @IBAction func btnChildDevicesTaped(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChildOperationVC") as? ChildOperationVC
+        print("arrChildDevicesAttributes \(arrChildDevicesAttributes)")
+        var arrTag = [String]()
         
-        
+        for i in 0...(arrChildDevicesAttributes?.count ?? 1)-1
+        {
+            arrTag.append(arrChildDevicesAttributes?[i]["tg"] as? String ?? "")
+        }
+        print("arrTag \(arrTag)")
+        vc?.tagArray = arrTag
+//        vc?.tagArray = self.arrChildDevicesAttributes.map({$0["tg"]})
+        self.navigationController?.pushViewController(vc!, animated: true)
     }
     
 }

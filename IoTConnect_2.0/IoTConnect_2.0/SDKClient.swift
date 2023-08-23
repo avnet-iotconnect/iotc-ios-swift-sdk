@@ -5,10 +5,18 @@
 import Foundation
 
 public typealias GetDeviceCallBackBlock = (Any?) -> ()
-public typealias GetTwinUpdateCallBackBlock = (Any?) -> ()
+public typealias OnTwinChangeCallBackBlock = (Any?) -> ()
 public typealias GetAttributesCallbackBlock = (Any?) -> ()
 public typealias GetTwinCallBackBlock = (Any?) -> ()
 public typealias GetChildDevicesCallBackBlock = (Any?) -> ()
+public typealias OnDeviceCommandCallBackBlock = (Any?) -> ()
+public typealias OnAttributeChangeCallBackBlock = (Any?) -> ()
+public typealias onDeviceChangeCommandCallBackBlock = (Any?) -> ()
+public typealias onRuleChangeCommandCallBackBlock = (Any?) -> ()
+public typealias onOTACommandCallBackBlock = (Any?) -> ()
+public typealias onModuleCommandCallBackBlock = (Any?) -> ()
+public typealias createChildDeviceCallBackBlock = (Any?) -> ()
+public typealias deleteChildDeviceCallBackBlock = (Any?) -> ()
 
 
 public class SDKClient {
@@ -17,10 +25,18 @@ public class SDKClient {
     
     fileprivate var iotConnectManager: IoTConnectManager!// = IoTConnectManager.sharedInstance
     private var blockHandlerDeviceCallBack : GetDeviceCallBackBlock?
-    private var blockHandlerTwinUpdateCallBack : GetTwinUpdateCallBackBlock?
+    private var blockHandlerTwinUpdateCallBack : OnTwinChangeCallBackBlock?
     private var blockHandlerGetAttributesCallBack : GetAttributesCallbackBlock?
     private var blockHandlerGetTwinsCallBack : GetTwinCallBackBlock?
     private var blockHandlerGetChildDevicesCallBack : GetChildDevicesCallBackBlock?
+    private var blockHandlerOnDeviceCommand:OnDeviceCommandCallBackBlock?
+    private var blockHandlerAttChnageCommand:OnAttributeChangeCallBackBlock?
+    private var blockHandlerDeviceChnageCommand:onDeviceChangeCommandCallBackBlock?
+    private var blockHandlerRuleChangeCommand:onRuleChangeCommandCallBackBlock?
+    private var blockHandlerOTACommand:onOTACommandCallBackBlock?
+    private var blockHandlerModuleCommand:onModuleCommandCallBackBlock?
+    private var blockHandlerCreateChildCallBack:createChildDeviceCallBackBlock?
+    private var blockHandlerDeleteChildCallBack:deleteChildDeviceCallBackBlock?
     
     /**
      Initialize configuration for IoTConnect SDK
@@ -58,6 +74,8 @@ public class SDKClient {
                 self.blockHandlerGetChildDevicesCallBack!(msg)
             }
         })
+        
+        iotConnectManager.callBackDelegate = self
     }
     
     /**
@@ -110,9 +128,17 @@ public class SDKClient {
     }
     
     public func sendAckCmd(ackGuid:String,status:String, msg:String = "",childId:String = "") {
-//        iotConnectManager.sendAckCmd(ackGuid: ackGuid, status: status,msg: msg,childId: childId)
+        iotConnectManager.sendAckCmd(ackGuid: ackGuid, status: status,msg: msg,childId: childId, type: 0)
     }
     
+    public func  sendOTAAckCmd(ackGuid:String,status:String, msg:String = "",childId:String = "") {
+        iotConnectManager.sendAckCmd(ackGuid: ackGuid, status: status,msg: msg,childId: childId, type: 1)
+    }
+    
+    public func sendAckModule(ackGuid:String,status:String, msg:String = "",childId:String = "") {
+        iotConnectManager.sendAckCmd(ackGuid: ackGuid, status: status,msg: msg,childId: childId, type: 2)
+    }
+
     /**
      Get all twins
      
@@ -183,10 +209,10 @@ public class SDKClient {
     
     public func getChildDevices(callBack: @escaping GetChildDevicesCallBackBlock) -> () {
         blockHandlerGetChildDevicesCallBack = callBack
-        iotConnectManager.getChildDevices(callBack: callBack)
+        iotConnectManager?.getChildDevices(callBack: callBack)
     }
     
-    
+
     /**
      Get device callback
      
@@ -203,6 +229,30 @@ public class SDKClient {
         blockHandlerDeviceCallBack = deviceCallback
     }
     
+    public func onDeviceCommand(commandCallback:@escaping OnDeviceCommandCallBackBlock){
+        blockHandlerOnDeviceCommand = commandCallback
+    }
+    
+    public func onAttrChangeCommand(commandCallback:@escaping OnAttributeChangeCallBackBlock){
+        blockHandlerAttChnageCommand = commandCallback
+    }
+    
+    public func onDeviceChangeCommand(commandCallback:@escaping onDeviceChangeCommandCallBackBlock){
+        blockHandlerDeviceChnageCommand = commandCallback
+    }
+    
+    public func onRuleChangeCommand(commandCallback:@escaping onRuleChangeCommandCallBackBlock){
+        blockHandlerRuleChangeCommand = commandCallback
+    }
+    
+    public func onOTACommand(commandCallback:@escaping onOTACommandCallBackBlock){
+        blockHandlerOTACommand = commandCallback
+    }
+    
+    public func onModuleCommand(commandCallback:@escaping OnDeviceCommandCallBackBlock){
+        blockHandlerModuleCommand = commandCallback
+    }
+    
     /**
      Get twin callback
      
@@ -215,8 +265,108 @@ public class SDKClient {
      - returns:
      Returns nothing
      */
-    public func getTwinUpdateCallBack(twinUpdateCallback: @escaping GetTwinUpdateCallBackBlock) -> () {
-        
+    public func onTwinChangeCommand(twinUpdateCallback: @escaping OnTwinChangeCallBackBlock) -> () {
         blockHandlerTwinUpdateCallBack = twinUpdateCallback
     }
+    
+    public func onFrequencyChangeCommand(dfValue:Int){
+        iotConnectManager?.onFrequencyChangeCommand(dfValue: dfValue)
+    }
+    
+    public func createChildDevice(deviceId:String, deviceTag:String, displayName:String,createChildCallBack:@escaping createChildDeviceCallBackBlock) -> (){
+        iotConnectManager?.createChildDevice(deviceId: deviceId, deviceTag: deviceTag, displayName: displayName)
+        blockHandlerCreateChildCallBack = createChildCallBack
+    }
+    
+    public func deleteChildDevice(deviceId:String, deleteChildCallBack:@escaping deleteChildDeviceCallBackBlock)-> (){
+        iotConnectManager?.deleteChildDevice(uniqueID: deviceId)
+        blockHandlerDeleteChildCallBack = deleteChildCallBack
+    }
+    
+    func getErrorMsgForDeleteDevice(code:Int)->String{
+        if code == 1{
+            return "Child device not found"
+        }
+        return "Something went wrong"
+    }
+    
+    func getErrorMsgForCreateDevice(code:Int)->String{
+        switch code{
+         
+        case 1:
+            return "Message missing child tag"
+        case 2:
+            return "Message missing child device uniqueid"
+        case 3:
+            return "Message missing child device display name"
+        case 4:
+            return "Gateway device not found"
+        case 5:
+            return "Could not create device, something went wrong"
+        case 6:
+            return "Child device tag is not valid"
+        case 7:
+            return "Child device tag name cannot be same as Gateway device"
+        case 8:
+            return "Child uniqueid is already exists."
+        case 9:
+            return "Child uniqueid should not exceed 128 characters"
+        default:
+            return "Something went wrong"
+        }
+        
+    }
+    
+}
+
+
+extension SDKClient : callBackResponse{
+    func onDeleteChildDevice(response: [String : Any]) {
+        let dict = response["d"] as? [String:Any]
+        let ec = dict?["ec"] as? Int
+        if ec == 0{
+            blockHandlerDeleteChildCallBack?(response)
+        }else{
+            let error = getErrorMsgForDeleteDevice(code: ec ?? 0)
+            blockHandlerDeleteChildCallBack?(error)
+        }
+    }
+    
+    func onCreateChildDevice(response: [String : Any]) {
+        let dict = response["d"] as? [String:Any]
+        let ec = dict?["ec"] as? Int
+        if ec == 0{
+            blockHandlerCreateChildCallBack?(response)
+        }else{
+            let error = getErrorMsgForCreateDevice(code: ec ?? 0)
+            blockHandlerCreateChildCallBack?(error)
+        }
+    }
+    
+    func onModuleCommand(response: [String : Any]) {
+        blockHandlerModuleCommand?(response)
+    }
+    
+    func onOTACommand(response: [String : Any]) {
+        blockHandlerOTACommand?(response)
+    }
+    
+    func onRuleChangeCommand(response: [String : Any]) {
+        blockHandlerRuleChangeCommand?(response)
+    }
+    
+    func onDeviceChangeCommand(response: [String : Any]) {
+        blockHandlerDeviceChnageCommand?(response)
+    }
+    
+    func onAttrChangeCommand(response: [String : Any]) {
+        blockHandlerAttChnageCommand?(response)
+    }
+    
+    func onDeviceCommandCallback(response:[String:Any]?,error:String?) {
+        print("onDeviceCommandCallback called \(response ?? [:])")
+        blockHandlerOnDeviceCommand?(response)
+    }
+    
+    
 }

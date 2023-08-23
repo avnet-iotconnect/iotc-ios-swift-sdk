@@ -8,8 +8,15 @@ public enum CommandType:Int{
     case DEVICE_COMMAND = 0
     case OTA_COMMAND = 1
     case MODULE_COMMAND = 2
-    case CORE_COMMAND = 101//"0x01"
+    case REFRESH_ATTRIBUTE = 101//"0x01"
     case FIRMWARE_UPDATE = 102//"0x02"
+    case REFRESH_EDGE_RULE = 103
+    case REFRESH_CHILD_DEVICE = 104
+    case DATA_FREQUENCY_CHANGE = 105
+    case DEVICE_DELETED = 106
+    case DEVICE_DISABLED = 107
+    case DEVICE_RELEASED = 108
+    case STOP_OPERATION = 109
     case ATTRIBUTE_INFO_UPDATE = 110//"0x10"
     case SETTING_INFO_UPDATE = 111//"0x11"
     case PASSWORD_INFO_UPDATE = 112//"0x12"
@@ -18,16 +25,14 @@ public enum CommandType:Int{
     case DEVICE_CONNECTION_STATUS = 116//"0x16"
     case DATA_FREQUENCY_UPDATE = 117//"0x17"
     case STOP_SDK_CONNECTION = 199//"0x99"
-    case DEVICE_DELETED = 106
-    case DEVICE_DISABLED = 107
-    case DEVICE_RELEASED = 108
-    case STOP_OPERATION = 109
     case IDENTITIY_RESPONSE = 200
     case GET_DEVICE_TEMPLATE_ATTRIBUTE = 201
     case GET_DEVICE_TEMPLATE_TWIN = 202
     case GET_EDGE_RULE = 203
     case GET_CHILD_DEVICE = 204
     case GET_PENDING_OTAS = 205
+    case CREATE_DEVICE = 221
+    case DELETE_DEVICE = 222
 }
 
 //public struct CommandType {
@@ -101,6 +106,36 @@ struct SDKConstants {
     static let TwinResponseSubTopic = "$iothub/twin/res/#"
     static let AggrigacaseteType = ["min": 1, "max": 2, "sum": 4, "avg": 8, "count": 16, "lv": 32]
 }
+
+
+//struct CommandType {
+//    static let DEVICE_COMMAND = 0
+//    static let OTA_COMMAND = 1
+//    static let MODULE_COMMAND = 2
+//    static let REFRESH_ATTRIBUTE = 101//"0x01"
+//    static let FIRMWARE_UPDATE = 102//"0x02"
+//    static let REFRESH_EDGE_RULE = 103
+//    static let REFRESH_CHILD_DEVICE = 104
+//    static let DATA_FREQUENCY_CHANGE = 105
+////    static let ATTRIBUTE_INFO_UPDATE = 101//"0x10"
+//    static let SETTING_INFO_UPDATE = 111//"0x11"
+//    static let PASSWORD_INFO_UPDATE = 112//"0x12"
+//    static let DEVICE_INFO_UPDATE = 113//"0x13"
+//    static let RULE_INFO_UPDATE = 115//"0x15"
+//    static let DEVICE_CONNECTION_STATUS = 116//"0x16"
+//    static let DATA_FREQUENCY_UPDATE = 117//"0x17"
+//    static let STOP_SDK_CONNECTION = 199//"0x99"
+//    static let DEVICE_DELETED = 106
+//    static let DEVICE_DISABLED = 107
+//    static let DEVICE_RELEASED = 108
+//    static let STOP_OPERATION = 109
+//    static let IDENTITIY_RESPONSE = 200
+//    static let GET_DEVICE_TEMPLATE_ATTRIBUTE = 201
+//    static let GET_DEVICE_TEMPLATE_TWIN = 202
+//    static let GET_EDGE_RULE = 203
+//    static let GET_CHILD_DEVICE = 204
+//    static let GET_PENDING_OTAS = 205
+//}
 
 struct DataType {
     static let DTNumber = 0

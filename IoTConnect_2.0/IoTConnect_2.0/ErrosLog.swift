@@ -73,7 +73,7 @@ struct Log {//class
         case INFO_TP02 = "Request sent successfully to get the all twin properties."
         case INFO_CM01 = "Command : 0x01 : STANDARD_COMMAND"
         case INFO_CM02 = "Command : 0x02 : FIRMWARE_UPDATE"
-        case INFO_CM03 = "Command : 0x10 : ATTRIBUTE_UPDATE"
+        case INFO_CM03 = "Command : 101 : ATTRIBUTE_UPDATE"
         case INFO_CM04 = "Command : 0x11 : SETTING_UPDATE"
         case INFO_CM05 = "Command : 0x12 : PASSWORD_UPDATE"
         case INFO_CM06 = "Command : 0x13 : DEVICE_UPDATE"
