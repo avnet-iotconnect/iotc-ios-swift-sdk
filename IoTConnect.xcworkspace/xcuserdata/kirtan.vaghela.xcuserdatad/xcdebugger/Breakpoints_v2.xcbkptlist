@@ -1284,9 +1284,9 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "571"
-            endingLineNumber = "571"
-            landmarkName = "manageAttributeResponse(response:)"
+            startingLineNumber = "662"
+            endingLineNumber = "662"
+            landmarkName = "setDisconnectUI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1300,8 +1300,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
             <Locations>

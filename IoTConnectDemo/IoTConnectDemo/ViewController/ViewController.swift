@@ -89,6 +89,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        //calling get child device to uopdate tableview after create or delete child device
         SDKClient.shared.getChildDevices { response in
             if let responseDict = response as? [String:Any]{
                 if let msgDict = responseDict["d"] as? [String:Any]{
@@ -249,18 +250,21 @@ class ViewController: UIViewController {
                 }
             }
             
+            //callback for device command and sending ack
             SDKClient.shared.onDeviceCommand { response in
                 print("response onDeviceCommand vc \(response ?? [:])")
                 self.txtView.text = "\(response ?? "")"
                 let msg = response as? [String:Any]
-                SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "6", msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
+                SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "6", msg: "Device command received ack",childId: msg?["id"] as? String ?? "")
             }
             
+            //callback on OTA and ack
             SDKClient.shared.onOTACommand { response in
                 let msg = response as? [String:Any]
-                SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
+                SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "OTA message received ack",childId: msg?["id"] as? String ?? "")
             }
             
+            //callbakck for module command and ack
             SDKClient.shared.onModuleCommand { response in
                 print("On module command response \(response ?? [:])")
                 let msg = response as? [String:Any]
@@ -508,6 +512,20 @@ class ViewController: UIViewController {
         DispatchQueue.main.async {
             self.viewLoader.isHidden = true
         }
+        //Format for sending data to SDK
+        //dateTime format "2023-08-24T05:52:11.392Z"
+        
+//        ["d":
+//        [[
+//         "d":
+//        [
+//        <ln>: <value>],
+//        "dt": <dateTime>, "id": <id>, "tg": <tag>
+//        ]
+//        ],
+//         "dt": <dateTime>
+//        ]
+        
         SDKClient.shared.sendData(data: finalDict)
     }
     
