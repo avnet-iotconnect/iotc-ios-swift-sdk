@@ -95,8 +95,8 @@ class HTTPService: HTTPManagerDelegate {
     fileprivate func checkInternetAvailable() -> Bool {
         let networkStatus = try! Reachability().connection
         switch networkStatus {
-        case nil:
-            return false
+//        case nil:
+//            return false
         case .cellular:
             return true
         case .wifi:

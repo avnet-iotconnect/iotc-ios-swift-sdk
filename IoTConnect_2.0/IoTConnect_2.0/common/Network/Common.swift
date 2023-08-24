@@ -23,7 +23,7 @@ class Common {
                
                 let errorParse: Error? = nil
                 let jsonData = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-                print("getBaseURL response \(jsonData)")
+                print("getBaseURL response \(jsonData ?? "")")
                 if jsonData == nil {
                     callBack(false, errorParse as Any)
                 } else {
@@ -54,7 +54,7 @@ class Common {
         
         print("makeSyncCall \(strURL)")
         let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            print("makeSyncCall response\(response)")
+            print("makeSyncCall response\(String(describing: response))")
             completionHandler(data, response, error)
         }
         dataTask.resume()
@@ -149,9 +149,9 @@ class Common {
     }
     func getAttributes(dictSyncResponse: [String:Any], callBack: @escaping ([String:Any]?, String) -> ()) {
         DispatchQueue.main.async {
-            var newAttributeObj = dictSyncResponse[keyPath: "p.topics.di"]
+            let newAttributeObj = dictSyncResponse[keyPath: "p.topics.di"]
             //dictSyncResponse["att"] as! [[String:Any]]
-            let isEdgeDevice = dictSyncResponse["ee"] as! Bool
+//            let isEdgeDevice = dictSyncResponse["ee"] as! Bool
             
             
 //            newAttributeObj = newAttributeObj.map { (attributes) -> [String:Any] in
@@ -171,7 +171,7 @@ class Common {
 //                })
 //                return dataAttributes
 //            }
-            callBack(["attribute": newAttributeObj], "Data sync successfully.")
+            callBack(["attribute": newAttributeObj ?? ""], "Data sync successfully.")
         }
     }
     func getSubStringFor(strToProcess: String, indStart: Int, indEnd: Int) -> String {

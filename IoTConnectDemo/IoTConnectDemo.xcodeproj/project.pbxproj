@@ -103,11 +103,10 @@
 		C0C04CC826D015D900182C45 /* IoTConnectDemo */ = {
 			isa = PBXGroup;
 			children = (
+				DD2F10232A8DF44F008B15C1 /* View */,
 				DDA1BAEE2A4180FB00DBA886 /* Models */,
-				9285F66B26D62EEF00BC30DC /* TableHeaderView */,
 				DDC0C2962A38958A001793C5 /* RadioButtonController.swift */,
 				C0C04CC926D015D900182C45 /* AppDelegate.swift */,
-				9285F67026D62F5000BC30DC /* PropertyCell.swift */,
 				C0C04CCB26D015D900182C45 /* SceneDelegate.swift */,
 				C0C04CCD26D015D900182C45 /* ViewController.swift */,
 				C0C04CCF26D015D900182C45 /* Main.storyboard */,
@@ -127,6 +126,15 @@
 				DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD2F10232A8DF44F008B15C1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9285F67026D62F5000BC30DC /* PropertyCell.swift */,
+				9285F66B26D62EEF00BC30DC /* TableHeaderView */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		DDA1BAEE2A4180FB00DBA886 /* Models */ = {
