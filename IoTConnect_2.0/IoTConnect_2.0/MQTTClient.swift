@@ -274,6 +274,7 @@ class MQTTClient {
             }
         }
     }
+    
     private func swapFilename(oldFileName: String?, logPath: String, callBack: @escaping () -> ()) {
         if oldFileName == nil {
             callBack()
@@ -295,6 +296,7 @@ class MQTTClient {
             }
         }
     }
+    
     private func deleteFile(logPath: String, deleteFilePath: String = "") {
         let clientId = logPath.components(separatedBy: "/")
         let companyInfo = clientId[2].components(separatedBy: "_")
@@ -386,6 +388,7 @@ class MQTTClient {
             isRunningOfflineSending = false
         }
     }
+    
     private func checkAndSendOfflineData(offlineDataFile: String, logPath: String, callBack: @escaping (Bool) -> ()) {
         
         if FileManager.default.fileExists(atPath: objCommon.getDocumentsDirectory().appendingPathComponent(offlineDataFile).path) {
@@ -416,6 +419,7 @@ class MQTTClient {
             callBack(true)
         }
     }
+    
     private func sendOfflineDataProcess(offDataObj: [[String: Any]], offlineDataLength: Int, offlineDataFile: String, logPath: String) {
         let offlineData = offDataObj
         var dataOfflineToModify = offDataObj
@@ -462,11 +466,13 @@ class MQTTClient {
             indX += 1
         }
     }
+    
     private func holdFunc(offDataObj: [[String: Any]], offlineDataLength: Int, offlineDataFile: String, logPath: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + SDKConstants.holdOfflineDataTime) {
             self.sendOfflineDataProcess(offDataObj: offDataObj, offlineDataLength: offlineDataLength, offlineDataFile: offlineDataFile, logPath: logPath)
         }
     }
+    
     //MARK: - Publish Data On MQTT
     func publishTopicOnMQTT(withData dictSDKToHub: [String: Any], topic:String) {
         print("publishTopicOnMQTT: \(dictSDKToHub) \(topic)")
@@ -485,6 +491,7 @@ class MQTTClient {
             objCommon.manageDebugLog(code: Log.Errors.ERR_CM01, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
+    
     func publishTwinPropertyDataOnMQTT(withData dictSDKToHub: [String: Any]) {
         print("publishTwinPropertyDataOnMQTT: \(dictSDKToHub)")
         do {
@@ -501,6 +508,7 @@ class MQTTClient {
             objCommon.manageDebugLog(code: Log.Errors.ERR_TP01, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
+    
     private func publishDataOnMQTT(dictSDKToHubForOS: [String: Any], strPubTopic: String, strMessageToPass: String) {
         autoreleasepool {
             if (boolIsInternetAvailableYN) {
@@ -517,6 +525,7 @@ class MQTTClient {
             }
         }
     }
+    
     func getAllTwins() {
         autoreleasepool {
             if mqtt?.connState == .connected {
@@ -579,6 +588,7 @@ extension MQTTClient: CocoaMQTTDelegate {
                          "ct": CommandType.DEVICE_CONNECTION_STATUS.rawValue]], 2)
         }
     }
+    
     func mqtt(_ mqtt: CocoaMQTT, didStateChangeTo state: CocoaMQTTConnState) {
         TRACE("new state: \(state)")
         if state == .connected{
@@ -613,13 +623,16 @@ extension MQTTClient: CocoaMQTTDelegate {
             
         }
     }
+    
     func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
         print("MQTT message did publish \(message)")
         //TRACE("Publish message: \(String(describing: message.string?.description)), id: \(id)")
     }
+    
     func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
         //TRACE("id: \(id)")
     }
+    
     func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16 ) {
         TRACE("message: \(String(describing: message.string)), id: \(id)")
         if let data = message.string?.data(using: .utf8), message.string?.count != 0 {
@@ -797,18 +810,23 @@ extension MQTTClient: CocoaMQTTDelegate {
             }
         }
     }
+    
     func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopics success: NSDictionary, failed: [String]) {
         TRACE("subscribed: \(success), failed: \(failed)")
     }
+    
     func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopics topics: [String]) {
         TRACE("topic: \(topics)")
     }
+    
     func mqttDidPing(_ mqtt: CocoaMQTT) {
         //TRACE()
     }
+    
     func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
         //TRACE()
     }
+    
     func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
         TRACE("mqttDidDisconnect: \(err.debugDescription)")
         objCommon.manageDebugLog(code: Log.Errors.ERR_IN14, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)

@@ -241,6 +241,7 @@ extension IoTConnectManager {
         RunLoop.main.add(self.timerNotRegister!, forMode: .default)
         self.timerNotRegister!.fire()
     }
+    
     @objc private func reInitialise() {
         if self.repeatTimerCount < 5{
             print("reInitialise")
@@ -651,6 +652,7 @@ extension IoTConnectManager {
         }
         return dictResultAttribute
     }
+    
     private func checkForIsValidOrNotWith(forData dictForData: [String: Any], withValue idValue: Any) -> Bool {
         if dictForData["dt"] as? Int == DataType.DTNumber {
             let scan = Scanner(string: "\(Int(String(describing: idValue)) ?? 0)")

@@ -127,14 +127,17 @@ public class SDKClient {
         iotConnectManager.sendAck(data: data, msgType: msgType)
     }
     
+    //send ack for device command
     public func sendAckCmd(ackGuid:String,status:String, msg:String = "",childId:String = "") {
         iotConnectManager.sendAckCmd(ackGuid: ackGuid, status: status,msg: msg,childId: childId, type: 0)
     }
     
+    //send ack for OTA command
     public func  sendOTAAckCmd(ackGuid:String,status:String, msg:String = "",childId:String = "") {
         iotConnectManager.sendAckCmd(ackGuid: ackGuid, status: status,msg: msg,childId: childId, type: 1)
     }
     
+    //send ack for module command
     public func sendAckModule(ackGuid:String,status:String, msg:String = "",childId:String = "") {
         iotConnectManager.sendAckCmd(ackGuid: ackGuid, status: status,msg: msg,childId: childId, type: 2)
     }
@@ -202,11 +205,13 @@ public class SDKClient {
         iotConnectManager?.getAttributes(callBack: callBack)
     }
     
+    //get twins
     public func getTwins(callBack: @escaping GetTwinCallBackBlock) -> () {
         blockHandlerGetTwinsCallBack = callBack
         iotConnectManager.getTwins(callBack: callBack)
     }
     
+    //Get child devices
     public func getChildDevices(callBack: @escaping GetChildDevicesCallBackBlock) -> () {
         blockHandlerGetChildDevicesCallBack = callBack
         iotConnectManager?.getChildDevices(callBack: callBack)
@@ -229,26 +234,32 @@ public class SDKClient {
         blockHandlerDeviceCallBack = deviceCallback
     }
     
+    //Device command cloud to device call back
     public func onDeviceCommand(commandCallback:@escaping OnDeviceCommandCallBackBlock){
         blockHandlerOnDeviceCommand = commandCallback
     }
     
+    //Refresh attribute cloud to device command callback
     public func onAttrChangeCommand(commandCallback:@escaping OnAttributeChangeCallBackBlock){
         blockHandlerAttChnageCommand = commandCallback
     }
     
+    //Refresh child device cloud to device callback
     public func onDeviceChangeCommand(commandCallback:@escaping onDeviceChangeCommandCallBackBlock){
         blockHandlerDeviceChnageCommand = commandCallback
     }
     
+    //Refresh edge rule cloud to device command
     public func onRuleChangeCommand(commandCallback:@escaping onRuleChangeCommandCallBackBlock){
         blockHandlerRuleChangeCommand = commandCallback
     }
     
+    //OTA command cloud to device callback
     public func onOTACommand(commandCallback:@escaping onOTACommandCallBackBlock){
         blockHandlerOTACommand = commandCallback
     }
     
+    //Module command cloud to device command
     public func onModuleCommand(commandCallback:@escaping OnDeviceCommandCallBackBlock){
         blockHandlerModuleCommand = commandCallback
     }
@@ -269,20 +280,24 @@ public class SDKClient {
         blockHandlerTwinUpdateCallBack = twinUpdateCallback
     }
     
+    //Data frequency change command callback
     public func onFrequencyChangeCommand(dfValue:Int){
         iotConnectManager?.onFrequencyChangeCommand(dfValue: dfValue)
     }
     
+    //Create child device callback
     public func createChildDevice(deviceId:String, deviceTag:String, displayName:String,createChildCallBack:@escaping createChildDeviceCallBackBlock) -> (){
         iotConnectManager?.createChildDevice(deviceId: deviceId, deviceTag: deviceTag, displayName: displayName)
         blockHandlerCreateChildCallBack = createChildCallBack
     }
     
+    //Delete child device callback
     public func deleteChildDevice(deviceId:String, deleteChildCallBack:@escaping deleteChildDeviceCallBackBlock)-> (){
         iotConnectManager?.deleteChildDevice(uniqueID: deviceId)
         blockHandlerDeleteChildCallBack = deleteChildCallBack
     }
     
+    //get error messge for delete device from error code
     func getErrorMsgForDeleteDevice(code:Int)->String{
         if code == 1{
             return "Child device not found"
@@ -290,6 +305,7 @@ public class SDKClient {
         return "Something went wrong"
     }
     
+    //get error messge for create device from error code
     func getErrorMsgForCreateDevice(code:Int)->String{
         switch code{
          
@@ -321,6 +337,7 @@ public class SDKClient {
 
 
 extension SDKClient : callBackResponse{
+    
     func onDeleteChildDevice(response: [String : Any]) {
         let dict = response["d"] as? [String:Any]
         let ec = dict?["ec"] as? Int
@@ -367,6 +384,4 @@ extension SDKClient : callBackResponse{
         print("onDeviceCommandCallback called \(response ?? [:])")
         blockHandlerOnDeviceCommand?(response)
     }
-    
-    
 }

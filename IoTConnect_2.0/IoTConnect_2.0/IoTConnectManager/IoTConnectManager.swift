@@ -227,18 +227,19 @@ class IoTConnectManager {
             let metaInfo = self.dictSyncResponse["meta"] as? [String:Any]
             df = metaInfo?["df"] as? Int ?? 0
             
-//            if let time = prevSendDataTime{
-//                let diff = Int(Date().timeIntervalSince(time))
-//                print("df \(df) diff\(diff) \(time) \(Date())")
-//                if diff >= df{
-//                    validateData(data: data)
-//                }else{
-//                    print("Diff is lt")
-//                }
-//            }else{
-//                print("prevsendData is nil")
+            //check for data frequency
+            if let time = prevSendDataTime{
+                let diff = Int(Date().timeIntervalSince(time))
+                print("df \(df) diff\(diff) \(time) \(Date())")
+                if diff >= df{
+                    validateData(data: data)
+                }else{
+                    print("Diff is lt")
+                }
+            }else{
+                print("prevsendData is nil")
                 validateData(data: data)
-//            }
+            }
            
 //
 //            if diff >= df{
@@ -318,16 +319,9 @@ class IoTConnectManager {
         }
     }
     
+    //send ack command for ota,module and device command
     func sendAckCmd(ackGuid:String,status:String, msg:String = "",childId:String = "",type:Int){
         if dictSyncResponse.count > 0{
-//            var type = 0
-//
-//            if status == "6"{
-//                type = 0
-//            }else if status == "0"{
-//                type = 1
-//            }
-            
             let dictToSend =  [
                 "dt":objCommon.now(),
                 "d":[
@@ -345,6 +339,7 @@ class IoTConnectManager {
         }
     }
     
+    //store Edge Device Data in format for sum,avg,lv,count,min,mzx
     func storeEdgeDeviceData(arr:[[String:Any]],dictVal:[String:Any],id:String?,tg:String?,dt:String)-> [[String:Any]]{
         let key = Array(dictVal)[0].key
         let value = Array(dictVal)[0].value
@@ -550,6 +545,7 @@ class IoTConnectManager {
         return arrData
     }
     
+    //get sum,avg,max,min,latest value from data
     func calcEdgeData(arrValues:[String],latestVal:String)-> [String]{
         let arrFloat = arrValues.lazy.compactMap{
             Float($0.trimmingCharacters(in: .whitespaces))
@@ -775,6 +771,7 @@ class IoTConnectManager {
         }
     }
     
+    //get twins
     func getTwins(callBack: @escaping GetTwinCallBackBlock) -> () {
         if dictSyncResponse.count > 0 {
             objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_TWIN.rawValue], topic: "")
@@ -784,6 +781,7 @@ class IoTConnectManager {
         }
     }
     
+    //get child devices
     func getChildDevices(callBack: GetChildDevicesCallBackBlock) -> () {
         if dictSyncResponse.count > 0 {
             objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_CHILD_DEVICE.rawValue], topic: "")
@@ -793,6 +791,7 @@ class IoTConnectManager {
         }
     }
     
+    //called on data frequncy change
     func onFrequencyChangeCommand(dfValue:Int){
         var metaInfo = self.dictSyncResponse["meta"] as? [String:Any]
         metaInfo?["df"] = dfValue
@@ -803,10 +802,11 @@ class IoTConnectManager {
         print("df changed val \(df)")
     }
     
+    //Publish topic on MQTT to create child device
     public func createChildDevice(deviceId:String, deviceTag:String, displayName:String){
-        var metaInfo = self.dictSyncResponse["meta"] as? [String:Any]
-        var gtw = metaInfo?["gtw"] as? [String:Any]
-        var g = gtw?["g"] as? String
+        let metaInfo = self.dictSyncResponse["meta"] as? [String:Any]
+        let gtw = metaInfo?["gtw"] as? [String:Any]
+        let g = gtw?["g"] as? String
         
         objMQTTClient.publishTopicOnMQTT(withData: ["mt":CommandType.CREATE_DEVICE.rawValue,
                                                     "d":[
@@ -818,6 +818,7 @@ class IoTConnectManager {
         
     }
     
+    //Publish topic on MQTT to delete child device
     func deleteChildDevice(uniqueID:String){
         objMQTTClient.publishTopicOnMQTT(withData: [                    "mt":CommandType.DELETE_DEVICE.rawValue,
                                                     "d":[

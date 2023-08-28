@@ -60,11 +60,12 @@ class ChildOperationVC: UIViewController {
             DispatchQueue.main.async {
                 self.viewProgress.isHidden = false
             }
+            //Send data to SDK and handle response and show alert
             SDKClient.shared.createChildDevice(deviceId: txtFieldUniqueID.text ?? "", deviceTag:self.tag, displayName:  txtFieldDisplayName.text ?? ""  , createChildCallBack:{ (response) in
+                DispatchQueue.main.async {
+                    self.viewProgress.isHidden = true
+                }
                 if let dict = response as? [String:Any]{
-                    DispatchQueue.main.async {
-                        self.viewProgress.isHidden = true
-                    }
                     let dictD = dict["d"] as? [String:Any]
                     let ec = dictD?["ec"] as? Int
                     if ec == 0{
@@ -86,6 +87,7 @@ class ChildOperationVC: UIViewController {
             DispatchQueue.main.async {
                 self.viewProgress.isHidden = false
             }
+            //Send data to SDK and handle response and show alert
             SDKClient.shared.deleteChildDevice(deviceId: txtFieldUniqueID.text ?? "") { response in
                 DispatchQueue.main.async {
                     self.viewProgress.isHidden = true
