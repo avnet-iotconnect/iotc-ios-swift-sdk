@@ -103,57 +103,6 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
-//        SDKClient.shared.getAttributes { attrinuteResponse in
-//            print("Att reponse \(attrinuteResponse ?? "")")
-//            let msgReponse = attrinuteResponse as? [String:Any]
-//
-//            if let msg = msgReponse?["d"] as? [String:Any]{
-//                print("call getAttributes")
-//                self.noOfSecrions = 0
-//                self.noOfAttributes = 0
-//                self.isGetDevicesCalled = false
-//                self.arrChildDevicesAttributes?.removeAll()
-//                self.arrChildAttributeData.removeAll()
-//                self.arrParentData.removeAll()
-//                self.arrSimpleDeviceData.removeAll()
-//                self.is201Received = false
-//                self.is204Received = false
-////                self.isDeviceGateway = false
-////                self.identity = nil
-//                self.is204WillCalled = false
-//                self.arrSimpleDeviceData.removeAll()
-//                if self.is204Received{
-//                    self.arrChildAttributeData.removeAll()
-//                    self.arrParentData.removeAll()
-//                }
-//                DispatchQueue.main.async {
-//                    self.tblProperty.reloadData()
-//                }
-////                self.manageAttributeResponse(response: msg)
-//                SDKClient.shared.getChildDevices { response in
-//                    if let responseDict = response as? [String:Any]{
-//                        if let msgDict = responseDict["d"] as? [String:Any]{
-//                            if let arrDict = msgDict["d"] as? [[String:Any]]{
-//                                self.noOfSecrions = arrDict.count
-//                                self.is204Received = true
-//                                print("no of sections \(arrDict.count)")
-//                                self.arrChildDevicesAttributes = arrDict
-//                                self.manageAttributeResponse(response: msg)
-//                                if  self.is201Received{
-//                                    self.getChildDevicesAttributes()
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        
-//        if devivceStatus == .connected{
-//            SDKClient.shared.dispose()
-//            connectSDK()
-//        }
     }
 
     //MARK: - Custom Methods
@@ -436,7 +385,6 @@ class ViewController: UIViewController {
                     if filteredArr?.count ?? 0 > 0{
                         print("filteredArr count is gt 0")
                         for m in 0...(filteredArr!.count)-1{
-//                            self.attData?.att![i].d?[m].p = p
                             filteredArr?[m].p = p
                         }
                         print("filteredArr \(String(describing: filteredArr))")
@@ -642,17 +590,13 @@ class ViewController: UIViewController {
             let json = try JSONSerialization.data(withJSONObject: response)
             let decoder = JSONDecoder()
             let decodedAttributes = try decoder.decode(AttributesData.self, from: json)
-            //                                 print(" atrributes \(decodedAttributes.att)")
             self.attributeData = decodedAttributes
             let att = self.attributeData?.att
             self.is201Received = true
-            //|| att?[0].tg?.isEmpty == true
-//                                if (att?[0].tg == nil) && !self.isGetDevicesCalled{
             if !self.is204WillCalled{
                 self.is204Received = true
             }
             if !self.isGetDevicesCalled && !self.isDeviceGateway{
-//                                    self.is204Received = true
                 self.isGetDevicesCalled = true
                 self.getSimpleDeviceData()
             }
@@ -664,7 +608,6 @@ class ViewController: UIViewController {
                 }
                 self.getChildDevicesAttributes()
             }
-//                                print("d count \(self.noOfAttributes)")
             DispatchQueue.main.async {
                 self.tblProperty.isHidden = false
                 self.getTblViewHeight()
@@ -879,10 +822,6 @@ class ViewController: UIViewController {
         }else if arrSimpleDeviceData.count > 0{
             loadData(data: arrSimpleDeviceData)
         }
-        
-//        SDKClient.shared.getAttributes { resposnse in
-//            print("Did recive 201 Attribute response \(resposnse)")
-//        }
     }
     
     
@@ -971,15 +910,11 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         cell.selectionStyle = .none
         cell.txtField.delegate = self
         if self.arrChildDevicesAttributes?.count ?? 0 > indexPath.section, self.arrChildDevicesAttributes?.count ?? 0 > 0{
-//            print("arrChildDevicesAttributes cell \(arrChildAttributeData)")
             cell.setAttData(data: (arrChildAttributeData[indexPath.section]["Tag"]?[0])!,index: indexPath.row)
         }else if arrParentData.count > 0{
             cell.setAttData(data: (arrParentData[0]["Tag"]?[0])!,index: indexPath.row)
         }else if arrSimpleDeviceData.count > 0{
             cell.setAttData(data: (arrSimpleDeviceData[0]["Tag"]?[0])!,index: indexPath.row)
-//            if let data = self.attData{
-//                cell.setData(model: data,index: indexPath.item)
-//            }
         }
 
         return cell
@@ -993,7 +928,6 @@ extension ViewController:UITextFieldDelegate{
         repeat { v = v.superview! } while !(v is UITableViewCell)
         let cell = v as! PropertyCell // or UITableViewCell or whatever
         let ip = self.tblProperty.indexPath(for:cell)!
-//        print("txtField \(string) \(textField.text ?? "")  \(textField.text ?? "")\(string) \(ip.section) \(ip.row)")
         if let text = textField.text,
            let textRange = Range(range, in: text) {
             let updatedText = text.replacingCharacters(in: textRange,
@@ -1003,7 +937,6 @@ extension ViewController:UITextFieldDelegate{
                 arrChildAttributeData[ip.section]["Tag"]?[0][ip.row].value = updatedText
             }else if arrParentData.count > 0{
                 arrParentData[0]["Tag"]?[0][ip.row].value = updatedText
-//                arrParentData[0]["Tag"]?[0][0].value = updatedText
             }else if arrSimpleDeviceData.count > 0{
                 arrSimpleDeviceData[ip.section]["Tag"]?[0][ip.row].value = updatedText
             }

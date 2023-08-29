@@ -66,9 +66,9 @@ class MQTTClient {
         var boolToConnectYN = false
         
         //        self.dictSyncResponse = dataDevice["d"] as? [String : Any]
-        let metaInfo = dictSyncResponse["meta"] as? [String:Any]
+        let metaInfo = dictSyncResponse[DictSyncresponseKeys.metaKey] as? [String:Any]
         
-        if (metaInfo?["at"] as! Int == AuthType.CA_SIGNED || metaInfo?["at"] as! Int == AuthType.CA_SELF_SIGNED) {
+        if (metaInfo?[DictMetaKeys.atKey] as! Int == AuthType.CA_SIGNED || metaInfo?[DictMetaKeys.atKey] as! Int == AuthType.CA_SELF_SIGNED) {
             if CERT_PATH_FLAG {
                 var sslSettings: [String: NSObject] = [:]
                 let pwd = dataSDKOptions.SSL.Password
@@ -718,7 +718,7 @@ extension MQTTClient: CocoaMQTTDelegate {
                             
 //<<<<<<< Updated upstream
                         }
-                        else if [CommandType.ATTRIBUTE_INFO_UPDATE.rawValue, CommandType.SETTING_INFO_UPDATE.rawValue, CommandType.PASSWORD_INFO_UPDATE.rawValue, CommandType.DEVICE_INFO_UPDATE.rawValue, CommandType.DATA_FREQUENCY_UPDATE.rawValue,
+                        else if [ CommandType.SETTING_INFO_UPDATE.rawValue, CommandType.PASSWORD_INFO_UPDATE.rawValue, CommandType.DEVICE_INFO_UPDATE.rawValue, CommandType.DATA_FREQUENCY_UPDATE.rawValue,
                             CommandType.REFRESH_CHILD_DEVICE.rawValue,
                             CommandType.REFRESH_ATTRIBUTE.rawValue,
                             CommandType.DEVICE_COMMAND.rawValue,
@@ -732,13 +732,6 @@ extension MQTTClient: CocoaMQTTDelegate {
 //                            } else if CommandType.SETTING_INFO_UPDATE.rawValue == objectMessage["ct"] as? Int {
 //=======
 //                        }
-//                            else if [CommandType.REFRESH_ATTRIBUTE, CommandType.SETTING_INFO_UPDATE, CommandType.PASSWORD_INFO_UPDATE, CommandType.DEVICE_INFO_UPDATE, CommandType.DATA_FREQUENCY_UPDATE,
-//                            CommandType.DEVICE_COMMAND,
-//                            CommandType.REFRESH_CHILD_DEVICE,
-//                            CommandType.REFRESH_EDGE_RULE,
-//                                   CommandType.OTA_COMMAND,
-//                                   CommandType.MODULE_COMMAND].contains(objectMessage["ct"] as? Int) {
-                            
                             if CommandType.REFRESH_ATTRIBUTE.rawValue == objectMessage["ct"] as? Int {
                                 objCommon.manageDebugLog(code: Log.Info.INFO_CM03, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
                                 blockHandler?(objectMessage,11)

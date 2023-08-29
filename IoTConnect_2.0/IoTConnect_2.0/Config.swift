@@ -17,7 +17,7 @@ public enum CommandType:Int{
     case DEVICE_DISABLED = 107
     case DEVICE_RELEASED = 108
     case STOP_OPERATION = 109
-    case ATTRIBUTE_INFO_UPDATE = 110//"0x10"
+//    case ATTRIBUTE_INFO_UPDATE = 110//"0x10"
     case SETTING_INFO_UPDATE = 111//"0x11"
     case PASSWORD_INFO_UPDATE = 112//"0x12"
     case DEVICE_INFO_UPDATE = 113//"0x13"
@@ -148,4 +148,36 @@ struct SupportedDataType{
 //    static let durationValue  = 10
     static let latLongVal     = 10
     static let objValue       = 12
+}
+
+struct DictAckKeys{
+    static let dateKey = "dt"
+    static let dataKey = "d"
+    static let ackKey = "ack"
+    static let typeKey = "type"
+    static let statusKey = "st"
+    static let messageKey = "msg"
+    static let cidKey = "cid"
+}
+
+struct DictSyncresponseKeys{
+    static let ecKey   = "ec"
+    static let ctKey   = "ct"
+    static let metaKey = "meta"
+    static let hasKey  = "has"
+    static let pKey    = "p"
+}
+
+struct DictMetaKeys{
+    static let dfKey   = "df"
+    static let cdKey   = "cd"
+    static let atKey   = "at"
+    static let gtwKey   = "gtw"
+    static let tgKey   = "tg"
+    static let gKey   = "g"
+    static let edgeKey   = "edge"
+    static let pfKey   = "pf"
+    static let hwvKey   = "hwv"
+    static let swvKey   = "swv"
+    static let vKey   = "v"  
 }

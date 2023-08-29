@@ -118,9 +118,7 @@ class IoTConnectManager {
         
         objMQTTClient.boolIsInternetAvailableYN = checkInternetAvailable()
         reachabilityObserver()
-        
-//        SDKClient.shared.callBackDelegate = self
-        
+            
         initialize(cpId: cpId, uniqueId: uniqueId, deviceCallback: deviceCallback, twinUpdateCallback: twinUpdateCallback, getAttributesCallback: attributeCallBack,getTwinsCallback: twinsCallBack, getChildDevucesCallback: getChildCallback)
     }
     
@@ -224,8 +222,8 @@ class IoTConnectManager {
      */
     func sendData(data: [String:Any]) {
         if dictSyncResponse.count > 0{
-            let metaInfo = self.dictSyncResponse["meta"] as? [String:Any]
-            df = metaInfo?["df"] as? Int ?? 0
+            let metaInfo = self.dictSyncResponse[DictSyncresponseKeys.metaKey] as? [String:Any]
+            df = metaInfo?[DictMetaKeys.dfKey] as? Int ?? 0
             
             //check for data frequency
             if let time = prevSendDataTime{
@@ -240,43 +238,9 @@ class IoTConnectManager {
                 print("prevsendData is nil")
                 validateData(data: data)
             }
-           
-//
-//            if diff >= df{
-//                validateData(data: data)
-//            }else{
-//                print("Diff is lt")
-//            }
-//            let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
-//            objMQTTClient.publishTopicOnMQTT(withData: data, topic: topic)
         }else {
             self.objCommon.manageDebugLog(code: Log.Errors.ERR_SD06, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         }
-        
-        //        if data.count > 0 {
-        //            if dictSyncResponse.count > 0 {
-        //                if strUniqueId != data[0]["uniqueId"] as? String {
-        //                    self.objCommon.manageDebugLog(code: Log.Errors.ERR_SD02, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
-        //                } else {
-        //                    let boolEdgeDevice = dictSyncResponse["ee"] as! Bool
-        //                    if boolEdgeDevice {
-        //                        setSendDataFormat(data: data)
-        //                    } else {
-        //                        let dataFrequencyInSec = dictSyncResponse[keyPath: "sc.df"] as! Int
-        //                        let currentTime = Date()
-        //                        if dataFrequencyInSec == 0 || DATA_FREQUENCY_NEXT_TIME == nil || (DATA_FREQUENCY_NEXT_TIME != nil &&  DATA_FREQUENCY_NEXT_TIME! < currentTime) {
-        //                            setSendDataFormat(data: data)
-        //
-        //                            DATA_FREQUENCY_NEXT_TIME = currentTime.addingTimeInterval(TimeInterval(dataFrequencyInSec))
-        //                        } else {
-        //                            print("DF: Drop Send Data")
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        } else {
-        //            self.objCommon.manageDebugLog(code: Log.Errors.ERR_SD06, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
-        //        }
     }
     
     func sendLog(data: [String: Any]?) {
@@ -323,13 +287,13 @@ class IoTConnectManager {
     func sendAckCmd(ackGuid:String,status:String, msg:String = "",childId:String = "",type:Int){
         if dictSyncResponse.count > 0{
             let dictToSend =  [
-                "dt":objCommon.now(),
-                "d":[
-                    "ack":ackGuid,
-                    "type": type,
-                    "st":status,
-                    "msg":msg,
-                    "cid":childId
+                DictAckKeys.dateKey:objCommon.now(),
+                DictAckKeys.dataKey:[
+                    DictAckKeys.ackKey:ackGuid,
+                    DictAckKeys.typeKey: type,
+                    DictAckKeys.statusKey:status,
+                    DictAckKeys.messageKey:msg,
+                    DictAckKeys.cidKey:childId
                 ]] as [String : Any]
             let topicAck = dictSyncResponse[keyPath:"p.topics.ack"] as! String
             objMQTTClient.publishTopicOnMQTT(withData: dictToSend, topic: topicAck)
@@ -345,6 +309,7 @@ class IoTConnectManager {
         let value = Array(dictVal)[0].value
         
         var arrData = arr
+        let totalCount = 1
         
         if arrData.count > 0{
             if let firstIndex = arrData.firstIndex(where: {$0[key] != nil}){
@@ -408,14 +373,10 @@ class IoTConnectManager {
                 if dictD?.isEmpty == true{
                     if let valDict = value as? [String:Any]{
                         for (valDictKey,valDictValue) in valDict{
-//<<<<<<< Updated upstream
-//                            dictD?.append(anotherDict: [    "\(key)":[valDictKey:["\(valDictValue)","\(valDictValue)","\(valDictValue)","\(valDictValue)","1.0","\(valDictValue)"]]])
-//=======
-                            dictD?.append(anotherDict: ["\(key)":[valDictKey:["\(valDictValue)","\(valDictValue)","\(valDictValue)","\(valDictValue)","1","\(valDictValue)"]]])
-//>>>>>>> Stashed changes
+                            dictD?.append(anotherDict: ["\(key)":[valDictKey:["\(valDictValue)","\(valDictValue)","\(valDictValue)","\(valDictValue)",totalCount,"\(valDictValue)"]]])
                         }
                     }else{
-                        dictD?.append(anotherDict: ["\(key)":["\(value)","\(value)","\(value)","\(value)","1","\(value)"]])
+                        dictD?.append(anotherDict: ["\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]])
                     }
                     dataDevice["d"] = dictD
                     arrCalcDictEdgeDevice[firstIndex] = dataDevice
@@ -430,11 +391,6 @@ class IoTConnectManager {
                                 print("\(value) \(key)")
                                 for (dictValueKey,dictVal) in dictValue{
                                     var arrValues = arrObjData?[dictValueKey] as? [String]
-//                                    let arrFloat = arrValues?.lazy.compactMap{
-//                                        Float($0.trimmingCharacters(in: .whitespaces))
-//                                    }
-//                                    let sum = arrFloat?.reduce(0,+)
-//                                    let avg = (sum ?? 0)/Float(arrFloat?.count ?? 1 )
                                     arrValues = calcEdgeData(arrValues: arrValues ?? [], latestVal: "\(dictVal)")
                                     if valDict[dictValueKey] is [String]{
                                         print("\(dictValueKey) exist in arrCalcEdgeDevice")
@@ -454,27 +410,18 @@ class IoTConnectManager {
                             }
                         }else{
                             let arr = arrData[firstIndexData][key] as? [String]
-//                            let arrFloat = arr?.lazy.compactMap{
-//                                Float($0.trimmingCharacters(in: .whitespaces))
-//                            }
-//                            let sum = arrFloat?.reduce(0,+) ?? 0.0
-//                            let avg = (sum)/Float(arrFloat?.count ?? 1)
-                            
                             dictD?[key] = calcEdgeData(arrValues: arr ?? [], latestVal: "\(value)")
-                            //["\(arrFloat?.min() ?? 0)","\(arrFloat?.max() ?? 0)","\(sum)","\(avg)","\(arrFloat?.count ?? 1)","\(value)"]
                             arrCalcDictEdgeDevice[firstIndex]["d"] = dictD ?? [:]
                         }
                         print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
                     }else{
                         if let valDict = value as? [String:Any]{
                             for (valDictKey,valDictValue) in valDict{
-                                // arrData.append([key:[
-                                //                valDictKey:[valDictValue]]])
                                 dictD?.append(anotherDict: [
-                                    "\(key)":[valDictKey:["\(valDictValue)","\(valDictValue)","\(valDictValue)","\(valDictValue)","1","\(valDictValue)"]]])
+                                    "\(key)":[valDictKey:["\(valDictValue)","\(valDictValue)","\(valDictValue)","\(valDictValue)",totalCount,"\(valDictValue)"]]])
                             }
                         }else{
-                            dictD?.append(anotherDict: ["\(key)":["\(value)","\(value)","\(value)","\(value)","1","\(value)"]])
+                            dictD?.append(anotherDict: ["\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]])
                         }
                         arrCalcDictEdgeDevice[firstIndex]["d"] = dictD ?? [:]
                         print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
@@ -484,11 +431,11 @@ class IoTConnectManager {
                 if let valDict = value as? [String:Any]{
                     for (valDictKey,valDictValue) in valDict{
                         arrCalcDictEdgeDevice.append(["id":id ?? "","tg":tg ?? "","dt":dt,"d":[
-                            "\(key)":[valDictKey:["\(valDictValue)","\(valDictValue)","\(valDictValue)","\(valDictValue)","1","\(valDictValue)"]]]])
+                            "\(key)":[valDictKey:["\(valDictValue)","\(valDictValue)","\(valDictValue)","\(valDictValue)",totalCount,"\(valDictValue)"]]]])
                     }
                 }else{
                     arrCalcDictEdgeDevice.append(["id":id ?? "","tg":tg ?? "","dt":dt,"d":[
-                        "\(key)":["\(value)","\(value)","\(value)","\(value)","1","\(value)"]]])
+                        "\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]]])
                 }
                 print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
             }
@@ -534,11 +481,11 @@ class IoTConnectManager {
             if let valDict = value as? [String:Any]{
                 for (valDictKey,valDictValue) in valDict{
                     arrCalcDictEdgeDevice.append(["id":id ?? "","tg":tg ?? "","dt":dt,"d":[
-                        "\(key)":[valDictKey:["\(valDictValue)","\(valDictValue)","\(valDictValue)","\(valDictValue)","1","\(valDictValue)"]]]])
+                        "\(key)":[valDictKey:["\(valDictValue)","\(valDictValue)","\(valDictValue)","\(valDictValue)",totalCount,"\(valDictValue)"]]]])
                 }
             }else{
                 arrCalcDictEdgeDevice.append(["id":id ?? "","tg":tg ?? "","dt":dt,"d":[
-                    "\(key)":["\(value)","\(value)","\(value)","\(value)","1","\(value)"]]])
+                    "\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]]])
             }
             print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
         }
@@ -553,11 +500,9 @@ class IoTConnectManager {
         let sum = arrFloat.reduce(0,+)
         var sumStr = String(format: "%.4f", sum)
         sumStr = Float(sumStr)?.clean ?? "0"
-//        print("sumStr \(sumStr)")
         let avg = sum/Float(arrFloat.count)
         var avgStr = String(format: "%.4f", avg)
         avgStr = Float(avgStr)?.clean ?? "0"
-//        print("avgStr \(avgStr) \(Float(avgStr)?.clean ?? "0")")
         return [arrFloat.min()?.clean ?? "0",arrFloat.max()?.clean ?? "0",sumStr,avgStr,"\(Int(arrFloat.count))",latestVal]
     }
 
@@ -614,8 +559,6 @@ class IoTConnectManager {
     func dispose(sdkconnection: String = "") {
         if dictSyncResponse.count > 0 {
             objMQTTClient.disconnect()
-//            timerEdgeDevice?.invalidate()
-//            timerEdgeDevice = nil
             if timerEdgeDevice.count > 0{
                 for i in 0...timerEdgeDevice.count-1{
                     let t:Timer = timerEdgeDevice[i];
@@ -646,128 +589,9 @@ class IoTConnectManager {
         if dictSyncResponse.count > 0 {
             objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE.rawValue], topic: "")
             self.objCommon.manageDebugLog(code: Log.Info.INFO_GA01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-//            if let hasData = dictSyncResponse["has"] as? [String:Any]{
-//                if let d = hasData["d"] as? Int{
-//                    if d == 1{
-//                        objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_CHILD_DEVICE])
-//                    }
-//                }
-//                if let attr = hasData["attr"] as? Int{
-//                    if attr == 1{
-//                        objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE])
-//                    }
-//                }
-//                if let set = hasData["set"] as? Int{
-//                    if set == 1{
-//                        objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_TWIN])
-//                    }
-//                }
-//                if let i = hasData["r"] as? Int{
-//                    if i == 1{
-//                        objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_EDGE_RULE])
-//                    }
-//                }
-//                if let ota = hasData["ota"] as? Int{
-//                    if ota == 1{
-//                        objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_PENDING_OTAS])
-//                    }
-//                }
-//            }
-           
-//            objCommon.getAttributes(dictSyncResponse: dictSyncResponse) { (data, msg) in
-//                print("data: ", data as Any)
-//                var sdkDataArray: [[String:Any]] = []
-//
-//                (self.dictSyncResponse["d"] as! [[String:Any]]).forEach { (device) in
-//                    var attArray: [String:Any] = ["device": ["id": device["id"], "tg": device["tg"] ?? nil], "attributes": []] //device.tg == "" ? undefined : device.tg
-//                    let attributeData = data!["attribute"] as! [[String:Any]]
-//                    attributeData.forEach { (attribData) in
-//                        var attrib = attribData
-//                        if (attrib["p"] as! String == "") {// Parent
-//                            if (attrib["dt"] as? Int == 2) {
-//                                print("attrib: ", attrib)
-//                                attrib.removeValue(forKey: "agt")
-//                                var pcAttributes = [
-//                                    "ln" : attrib["p"],
-//                                    "dt": self.objCommon.dataTypeToString(value: attrib["dt"] as! Int),
-//                                    "tw": attrib["tw"] ?? nil,
-//                                    "d" : []
-//                                ]
-//
-//                                (attrib["d"] as! [[String:Any]]).forEach { (attData) in
-//                                    let att = attData
-//                                    if(att["tg"] as! String == device["tg"] as! String) {// Parent
-//                                        let cAttribute = [
-//                                            "ln": att["ln"],
-//                                            "dt": self.objCommon.dataTypeToString(value: att["dt"] as! Int),
-//                                            "dv": att["dv"],
-//                                            "tg": att["tg"] ?? nil,
-//                                            "tw": att["tw"] ?? nil
-//                                        ]
-//
-//                                        var dA = pcAttributes["d"] as! [[String:Any]]
-//                                        dA.append(cAttribute as [String : Any])
-//                                        pcAttributes["d"] = dA
-//                                    }
-//                                }
-//
-//                            } else {
-//                                (attrib["d"] as! [[String:Any]]).forEach { (attData) in
-//                                    var att = attData
-//                                    if(att["tg"] as! String == device["tg"] as! String) {// Parent
-//                                        if(att["tg"] as! String == "") {
-//                                            att.removeValue(forKey: "tg")
-//                                        }
-//                                        att.removeValue(forKey: "agt")
-//                                        att["dt"] = self.objCommon.dataTypeToString(value: att["dt"] as! Int)
-//                                        var attributesA = attArray["attributes"] as! [[String:Any]]
-//                                        attributesA.append(att)
-//                                        attArray["attributes"] = attributesA
-//                                    }
-//                                }
-//                            }
-//                        } else {
-//                            if (attrib["tg"] as! String == device["tg"] as! String) {// Parent
-//                                attrib.removeValue(forKey: "agt")
-//                                var pcAttributes = [
-//                                    "ln" : attrib["p"] ?? "",
-//                                  "dt": self.objCommon.dataTypeToString(value: attrib["dt"] as! Int),
-//                                  "tg": attrib["tg"] ?? "",
-//                                  "tw": attrib["tw"] ?? "",
-//                                  "d" : []
-//                                ] as [String : Any]
-//                                (attrib["d"] as! [[String:Any]]).forEach { (attData) in
-//                                    let att = attData
-//                                    if(att["tg"] as! String == device["tg"] as! String) {// Parent
-//                                        let cAttribute = [
-//                                            "ln": att["ln"],
-//                                            "dt": self.objCommon.dataTypeToString(value: att["dt"] as! Int),
-//                                            "dv": att["dv"],
-//                                            "tg": att["tg"] ?? nil,
-//                                            "tw": att["tw"] ?? nil
-//                                        ]
-//
-//                                        var dA = pcAttributes["d"] as! [[String:Any]]
-//                                        dA.append(cAttribute as [String : Any])
-//                                        pcAttributes["d"] = dA
-//                                    }
-//                                }
-//                                var pcAttributesA = attArray["attributes"] as! [[String:Any]]
-//                                pcAttributesA.append(pcAttributes as [String : Any])
-//                                attArray["attributes"] = pcAttributesA
-//                            }
-//                        }
-//                    }
-//                    sdkDataArray.append(attArray)
-//                }
-//                print("sdkDataArray: ", sdkDataArray)
-//                self.objCommon.manageDebugLog(code: Log.Info.INFO_GA01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-//                callBack(true, sdkDataArray, "Attribute get successfully.")
-//            }
         } else {
             objCommon.manageDebugLog(code: Log.Errors.ERR_GA02, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             callBack("Attributes data not found")
-//            callBack(false, nil, "Attributes data not found")
         }
     }
     
@@ -793,20 +617,18 @@ class IoTConnectManager {
     
     //called on data frequncy change
     func onFrequencyChangeCommand(dfValue:Int){
-        var metaInfo = self.dictSyncResponse["meta"] as? [String:Any]
-        metaInfo?["df"] = dfValue
-//        print("metaInfo Before \(self.dictSyncResponse)")
-        self.dictSyncResponse["meta"] = metaInfo
-//        print("metaInfo after \(self.dictSyncResponse)")
-        df = metaInfo?["df"] as? Int ?? 0
+        var metaInfo = self.dictSyncResponse[DictSyncresponseKeys.metaKey] as? [String:Any]
+        metaInfo?[DictMetaKeys.dfKey] = dfValue
+        self.dictSyncResponse[DictSyncresponseKeys.metaKey] = metaInfo
+        df = metaInfo?[DictMetaKeys.dfKey] as? Int ?? 0
         print("df changed val \(df)")
     }
     
     //Publish topic on MQTT to create child device
     public func createChildDevice(deviceId:String, deviceTag:String, displayName:String){
-        let metaInfo = self.dictSyncResponse["meta"] as? [String:Any]
-        let gtw = metaInfo?["gtw"] as? [String:Any]
-        let g = gtw?["g"] as? String
+        let metaInfo = self.dictSyncResponse[DictSyncresponseKeys.metaKey] as? [String:Any]
+        let gtw = metaInfo?[DictMetaKeys.gtwKey] as? [String:Any]
+        let g = gtw?[DictMetaKeys.gKey] as? String
         
         objMQTTClient.publishTopicOnMQTT(withData: ["mt":CommandType.CREATE_DEVICE.rawValue,
                                                     "d":[
