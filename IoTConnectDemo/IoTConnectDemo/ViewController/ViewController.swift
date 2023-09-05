@@ -88,18 +88,17 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        //calling get child device to uopdate tableview after create or delete child device
         SDKClient.shared.getChildDevices { response in
             if let responseDict = response as? [String:Any]{
                 if let msgDict = responseDict["d"] as? [String:Any]{
                     if let arrDict = msgDict["d"] as? [[String:Any]]{
+                        self.setDisconnectUI(isRefresh: true)
                         self.noOfSecrions = arrDict.count
                         self.is204Received = true
                         print("no of sections \(arrDict.count)")
                         self.arrChildDevicesAttributes = arrDict
-                        //                    if  self.is201Received{
                         self.getChildDevicesAttributes()
-                        //                    }
                     }
                 }
             }
@@ -249,21 +248,48 @@ class ViewController: UIViewController {
                 }
             }
             
+            //callback for twin update
+            SDKClient.shared.onTwinChangeCommand { (twinMessage) in
+                print("twinMessage: ", twinMessage as Any)
+                //twinMessage:  Optional(["uniqueId": "AndroidEdgeGateway", "desired": ["$version": 2, "dt1": 1]])
+                var keyToSend = ""
+                var valToSend = ""
+                let msgDict = twinMessage as? [String:Any]
+                let desiredDict = msgDict?["desired"] as? [String:Any]
+                
+                desiredDict?.forEach({ (key,value) in
+                    if key != "$version"{
+                        keyToSend = key
+                        valToSend = "\(value)"
+                    }
+                })
+                
+                SDKClient.shared.updateTwin(key: keyToSend, value: valToSend)
+                DispatchQueue.main.async {
+                    self.txtView.text = "\(twinMessage ?? "")"
+                }
+            }
+            
+            //callback for device command and sending ack
             SDKClient.shared.onDeviceCommand { response in
                 print("response onDeviceCommand vc \(response ?? [:])")
                 self.txtView.text = "\(response ?? "")"
                 let msg = response as? [String:Any]
-                SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "6", msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
+                SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "6", msg: "Device command received ack",childId: msg?["id"] as? String ?? "")
             }
             
+            //callback on OTA and ack
             SDKClient.shared.onOTACommand { response in
                 let msg = response as? [String:Any]
-                SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
+                self.txtView.text = "\(msg ?? [:])"
+                SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "OTA message received ack",childId: msg?["id"] as? String ?? "")
             }
             
+            //callbakck for module command and ack
             SDKClient.shared.onModuleCommand { response in
                 print("On module command response \(response ?? [:])")
                 let msg = response as? [String:Any]
+                self.txtView.text = "\(msg ?? [:])"
                 SDKClient.shared.sendAckModule(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
             }
             
@@ -359,7 +385,6 @@ class ViewController: UIViewController {
                     if filteredArr?.count ?? 0 > 0{
                         print("filteredArr count is gt 0")
                         for m in 0...(filteredArr!.count)-1{
-//                            self.attData?.att![i].d?[m].p = p
                             filteredArr?[m].p = p
                         }
                         print("filteredArr \(String(describing: filteredArr))")
@@ -383,6 +408,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //set foramt for send data to SDK
     func loadData(data:[[String:[[AttData]]]]){
         var dict = [String:Any]()
         var arrDictForChildDevices = [[String:Any]]()
@@ -508,9 +534,24 @@ class ViewController: UIViewController {
         DispatchQueue.main.async {
             self.viewLoader.isHidden = true
         }
+        //Format for sending data to SDK
+        //dateTime format "2023-08-24T05:52:11.392Z"
+        
+//        ["d":
+//        [[
+//         "d":
+//        [
+//        <ln>: <value>],
+//        "dt": <dateTime>, "id": <id>, "tg": <tag>
+//        ]
+//        ],
+//         "dt": <dateTime>
+//        ]
+        
         SDKClient.shared.sendData(data: finalDict)
     }
     
+    //parse Identity reponse and idenitfy device type
     func manageIdnetityreponse(response:[String:Any]){
         let dataIdentityResponse = try? JSONSerialization.data(withJSONObject: response)
         if dataIdentityResponse != nil{
@@ -542,23 +583,20 @@ class ViewController: UIViewController {
         }
     }
     
+    //parse 201(GET_DEVICE_TEMPLATE_ATTRIBUTE) response
     func manageAttributeResponse(response:[String:Any]){
         self.dictAttributes = response
         do {
             let json = try JSONSerialization.data(withJSONObject: response)
             let decoder = JSONDecoder()
             let decodedAttributes = try decoder.decode(AttributesData.self, from: json)
-            //                                 print(" atrributes \(decodedAttributes.att)")
             self.attributeData = decodedAttributes
             let att = self.attributeData?.att
             self.is201Received = true
-            //|| att?[0].tg?.isEmpty == true
-//                                if (att?[0].tg == nil) && !self.isGetDevicesCalled{
             if !self.is204WillCalled{
                 self.is204Received = true
             }
             if !self.isGetDevicesCalled && !self.isDeviceGateway{
-//                                    self.is204Received = true
                 self.isGetDevicesCalled = true
                 self.getSimpleDeviceData()
             }
@@ -570,7 +608,6 @@ class ViewController: UIViewController {
                 }
                 self.getChildDevicesAttributes()
             }
-//                                print("d count \(self.noOfAttributes)")
             DispatchQueue.main.async {
                 self.tblProperty.isHidden = false
                 self.getTblViewHeight()
@@ -581,6 +618,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //get child device attributes
     func getChildDevices(message:[String:Any]){
         if let msg = message["d"] as? [[String:Any]]{
             self.noOfSecrions = msg.count
@@ -597,10 +635,12 @@ class ViewController: UIViewController {
     }
 
 //MARK: Helper functions
+    //send ack message
     func sendAckMessage(cloudMsg:[String:Any]){
         SDKClient.shared.sendAckCmd(ackGuid: cloudMsg["ack"] as? String ?? "", status: "6",msg: "Cloud message received",childId: cloudMsg["id"] as? String ?? "")
     }
 
+    //calculate tableiew height depends on number of attributes and children
     func getTblViewHeight(){
         var totalCount = noOfSecrions
         totalCount += noOfAttributes + 1 //1 for headerview
@@ -620,9 +660,10 @@ class ViewController: UIViewController {
         }
     }
     
-    func setDisconnectUI(){
+    //change device status, change variable to default value, disable buttons
+    func setDisconnectUI(isRefresh:Bool = false){
         self.noOfSecrions = 0
-        self.noOfAttributes = 0
+        
         self.isGetDevicesCalled = false
         self.arrChildDevicesAttributes?.removeAll()
         self.arrChildAttributeData.removeAll()
@@ -630,21 +671,25 @@ class ViewController: UIViewController {
         self.arrSimpleDeviceData.removeAll()
         self.is201Received = false
         self.is204Received = false
-        self.isDeviceGateway = false
-        self.identity = nil
         self.is204WillCalled = false
-        DispatchQueue.main.async {
-            self.devivceStatus = .disconnected
-            self.btnConnect.setTitle(self.btnConnectTitle, for: .normal)
-            self.btnStatus.backgroundColor = .red
-            self.lblStatus.text = statusText.disconnected.rawValue
-            self.viewLblTag.isHidden = true
-            self.tblProperty.isHidden = true
-            self.manageBtnControl(btn: self.btnChildDevicesOperation, isEnable: false)
+        if !isRefresh{
+            self.noOfAttributes = 0
+            self.isDeviceGateway = false
+            self.identity = nil
+            DispatchQueue.main.async {
+                self.devivceStatus = .disconnected
+                self.btnConnect.setTitle(self.btnConnectTitle, for: .normal)
+                self.btnStatus.backgroundColor = .red
+                self.lblStatus.text = statusText.disconnected.rawValue
+                self.viewLblTag.isHidden = true
+                self.tblProperty.isHidden = true
+                self.manageBtnControl(btn: self.btnChildDevicesOperation, isEnable: false)
+            }
         }
         disableMsgBtns()
     }
     
+    //change connection status, enable buttons
     func setConnectStatusUI(boolBtnEnable:Bool = false){
         DispatchQueue.main.async {
             self.devivceStatus = .connected
@@ -658,16 +703,19 @@ class ViewController: UIViewController {
         }
     }
     
+    //Enable get twins and send data button
     func enableMessageBtns(){
         manageBtnControl(btn: self.btnGetTwins, isEnable: true)
         manageBtnControl(btn: self.btnSendData, isEnable: true)
     }
     
+    //Disable get twins and send data button
     func disableMsgBtns(){
         manageBtnControl(btn: self.btnGetTwins, isEnable: false)
         manageBtnControl(btn: self.btnSendData, isEnable: false)
     }
     
+    //Manage button color and button text control while enable or disable
     func manageBtnControl(btn:UIButton,isEnable:Bool){
         DispatchQueue.main.async {
             btn.isEnabled = isEnable
@@ -681,6 +729,7 @@ class ViewController: UIViewController {
         }
     }
 
+    //Presemt Alerrt View controller
     func presentAlert(title:String = "",msg:String = ""){
         DispatchQueue.main.async {
             let alertVC = UIAlertController (title: title, message: msg, preferredStyle: .alert)
@@ -690,9 +739,12 @@ class ViewController: UIViewController {
         }
     }
     
+    //get current date time
     func now() -> String {
         return toString(fromDateTime: Date())
     }
+    
+    //comvert date to desired foramat
     private func toString(fromDateTime datetime: Date?) -> String {
         // Purpose: Return a string of the specified date-time in UTC (Zulu) time zone in ISO 8601 format.
         // Example: 2013-10-25T06:59:43.431Z
@@ -770,25 +822,25 @@ class ViewController: UIViewController {
         }else if arrSimpleDeviceData.count > 0{
             loadData(data: arrSimpleDeviceData)
         }
-        
-//        SDKClient.shared.getAttributes { resposnse in
-//            print("Did recive 201 Attribute response \(resposnse)")
-//        }
     }
     
     
     @IBAction func btnChildDevicesTaped(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChildOperationVC") as? ChildOperationVC
-        print("arrChildDevicesAttributes \(arrChildDevicesAttributes)")
+        print("arrChildDevicesAttributes \(arrChildDevicesAttributes ?? [[:]])")
         var arrTag = [String]()
         
-        for i in 0...(arrChildDevicesAttributes?.count ?? 1)-1
+        for i in 0...(attributeData?.att?.count ?? 1)-1
         {
-            arrTag.append(arrChildDevicesAttributes?[i]["tg"] as? String ?? "")
+            for j in 0...((attributeData?.att?[i].d?.count ?? 0)-1){
+                arrTag.append(attributeData?.att?[i].d?[j].tg as? String ?? "")
+            }
         }
-        print("arrTag \(arrTag)")
+        let parentTag = self.identity?.d?.meta?.gtw?.tg
+        arrTag.removeAll(where: {$0 == parentTag})
+        arrTag = Array(Set(arrTag))
         vc?.tagArray = arrTag
-//        vc?.tagArray = self.arrChildDevicesAttributes.map({$0["tg"]})
+        print("arrTag \(arrTag)")
         self.navigationController?.pushViewController(vc!, animated: true)
     }
     
@@ -847,7 +899,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return noOfSecrions+1
+        return noOfSecrions+1//1 for headerview
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -857,15 +909,12 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         let cell : PropertyCell = tableView.dequeueReusableCell(withIdentifier: "PropertyCell", for: indexPath) as! PropertyCell
         cell.selectionStyle = .none
         cell.txtField.delegate = self
-        if self.arrChildDevicesAttributes?.count ?? 0 > indexPath.section{
+        if self.arrChildDevicesAttributes?.count ?? 0 > indexPath.section, self.arrChildDevicesAttributes?.count ?? 0 > 0{
             cell.setAttData(data: (arrChildAttributeData[indexPath.section]["Tag"]?[0])!,index: indexPath.row)
         }else if arrParentData.count > 0{
             cell.setAttData(data: (arrParentData[0]["Tag"]?[0])!,index: indexPath.row)
         }else if arrSimpleDeviceData.count > 0{
             cell.setAttData(data: (arrSimpleDeviceData[0]["Tag"]?[0])!,index: indexPath.row)
-//            if let data = self.attData{
-//                cell.setData(model: data,index: indexPath.item)
-//            }
         }
 
         return cell
@@ -879,16 +928,15 @@ extension ViewController:UITextFieldDelegate{
         repeat { v = v.superview! } while !(v is UITableViewCell)
         let cell = v as! PropertyCell // or UITableViewCell or whatever
         let ip = self.tblProperty.indexPath(for:cell)!
-//        print("txtField \(string) \(textField.text ?? "")  \(textField.text ?? "")\(string) \(ip.section) \(ip.row)")
         if let text = textField.text,
            let textRange = Range(range, in: text) {
             let updatedText = text.replacingCharacters(in: textRange,
                                                        with: string)
+            //update the updated textfield value in model
             if self.arrChildDevicesAttributes?.count ?? 0 > ip.section{
                 arrChildAttributeData[ip.section]["Tag"]?[0][ip.row].value = updatedText
             }else if arrParentData.count > 0{
                 arrParentData[0]["Tag"]?[0][ip.row].value = updatedText
-//                arrParentData[0]["Tag"]?[0][0].value = updatedText
             }else if arrSimpleDeviceData.count > 0{
                 arrSimpleDeviceData[ip.section]["Tag"]?[0][ip.row].value = updatedText
             }
@@ -900,6 +948,7 @@ extension ViewController:UITextFieldDelegate{
 
 
 extension Dictionary where Key == String, Value == Any {
+    //Append one dictionary in another
     mutating func append(anotherDict:[String:Any]) {
         for (key, value) in anotherDict {
             self.updateValue(value, forKey: key)
