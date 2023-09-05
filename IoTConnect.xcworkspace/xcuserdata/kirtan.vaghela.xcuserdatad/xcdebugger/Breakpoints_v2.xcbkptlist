@@ -1205,8 +1205,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "609"
-            endingLineNumber = "609"
+            startingLineNumber = "643"
+            endingLineNumber = "643"
             landmarkName = "manageAttributeResponse(response:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1221,8 +1221,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "603"
-            endingLineNumber = "603"
+            startingLineNumber = "637"
+            endingLineNumber = "637"
             landmarkName = "manageAttributeResponse(response:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1237,8 +1237,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
             landmarkName = "getChildDevicesAttributes()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1253,8 +1253,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "629"
-            endingLineNumber = "629"
+            startingLineNumber = "663"
+            endingLineNumber = "663"
             landmarkName = "getChildDevices(message:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1269,8 +1269,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "600"
-            endingLineNumber = "600"
+            startingLineNumber = "634"
+            endingLineNumber = "634"
             landmarkName = "manageAttributeResponse(response:)"
             landmarkType = "7">
          </BreakpointContent>

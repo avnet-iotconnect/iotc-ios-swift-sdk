@@ -270,6 +270,40 @@ class ViewController: UIViewController {
                 }
             }
             
+            SDKClient.shared.onAttrChangeCommand { response in
+                print("response onAttrChangeCommand vc \(response ?? "")")
+                SDKClient.shared.getAttributes { attrinuteResponse in
+                    print("Att reponse \(attrinuteResponse ?? "")")
+                    let msgReponse = attrinuteResponse as? [String:Any]
+                    
+                    if let msg = msgReponse?["d"] as? [String:Any]{
+                        self.isGetDevicesCalled = false
+                        self.arrSimpleDeviceData.removeAll()
+                        if self.is204Received{
+                            self.arrChildAttributeData.removeAll()
+                            self.arrParentData.removeAll()
+                        }
+                        DispatchQueue.main.async {
+                            self.tblProperty.reloadData()
+                        }
+                        self.manageAttributeResponse(response: msg)
+                    }
+                }
+            }
+//                                  self.setDisconnectUI()
+//                              }else{
+//                                  print("Message \(msg)")
+//                              }
+//                          }else if let msgData = message as? Data{
+//                              let dataDeviceTemp = try? JSONSerialization.jsonObject(with: msgData, options: .mutableContainers)
+//                              if dataDeviceTemp != nil {
+//                                  let dataDevice = dataDeviceTemp as! [String:Any]
+//                                  if let msg = dataDevice["d"] as? [String:Any]{
+//                                      if let commandType = msg["ct"] as? Int{
+//                                          if commandType == CommandType.IDENTITIY_RESPONSE.rawValue{
+//                                              self.manageIdnetityreponse(response: dataDevice)
+//                          }
+            
             //callback for device command and sending ack
             SDKClient.shared.onDeviceCommand { response in
                 print("response onDeviceCommand vc \(response ?? [:])")
