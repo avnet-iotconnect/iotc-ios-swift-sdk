@@ -280,9 +280,13 @@ public class SDKClient {
         blockHandlerTwinUpdateCallBack = twinUpdateCallback
     }
     
-    //Data frequency change command callback
+    //Data frequency change command
     public func onFrequencyChangeCommand(dfValue:Int){
         iotConnectManager?.onFrequencyChangeCommand(dfValue: dfValue)
+    }
+    
+    public func onHeartbeatCommand(){
+        
     }
     
     //Create child device callback
@@ -339,8 +343,8 @@ public class SDKClient {
 extension SDKClient : callBackResponse{
     
     func onDeleteChildDevice(response: [String : Any]) {
-        let dict = response["d"] as? [String:Any]
-        let ec = dict?["ec"] as? Int
+        let dict = response[dictkeys.dKey] as? [String:Any]
+        let ec = dict?[dictkeys.errorCodeKey] as? Int
         if ec == 0{
             blockHandlerDeleteChildCallBack?(response)
         }else{
@@ -350,8 +354,8 @@ extension SDKClient : callBackResponse{
     }
     
     func onCreateChildDevice(response: [String : Any]) {
-        let dict = response["d"] as? [String:Any]
-        let ec = dict?["ec"] as? Int
+        let dict = response[dictkeys.dKey] as? [String:Any]
+        let ec = dict?[dictkeys.errorCodeKey] as? Int
         if ec == 0{
             blockHandlerCreateChildCallBack?(response)
         }else{

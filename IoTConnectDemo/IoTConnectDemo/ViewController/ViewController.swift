@@ -199,32 +199,6 @@ class ViewController: UIViewController {
                             SDKClient.shared.onFrequencyChangeCommand(dfValue: msg["df"] as? Int ?? 0)
                         }
                     }
-                    //                    else if commandType == CommandType.DEVICE_COMMAND.rawValue{
-                    //                            self.sendAckMessage(cloudMsg: msg)
-                    //                        }else if commandType == CommandType.REFRESH_ATTRIBUTE.rawValue{
-                    //                            SDKClient.shared.getAttributes { response in
-                    //                                print("Att reponse \(response ?? "")")
-                    //                                self.manageAttributeResponse(response: response as? [String : Any] ?? [:])
-                    //                            }
-                    ////=======
-                    //                        }else if commandType == CommandType.DATA_FREQUENCY_CHANGE.rawValue{
-                    //                            print("DF changed \(msg)")
-                    //                            SDKClient.shared.onFrequencyChangeCommand(dfValue: msg["df"] as? Int ?? 0)
-                    //                        }else if commandType == CommandType.REFRESH_CHILD_DEVICE.rawValue{
-                    //                            self.arrChildAttributeData.removeAll()
-                    //                            self.isGetDevicesCalled = false
-                    //                            self.arrSimpleDeviceData.removeAll()
-                    //                            if self.is204Received{
-                    //                                self.arrChildAttributeData.removeAll()
-                    //                                self.arrParentData.removeAll()
-                    ////>>>>>>> Stashed changes
-                    //                            }
-                    //                            DispatchQueue.main.async {
-                    //                                self.tblProperty.reloadData()
-                    //                            }
-                    //                            self.manageAttributeResponse(response: msg)
-                    //                        }
-                    //                    }
                     else if let msgError = msg["error"]{
                         DispatchQueue.main.async {
                             self.txtView.text = msgError as? String
@@ -270,6 +244,7 @@ class ViewController: UIViewController {
                 }
             }
             
+            //callback for attribute change
             SDKClient.shared.onAttrChangeCommand { response in
                 print("response onAttrChangeCommand vc \(response ?? "")")
                 SDKClient.shared.getAttributes { attrinuteResponse in
@@ -290,19 +265,39 @@ class ViewController: UIViewController {
                     }
                 }
             }
-//                                  self.setDisconnectUI()
-//                              }else{
-//                                  print("Message \(msg)")
-//                              }
-//                          }else if let msgData = message as? Data{
-//                              let dataDeviceTemp = try? JSONSerialization.jsonObject(with: msgData, options: .mutableContainers)
-//                              if dataDeviceTemp != nil {
-//                                  let dataDevice = dataDeviceTemp as! [String:Any]
-//                                  if let msg = dataDevice["d"] as? [String:Any]{
-//                                      if let commandType = msg["ct"] as? Int{
-//                                          if commandType == CommandType.IDENTITIY_RESPONSE.rawValue{
-//                                              self.manageIdnetityreponse(response: dataDevice)
-//                          }
+            
+            //callback for refresh child device
+            SDKClient.shared.onDeviceChangeCommand { response in
+                self.arrChildAttributeData.removeAll()
+                self.isGetDevicesCalled = false
+                self.arrSimpleDeviceData.removeAll()
+                if self.is204Received{
+                    //                    self.arrChildAttributeData.removeAll()
+                    self.arrParentData.removeAll()
+                }
+                
+                SDKClient.shared.getChildDevices { response in
+                    if let responseDict = response as? [String:Any]{
+                        if let msg = responseDict["d"] as? [[String:Any]]{
+                            self.noOfSecrions = msg.count
+                            self.is204Received = true
+                            print("no of sections \(msg.count)")
+                            self.arrChildDevicesAttributes = msg
+                            if  self.is201Received{
+                                self.getChildDevicesAttributes()
+                            }
+                        }
+                    }
+                }
+            }
+            
+            //callback for refresh edge rule
+            SDKClient.shared.onRuleChangeCommand { response in
+                print("Response on rule change \(response ?? [:])")
+                DispatchQueue.main.async {
+                    self.txtView.text = "\(response ?? "")"
+                }
+            }
             
             //callback for device command and sending ack
             SDKClient.shared.onDeviceCommand { response in
@@ -830,20 +825,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnGetTwinsTapped(_ sender: Any) {
-        //        SDKClient.shared.getAllTwins()
-        //        SDKClient.shared.getTwinUpdateCallBack { (twinMessage) in
-        //            print("twinMessage: ", twinMessage as Any)
-        //            DispatchQueue.main.async {
-        //                self.txtView.text = "\(twinMessage ?? "")"
-        //            }
-        //        }
-        
-        SDKClient.shared.getTwins(callBack: {(message) in
-            print("Get twins callback message \(message ?? "")")
-            self.txtView.text = "\(message ?? "")"
-        })
-
-    } 
+        SDKClient.shared.getAllTwins()
+    }
     
     @IBAction func btnSendDataTapped(_ sender: Any) {
         DispatchQueue.main.async {
