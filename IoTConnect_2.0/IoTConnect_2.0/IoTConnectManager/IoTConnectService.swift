@@ -43,7 +43,7 @@ extension IoTConnectManager {
                     if self.dictReference[keyPath:"d.ec"] as! Int == 0{
                         self.initaliseCall(uniqueId: uniqueId)
                     }else{
-                        let errorDict = ["error":Log.getAPIErrorMsg(errorCode: self.dictReference[keyPath:"d.ec"] as? Int ?? 15)]
+                        let errorDict = [dictkeys.errorkey:Log.getAPIErrorMsg(errorCode: self.dictReference[keyPath:"d.ec"] as? Int ?? 15)]
                         deviceCallback(errorDict)
                         self.objCommon.manageDebugLog(code: self.dictReference[keyPath:"d.ec"] ?? 15, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                     }
@@ -96,7 +96,7 @@ extension IoTConnectManager {
                         } else {
                           print("Error parsing syncCall Response")
                         }
-                        if dataDevice["d"] != nil {
+                        if dataDevice[dictkeys.dKey] != nil {
                             self.objCommon.manageDebugLog(code: Log.Info.INFO_IN01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                             print("identity pos data\(String(describing: self.identity?.d?.has))")
                             if SDKConstants.DevelopmentSDKYN {
@@ -116,7 +116,7 @@ extension IoTConnectManager {
                                     self.timerNotRegister = nil
                                 }
                               
-                                self.dictSyncResponse = dataDevice["d"] as? [String : Any]
+                                self.dictSyncResponse = dataDevice[dictkeys.dKey] as? [String : Any]
 //                                self.getAttributes { isSuccess, data, msg in
 //
 //                                }
@@ -171,7 +171,7 @@ extension IoTConnectManager {
                                 }
                                 
                             } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.DEVICE_INACTIVE {//...Inactive
-                                let errorDict = ["error":Log.getAPIErrorMsg(errorCode:  dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
+                                let errorDict = [dictkeys.errorkey:Log.getAPIErrorMsg(errorCode:  dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
                                 self.blockHandlerDeviceCallBack(errorDict)
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN12, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
@@ -189,12 +189,12 @@ extension IoTConnectManager {
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN13, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
                             } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.CPID_NOT_FOUND {//...CPID Not Found
-                                let errorDict = ["error":Log.getAPIErrorMsg(errorCode: dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
+                                let errorDict = [dictkeys.errorkey:Log.getAPIErrorMsg(errorCode: dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
                                 self.blockHandlerDeviceCallBack(errorDict)
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN14, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                 
                             } else {
-                                let errorDict = ["error":Log.getAPIErrorMsg(errorCode: dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
+                                let errorDict = [dictkeys.errorkey:Log.getAPIErrorMsg(errorCode: dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
                                 self.blockHandlerDeviceCallBack(errorDict)
 
                                 self.objCommon.manageDebugLog(code: Log.Info.INFO_IN15, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
@@ -305,12 +305,12 @@ extension IoTConnectManager {
                     self.getUpdatedSyncResponseFor(strKey: dataToPass as! Int)
                 } else if typeAction == 4 {
                     var dataTwin: [String:Any] = [:]
-                    dataTwin["desired"] = dataToPass
-                    dataTwin["uniqueId"] = self.strUniqueId
+                    dataTwin[dictkeys.desireKey] = dataToPass
+                    dataTwin[dictkeys.uniqueIDKey] = self.strUniqueId
                     self.blockHandlerTwinUpdateCallBack(dataTwin)
                 } else if typeAction == 5 {
                     var dataTwin: [String:Any] = dataToPass as! [String : Any]
-                    dataTwin["uniqueId"] = self.strUniqueId
+                    dataTwin[dictkeys.uniqueIDKey] = self.strUniqueId
                     self.blockHandlerTwinUpdateCallBack(dataTwin)
                 } else if typeAction == 6 {
                     self.dispose(sdkconnection: dataToPass as! String)
@@ -365,9 +365,7 @@ extension IoTConnectManager {
      */
     private func getUpdatedSyncResponseFor(strKey: Int) {
         var dict: [String:Any]?
-        if strKey == CommandType.SETTING_INFO_UPDATE.rawValue {//...SettingChanged
-            dict = [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.setting: true]]
-        } else if strKey == CommandType.PASSWORD_INFO_UPDATE.rawValue {//...PasswordChanged
+        if strKey == CommandType.PASSWORD_INFO_UPDATE.rawValue {//...PasswordChanged
             dict = [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.protocolKey: true]]
         } else if strKey == CommandType.DEVICE_INFO_UPDATE.rawValue {//...DeviceChanged
             dict = [DeviceSync.Request.cpId: strCPId as Any, DeviceSync.Request.uniqueId: strUniqueId as Any, DeviceSync.Request.option: [DeviceSync.Request.device: true]]
@@ -395,17 +393,15 @@ extension IoTConnectManager {
                             
                             if dataDevice[keyPath:"d.rc"] as! Int == DeviceSync.Response.OK {
                                 var dictToUpdate = self.dictSyncResponse
-                                if strKey == CommandType.SETTING_INFO_UPDATE.rawValue {
-                                    dictToUpdate?["set"] = dataDevice[keyPath:"d.set"]
-                                } else if strKey == CommandType.PASSWORD_INFO_UPDATE.rawValue {
-                                    dictToUpdate?["p"] = dataDevice[keyPath:"d.p"]
+                                if strKey == CommandType.PASSWORD_INFO_UPDATE.rawValue {
+                                    dictToUpdate?[dictkeys.protocolkey] = dataDevice[keyPath:"d.p"]
                                     if dictToUpdate != nil {
                                         self.startMQTTCall(dataSyncResponse: dictToUpdate!)
                                     } else {
                                         self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN11, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                                     }
                                 } else if strKey == CommandType.DEVICE_INFO_UPDATE.rawValue {
-                                    dictToUpdate?["d"] = dataDevice[keyPath:"d.d"]
+                                    dictToUpdate?[dictkeys.dKey] = dataDevice[keyPath:"d.d"]
                                 } else if strKey == CommandType.DATA_FREQUENCY_UPDATE.rawValue {
                                     dictToUpdate?["sc"] = dataDevice[keyPath:"d.sc"]
                                 }
@@ -443,17 +439,17 @@ extension IoTConnectManager {
         let dict = dictSyncResponse!
         for d: [String: Any] in data  {
             autoreleasepool {
-                let uniqueIds = dict["d"].flatMap{($0 as! [[String:Any]]).map { $0["id"] }} as! [String]
-                if uniqueIds.contains(d["uniqueId"] as! String) {
-                    let dictData = loadDataToSendIoTHub(fromSDKInput: d, withData: dict, withTime: d["time"] as! String)
-                    if (dictData["rptdata"] as! [String:Any]).count > 0 {
+                let uniqueIds = dict[dictkeys.dKey].flatMap{($0 as! [[String:Any]]).map { $0[dictkeys.idkey] }} as! [String]
+                if uniqueIds.contains(d[dictkeys.uniqueIDKey] as! String) {
+                    let dictData = loadDataToSendIoTHub(fromSDKInput: d, withData: dict, withTime: d[dictkeys.timeKey] as! String)
+                    if (dictData[dictkeys.rptdataKey] as! [String:Any]).count > 0 {
                         var dictRptResult = [String: Any]()
-                        dictRptResult["cpId"] = dict["cpId"]
-                        dictRptResult["dtg"] = dict["dtg"]
-                        dictRptResult["t"] = timeNow
-                        dictRptResult["mt"] = MessageType.rpt
-                        dictRptResult["d"] = [dictData["rptdata"]]
-                        dictRptResult["sdk"] = ["l": SDKConstants.Language, "v": SDKConstants.Version, "e": strEnv.rawValue]
+                        dictRptResult[dictkeys.cpIDkey] = dict["cpId"]
+                        dictRptResult[dictkeys.dtgKey] = dict[dictkeys.dtgKey]
+                        dictRptResult[dictkeys.tKey] = timeNow
+                        dictRptResult[dictkeys.medsageTypekey] = MessageType.rpt
+                        dictRptResult[dictkeys.dKey] = [dictData[dictkeys.rptdataKey]]
+                        dictRptResult[dictkeys.sdkKey] = [dictkeys.languageKey: SDKConstants.Language, dictkeys.versionKey: SDKConstants.Version, dictkeys.envKey: strEnv.rawValue]
                         print("If-dictRptResult)")
                         objMQTTClient.publishTopicOnMQTT(withData: dictRptResult, topic: "")
                     } else {
@@ -616,9 +612,9 @@ extension IoTConnectManager {
      */
     private func getAttributeForm(with dictAttribute: [String: Any], withForKey strKey: String, withValue idValue: Any, withIsParent boolYNParent: Bool, withTag strTag: String) -> [String: Any] {
         var dictResultAttribute = [String: Any]()
-        for dict: [String: Any] in dictAttribute["d"] as! [[String: Any]] {
+        for dict: [String: Any] in dictAttribute[dictkeys.dKey] as! [[String: Any]] {
             if boolYNParent {
-                if (dict["ln"] as! String == strKey) && (dict["tg"] as! String == strTag) {
+                if (dict[dictkeys.localNameKey] as! String == strKey) && (dict[dictkeys.tagkey] as! String == strTag) {
                     let dictAttr = [strKey: idValue]
                     let boolYN: Bool = checkForIsValidOrNotWith(forData: dict, withValue: idValue)
                     dictResultAttribute["faultAttribute"] = (boolYN ? 1 : 0)
@@ -639,7 +635,7 @@ extension IoTConnectManager {
     }
     
     private func checkForIsValidOrNotWith(forData dictForData: [String: Any], withValue idValue: Any) -> Bool {
-        if dictForData["dt"] as? Int == DataType.DTNumber {
+        if dictForData[dictkeys.datekey] as? Int == DataType.DTNumber {
             let scan = Scanner(string: "\(Int(String(describing: idValue)) ?? 0)")
             var val: Int32 = 0
             if scan.scanInt32(&val) && scan.isAtEnd {
@@ -648,9 +644,9 @@ extension IoTConnectManager {
                 return false
             }
         }
-        let arr = (dictForData["dv"] as! String).components(separatedBy: ",")
-        if arr.count != 0 && !(dictForData["dv"] as! String == "") {
-            if dictForData["dt"] as? Int == DataType.DTNumber {
+        let arr = (dictForData[dictkeys.dataValidaionKey] as! String).components(separatedBy: ",")
+        if arr.count != 0 && !(dictForData[dictkeys.dataValidaionKey] as! String == "") {
+            if dictForData[dictkeys.datekey] as? Int == DataType.DTNumber {
                 let valueToCheck = Int(String(describing: idValue)) ?? 0
                 var boolInYN = false
                 for strObject: String in arr {
@@ -671,7 +667,7 @@ extension IoTConnectManager {
                     }
                 }
                 return boolInYN
-            } else if dictForData["dt"] as? Int == DataType.DTString {
+            } else if dictForData[dictkeys.datekey] as? Int == DataType.DTString {
                 if arr.contains(idValue as! String) {
                     return true
                 }
@@ -682,7 +678,7 @@ extension IoTConnectManager {
     }
     
     func validateData(data: [String:Any]){
-        let arrData = data["d"] as? [[String:Any]]
+        let arrData = data[dictkeys.dKey] as? [[String:Any]]
         var dictValidData = [String:Any]()
         var dictInValidData = [String:Any]()
         let boolEdgeDevice = dictSyncResponse[keyPath: "meta.edge"] as? Int
@@ -696,7 +692,7 @@ extension IoTConnectManager {
             print("att \(String(describing: arrAtt?.att?.count))")
             
             for i in 0...(arrData?.count ?? 0)-1{
-                if let dictValD = arrData?[i]["d"] as? [String:Any]{
+                if let dictValD = arrData?[i][dictkeys.dKey] as? [String:Any]{
                     dictValD.forEach({ (dictkey:String,val:Any) in
                         print("key_val gateway \(dictkey) \(val) i\(i)")
                         
@@ -710,19 +706,19 @@ extension IoTConnectManager {
                                         let isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
                                         if isValidData{
                                             if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
-                                                arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:[valDictKey:dictValue]],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "" )
+                                                arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:[valDictKey:dictValue]],id: arrData?[0][dictkeys.idkey] as? String ?? "",tg: arrData?[0][dictkeys.tagkey] as? String ?? "",dt: arrData?[0][dictkeys.datekey] as? String ?? "" )
                                                 
                                                 if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
                                                     createResponseForEdgeRuleDeviceTelemetryData(dict: [dictkey:[valDictKey:dictValue]])
                                                 }
                                             }
                                             if arrDictValidData.count == 0{
-                                                arrDictValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]
+                                                arrDictValidData.append([dictkeys.datekey:arrData?[i][dictkeys.datekey] ?? "",dictkeys.idkey:arrData?[i][dictkeys.idkey] ?? "",dictkeys.tagkey:arrData?[i][dictkeys.tagkey] ?? "",dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
                                                 )
                                                 
                                             }else{
-                                                if let index = arrDictValidData.firstIndex(where: {$0["id"] as? String  == arrData?[i]["id"] as? String}) {
-                                                    var dVal = arrDictValidData[index]["d"] as? [String:Any]
+                                                if let index = arrDictValidData.firstIndex(where: {$0[dictkeys.idkey] as? String  == arrData?[i][dictkeys.idkey] as? String}) {
+                                                    var dVal = arrDictValidData[index][dictkeys.dKey] as? [String:Any]
                                                     let attDict = dVal?[dictkey] as? [String:Any]
                                                     print("attDict \(String(describing: attDict))")
                                                     let newDict = [valDictKey:dictValue]
@@ -733,10 +729,10 @@ extension IoTConnectManager {
                                                             return current
                                                         })
                                                     }
-                                                    arrDictValidData[index]["d"]  = dVal
+                                                    arrDictValidData[index][dictkeys.dKey]  = dVal
                                                     print("arrDictValidData \(arrDictValidData)")
                                                 }else{
-                                                    arrDictValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]
+                                                    arrDictValidData.append([dictkeys.datekey:arrData?[i][dictkeys.datekey] ?? "",dictkeys.idkey:arrData?[i][dictkeys.idkey] ?? "",dictkeys.tagkey:arrData?[i][dictkeys.tagkey] ?? "",dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
                                                     )
                                                     print("arrDictValidData \(arrDictValidData)")
                                                 }
@@ -744,13 +740,13 @@ extension IoTConnectManager {
                                         }else{
 //                                            dict = dictInValidData
                                             if arrDictInValidData.count == 0{
-                                                arrDictInValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]
+                                                arrDictInValidData.append([dictkeys.datekey:arrData?[i][dictkeys.datekey] ?? "",dictkeys.idkey:arrData?[i][dictkeys.idkey] ?? "",dictkeys.tagkey:arrData?[i][dictkeys.tagkey] ?? "",dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
                                                                           
                                                 )
                                                 print("arrDictInValidData \(arrDictInValidData)")
                                             }else{
-                                                if let index = arrDictInValidData.firstIndex(where: {$0["id"] as? String  == arrData?[i]["id"] as? String}) {
-                                                    var dVal = arrDictInValidData[index]["d"] as? [String:Any]
+                                                if let index = arrDictInValidData.firstIndex(where: {$0[dictkeys.idkey] as? String  == arrData?[i][dictkeys.idkey] as? String}) {
+                                                    var dVal = arrDictInValidData[index][dictkeys.dKey] as? [String:Any]
                                                     let attDict = dVal?[dictkey] as? [String:Any]
                                                     
                                                     let newDict = [valDictKey:dictValue]
@@ -762,11 +758,11 @@ extension IoTConnectManager {
                                                         })
                                                     }
                                                    
-                                                    arrDictInValidData[index]["d"]  = dVal
+                                                    arrDictInValidData[index][dictkeys.dKey]  = dVal
                                                     print("arrDictInValidData \(arrDictInValidData)")
                                                     
                                                 }else{
-                                                    arrDictInValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:[valDictKey:dictValue]]]
+                                                    arrDictInValidData.append([dictkeys.datekey:arrData?[i][dictkeys.datekey] ?? "",dictkeys.idkey:arrData?[i][dictkeys.idkey] ?? "",dictkeys.tagkey:arrData?[i][dictkeys.tagkey] ?? "",dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
                                                     )
                                                     print("arrDictInValidData \(arrDictInValidData)")
                                                 }
@@ -786,37 +782,37 @@ extension IoTConnectManager {
 //                                        dictValidData.append(anotherDict: [dictkey:val])
                                         
                                         if boolEdgeDevice == 1, let _ = Double(val as? String ?? ""){
-                                            arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:val],id: arrData?[i]["id"] as? String,tg: arrData?[i]["tg"] as? String,dt: arrData?[0]["dt"] as? String ?? "")
+                                            arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:val],id: arrData?[i][dictkeys.idkey] as? String,tg: arrData?[i][dictkeys.tagkey] as? String,dt: arrData?[0][dictkeys.datekey] as? String ?? "")
                                             
                                             if edgeRules != nil,!(val as? String ?? "").isEmpty{
                                                 createResponseForEdgeRuleDeviceTelemetryData(dict:[dictkey:val])
                                             }
                                             
                                         }
-                                        if let index = arrDictValidData.firstIndex(where: {$0["tg"] as? String  == arrData?[i]["tg"] as? String}) {
-                                            var dVal = arrDictValidData[index]["d"] as? [String:Any]
+                                        if let index = arrDictValidData.firstIndex(where: {$0[dictkeys.tagkey] as? String  == arrData?[i][dictkeys.tagkey] as? String}) {
+                                            var dVal = arrDictValidData[index][dictkeys.dKey] as? [String:Any]
                                             let newDict = [dictkey:val]
                                             dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
                                                 return current
                                             })
-                                            arrDictValidData[index]["d"]  = dVal
+                                            arrDictValidData[index][dictkeys.dKey]  = dVal
                                         }else{
-                                            arrDictValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:val]]
+                                            arrDictValidData.append([dictkeys.datekey:arrData?[i][dictkeys.datekey] ?? "",dictkeys.idkey:arrData?[i][dictkeys.idkey] ?? "",dictkeys.tagkey:arrData?[i][dictkeys.tagkey] ?? "",dictkeys.dKey:[dictkey:val]]
                                                                     
                                             )
                                         }
                                         print("arrDictValidData gateway \(arrDictValidData)")
                                     }else{
-                                        if let index = arrDictInValidData.firstIndex(where: {$0["tg"] as? String  == arrData?[i]["tg"] as? String}) {
-                                            var dVal = arrDictInValidData[index]["d"] as? [String:Any]
+                                        if let index = arrDictInValidData.firstIndex(where: {$0[dictkeys.tagkey] as? String  == arrData?[i][dictkeys.tagkey] as? String}) {
+                                            var dVal = arrDictInValidData[index][dictkeys.dKey] as? [String:Any]
 
                                             let newDict = [dictkey:val]
                                             dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
                                                 return current
                                             })
-                                            arrDictInValidData[index]["d"]  = dVal
+                                            arrDictInValidData[index][dictkeys.dKey]  = dVal
                                         }else{
-                                            arrDictInValidData.append(["dt":arrData?[i]["dt"] ?? "","id":arrData?[i]["id"] ?? "","tg":arrData?[i]["tg"] ?? "","d":[dictkey:val]])
+                                            arrDictInValidData.append([dictkeys.datekey:arrData?[i][dictkeys.datekey] ?? "",dictkeys.idkey:arrData?[i][dictkeys.idkey] ?? "",dictkeys.tagkey:arrData?[i][dictkeys.tagkey] ?? "",dictkeys.dKey:[dictkey:val]])
                                         }
                                         print("arrDictInValidData gateway \(arrDictInValidData)")
                                     }
@@ -829,11 +825,12 @@ extension IoTConnectManager {
             }
             
             if !arrDictValidData.isEmpty{
-                dictValidData = ["dt":data["dt"] ?? "","d":arrDictValidData]
+                dictValidData = [dictkeys.datekey:data[dictkeys.datekey
+                                                      ] ?? "",dictkeys.dKey:arrDictValidData]
                 
                 if boolEdgeDevice == 1{
                     print("dictValidData edgeDevice \(dictValidData)")
-                    sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0]["id"] as? String ?? "", tag: arrData?[0]["tg"] as? String ?? "")
+                    sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0][dictkeys.idkey] as? String ?? "", tag: arrData?[0][dictkeys.tagkey] as? String ?? "")
                 }else{
                     let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
                     prevSendDataTime = Date()
@@ -844,7 +841,7 @@ extension IoTConnectManager {
             }
             
             if !arrDictInValidData.isEmpty{
-                dictInValidData = ["dt":data["dt"] ?? "","d":arrDictInValidData]
+                dictInValidData = [dictkeys.datekey:data[dictkeys.datekey] ?? "",dictkeys.dKey:arrDictInValidData]
                 
                 if boolEdgeDevice == 1{
                     
@@ -857,7 +854,7 @@ extension IoTConnectManager {
             }
         }else{
             print("count is 1")
-            let dictValD = arrData?[0]["d"] as? [String:Any]
+            let dictValD = arrData?[0][dictkeys.dKey] as? [String:Any]
 
             dictValD?.forEach {
                 print("key_val \($0.key) \($0.value)")
@@ -896,7 +893,7 @@ extension IoTConnectManager {
                                        dictValidData = dict
 
                                         if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
-                                            arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:[valDictKey:dictValue]],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "" )
+                                            arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:[valDictKey:dictValue]],id: arrData?[0][dictkeys.idkey] as? String ?? "",tg: arrData?[0][dictkeys.tagkey] as? String ?? "",dt: arrData?[0][dictkeys.datekey] as? String ?? "" )
                                             
                                             if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
                                                 createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:[valDictKey:dictValue]])
@@ -918,7 +915,7 @@ extension IoTConnectManager {
                                     print("dictValidData \(dictValidData)")
 
                                     if boolEdgeDevice == 1, let _ = Double(value as? String ?? ""){
-                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:value],id: arrData?[0]["id"] as? String ?? "",tg: arrData?[0]["tg"] as? String ?? "",dt: arrData?[0]["dt"] as? String ?? "")
+                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:value],id: arrData?[0][dictkeys.idkey] as? String ?? "",tg: arrData?[0][dictkeys.tagkey] as? String ?? "",dt: arrData?[0][dictkeys.datekey] as? String ?? "")
                                         
                                         if edgeRules != nil{
                                             createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:value])
@@ -936,22 +933,22 @@ extension IoTConnectManager {
             
             if !dictValidData.isEmpty{
                 if boolEdgeDevice != 1{
-                    dictValidData = ["dt":data["dt"] ?? "","d":[["dt":arrData?[0]["dt"] ?? "","id":arrData?[0]["id"] ?? "","tg":arrData?[0]["tg"] ?? "","d":dictValidData]]]
+                    dictValidData = [dictkeys.datekey:data[dictkeys.datekey] ?? "",dictkeys.dKey:[[dictkeys.datekey:arrData?[0][dictkeys.datekey] ?? "",dictkeys.idkey:arrData?[0][dictkeys.idkey] ?? "",dictkeys.tagkey:arrData?[0][dictkeys.tagkey] ?? "",dictkeys.dKey:dictValidData]]]
                     prevSendDataTime = Date()
                     let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
                     objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
                 }else{
                     print("dictValidData edgeDevice \(dictValidData)")
-                    sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0]["id"] as? String ?? "", tag: arrData?[0]["tg"] as? String ?? "")
+                    sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0][dictkeys.idkey] as? String ?? "", tag: arrData?[0][dictkeys.tagkey] as? String ?? "")
                 }
             }
             
             if !dictInValidData.isEmpty{
-                dictInValidData = ["dt":data["dt"] ?? "",
-                                   "d":[["dt":arrData?[0]["dt"],
-                                         "id":arrData?[0]["id"],
-                                         "tg":arrData?[0]["tg"],
-                                         "d":dictInValidData]]]
+                dictInValidData = [dictkeys.datekey:data[dictkeys.datekey] ?? "",
+                                   dictkeys.dKey:[[dictkeys.datekey:arrData?[0][dictkeys.datekey],
+                                                   dictkeys.idkey:arrData?[0][dictkeys.idkey],
+                                                   dictkeys.tagkey:arrData?[0][dictkeys.tagkey],
+                                                   dictkeys.dKey:dictInValidData]]]
                 
                 if boolEdgeDevice != 1{
                     prevSendDataTime = Date()
@@ -1157,8 +1154,8 @@ extension IoTConnectManager {
                     print("arrValidrule \(arrValidRule) dataDeviceTelemetry \(dictDeviceTelemetry)")
                     
                     if !arrValidRule.isEmpty{
-                        let dictToSend = ["dt":objCommon.now(),
-                                          "d":[["rg": edgeRules?.d?.r?[0].g ?? "",
+                        let dictToSend = [dictkeys.datekey:objCommon.now(),
+                                          dictkeys.dKey:[[dictkeys.ruleGUIDKey: edgeRules?.d?.r?[0].g ?? "",
                                                 "ct":edgeRules?.d?.r?[0].con ?? "",
                                                 "cv": arrValidRule,
                                                 "sg": edgeRules?.d?.r?[0].es ?? "",
@@ -1190,12 +1187,12 @@ extension IoTConnectManager {
                         }else{
                             var val = ""
                             var attName = ""
-                            let arrDictD = dictValidData["d"] as? [[String:Any]]
+                            let arrDictD = dictValidData[dictkeys.dKey] as? [[String:Any]]
                             
-                            if let firstIndexP = arrDictD?.firstIndex(where: {$0["tg"] as! String == arrHashSeperated[0]}){
+                            if let firstIndexP = arrDictD?.firstIndex(where: {$0[dictkeys.tagkey] as! String == arrHashSeperated[0]}){
                                 print("hashSeerated filter \(arrDictD?[firstIndexP] ?? [:])")
                                 var dict = arrDictD?[firstIndexP] as? [String:Any]
-                                dict = dict?["d"] as? [String:Any]
+                                dict = dict?[dictkeys.dKey] as? [String:Any]
                                 if let dictVal = dict?[arrHashSeperated[1]] as? [String:Any]{
                                     dict = dictVal
                                 }
@@ -1506,6 +1503,7 @@ extension IoTConnectManager {
             objMQTTClient.connectMQTTAgain()
         }
     }
+    
     //MARK: - Method - Custom Methods
     /*
      startEdgeDeviceProcess
@@ -1564,24 +1562,24 @@ extension IoTConnectManager {
             if !arrCalcDictEdgeDevice.isEmpty{
                 for i in 0...arrCalcDictEdgeDevice.count-1{
                     print("fire timer \(i)")
-                    var dictD = arrCalcDictEdgeDevice[i]["d"] as? [String:Any]
+                    var dictD = arrCalcDictEdgeDevice[i][dictkeys.dKey] as? [String:Any]
                     if let valDict = dictD?[ln]{
                         print("Dict found")
                         let dataToSend = [
-                            "dt":arrCalcDictEdgeDevice[i]["dt"] ?? "",
-                            "d":[
+                            dictkeys.datekey:arrCalcDictEdgeDevice[i][dictkeys.datekey] ?? "",
+                            dictkeys.dKey:[
                                 [
-                                    "id":arrCalcDictEdgeDevice[i]["id"] ?? "",
-                                    "tg":arrCalcDictEdgeDevice[i]["tg"] ?? "",
-                                    "dt":arrCalcDictEdgeDevice[i]["dt"] ?? "",
-                                    "d":[
+                                    dictkeys.idkey:arrCalcDictEdgeDevice[i][dictkeys.idkey] ?? "",
+                                    dictkeys.tagkey:arrCalcDictEdgeDevice[i][dictkeys.tagkey] ?? "",
+                                    dictkeys.datekey:arrCalcDictEdgeDevice[i][dictkeys.datekey] ?? "",
+                                    dictkeys.dKey:[
                                         "\(ln )":valDict
                                     ]
                                 ]]] as [String : Any]
                         let topic = dictSyncResponse[keyPath:"p.topics.erpt"] as! String
                         objMQTTClient.publishTopicOnMQTT(withData: dataToSend, topic: topic)
                         dictD?.removeValue(forKey: "\(ln )")
-                                               arrCalcDictEdgeDevice[i]["d"] = dictD
+                        arrCalcDictEdgeDevice[i][dictkeys.dKey] = dictD
                                                print("arrCalcDictEdgeDevice \(arrCalcDictEdgeDevice)")
                         if let firstIndexData = arrDataEdgeDevices.firstIndex(where: {$0[ln] != nil}){
                             arrDataEdgeDevices.remove(at: firstIndexData)
@@ -1607,5 +1605,20 @@ extension IoTConnectManager {
                 print("Error parsing EdgeRule Response")
             }
         }
+    }
+    
+//    func startHeartRate(){
+//        if timerHeartRate == nil{
+//            timerHeartRate = Timer.scheduledTimer(timeInterval:  10.0, target: self, selector: #selector(fireTimerForEdgeDevice), userInfo: d, repeats: true)
+//        }else{
+//            timerHeartRate = nil
+//            timerHeartRate = Timer (timeInterval: 5, repeats: true, block: { timer in
+//
+//            })
+//        }
+//    }
+    
+    func stopHeartRate(){
+        
     }
 }

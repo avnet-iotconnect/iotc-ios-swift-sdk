@@ -17,8 +17,9 @@ public enum CommandType:Int{
     case DEVICE_DISABLED = 107
     case DEVICE_RELEASED = 108
     case STOP_OPERATION = 109
-//    case ATTRIBUTE_INFO_UPDATE = 110//"0x10"
-    case SETTING_INFO_UPDATE = 111//"0x11"
+    case START_HEART_RATE = 110
+    case STOP_HEART_RATE = 111
+//    case SETTING_INFO_UPDATE = 111//"0x11"
     case PASSWORD_INFO_UPDATE = 112//"0x12"
     case DEVICE_INFO_UPDATE = 113//"0x13"
     case RULE_INFO_UPDATE = 115//"0x15"
@@ -145,7 +146,6 @@ struct SupportedDataType{
     static let dateTimeVal    = 7
     static let bitValue       = 8
     static let boolValue      = 9
-//    static let durationValue  = 10
     static let latLongVal     = 10
     static let objValue       = 12
 }
@@ -180,4 +180,44 @@ struct DictMetaKeys{
     static let hwvKey   = "hwv"
     static let swvKey   = "swv"
     static let vKey   = "v"  
+}
+
+struct dictkeys{
+    static let cpIDkey      = "cpId"
+    static let uniqueIDKey  = "uniqueId"
+    static let tKey         = "t"
+    static let mtKey        = "mt"
+    static let dKey         = "d"
+    static let sdkKey       = "sdk"
+    static let languageKey  = "l"
+    static let envKey       = "e"
+    static let versionKey   = "v"
+    static let dataKey      = "data"
+    static let idkey        = "id"
+    static let tagkey       = "tg"
+    static let datekey      = "dt"
+    static let gkey         = "g"
+    static let errorkey     = "error"
+    static let desireKey    = "desired"
+    static let timeKey      = "time"
+    static let dtgKey       = "dtg"
+    static let hasKey       = "has"
+    static let attrKey      = "attr"
+    static let setKey       = "set"
+    static let rulesKey     = "r"
+    static let otaKey       = "ota"
+    static let commandTypeKey      = "ct"
+    static let guidKey             = "guid"
+    static let commandKey          = "command"
+    static let ackKey              = "ack"
+    static let ackIDKey            = "ackId"
+    static let errorCodeKey        = "ec"
+    static let ruleGUIDKey         = "rg"
+    static let dataValidaionKey    = "dv"
+    static let localNameKey        = "ln"
+    static let rptdataKey          = "rptdata"
+    static let medsageTypekey      = "mt"
+    static let displayNamekey      = "dn"
+    static let protocolkey         = "p"
+    
 }

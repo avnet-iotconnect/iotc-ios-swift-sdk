@@ -62,6 +62,7 @@ class IoTConnectManager {
     var timerEdgeDevice = [Timer]()
     var edgeRules:ModelEdgeRule?
     var callBackDelegate:callBackResponse?
+    var timerHeartRate:Timer?
    
     
     init() {}
@@ -267,12 +268,12 @@ class IoTConnectManager {
                 for d: [String: Any] in data  {
                     autoreleasepool {
                         var dictAck: [String:Any] = [:]
-                        dictAck["cpId"] = dict["cpId"]
-                        dictAck["uniqueId"] = strUniqueId
-                        dictAck["t"] = timeNow
-                        dictAck["mt"] = msgType
-                        dictAck["d"] = d["data"]
-                        dictAck["sdk"] = ["l": SDKConstants.Language, "v": SDKConstants.Version, "e": strEnv.rawValue]
+                        dictAck[dictkeys.cpIDkey] = dict[dictkeys.cpIDkey]
+                        dictAck[dictkeys.uniqueIDKey] = strUniqueId
+                        dictAck[dictkeys.tKey] = timeNow
+                        dictAck[dictkeys.mtKey] = msgType
+                        dictAck[dictkeys.dKey] = d[dictkeys.dataKey]
+                        dictAck[dictkeys.sdkKey] = [dictkeys.languageKey: SDKConstants.Language, dictkeys.versionKey: SDKConstants.Version, dictkeys.versionKey: strEnv.rawValue]
                         objMQTTClient.publishTopicOnMQTT(withData: dictAck, topic: "")
                     }
                 }
@@ -367,7 +368,7 @@ class IoTConnectManager {
         }
         
         if !arrCalcDictEdgeDevice.isEmpty{
-            if let firstIndex = arrCalcDictEdgeDevice.firstIndex(where: {$0["id"] as? String ?? "" == id}){
+            if let firstIndex = arrCalcDictEdgeDevice.firstIndex(where: {$0[dictkeys.idkey] as? String ?? "" == id}){
                 var dataDevice = arrCalcDictEdgeDevice[firstIndex]
                 var dictD = dataDevice["d"] as? [String:Any]
                 if dictD?.isEmpty == true{
@@ -378,7 +379,7 @@ class IoTConnectManager {
                     }else{
                         dictD?.append(anotherDict: ["\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]])
                     }
-                    dataDevice["d"] = dictD
+                    dataDevice[dictkeys.dKey] = dictD
                     arrCalcDictEdgeDevice[firstIndex] = dataDevice
                     print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
                 }else{
@@ -411,7 +412,7 @@ class IoTConnectManager {
                         }else{
                             let arr = arrData[firstIndexData][key] as? [String]
                             dictD?[key] = calcEdgeData(arrValues: arr ?? [], latestVal: "\(value)")
-                            arrCalcDictEdgeDevice[firstIndex]["d"] = dictD ?? [:]
+                            arrCalcDictEdgeDevice[firstIndex][dictkeys.dKey] = dictD ?? [:]
                         }
                         print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
                     }else{
@@ -423,18 +424,18 @@ class IoTConnectManager {
                         }else{
                             dictD?.append(anotherDict: ["\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]])
                         }
-                        arrCalcDictEdgeDevice[firstIndex]["d"] = dictD ?? [:]
+                        arrCalcDictEdgeDevice[firstIndex][dictkeys.dKey] = dictD ?? [:]
                         print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
                     }
                 }
             }else{
                 if let valDict = value as? [String:Any]{
                     for (valDictKey,valDictValue) in valDict{
-                        arrCalcDictEdgeDevice.append(["id":id ?? "","tg":tg ?? "","dt":dt,"d":[
+                        arrCalcDictEdgeDevice.append([dictkeys.idkey:id ?? "",dictkeys.tagkey:tg ?? "",dictkeys.datekey:dt,dictkeys.dKey:[
                             "\(key)":[valDictKey:["\(valDictValue)","\(valDictValue)","\(valDictValue)","\(valDictValue)",totalCount,"\(valDictValue)"]]]])
                     }
                 }else{
-                    arrCalcDictEdgeDevice.append(["id":id ?? "","tg":tg ?? "","dt":dt,"d":[
+                    arrCalcDictEdgeDevice.append([dictkeys.idkey:id ?? "",dictkeys.tagkey:tg ?? "",dictkeys.datekey:dt,dictkeys.dKey:[
                         "\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]]])
                 }
                 print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
@@ -480,11 +481,11 @@ class IoTConnectManager {
         }else{
             if let valDict = value as? [String:Any]{
                 for (valDictKey,valDictValue) in valDict{
-                    arrCalcDictEdgeDevice.append(["id":id ?? "","tg":tg ?? "","dt":dt,"d":[
+                    arrCalcDictEdgeDevice.append([dictkeys.idkey:id ?? "",dictkeys.tagkey:tg ?? "",dictkeys.datekey:dt,dictkeys.dKey:[
                         "\(key)":[valDictKey:["\(valDictValue)","\(valDictValue)","\(valDictValue)","\(valDictValue)",totalCount,"\(valDictValue)"]]]])
                 }
             }else{
-                arrCalcDictEdgeDevice.append(["id":id ?? "","tg":tg ?? "","dt":dt,"d":[
+                arrCalcDictEdgeDevice.append([dictkeys.idkey:id ?? "",dictkeys.tagkey:tg ?? "",dictkeys.datekey:dt,dictkeys.dKey:[
                     "\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]]])
             }
             print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
@@ -587,7 +588,7 @@ class IoTConnectManager {
     
     func getAttributes(callBack: @escaping GetAttributesCallbackBlock) -> () {
         if dictSyncResponse.count > 0 {
-            objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE.rawValue], topic: "")
+            objMQTTClient.publishTopicOnMQTT(withData:[dictkeys.medsageTypekey:CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE.rawValue], topic: "")
             self.objCommon.manageDebugLog(code: Log.Info.INFO_GA01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
         } else {
             objCommon.manageDebugLog(code: Log.Errors.ERR_GA02, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
@@ -598,7 +599,7 @@ class IoTConnectManager {
     //get twins
     func getTwins(callBack: @escaping GetTwinCallBackBlock) -> () {
         if dictSyncResponse.count > 0 {
-            objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_DEVICE_TEMPLATE_TWIN.rawValue], topic: "")
+            objMQTTClient.publishTopicOnMQTT(withData:[dictkeys.medsageTypekey:CommandType.GET_DEVICE_TEMPLATE_TWIN.rawValue], topic: "")
         }else{
             objCommon.manageDebugLog(code: Log.Errors.ERR_GA03, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             callBack("Twins data not found")
@@ -608,7 +609,7 @@ class IoTConnectManager {
     //get child devices
     func getChildDevices(callBack: GetChildDevicesCallBackBlock) -> () {
         if dictSyncResponse.count > 0 {
-            objMQTTClient.publishTopicOnMQTT(withData:["mt":CommandType.GET_CHILD_DEVICE.rawValue], topic: "")
+            objMQTTClient.publishTopicOnMQTT(withData:[dictkeys.medsageTypekey:CommandType.GET_CHILD_DEVICE.rawValue], topic: "")
         }else{
             objCommon.manageDebugLog(code: Log.Errors.ERR_GA04, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             callBack("Child Devices data not found")
@@ -630,21 +631,21 @@ class IoTConnectManager {
         let gtw = metaInfo?[DictMetaKeys.gtwKey] as? [String:Any]
         let g = gtw?[DictMetaKeys.gKey] as? String
         
-        objMQTTClient.publishTopicOnMQTT(withData: ["mt":CommandType.CREATE_DEVICE.rawValue,
-                                                    "d":[
-                                                    "g": g,
-                                                    "id":deviceId,
-                                                    "dn":displayName,
-                                                    "tg":deviceTag
+        objMQTTClient.publishTopicOnMQTT(withData: [dictkeys.medsageTypekey:CommandType.CREATE_DEVICE.rawValue,
+                                                    dictkeys.dKey:[
+                                                        dictkeys.gkey: g,
+                                                        dictkeys.idkey:deviceId,
+                                                        dictkeys.displayNamekey:displayName,
+                                                        dictkeys.tagkey:deviceTag
                                                     ]], topic: "")
         
     }
     
     //Publish topic on MQTT to delete child device
     func deleteChildDevice(uniqueID:String){
-        objMQTTClient.publishTopicOnMQTT(withData: [                    "mt":CommandType.DELETE_DEVICE.rawValue,
-                                                    "d":[
-                                                    "id":uniqueID,
+        objMQTTClient.publishTopicOnMQTT(withData: [                    dictkeys.medsageTypekey:CommandType.DELETE_DEVICE.rawValue,
+                                                                        dictkeys.dKey:[
+                                                                            dictkeys.idkey:uniqueID,
                                                     ]], topic: "")
     }
     
