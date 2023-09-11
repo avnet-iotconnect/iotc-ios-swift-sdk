@@ -18,6 +18,8 @@
 		C0C04CD326D015DA00182C45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD226D015DA00182C45 /* Assets.xcassets */; };
 		C0C04CD626D015DA00182C45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */; };
 		DD36C4412A304EF9008BA007 /* IoTConnect_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */; };
+		DD5B602D2A936EB80018BB1C /* iOSDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */; };
+		DD7E84A12A9340180031A231 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7E84A02A9340180031A231 /* ChildOperationVC.swift */; };
 		DDA1BAF02A41810F00DBA886 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA1BAEF2A41810F00DBA886 /* Attributes.swift */; };
 		DDA60A602A2F176300F686BF /* IoTConnect_2_0.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DDBB4AA72A40891C00783F26 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DDBB4AA62A40891C00783F26 /* IQKeyboardManagerSwift */; };
@@ -54,6 +56,8 @@
 		C0C04CD526D015DA00182C45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0C04CD726D015DA00182C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iOSDropDown.swift; sourceTree = "<group>"; };
+		DD7E84A02A9340180031A231 /* ChildOperationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildOperationVC.swift; sourceTree = "<group>"; };
 		DDA1BAEF2A41810F00DBA886 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 		DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC0C2962A38958A001793C5 /* RadioButtonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonController.swift; sourceTree = "<group>"; };
@@ -103,12 +107,13 @@
 		C0C04CC826D015D900182C45 /* IoTConnectDemo */ = {
 			isa = PBXGroup;
 			children = (
+				DD7E849F2A933FEE0031A231 /* ViewController */,
+				DD7E84892A933E540031A231 /* Framework */,
 				DD2F10232A8DF44F008B15C1 /* View */,
 				DDA1BAEE2A4180FB00DBA886 /* Models */,
 				DDC0C2962A38958A001793C5 /* RadioButtonController.swift */,
 				C0C04CC926D015D900182C45 /* AppDelegate.swift */,
 				C0C04CCB26D015D900182C45 /* SceneDelegate.swift */,
-				C0C04CCD26D015D900182C45 /* ViewController.swift */,
 				C0C04CCF26D015D900182C45 /* Main.storyboard */,
 				C0C04CD226D015DA00182C45 /* Assets.xcassets */,
 				C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */,
@@ -135,6 +140,23 @@
 				9285F66B26D62EEF00BC30DC /* TableHeaderView */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DD7E84892A933E540031A231 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		DD7E849F2A933FEE0031A231 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C0C04CCD26D015D900182C45 /* ViewController.swift */,
+				DD7E84A02A9340180031A231 /* ChildOperationVC.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		DDA1BAEE2A4180FB00DBA886 /* Models */ = {
@@ -227,6 +249,7 @@
 			files = (
 				9285F67126D62F5000BC30DC /* PropertyCell.swift in Sources */,
 				DDD1BEF72A52F50800B00F52 /* Identity.swift in Sources */,
+				DD5B602D2A936EB80018BB1C /* iOSDropDown.swift in Sources */,
 				9285F66F26D62EEF00BC30DC /* TableHeaderView.swift in Sources */,
 				DDA1BAF02A41810F00DBA886 /* Attributes.swift in Sources */,
 				C0C04CCE26D015D900182C45 /* ViewController.swift in Sources */,
@@ -234,6 +257,7 @@
 				DDFA34642A3C297400232B5C /* Enums.swift in Sources */,
 				C0C04CCC26D015D900182C45 /* SceneDelegate.swift in Sources */,
 				DDC0C2972A38958A001793C5 /* RadioButtonController.swift in Sources */,
+				DD7E84A12A9340180031A231 /* ChildOperationVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

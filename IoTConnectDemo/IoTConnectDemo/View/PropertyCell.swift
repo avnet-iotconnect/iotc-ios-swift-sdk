@@ -22,10 +22,12 @@ class PropertyCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    //set textfield placeholder data 
     func setAttData(data:[AttData],index:Int){
         if index <= data.count{
             let parentName = data[index].p
             let ln = data[index].ln
+//            print("cell \(data) \(ln ?? "")")
             self.txtField.placeholder = !(parentName?.isEmpty ?? true) ? "\(parentName ?? ""):\(ln ?? "")" : "\(ln ?? "")"
             self.txtField.text = data[index].value ?? ""
         }
