@@ -174,8 +174,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/MQTTClient.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "755"
-            endingLineNumber = "755"
+            startingLineNumber = "725"
+            endingLineNumber = "725"
             landmarkName = "mqtt(_:didReceiveMessage:id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,8 +190,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/MQTTClient.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "760"
-            endingLineNumber = "760"
+            startingLineNumber = "730"
+            endingLineNumber = "730"
             landmarkName = "mqtt(_:didReceiveMessage:id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -587,8 +587,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "752"
-            endingLineNumber = "752"
+            startingLineNumber = "748"
+            endingLineNumber = "748"
             landmarkName = "validateData(data:)"
             landmarkType = "7">
             <Locations>
@@ -635,8 +635,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "758"
-            endingLineNumber = "758"
+            startingLineNumber = "754"
+            endingLineNumber = "754"
             landmarkName = "validateData(data:)"
             landmarkType = "7">
             <Locations>
@@ -953,8 +953,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "810"
-            endingLineNumber = "810"
+            startingLineNumber = "806"
+            endingLineNumber = "806"
             landmarkName = "validateData(data:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1097,42 +1097,10 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1164"
-            endingLineNumber = "1164"
+            startingLineNumber = "1161"
+            endingLineNumber = "1161"
             landmarkName = "sendMessageForEdgeRuleMatch(dictValidData:dictDeviceTelemetry:id:tag:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "400E5B5D-87B0-47CF-8582-DF27E0902B2C - 262dd528c9caa2c1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IoTConnect_2_0.IoTConnectManager.sendMessageForEdgeRuleMatch(dictValidData: Swift.Dictionary&lt;Swift.String, Any&gt;, dictDeviceTelemetry: Swift.Dictionary&lt;Swift.String, Any&gt;, id: Swift.String, tag: Swift.String) -&gt; ()"
-                  moduleName = "IoTConnect_2_0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1345"
-                  endingLineNumber = "1345"
-                  offsetFromSymbolStart = "6060">
-               </Location>
-               <Location
-                  uuid = "400E5B5D-87B0-47CF-8582-DF27E0902B2C - 262dd528c9caa2c1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IoTConnect_2_0.IoTConnectManager.sendMessageForEdgeRuleMatch(dictValidData: Swift.Dictionary&lt;Swift.String, Any&gt;, dictDeviceTelemetry: Swift.Dictionary&lt;Swift.String, Any&gt;, id: Swift.String, tag: Swift.String) -&gt; ()"
-                  moduleName = "IoTConnect_2_0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1345"
-                  endingLineNumber = "1345"
-                  offsetFromSymbolStart = "6296">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1161,8 +1129,8 @@
             filePath = "IoTConnect_2.0/IoTConnect_2.0/IoTConnectManager/IoTConnectManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
             landmarkName = "storeEdgeDeviceData(arr:dictVal:id:tg:dt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1198,54 +1166,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E1AA7C31-1B46-41D5-90FE-34DCDD1C6948"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "609"
-            endingLineNumber = "609"
-            landmarkName = "manageAttributeResponse(response:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CB39457F-900F-4948-9DD5-9B71890FB750"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "603"
-            endingLineNumber = "603"
-            landmarkName = "manageAttributeResponse(response:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2701F2AB-9443-4D74-B98F-08E41DAAF9F8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
-            landmarkName = "getChildDevicesAttributes()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "6DC7CDDD-A045-4ABA-BD4E-FEB78E4B64AF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -1253,8 +1173,8 @@
             filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "629"
-            endingLineNumber = "629"
+            startingLineNumber = "658"
+            endingLineNumber = "658"
             landmarkName = "getChildDevices(message:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1262,16 +1182,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D88D99E9-706C-4C87-9C17-113B7716C20C"
+            uuid = "2A5121CA-1F2F-44DE-8DBD-38CF8A59A348"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IoTConnectDemo/IoTConnectDemo/ViewController/ViewController.swift"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/MQTTClient.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "600"
-            endingLineNumber = "600"
-            landmarkName = "manageAttributeResponse(response:)"
+            startingLineNumber = "707"
+            endingLineNumber = "707"
+            landmarkName = "mqtt(_:didReceiveMessage:id:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8A2D14F8-FA74-4112-9C7A-84A3C4E54118"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IoTConnect_2.0/IoTConnect_2.0/MQTTClient.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "709"
+            endingLineNumber = "709"
+            landmarkName = "mqtt(_:didReceiveMessage:id:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
