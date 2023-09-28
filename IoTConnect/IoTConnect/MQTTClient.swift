@@ -45,7 +45,7 @@ class MQTTClient {
         mqtt!.username = dataSyncResponse[keyPath:"p.un"] as? String
         mqtt!.password = dataSyncResponse[keyPath:"p.pwd"] as? String
 //        mqtt!.keepAlive = 600
-        mqtt!.delegate = self
+        mqtt!.delegate = self 
         mqtt!.enableSSL = true
          
         var boolToConnectYN = false

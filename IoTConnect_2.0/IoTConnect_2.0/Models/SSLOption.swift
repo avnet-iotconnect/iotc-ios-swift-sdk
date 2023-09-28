@@ -8,6 +8,6 @@
 import Foundation
 
 public struct SSLOption {
-    public var Certificate: String?
-    public var Password: String = SDKConstants.SSLPassword
+    public var eertificatePath: String?//This is p12 file path
+    public var password: String = SDKConstants.sslPassword
 }

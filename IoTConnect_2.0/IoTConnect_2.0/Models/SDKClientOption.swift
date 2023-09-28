@@ -10,14 +10,18 @@ import Foundation
 public struct SDKClientOption {
     
     //For SSL CA signed and SelfSigned authorized device only
-    public var SSL = SSLOption()
+    public var ssl = SSLOption()
     
     //For Offline Storage only
-    public var OfflineStorage = OfflineStorageOption()
+    public var offlineStorage = OfflineStorageOption()
     
     //For Developer only
     public var discoveryUrl: String?
     public var debug: Bool = false
+    public var skipValidation = false
+    
+    //device PK
+    public var devicePK = ""
     
     //MARK: - Method - SDK-Initialiase
     public init () {}

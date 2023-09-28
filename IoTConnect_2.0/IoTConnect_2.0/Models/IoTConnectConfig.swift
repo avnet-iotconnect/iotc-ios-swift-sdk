@@ -58,9 +58,9 @@ public struct CertificateConfig {
 }
 
 public struct OfflineStorageConfig {
-    public var availSpaceInMb: Int = SDKConstants.OSAvailSpaceInMb
-    public var fileCount: Int = SDKConstants.OSFileCount
-    public var disabled: Bool = SDKConstants.OSDisabled
+    public var availSpaceInMb: Int = SDKConstants.osAvailSpaceInMb
+    public var fileCount: Int = SDKConstants.osFileCount
+    public var disabled: Bool = SDKConstants.osDisabled
 }
 
 public enum MqttConnectionType {

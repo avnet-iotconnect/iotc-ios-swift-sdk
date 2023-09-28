@@ -18,7 +18,7 @@ struct EdgeRuleData:Codable{
 }
 
 struct EdgeRuleConditionData:Codable{
-        let g: String?       // GUID to identify rule (To be used in 4.4 Edge                         Rule Match )
+        let g: String?       // GUID to identify rule (To be used in 4.4                        Edge                         Rule Match )
         let es: String?     // Event Subscription GUID
         let con: String?    // The rule condition. Using a special format                           that can be parsed with IoTConnect SDKs
         let cmd: String?   // If command needs to execute on device if rule                        matched

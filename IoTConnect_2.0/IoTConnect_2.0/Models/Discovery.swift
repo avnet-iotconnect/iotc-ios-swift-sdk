@@ -7,16 +7,12 @@
 
 import Foundation
 
-//struct Discovery: Codable {
-//    let baseUrl: String
-//    let logInfo: String
-//}
 
 //kirtan
 struct Discovery: Codable {
     let d: D
     let status: Int
-    let message: String                                 // based on value of ec
+    let message: String                                 // based on value of                                                    ec
                                                         // 0 – Success
                                                         // 1 – Invalid value of SID
                                                         // 2 – Company not found
@@ -41,8 +37,8 @@ struct D: Codable {
 
 // MARK: - LogMqtt
 struct LogMqtt: Codable {
-    let hn: String                                      // Hostname of MQTT broker
-    let un:String                                       // Username to connect                                                       MQTT broker
-    let pwd:String                                      // Password to connect                                                       MQTT broker
-    let topic:String                                    // Topic on which log                                                        messages can be sent
+    let hn: String                                      // Hostname of MQTT                                                     broker
+    let un:String                                       // Username to                                                          connect                                                             MQTT broker
+    let pwd:String                                      // Password to                                                              connect                                                          MQTT broker
+    let topic:String                                    // Topic on which                                                           log                                                             messages can be                                                         sent
 }
