@@ -1,4 +1,4 @@
-# IoTConnect SDK
+# IoTConnect SDK (Device Message 1.0)
 
 IoTConnect Device SDKs (System Development Kit) are highly secure and reliable, solving the purpose of D2C (device to cloud) and C2D (cloud to device) communications. It is a mediator between device and cloud platforms.
 
