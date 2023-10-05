@@ -23,6 +23,9 @@ public struct SDKClientOption {
     //device PK
     public var devicePK = ""
     
+    //broker options
+    public var brokerType: BrokerType?
+    
     //MARK: - Method - SDK-Initialiase
     public init () {}
 }

@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnSendData: UIButton!
     @IBOutlet weak var btnGetTwins: UIButton!
     @IBOutlet weak var btnChildDevicesOperation: UIButton!
+    @IBOutlet weak var btnPreQA: UIButton!
     
 //MARK: Variable
     private var btnConnectTitle = "CONNECT"
@@ -63,7 +64,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        radioController.buttonsArray = [btnAvnet,btnQA,btnDev,btnPOC]
+        radioController.buttonsArray = [btnAvnet,btnQA,btnDev,btnPOC,btnPreQA]
         radioController.defaultButton = btnQA
         
         //button Status Corner Radius
@@ -144,8 +145,8 @@ class ViewController: UIViewController {
             var sdkOptions = SDKClientOption()
             
             //SSL Certificates with password
-//            sdkOptions.SSL.Certificate = Bundle.main.path(forResource: "client.p12", ofType: nil)
-//            sdkOptions.SSL.Password = "Softweb@123"
+            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client.p12", ofType: nil)
+           sdkOptions.ssl.password = "Softweb@123"
             sdkOptions.skipValidation = true
             
             //Offline Storage Configuration
@@ -154,7 +155,10 @@ class ViewController: UIViewController {
             
             //for device PK
             //this is base64 string for SmplPk device
-            sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
+           // sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
+            
+            //for AWS choose brpker type AWS
+            sdkOptions.brokerType = .aws
             
             let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
             
@@ -837,6 +841,11 @@ class ViewController: UIViewController {
     
     @IBAction func btnDevTapped(_ sender: UIButton) {
         env = .DEV
+        radioController.buttonArrayUpdated(buttonSelected: sender)
+    }
+    
+    @IBAction func btnPREQATapped(_ sender: UIButton) {
+        env = .PREQA
         radioController.buttonArrayUpdated(buttonSelected: sender)
     }
     

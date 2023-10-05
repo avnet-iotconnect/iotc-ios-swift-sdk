@@ -39,6 +39,7 @@ class IoTConnectManager {
     var strUniqueId: String!
     var strEnv: Environment = .PROD
     var strDiscoveryURL: String = SDKURL.discoveryHost
+    var strDiscoveryURLAWS: String = SDKURL.discoveryHostAWS
     var dictReference: [String:Any]!
     var dictSyncResponse: [String:Any]!
     var dataSDKOptions: SDKClientOption!
@@ -63,7 +64,10 @@ class IoTConnectManager {
     var edgeRules:ModelEdgeRule?
     var callBackDelegate:callBackResponse?
     var timerHeartRate = Timer()
-   
+    var twinPropertyPubTopic = "$iothub/twin/PATCH/properties/reported/?$rid=1"
+    var twinPropertySubTopic = "$iothub/twin/PATCH/properties/desired/#"
+    var twinResponsePubTopic = "$iothub/twin/GET/?$rid=0"
+    var twinResponseSubTopic = "$iothub/twin/res/#"
     
     init() {}
     
@@ -107,8 +111,8 @@ class IoTConnectManager {
         }
         
         
-        if dataSDKOptions.ssl.eertificatePath != nil {
-            let dataCertificate = dataSDKOptions.ssl.eertificatePath
+        if dataSDKOptions.ssl.certificatePath != nil {
+            let dataCertificate = dataSDKOptions.ssl.certificatePath
             if !objCommon.checkForIfFileExistAtPath(filePath: dataCertificate as Any) {
                 certPathFlag = false
             }
@@ -120,6 +124,18 @@ class IoTConnectManager {
         
         objMQTTClient.boolIsInternetAvailableYN = checkInternetAvailable()
         reachabilityObserver()
+        
+        if dataSDKOptions.brokerType == .aws{
+            twinPropertyPubTopic =
+            "$rid=1/aws/things/\(strCPId ?? "")/shadow/name/$\(strCPId ?? "")_twin_shadow/report"
+               twinPropertySubTopic =
+            "aws/things/\(strCPId ?? "")/shadow/name/\(strCPId ?? "")_twin_shadow/property-shadow"
+//
+               twinResponsePubTopic =
+            "aws/things/\(strCPId ?? "")/shadow/name/\(strCPId ?? "")_twin_shadow/get"
+               twinResponseSubTopic =
+            "aws/things/\(strCPId ?? "")/shadow/name/\(strCPId ?? "")_twin_shadow/get/all"
+        }
             
         initialize(cpId: cpId, uniqueId: uniqueId, deviceCallback: deviceCallback, twinUpdateCallback: twinUpdateCallback, getAttributesCallback: attributeCallBack,getTwinsCallback: twinsCallBack, getChildDevucesCallback: getChildCallback)
     }

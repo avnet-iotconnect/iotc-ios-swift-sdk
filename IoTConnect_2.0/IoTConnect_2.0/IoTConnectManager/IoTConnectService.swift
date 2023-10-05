@@ -36,12 +36,12 @@ extension IoTConnectManager {
         boolCanCallInialiseYN = true
         objCommon.createDirectoryFoldersForLogs()
         objCommon.manageDebugLog(code: Log.Info.INFO_IN04, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
-        objCommon.getBaseURL(strURL: SDKURL.discovery(strDiscoveryURL, cpId, SDKConstants.language, SDKConstants.version, strEnv.rawValue)) { (status, data) in
+        objCommon.getBaseURL(strURL: SDKURL.discovery(strDiscoveryURL, cpId, SDKConstants.language, SDKConstants.version, strEnv.rawValue,broker:dataSDKOptions.brokerType ?? BrokerType.az)) { (status, data) in
             if status {
                 if let dataRef = data as? [String : Any] {
                     self.objCommon.manageDebugLog(code: Log.Info.INFO_IN07, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                     self.dictReference = dataRef
-                    if self.dictReference[keyPath:"d.ec"] as! Int == 0{
+                    if self.dictReference[keyPath:"d.ec"] as? Int == 0{
                         self.initaliseCall(uniqueId: uniqueId)
                     }else{
                         let errorDict = [Dictkeys.errorkey:Log.getAPIErrorMsg(errorCode: self.dictReference[keyPath:"d.ec"] as? Int ?? 15)]
@@ -365,8 +365,10 @@ extension IoTConnectManager {
                     let dict = dataToPass as? [String : Any]
                     let fValue = dict?["f"] as? Int
                     SDKClient.shared.onHeartbeatCommand(isStart: true, df: fValue ?? 0)
+                    self.blockHandlerDeviceCallBack(dataToPass)
                 }else if typeAction == 20{
                     SDKClient.shared.onHeartbeatCommand(isStart: false)
+                    self.blockHandlerDeviceCallBack(dataToPass)
                 }
                 else if typeAction == 21{
                     let dict = dataToPass as? [String : Any]

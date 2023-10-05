@@ -38,6 +38,8 @@ public enum CommandType:Int{
 
 struct SDKURL {
     static let discoveryHost = "https://discovery.iotconnect.io"
+    static let discoveryHostAWS = "http://54.160.162.148:219"
+    static let endPointAWS = "?pf=aws"
     
     /**
     get the Discovery URL
@@ -54,9 +56,14 @@ struct SDKURL {
      Returns the Discovery URL.
      */
     
-    static func discovery(_ strDiscoveryURL:String, _ cpId:String, _ lang:String, _ ver:String, _ env:String) -> String {
+    static func discovery(_ strDiscoveryURL:String, _ cpId:String, _ lang:String, _ ver:String, _ env:String,broker:BrokerType) -> String {
         //kirtan
-        return String(format: "\(strDiscoveryURL)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)")
+       
+        if broker == .aws{
+            return String(format: "\(SDKURL.discoveryHostAWS)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)")
+        }else{
+            return String(format: "\(strDiscoveryURL)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)")
+        }
     }
 }
 
@@ -77,10 +84,10 @@ struct SDKConstants {
     static let osFileCount = 1
     static let osDisabled = false
     static let holdOfflineDataTime = 10.0
-    static let twinPropertyPubTopic = "$iothub/twin/PATCH/properties/reported/?$rid=1"
-    static let twinPropertySubTopic = "$iothub/twin/PATCH/properties/desired/#"
-    static let twinResponsePubTopic = "$iothub/twin/GET/?$rid=0"
-    static let twinResponseSubTopic = "$iothub/twin/res/#"
+//    static let twinPropertyPubTopic = "$iothub/twin/PATCH/properties/reported/?$rid=1"
+//    static let twinPropertySubTopic = "$iothub/twin/PATCH/properties/desired/#"
+//    static let twinResponsePubTopic = "$iothub/twin/GET/?$rid=0"
+//    static let twinResponseSubTopic = "$iothub/twin/res/#"
     static let aggrigacaseteType = ["min": 1, "max": 2, "sum": 4, "avg": 8, "count": 16, "lv": 32]
 }
 

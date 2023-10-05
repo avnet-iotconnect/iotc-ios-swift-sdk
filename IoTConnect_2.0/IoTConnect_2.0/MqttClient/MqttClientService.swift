@@ -124,8 +124,8 @@ extension MqttClientService: CocoaMQTTDelegate {
             guard let config =  mqttConfigObj else { return }
             // Subscribe to 3 topics
             subscribeCocoaMqtt(topic: config.iotData.d.p.sub, completion:{_ in })
-            subscribeCocoaMqtt(topic: SDKConstants.twinPropertySubTopic, completion:{_ in })
-            subscribeCocoaMqtt(topic: SDKConstants.twinResponseSubTopic, completion:{_ in })
+            subscribeCocoaMqtt(topic: IoTConnectManager.sharedInstance.twinPropertySubTopic, completion:{_ in })
+            subscribeCocoaMqtt(topic: IoTConnectManager.sharedInstance.twinResponseSubTopic, completion:{_ in })
             
             // Check for offline storage
         }

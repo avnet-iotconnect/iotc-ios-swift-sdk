@@ -79,7 +79,7 @@ class MQTTClient {
             if CERT_PATH_FLAG {
                 var sslSettings: [String: NSObject] = [:]
                 let pwd = dataSDKOptions.ssl.password
-                let clientCertificate = objCommon.getClientCertFromP12File(pathCertificate: objCommon.getFilePath(dataSDKOptions.ssl.eertificatePath as Any), certPassword: pwd)
+                let clientCertificate = objCommon.getClientCertFromP12File(pathCertificate: objCommon.getFilePath(dataSDKOptions.ssl.certificatePath as Any), certPassword: pwd)
                 sslSettings[kCFStreamSSLCertificates as String] = clientCertificate
                 mqtt!.sslSettings = sslSettings
                 mqtt!.allowUntrustCACertificate = true
@@ -505,7 +505,7 @@ class MQTTClient {
         do {
             let jsonData =  try JSONSerialization.data(withJSONObject: dictSDKToHub, options: .prettyPrinted)
             let  message = String(data: jsonData, encoding: .utf8)!
-            publishDataOnMQTT(dictSDKToHubForOS: dictSDKToHub, strPubTopic: SDKConstants.twinPropertyPubTopic, strMessageToPass: message)
+            publishDataOnMQTT(dictSDKToHubForOS: dictSDKToHub, strPubTopic: IoTConnectManager.sharedInstance.twinPropertyPubTopic, strMessageToPass: message)
             if mqtt?.connState == .connected {
                 objCommon.manageDebugLog(code: Log.Info.INFO_TP01, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
             } else {
@@ -537,7 +537,7 @@ class MQTTClient {
     func getAllTwins() {
         autoreleasepool {
             if mqtt?.connState == .connected {
-                mqtt!.publish(SDKConstants.twinResponsePubTopic, withString: "", qos: .qos1)
+                mqtt!.publish(IoTConnectManager.sharedInstance.twinResponsePubTopic, withString: "", qos: .qos1)
                 objCommon.manageDebugLog(code: Log.Info.INFO_TP02, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
             } else {
                 objCommon.manageDebugLog(code: Log.Errors.ERR_TP04, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
@@ -576,8 +576,8 @@ extension MQTTClient: CocoaMQTTDelegate {
             let p = dataSyncResponse["p"] as? [String:Any]
             let topics = p?["topics"] as? [String:Any]
             mqtt.subscribe(topics?["c2d"] as! String, qos: .qos1)
-            mqtt.subscribe(SDKConstants.twinPropertySubTopic, qos: .qos1)
-            mqtt.subscribe(SDKConstants.twinResponseSubTopic, qos: .qos1)
+            mqtt.subscribe(IoTConnectManager.sharedInstance.twinPropertySubTopic, qos: .qos1)
+            mqtt.subscribe(IoTConnectManager.sharedInstance.twinResponseSubTopic, qos: .qos1)
             objCommon.manageDebugLog(code: Log.Info.INFO_IN02, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 if !self.dataSDKOptions.offlineStorage.disabled && self.isRunningOfflineSending == false {
@@ -652,10 +652,10 @@ extension MQTTClient: CocoaMQTTDelegate {
             } else {
                 print("Success New Message: \(String(describing: objectMessageData))")
                 if  let objectMessage = objectMessageData as? [String:Any]  {
-                    if message.topic.hasPrefix(objCommon.getSubStringFor(strToProcess: SDKConstants.twinPropertySubTopic, indStart: 0, indEnd: -1)) {
+                    if message.topic.hasPrefix(objCommon.getSubStringFor(strToProcess: IoTConnectManager.sharedInstance.twinPropertySubTopic, indStart: 0, indEnd: -1)) {
                         blockHandler?(objectMessage, 4)
                         boolCanProceedYN = false
-                    } else if message.topic.hasPrefix(objCommon.getSubStringFor(strToProcess: SDKConstants.twinResponseSubTopic, indStart: 0, indEnd: -1)) {
+                    } else if message.topic.hasPrefix(objCommon.getSubStringFor(strToProcess: IoTConnectManager.sharedInstance.twinResponseSubTopic, indStart: 0, indEnd: -1)) {
                         blockHandler?(objectMessage, 5)
                         boolCanProceedYN = false
                     } else {

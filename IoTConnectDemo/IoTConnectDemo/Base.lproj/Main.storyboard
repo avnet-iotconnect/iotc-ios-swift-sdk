@@ -36,10 +36,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="911-2G-pNQ">
-                                                        <rect key="frame" x="20" y="34" width="258" height="35"/>
+                                                        <rect key="frame" x="4" y="34" width="290" height="35"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFh-wh-FUs">
-                                                                <rect key="frame" x="0.0" y="0.0" width="64.5" height="35"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="58" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="35" id="B5w-3H-Ud2"/>
                                                                 </constraints>
@@ -54,7 +54,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33h-2u-Gv1">
-                                                                <rect key="frame" x="64.5" y="0.0" width="64.5" height="35"/>
+                                                                <rect key="frame" x="58" y="0.0" width="58" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="35" id="dEY-Yh-Uul"/>
                                                                 </constraints>
@@ -69,7 +69,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mN6-cK-weW">
-                                                                <rect key="frame" x="129" y="0.0" width="64.5" height="35"/>
+                                                                <rect key="frame" x="116" y="0.0" width="58" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="35" id="RqP-g1-eIc"/>
                                                                 </constraints>
@@ -84,7 +84,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7u-mv-Jxa">
-                                                                <rect key="frame" x="193.5" y="0.0" width="64.5" height="35"/>
+                                                                <rect key="frame" x="174" y="0.0" width="58" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="35" id="S8y-c4-ASr"/>
                                                                 </constraints>
@@ -98,19 +98,37 @@
                                                                     <action selector="btnDevTapped:" destination="WM8-vI-5hN" eventType="touchUpInside" id="0Bz-55-OoL"/>
                                                                 </connections>
                                                             </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lv0-Mh-gC7">
+                                                                <rect key="frame" x="232" y="0.0" width="58" height="35"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="35" id="wcj-lm-cXN"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                <state key="normal" title="PreQA" image="icon_radio_normal">
+                                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <state key="selected" image="icon_radio_selected"/>
+                                                                <connections>
+                                                                    <action selector="btnPREQATapped:" destination="WM8-vI-5hN" eventType="touchUpInside" id="Eqm-sX-9DW"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
+                                                            <constraint firstItem="lv0-Mh-gC7" firstAttribute="width" secondItem="R7u-mv-Jxa" secondAttribute="width" id="2f2-rw-Ewy"/>
                                                             <constraint firstItem="R7u-mv-Jxa" firstAttribute="leading" secondItem="mN6-cK-weW" secondAttribute="trailing" id="2rc-Eu-UB7"/>
                                                             <constraint firstItem="33h-2u-Gv1" firstAttribute="width" secondItem="kFh-wh-FUs" secondAttribute="width" id="4Ct-mU-iHr"/>
                                                             <constraint firstItem="kFh-wh-FUs" firstAttribute="leading" secondItem="911-2G-pNQ" secondAttribute="leading" id="7Y1-aV-ZDE"/>
                                                             <constraint firstAttribute="height" constant="35" id="9Ty-mi-u6O"/>
-                                                            <constraint firstAttribute="trailing" secondItem="R7u-mv-Jxa" secondAttribute="trailing" id="Bsj-qG-QeZ"/>
                                                             <constraint firstItem="R7u-mv-Jxa" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="JZE-gD-jPZ"/>
                                                             <constraint firstItem="mN6-cK-weW" firstAttribute="width" secondItem="kFh-wh-FUs" secondAttribute="width" id="N03-7R-ksD"/>
                                                             <constraint firstItem="kFh-wh-FUs" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="UNq-9H-zpo"/>
+                                                            <constraint firstAttribute="trailing" secondItem="lv0-Mh-gC7" secondAttribute="trailing" id="XaG-RX-PVJ"/>
+                                                            <constraint firstItem="lv0-Mh-gC7" firstAttribute="leading" secondItem="R7u-mv-Jxa" secondAttribute="trailing" id="gWo-Qe-8xY"/>
                                                             <constraint firstItem="33h-2u-Gv1" firstAttribute="leading" secondItem="kFh-wh-FUs" secondAttribute="trailing" id="gYM-WY-fRH"/>
                                                             <constraint firstItem="mN6-cK-weW" firstAttribute="leading" secondItem="33h-2u-Gv1" secondAttribute="trailing" id="jR0-LU-Rvh"/>
+                                                            <constraint firstItem="lv0-Mh-gC7" firstAttribute="top" secondItem="R7u-mv-Jxa" secondAttribute="top" id="mM3-zI-dfA"/>
                                                             <constraint firstItem="R7u-mv-Jxa" firstAttribute="width" secondItem="kFh-wh-FUs" secondAttribute="width" id="pKz-dQ-Ed5"/>
                                                             <constraint firstItem="33h-2u-Gv1" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="qFS-Ff-bTm"/>
                                                             <constraint firstItem="mN6-cK-weW" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="t38-oG-uNR"/>
@@ -119,13 +137,13 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="911-2G-pNQ" secondAttribute="trailing" constant="20" symbolic="YES" id="2VX-nU-ayw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="911-2G-pNQ" secondAttribute="trailing" constant="4" id="2VX-nU-ayw"/>
                                                     <constraint firstItem="911-2G-pNQ" firstAttribute="top" secondItem="gll-0F-FAm" secondAttribute="bottom" constant="8" id="3Ow-tJ-V72"/>
                                                     <constraint firstItem="gll-0F-FAm" firstAttribute="leading" secondItem="sgC-y5-AfG" secondAttribute="leading" constant="20" symbolic="YES" id="b9B-wk-7yk"/>
                                                     <constraint firstAttribute="trailing" secondItem="gll-0F-FAm" secondAttribute="trailing" constant="20" symbolic="YES" id="esg-F1-9Fu"/>
                                                     <constraint firstAttribute="height" constant="100" id="kZG-2h-0mQ"/>
                                                     <constraint firstItem="gll-0F-FAm" firstAttribute="top" secondItem="sgC-y5-AfG" secondAttribute="top" constant="5" id="n18-jD-4da"/>
-                                                    <constraint firstItem="911-2G-pNQ" firstAttribute="leading" secondItem="sgC-y5-AfG" secondAttribute="leading" constant="20" symbolic="YES" id="pqs-KM-BRa"/>
+                                                    <constraint firstItem="911-2G-pNQ" firstAttribute="leading" secondItem="sgC-y5-AfG" secondAttribute="leading" constant="4" id="pqs-KM-BRa"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mF1-zd-oZ4">
@@ -464,6 +482,7 @@
                         <outlet property="btnDev" destination="R7u-mv-Jxa" id="GIb-gk-ZhR"/>
                         <outlet property="btnGetTwins" destination="Rz8-HM-KS3" id="evp-Jr-CQL"/>
                         <outlet property="btnPOC" destination="33h-2u-Gv1" id="W1F-mp-hpA"/>
+                        <outlet property="btnPreQA" destination="lv0-Mh-gC7" id="11E-4S-UWt"/>
                         <outlet property="btnQA" destination="mN6-cK-weW" id="yxs-PU-BbP"/>
                         <outlet property="btnSendData" destination="kMT-xY-5CA" id="DGO-rp-WeV"/>
                         <outlet property="btnStatus" destination="QYG-mX-9F4" id="Lxa-pU-iNN"/>
