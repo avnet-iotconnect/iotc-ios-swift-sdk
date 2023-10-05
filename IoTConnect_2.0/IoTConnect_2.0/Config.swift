@@ -19,7 +19,6 @@ public enum CommandType:Int{
     case STOP_OPERATION = 109
     case START_HEART_RATE = 110
     case STOP_HEART_RATE = 111
-//    case SETTING_INFO_UPDATE = 111//"0x11"
     case PASSWORD_INFO_UPDATE = 112//"0x12"
     case DEVICE_INFO_UPDATE = 113//"0x13"
     case RULE_INFO_UPDATE = 115//"0x15"
