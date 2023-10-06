@@ -15,7 +15,6 @@ class PropertyCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -24,10 +23,9 @@ class PropertyCell: UITableViewCell {
     
     //set textfield placeholder data 
     func setAttData(data:[AttData],index:Int){
-        if index <= data.count{
+        if index < data.count{
             let parentName = data[index].p
             let ln = data[index].ln
-//            print("cell \(data) \(ln ?? "")")
             self.txtField.placeholder = !(parentName?.isEmpty ?? true) ? "\(parentName ?? ""):\(ln ?? "")" : "\(ln ?? "")"
             self.txtField.text = data[index].value ?? ""
         }

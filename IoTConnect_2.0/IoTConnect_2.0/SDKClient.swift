@@ -11,12 +11,12 @@ public typealias GetTwinCallBackBlock = (Any?) -> ()
 public typealias GetChildDevicesCallBackBlock = (Any?) -> ()
 public typealias OnDeviceCommandCallBackBlock = (Any?) -> ()
 public typealias OnAttributeChangeCallBackBlock = (Any?) -> ()
-public typealias onDeviceChangeCommandCallBackBlock = (Any?) -> ()
-public typealias onRuleChangeCommandCallBackBlock = (Any?) -> ()
-public typealias onOTACommandCallBackBlock = (Any?) -> ()
-public typealias onModuleCommandCallBackBlock = (Any?) -> ()
-public typealias createChildDeviceCallBackBlock = (Any?) -> ()
-public typealias deleteChildDeviceCallBackBlock = (Any?) -> ()
+public typealias OnDeviceChangeCommandCallBackBlock = (Any?) -> ()
+public typealias OnRuleChangeCommandCallBackBlock = (Any?) -> ()
+public typealias OnOTACommandCallBackBlock = (Any?) -> ()
+public typealias OnModuleCommandCallBackBlock = (Any?) -> ()
+public typealias CreateChildDeviceCallBackBlock = (Any?) -> ()
+public typealias DeleteChildDeviceCallBackBlock = (Any?) -> ()
 
 
 public class SDKClient {
@@ -31,12 +31,12 @@ public class SDKClient {
     private var blockHandlerGetChildDevicesCallBack : GetChildDevicesCallBackBlock?
     private var blockHandlerOnDeviceCommand:OnDeviceCommandCallBackBlock?
     private var blockHandlerAttChnageCommand:OnAttributeChangeCallBackBlock?
-    private var blockHandlerDeviceChnageCommand:onDeviceChangeCommandCallBackBlock?
-    private var blockHandlerRuleChangeCommand:onRuleChangeCommandCallBackBlock?
-    private var blockHandlerOTACommand:onOTACommandCallBackBlock?
-    private var blockHandlerModuleCommand:onModuleCommandCallBackBlock?
-    private var blockHandlerCreateChildCallBack:createChildDeviceCallBackBlock?
-    private var blockHandlerDeleteChildCallBack:deleteChildDeviceCallBackBlock?
+    private var blockHandlerDeviceChnageCommand:OnDeviceChangeCommandCallBackBlock?
+    private var blockHandlerRuleChangeCommand:OnRuleChangeCommandCallBackBlock?
+    private var blockHandlerOTACommand:OnOTACommandCallBackBlock?
+    private var blockHandlerModuleCommand:OnModuleCommandCallBackBlock?
+    private var blockHandlerCreateChildCallBack:CreateChildDeviceCallBackBlock?
+    private var blockHandlerDeleteChildCallBack:DeleteChildDeviceCallBackBlock?
     
     /**
      Initialize configuration for IoTConnect SDK
@@ -245,17 +245,17 @@ public class SDKClient {
     }
     
     //Refresh child device cloud to device callback
-    public func onDeviceChangeCommand(commandCallback:@escaping onDeviceChangeCommandCallBackBlock){
+    public func onDeviceChangeCommand(commandCallback:@escaping OnDeviceChangeCommandCallBackBlock){
         blockHandlerDeviceChnageCommand = commandCallback
     }
     
     //Refresh edge rule cloud to device command
-    public func onRuleChangeCommand(commandCallback:@escaping onRuleChangeCommandCallBackBlock){
+    public func onRuleChangeCommand(commandCallback:@escaping OnRuleChangeCommandCallBackBlock){
         blockHandlerRuleChangeCommand = commandCallback
     }
     
     //OTA command cloud to device callback
-    public func onOTACommand(commandCallback:@escaping onOTACommandCallBackBlock){
+    public func onOTACommand(commandCallback:@escaping OnOTACommandCallBackBlock){
         blockHandlerOTACommand = commandCallback
     }
     
@@ -285,18 +285,26 @@ public class SDKClient {
         iotConnectManager?.onFrequencyChangeCommand(dfValue: dfValue)
     }
     
-    public func onHeartbeatCommand(){
+    func onHeartbeatCommand(isStart:Bool,df:Int = 0){
+        if isStart{
+            iotConnectManager.startHeartRate(df: Double(df))
+        }else{
+            iotConnectManager.stopHeartRate()
+        }
+    }
+    
+    func onHardStopCommand(){
         
     }
     
     //Create child device callback
-    public func createChildDevice(deviceId:String, deviceTag:String, displayName:String,createChildCallBack:@escaping createChildDeviceCallBackBlock) -> (){
+    public func createChildDevice(deviceId:String, deviceTag:String, displayName:String,createChildCallBack:@escaping CreateChildDeviceCallBackBlock) -> (){
         iotConnectManager?.createChildDevice(deviceId: deviceId, deviceTag: deviceTag, displayName: displayName)
         blockHandlerCreateChildCallBack = createChildCallBack
     }
     
     //Delete child device callback
-    public func deleteChildDevice(deviceId:String, deleteChildCallBack:@escaping deleteChildDeviceCallBackBlock)-> (){
+    public func deleteChildDevice(deviceId:String, deleteChildCallBack:@escaping DeleteChildDeviceCallBackBlock)-> (){
         iotConnectManager?.deleteChildDevice(uniqueID: deviceId)
         blockHandlerDeleteChildCallBack = deleteChildCallBack
     }
@@ -342,9 +350,9 @@ public class SDKClient {
 
 extension SDKClient : callBackResponse{
     
-    func onDeleteChildDevice(response: [String : Any]) {
-        let dict = response[dictkeys.dKey] as? [String:Any]
-        let ec = dict?[dictkeys.errorCodeKey] as? Int
+    func onDeviceDeleteCommand(response: [String : Any]) {
+        let dict = response[Dictkeys.dKey] as? [String:Any]
+        let ec = dict?[Dictkeys.errorCodeKey] as? Int
         if ec == 0{
             blockHandlerDeleteChildCallBack?(response)
         }else{
@@ -354,8 +362,8 @@ extension SDKClient : callBackResponse{
     }
     
     func onCreateChildDevice(response: [String : Any]) {
-        let dict = response[dictkeys.dKey] as? [String:Any]
-        let ec = dict?[dictkeys.errorCodeKey] as? Int
+        let dict = response[Dictkeys.dKey] as? [String:Any]
+        let ec = dict?[Dictkeys.errorCodeKey] as? Int
         if ec == 0{
             blockHandlerCreateChildCallBack?(response)
         }else{

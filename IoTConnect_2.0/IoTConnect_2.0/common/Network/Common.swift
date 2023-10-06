@@ -262,11 +262,11 @@ class Common {
     }
     func dataTypeToString(value: Int) -> String {
         switch (value) {
-        case DataType.DTNumber: // 0 = number
+        case DataType.dtNumber: // 0 = number
             return "number"
-        case DataType.DTString: // 1 = string
+        case DataType.dtString: // 1 = string
             return "string"
-        case DataType.DTObject: // 2 = object
+        case DataType.dtObject: // 2 = object
             return "object";
         default:
             return ""
@@ -274,7 +274,7 @@ class Common {
     }
     func setEdgeConfiguration(attributes: [[String:Any]], uniqueId: String, devices: [[String:Any]], callback: @escaping ([String:Any]) -> ()) {
         var mainObj: [String:Any] = [:]
-        var InObj: [[String:Any]] = []
+        var inObj: [[String:Any]] = []
         attributes.forEach { (attribute) in
             if attribute["p"] as! String == "" {
                 (attribute["d"] as! [[String:Any]]).forEach { (attr) in
@@ -301,11 +301,11 @@ class Common {
                                 "attrTag": attrTag,
                                 "devices": devices
                             ]
-                            InObj.append(obj)
+                            inObj.append(obj)
                         }
                         
                         var setAttributeObj: [String:Any] = [:]
-                        for (key, _) in SDKConstants.AggrigacaseteType {
+                        for (key, _) in SDKConstants.aggrigacaseteType {
                             setAttributeObj["localName"] = attr["ln"]
                             if attr["agt"] != nil {
                                 if key == "count" {
@@ -338,7 +338,7 @@ class Common {
                     
                     (attribute["d"] as! [[String:Any]]).forEach { (attr) in
                         var setAttributeObj: [String:Any] = [:]
-                        for (key, _) in SDKConstants.AggrigacaseteType {
+                        for (key, _) in SDKConstants.aggrigacaseteType {
                             setAttributeObj["localName"] = attr["ln"]
                             if attribute["agt"] != nil {
                                 if key == "count" {
@@ -364,13 +364,13 @@ class Common {
                             "attrTag": attrTag as Any,
                             "devices": devices
                         ]
-                        InObj.append(obj)
+                        inObj.append(obj)
                     }
                 }
             }
         }
         
-        callback(["status": true, "data": ["mainObj": mainObj, "intObj": InObj], "message": "Edge data set and started the interval as per attribute's tumbling window."])
+        callback(["status": true, "data": ["mainObj": mainObj, "intObj": inObj], "message": "Edge data set and started the interval as per attribute's tumbling window."])
     }
     
     func setIntervalForEdgeDevice(tumblingWindowTime: String, timeType: String, edgeAttributeKey: String, uniqueId: String, attrTag: String, env: String, offlineConfig: OfflineStorageOption, intervalObj: [Any], cpId: String, isDebug: Bool) {}

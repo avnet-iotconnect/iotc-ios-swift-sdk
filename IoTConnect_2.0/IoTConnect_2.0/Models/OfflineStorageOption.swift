@@ -8,7 +8,7 @@
 import Foundation
 
 public struct OfflineStorageOption {
-    public var AvailSpaceInMb: Int = SDKConstants.OSAvailSpaceInMb
-    public var FileCount: Int = SDKConstants.OSFileCount
-    public var Disabled: Bool = SDKConstants.OSDisabled
+    public var availSpaceInMb: Int = SDKConstants.osAvailSpaceInMb
+    public var fileCount: Int = SDKConstants.osFileCount
+    public var disabled: Bool = SDKConstants.osDisabled
 }

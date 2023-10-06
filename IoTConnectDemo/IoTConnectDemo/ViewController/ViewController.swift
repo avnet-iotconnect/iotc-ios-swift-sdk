@@ -139,7 +139,24 @@ class ViewController: UIViewController {
         
         if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
             self.viewLoader.isHidden = false
-            let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .userCredntialAuthentication, sdkOptions: nil)
+            
+            //DeviceCertificate.pfx
+            var sdkOptions = SDKClientOption()
+            
+            //SSL Certificates with password
+//            sdkOptions.SSL.Certificate = Bundle.main.path(forResource: "client.p12", ofType: nil)
+//            sdkOptions.SSL.Password = "Softweb@123"
+            sdkOptions.skipValidation = true
+            
+            //Offline Storage Configuration
+            sdkOptions.offlineStorage.availSpaceInMb = 0
+            sdkOptions.offlineStorage.fileCount = 10
+            
+            //for device PK
+            //this is base64 string for SmplPk device
+            sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
+            
+            let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
             
             SDKClient.shared.initialize(config: objConfig)
             
@@ -194,9 +211,6 @@ class ViewController: UIViewController {
                             commandType == CommandType.DEVICE_CONNECTION_STATUS.rawValue{
                             SDKClient.shared.dispose()
                             self.setDisconnectUI()
-                        }else if commandType == CommandType.DATA_FREQUENCY_CHANGE.rawValue{
-                            print("DF changed \(msg)")
-                            SDKClient.shared.onFrequencyChangeCommand(dfValue: msg["df"] as? Int ?? 0)
                         }
                     }
                     else if let msgError = msg["error"]{
@@ -394,6 +408,7 @@ class ViewController: UIViewController {
             noOfAttributes = arrParentData[0]["Tag"]?[0].count ?? 0
         }
         getTblViewHeight()
+        self.enableMessageBtns()
     }
     
     func getChildDevicesAttributes(){
@@ -456,16 +471,19 @@ class ViewController: UIViewController {
             if self.arrChildDevicesAttributes?.count ?? 0 > 0 &&
                 self.attributeData?.att?.count ?? 0 > 0{
                 for j in 0...(arrAttData?.count ?? 0)-1{
+                    print("arrAttData \(arrAttData) \(j)")
                     if arrAttData?[j].p?.isEmpty == true ||
                         arrAttData?[j].p == nil{
-                        print("data dict load data \(dict)")
+                        print("data dict load data \(dict) \(arrAttData?[j])")
                         arrDictForChildDevices.append(["dt":now(),
                                                        "id":dataSection["id"] ?? "","tg":arrAttData?[j].tg ?? "","d":["\(arrAttData?[j].ln! ?? "")":arrAttData?[j].value ?? ""]])
                         print("arr data dict load data p nil \(arrDictForChildDevices)")
                     }else{
                         let arr = arrDictForChildDevices.filter{item in
                             if let itemd = item["d"] as?[String:Any]{
-                                if let _ = itemd["\(arrAttData?[j].p ?? "")"] as? [String:Any]{
+                                if let _ = itemd["\(arrAttData?[j].p ?? "")"] as? [String:Any]
+                                    ,itemd["id"] as? String == dataSection["id"] as? String      //issue same object
+                                {
                                    return true
                                 }
                             }
@@ -640,8 +658,8 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 self.tblProperty.isHidden = false
                 self.getTblViewHeight()
+                self.enableMessageBtns()
             }
-            self.enableMessageBtns()
         } catch {
             print(error)
         }
@@ -734,12 +752,14 @@ class ViewController: UIViewController {
     
     //Enable get twins and send data button
     func enableMessageBtns(){
+        print("enableMessageBtns")
         manageBtnControl(btn: self.btnGetTwins, isEnable: true)
         manageBtnControl(btn: self.btnSendData, isEnable: true)
     }
     
     //Disable get twins and send data button
     func disableMsgBtns(){
+        print("disableMsgBtns")
         manageBtnControl(btn: self.btnGetTwins, isEnable: false)
         manageBtnControl(btn: self.btnSendData, isEnable: false)
     }
@@ -900,6 +920,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
             headerView.frame.size.width = tableView.frame.size.width
             view.frame = headerView.frame
             view.isUserInteractionEnabled = true
+            view.backgroundColor = .darkGray
             view.addSubview(headerView)
             return view
         }
@@ -926,7 +947,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         let cell : PropertyCell = tableView.dequeueReusableCell(withIdentifier: "PropertyCell", for: indexPath) as! PropertyCell
         cell.selectionStyle = .none
         cell.txtField.delegate = self
-        if self.arrChildDevicesAttributes?.count ?? 0 > indexPath.section, self.arrChildDevicesAttributes?.count ?? 0 > 0{
+        if self.arrChildAttributeData.count > indexPath.section, self.arrChildAttributeData.count > 0{
             cell.setAttData(data: (arrChildAttributeData[indexPath.section]["Tag"]?[0])!,index: indexPath.row)
         }else if arrParentData.count > 0{
             cell.setAttData(data: (arrParentData[0]["Tag"]?[0])!,index: indexPath.row)

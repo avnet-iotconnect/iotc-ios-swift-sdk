@@ -54,47 +54,47 @@ struct SDKURL {
      */
     
     static func discovery(_ strDiscoveryURL:String, _ cpId:String, _ lang:String, _ ver:String, _ env:String) -> String {
-//        return String(format: "\(strDiscoveryURL)/api/sdk/cpid/\(cpId)/lang/\(lang)/ver/\(ver)/env/\(env)")
         //kirtan
         return String(format: "\(strDiscoveryURL)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)")
     }
 }
 
 struct SDKConstants {
-    static let DevelopmentSDKYN = true //...For release SDK, this flag need to make false
-    static let Language = "M_ios"
-    static let Version = "2.1"
+    static let developmentSDKYN = true //...For release SDK, this flag need to make false
+    static let language = "M_ios"
+    static let version = "2.1"
     static let protocolMQTT = "mqtt"
     static let protocolHTTP = "http"
     static let protocolAMQP = "amqp"
-    static let FrequencyDSC = 10.0
-    static let IsDebug = "isDebug"
-    static let DiscoveryUrl = "discoveryUrl"
-    static let Certificate = "Certificate"
-    static let Password = "Password"
-    static let SSLPassword = ""
-    static let OSAvailSpaceInMb = 0
-    static let OSFileCount = 1
-    static let OSDisabled = false
+    static let frequencyDSC = 10.0
+    static let isDebug = "isDebug"
+    static let discoveryUrl = "discoveryUrl"
+    static let certificate = "Certificate"
+    static let password = "Password"
+    static let sslPassword = ""
+    static let osAvailSpaceInMb = 0
+    static let osFileCount = 1
+    static let osDisabled = false
     static let holdOfflineDataTime = 10.0
-    static let TwinPropertyPubTopic = "$iothub/twin/PATCH/properties/reported/?$rid=1"
-    static let TwinPropertySubTopic = "$iothub/twin/PATCH/properties/desired/#"
-    static let TwinResponsePubTopic = "$iothub/twin/GET/?$rid=0"
-    static let TwinResponseSubTopic = "$iothub/twin/res/#"
-    static let AggrigacaseteType = ["min": 1, "max": 2, "sum": 4, "avg": 8, "count": 16, "lv": 32]
+    static let twinPropertyPubTopic = "$iothub/twin/PATCH/properties/reported/?$rid=1"
+    static let twinPropertySubTopic = "$iothub/twin/PATCH/properties/desired/#"
+    static let twinResponsePubTopic = "$iothub/twin/GET/?$rid=0"
+    static let twinResponseSubTopic = "$iothub/twin/res/#"
+    static let aggrigacaseteType = ["min": 1, "max": 2, "sum": 4, "avg": 8, "count": 16, "lv": 32]
 }
 
 struct DataType {
-    static let DTNumber = 0
-    static let DTString = 1
-    static let DTObject = 2
-    static let DTFloat  = 3
+    static let dtNumber = 0
+    static let dtString = 1
+    static let dtObject = 2
+    static let dtFloat  = 3
 }
 
 struct AuthType {
-    static let KEY = 1
-    static let CA_SIGNED = 2
-    static let CA_SELF_SIGNED = 3
+    static let token = 1
+    static let caSigned = 2
+    static let caSelfSigned = 3
+    static let symetricKey = 5
 }
 
 struct MessageType {
@@ -124,13 +124,13 @@ struct DeviceSync {
         static let rule = "rule"
     }
     struct Response {
-        static let OK = 0
-        static let DEVICE_NOT_REGISTERED = 1
-        static let AUTO_REGISTER = 2
-        static let DEVICE_NOT_FOUND = 3
-        static let DEVICE_INACTIVE = 4
-        static let OBJECT_MOVED = 5
-        static let CPID_NOT_FOUND = 6
+        static let ok = 0
+        static let deviceNotRegistered = 1
+        static let autoRegister = 2
+        static let deviceNotFound = 3
+        static let deviceInActive = 4
+        static let objectMoved = 5
+        static let cpidNotFound = 6
     }
 }
 
@@ -181,7 +181,7 @@ struct DictMetaKeys{
     static let vKey   = "v"  
 }
 
-struct dictkeys{
+struct Dictkeys{
     static let cpIDkey      = "cpId"
     static let uniqueIDKey  = "uniqueId"
     static let tKey         = "t"
@@ -205,6 +205,8 @@ struct dictkeys{
     static let setKey       = "set"
     static let rulesKey     = "r"
     static let otaKey       = "ota"
+    static let conditionValueKey   = "cv"
+    static let subscriptionGUIDKey = "sg"
     static let commandTypeKey      = "ct"
     static let guidKey             = "guid"
     static let commandKey          = "command"

@@ -27,7 +27,7 @@ class MqttClientService {
         cocoaMqtt.delegate = self
         cocoaMqtt.enableSSL = true
         
-        if mqttConfig.mqttConnectionType == .certificateAuthentication && ( iotData.d.at == AuthType.CA_SIGNED || iotData.d.at == AuthType.CA_SELF_SIGNED) {
+        if mqttConfig.mqttConnectionType == .certificateAuthentication && ( iotData.d.at == AuthType.caSigned || iotData.d.at == AuthType.caSelfSigned) {
             guard let mqttCertiConfig = mqttConfig.certificateConfig else {
                 printLogs(msg: "CertificateConfig is empty...")
                 return
@@ -124,8 +124,8 @@ extension MqttClientService: CocoaMQTTDelegate {
             guard let config =  mqttConfigObj else { return }
             // Subscribe to 3 topics
             subscribeCocoaMqtt(topic: config.iotData.d.p.sub, completion:{_ in })
-            subscribeCocoaMqtt(topic: SDKConstants.TwinPropertySubTopic, completion:{_ in })
-            subscribeCocoaMqtt(topic: SDKConstants.TwinResponseSubTopic, completion:{_ in })
+            subscribeCocoaMqtt(topic: SDKConstants.twinPropertySubTopic, completion:{_ in })
+            subscribeCocoaMqtt(topic: SDKConstants.twinResponseSubTopic, completion:{_ in })
             
             // Check for offline storage
         }

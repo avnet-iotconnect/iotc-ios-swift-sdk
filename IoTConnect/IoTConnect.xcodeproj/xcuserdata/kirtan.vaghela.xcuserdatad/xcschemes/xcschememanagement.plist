@@ -7,12 +7,20 @@
 		<key>BuildXCFramework.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>0</integer>
+=======
 			<integer>1</integer>
+>>>>>>> origin/develop
 		</dict>
 		<key>IoTConnect.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>2</integer>
+=======
 			<integer>3</integer>
+>>>>>>> origin/develop
 		</dict>
 	</dict>
 </dict>
