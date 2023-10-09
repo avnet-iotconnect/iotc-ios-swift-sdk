@@ -158,7 +158,7 @@ class ViewController: UIViewController {
            // sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
             
             //for AWS choose brpker type AWS
-            sdkOptions.brokerType = .aws
+//            sdkOptions.brokerType = .aws
             
             let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
             

@@ -13,7 +13,7 @@ public enum Environment: String {
     case POC = "poc"
     case QA = "QA"
     case PROD = "PROD"
-    case AVNETPOC = "AVNETPOC"
+    case AVNETPOC = "AVNET"
     case PREQA  = "PREQA"
 }
 
