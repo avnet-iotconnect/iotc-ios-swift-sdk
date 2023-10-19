@@ -21,6 +21,8 @@
 		C0C04CD626D015DA00182C45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */; };
 		C0C04CE126D015FF00182C45 /* IoTConnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C04CE026D015FF00182C45 /* IoTConnect.framework */; };
 		C0C04CE226D015FF00182C45 /* IoTConnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0C04CE026D015FF00182C45 /* IoTConnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DD81D7612AE12DD70071FC3B /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD81D7602AE12DD70071FC3B /* RadioButtonController.swift */; };
+		DD81D7642AE134070071FC3B /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD81D7632AE134060071FC3B /* Attributes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +55,8 @@
 		C0C04CD526D015DA00182C45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0C04CD726D015DA00182C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0C04CE026D015FF00182C45 /* IoTConnect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD81D7602AE12DD70071FC3B /* RadioButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonController.swift; sourceTree = "<group>"; };
+		DD81D7632AE134060071FC3B /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,11 +101,13 @@
 		C0C04CC826D015D900182C45 /* IoTConnectDemo */ = {
 			isa = PBXGroup;
 			children = (
+				DD81D7622AE133F30071FC3B /* Models */,
 				9285F66B26D62EEF00BC30DC /* TableHeaderView */,
 				C0C04CC926D015D900182C45 /* AppDelegate.swift */,
 				9285F67026D62F5000BC30DC /* PropertyCell.swift */,
 				C0C04CCB26D015D900182C45 /* SceneDelegate.swift */,
 				C0C04CCD26D015D900182C45 /* ViewController.swift */,
+				DD81D7602AE12DD70071FC3B /* RadioButtonController.swift */,
 				C0C04CCF26D015D900182C45 /* Main.storyboard */,
 				C0C04CD226D015DA00182C45 /* Assets.xcassets */,
 				C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */,
@@ -118,6 +124,14 @@
 				C0C04CE026D015FF00182C45 /* IoTConnect.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD81D7622AE133F30071FC3B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DD81D7632AE134060071FC3B /* Attributes.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +212,8 @@
 				C0C04CCE26D015D900182C45 /* ViewController.swift in Sources */,
 				C0C04CCA26D015D900182C45 /* AppDelegate.swift in Sources */,
 				C0C04CCC26D015D900182C45 /* SceneDelegate.swift in Sources */,
+				DD81D7612AE12DD70071FC3B /* RadioButtonController.swift in Sources */,
+				DD81D7642AE134070071FC3B /* Attributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
