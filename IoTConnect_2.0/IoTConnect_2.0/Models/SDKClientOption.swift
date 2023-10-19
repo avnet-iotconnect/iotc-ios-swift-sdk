@@ -22,9 +22,23 @@ public struct SDKClientOption {
     
     //device PK
     public var devicePK = ""
-    
+   
     //broker options
-    public var brokerType: BrokerType?
+    public var brokerType: BrokerType?{
+        didSet{
+            if brokerType == .aws{
+                enum Env:String{
+                    case a = "a"
+                    case b  = "b"
+                }
+            }else if brokerType == .az{
+                enum Env:String{
+                    case c = "a"
+                    case d  = "b"
+                }
+            }
+        }
+    }
     
     //MARK: - Method - SDK-Initialiase
     public init () {}

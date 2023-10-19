@@ -7,13 +7,18 @@
 
 import Foundation
 
+enum b:String{
+    case az = "az"
+    case aws = "aws"
+}
+
 public enum Environment: String {
     case DEV = "DEV"
     case STAGE = "STAGE"
     case POC = "poc"
     case QA = "QA"
     case PROD = "PROD"
-    case AVNETPOC = "AVNET"
+    case AVNET = "AVNETPOC"
     case PREQA  = "PREQA"
 }
 

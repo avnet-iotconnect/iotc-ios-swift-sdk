@@ -117,11 +117,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D58BB104EFD2A0D33BF82157 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		DD9FD74C2A28A1DD007ED90E = {
 			isa = PBXGroup;
 			children = (
 				DD9FD7582A28A1DD007ED90E /* IoTConnect_2.0 */,
 				DD9FD7572A28A1DD007ED90E /* Products */,
+				D58BB104EFD2A0D33BF82157 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -496,7 +504,7 @@
 		DD9FD75E2A28A1DD007ED90E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -530,7 +538,7 @@
 		DD9FD75F2A28A1DD007ED90E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

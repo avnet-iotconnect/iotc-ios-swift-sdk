@@ -38,7 +38,7 @@ public enum CommandType:Int{
 
 struct SDKURL {
     static let discoveryHost = "https://discovery.iotconnect.io"
-    static let discoveryHostAWS = "http://54.160.162.148:219"
+    static let discoveryHostAWS = "https://54.160.162.148:219"
     static let endPointAWS = "?pf=aws"
     
     /**

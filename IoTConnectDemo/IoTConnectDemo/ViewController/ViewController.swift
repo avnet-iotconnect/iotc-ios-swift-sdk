@@ -145,9 +145,12 @@ class ViewController: UIViewController {
             var sdkOptions = SDKClientOption()
             
             //SSL Certificates with password
-            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client.p12", ofType: nil)
-           sdkOptions.ssl.password = "Softweb@123"
+//            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client.p12", ofType: nil)
+//           sdkOptions.ssl.password = "Softweb@123"
             sdkOptions.skipValidation = true
+            
+            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "clientAWS.p12", ofType: nil)
+           sdkOptions.ssl.password = "1234"
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
@@ -158,7 +161,7 @@ class ViewController: UIViewController {
            // sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
             
             //for AWS choose brpker type AWS
-//            sdkOptions.brokerType = .aws
+           // sdkOptions.brokerType = .aws
             
             let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
             
@@ -826,7 +829,7 @@ class ViewController: UIViewController {
     
     @IBAction func btnAvnetTapped(_ sender: UIButton) {
         radioController.buttonArrayUpdated(buttonSelected: sender)
-        env = .AVNETPOC
+        env = .AVNET
     }
     
     @IBAction func btnPOCTapped(_ sender: UIButton) {

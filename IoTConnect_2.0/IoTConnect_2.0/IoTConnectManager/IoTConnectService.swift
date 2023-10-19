@@ -947,7 +947,7 @@ extension IoTConnectManager {
                             if arrFilterD?.count ?? 0 > 0{
                                 var isValidData = skipValidation
                                 if !skipValidation{
-                                    isValidData = checkisValValid(val: value as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+                                    isValidData = checkisValValid(val: value as? String ?? "", dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
                                 }
                                
                                 if isValidData{
