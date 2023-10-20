@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,7 @@
 		C0C04CD626D015DA00182C45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */; };
 		C0C04CE126D015FF00182C45 /* IoTConnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C04CE026D015FF00182C45 /* IoTConnect.framework */; };
 		C0C04CE226D015FF00182C45 /* IoTConnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0C04CE026D015FF00182C45 /* IoTConnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DD1A9BC42AE262760033C6FD /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DD1A9BC32AE262760033C6FD /* IQKeyboardManagerSwift */; };
 		DD81D7612AE12DD70071FC3B /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD81D7602AE12DD70071FC3B /* RadioButtonController.swift */; };
 		DD81D7642AE134070071FC3B /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD81D7632AE134060071FC3B /* Attributes.swift */; };
 /* End PBXBuildFile section */
@@ -66,6 +67,7 @@
 			files = (
 				C07B0FFB26D3D8180067B02C /* IoTConnect.framework in Frameworks */,
 				C0C04CE126D015FF00182C45 /* IoTConnect.framework in Frameworks */,
+				DD1A9BC42AE262760033C6FD /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +153,9 @@
 			dependencies = (
 			);
 			name = IoTConnectDemo;
+			packageProductDependencies = (
+				DD1A9BC32AE262760033C6FD /* IQKeyboardManagerSwift */,
+			);
 			productName = IoTConnectDemo;
 			productReference = C0C04CC626D015D900182C45 /* IoTConnectDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -178,6 +183,9 @@
 				Base,
 			);
 			mainGroup = C0C04CBD26D015D900182C45;
+			packageReferences = (
+				DD1A9BC22AE262760033C6FD /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+			);
 			productRefGroup = C0C04CC726D015D900182C45 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -417,6 +425,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DD1A9BC22AE262760033C6FD /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.16;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DD1A9BC32AE262760033C6FD /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD1A9BC22AE262760033C6FD /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C0C04CBE26D015D900182C45 /* Project object */;
 }

@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="48" width="320" height="918"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Lfy-nK-64s">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="785"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="685"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h41-6Y-ZeP">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
@@ -244,8 +244,8 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZlL-Me-eTW">
-                                                                    <rect key="frame" x="8" y="8" width="304" height="28"/>
+                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZlL-Me-eTW">
+                                                                    <rect key="frame" x="16" y="4" width="288" height="36"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                     <connections>
@@ -254,10 +254,10 @@
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="bottom" secondItem="ZlL-Me-eTW" secondAttribute="bottom" constant="8" id="QtS-ql-jMK"/>
-                                                                <constraint firstItem="ZlL-Me-eTW" firstAttribute="top" secondItem="bfR-MF-T3d" secondAttribute="top" constant="8" id="Wf9-Ga-81T"/>
-                                                                <constraint firstItem="ZlL-Me-eTW" firstAttribute="leading" secondItem="bfR-MF-T3d" secondAttribute="leading" constant="8" id="fr1-so-a7I"/>
-                                                                <constraint firstAttribute="trailing" secondItem="ZlL-Me-eTW" secondAttribute="trailing" constant="8" id="jgA-OR-K6j"/>
+                                                                <constraint firstAttribute="bottom" secondItem="ZlL-Me-eTW" secondAttribute="bottom" constant="4" id="QtS-ql-jMK"/>
+                                                                <constraint firstItem="ZlL-Me-eTW" firstAttribute="top" secondItem="bfR-MF-T3d" secondAttribute="top" constant="4" id="Wf9-Ga-81T"/>
+                                                                <constraint firstItem="ZlL-Me-eTW" firstAttribute="leading" secondItem="bfR-MF-T3d" secondAttribute="leading" constant="16" id="fr1-so-a7I"/>
+                                                                <constraint firstAttribute="trailing" secondItem="ZlL-Me-eTW" secondAttribute="trailing" constant="16" id="jgA-OR-K6j"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -360,99 +360,6 @@
                                                     <constraint firstItem="RXa-Ew-89Z" firstAttribute="top" secondItem="iSb-3z-Vba" secondAttribute="bottom" constant="10" id="yae-CK-idu"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgC-y5-AfG">
-                                                <rect key="frame" x="0.0" y="685" width="320" height="100"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="With Environment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gll-0F-FAm">
-                                                        <rect key="frame" x="20" y="5" width="280" height="21"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="21" id="cAV-f8-28W"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="911-2G-pNQ">
-                                                        <rect key="frame" x="20" y="34" width="280" height="35"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFh-wh-FUs">
-                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="35"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="B5w-3H-Ud2"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="Avnet" image="icon_radio_normal">
-                                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <state key="selected" image="icon_radio_selected"/>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33h-2u-Gv1">
-                                                                <rect key="frame" x="70" y="0.0" width="70" height="35"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="dEY-Yh-Uul"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="POC" image="icon_radio_normal">
-                                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <state key="selected" image="icon_radio_selected"/>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mN6-cK-weW">
-                                                                <rect key="frame" x="140" y="0.0" width="70" height="35"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="RqP-g1-eIc"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="QA" image="icon_radio_normal">
-                                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <state key="selected" image="icon_radio_selected"/>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7u-mv-Jxa">
-                                                                <rect key="frame" x="210" y="0.0" width="70" height="35"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="S8y-c4-ASr"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="Dev" image="icon_radio_normal">
-                                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <state key="selected" image="icon_radio_selected"/>
-                                                            </button>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstItem="R7u-mv-Jxa" firstAttribute="leading" secondItem="mN6-cK-weW" secondAttribute="trailing" id="2rc-Eu-UB7"/>
-                                                            <constraint firstItem="33h-2u-Gv1" firstAttribute="width" secondItem="kFh-wh-FUs" secondAttribute="width" id="4Ct-mU-iHr"/>
-                                                            <constraint firstItem="kFh-wh-FUs" firstAttribute="leading" secondItem="911-2G-pNQ" secondAttribute="leading" id="7Y1-aV-ZDE"/>
-                                                            <constraint firstAttribute="height" constant="35" id="9Ty-mi-u6O"/>
-                                                            <constraint firstAttribute="trailing" secondItem="R7u-mv-Jxa" secondAttribute="trailing" id="Bsj-qG-QeZ"/>
-                                                            <constraint firstItem="R7u-mv-Jxa" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="JZE-gD-jPZ"/>
-                                                            <constraint firstItem="mN6-cK-weW" firstAttribute="width" secondItem="kFh-wh-FUs" secondAttribute="width" id="N03-7R-ksD"/>
-                                                            <constraint firstItem="kFh-wh-FUs" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="UNq-9H-zpo"/>
-                                                            <constraint firstItem="33h-2u-Gv1" firstAttribute="leading" secondItem="kFh-wh-FUs" secondAttribute="trailing" id="gYM-WY-fRH"/>
-                                                            <constraint firstItem="mN6-cK-weW" firstAttribute="leading" secondItem="33h-2u-Gv1" secondAttribute="trailing" id="jR0-LU-Rvh"/>
-                                                            <constraint firstItem="R7u-mv-Jxa" firstAttribute="width" secondItem="kFh-wh-FUs" secondAttribute="width" id="pKz-dQ-Ed5"/>
-                                                            <constraint firstItem="33h-2u-Gv1" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="qFS-Ff-bTm"/>
-                                                            <constraint firstItem="mN6-cK-weW" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="t38-oG-uNR"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="911-2G-pNQ" secondAttribute="trailing" constant="20" symbolic="YES" id="2VX-nU-ayw"/>
-                                                    <constraint firstItem="911-2G-pNQ" firstAttribute="top" secondItem="gll-0F-FAm" secondAttribute="bottom" constant="8" id="3Ow-tJ-V72"/>
-                                                    <constraint firstItem="gll-0F-FAm" firstAttribute="top" secondItem="sgC-y5-AfG" secondAttribute="top" constant="5" id="7px-Fi-Zht"/>
-                                                    <constraint firstItem="gll-0F-FAm" firstAttribute="leading" secondItem="sgC-y5-AfG" secondAttribute="leading" constant="20" symbolic="YES" id="b9B-wk-7yk"/>
-                                                    <constraint firstAttribute="trailing" secondItem="gll-0F-FAm" secondAttribute="trailing" constant="20" symbolic="YES" id="esg-F1-9Fu"/>
-                                                    <constraint firstAttribute="height" constant="100" id="kZG-2h-0mQ"/>
-                                                    <constraint firstItem="911-2G-pNQ" firstAttribute="leading" secondItem="sgC-y5-AfG" secondAttribute="leading" constant="20" symbolic="YES" id="pqs-KM-BRa"/>
-                                                </constraints>
-                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -488,7 +395,6 @@
                         <outlet property="btnStatus" destination="QYG-mX-9F4" id="Lxa-pU-iNN"/>
                         <outlet property="heightTableConstraint" destination="png-pX-tjO" id="ecS-CH-spu"/>
                         <outlet property="tblProperty" destination="g2q-sT-T3T" id="4B0-og-JcN"/>
-                        <outlet property="tblviewHeight" destination="png-pX-tjO" id="ZZw-43-thm"/>
                         <outlet property="txtCPID" destination="y2P-F9-iPs" id="RVj-kW-U2K"/>
                         <outlet property="txtUniqueID" destination="hdW-o5-EgI" id="D08-ye-qgb"/>
                         <outlet property="txtView" destination="RXa-Ew-89Z" id="H4B-G2-guB"/>
@@ -509,16 +415,16 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray3Color">
-            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

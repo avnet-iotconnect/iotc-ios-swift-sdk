@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         radioController.buttonsArray = [btnAvnet,btnQA,btnDev,btnPOC]
-        radioController.defaultButton = btnQA
+        radioController.defaultButton = btnAvnet
         
         //button Status Corner Radius
         btnStatus.layer.cornerRadius = 12.5
@@ -167,8 +167,7 @@ class ViewController: UIViewController {
             parseAttributeResponse()
             
             DispatchQueue.main.async {
-             
-             //   self.getTblViewHeight()
+                self.getTblViewHeight()
                 self.enableMessageBtns()
             }
         } catch {
@@ -204,6 +203,14 @@ class ViewController: UIViewController {
         
         DispatchQueue.main.async{
             self.tblProperty.isHidden = false
+            self.tblProperty.reloadData()
+        }
+    }
+    
+    func getTblViewHeight(){
+        heightTableConstraint.constant =  Double(arrParsedDeviceData?.count ?? 0) * tblViewRowheight
+        
+        DispatchQueue.main.async {
             self.tblProperty.reloadData()
         }
     }
@@ -432,11 +439,12 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableHeaderView") as! TableHeaderView
-        if section == 0 {
-            headerView.lblSectionTitle.text = "Section 1"
-        } else {
-            headerView.lblSectionTitle.text = "Section 2"
-        }
+//        if section == 0 {
+//            headerView.lblSectionTitle.text = "Section 1"
+//        } else {
+//            headerView.lblSectionTitle.text = "Section 2"
+//        }
+        headerView.lblSectionTitle.text = "TAG::p:\(self.txtUniqueID.text ?? "")"
         let view = UIView()
         headerView.frame.size.width = tableView.frame.size.width
         view.frame = headerView.frame
@@ -484,13 +492,6 @@ extension ViewController:UITextFieldDelegate{
                                                        with: string)
             //update the updated textfield value in model
             arrParsedDeviceData?[ip.row].value = updatedText
-//            if self.arrChildDevicesAttributes?.count ?? 0 > ip.section{
-//                arrChildAttributeData[ip.section]["Tag"]?[0][ip.row].value = updatedText
-//            }else if arrParentData.count > 0{
-//                arrParentData[0]["Tag"]?[0][ip.row].value = updatedText
-//            }else if arrSimpleDeviceData.count > 0{
-//                arrSimpleDeviceData[ip.section]["Tag"]?[0][ip.row].value = updatedText
-//            }
         }
         return true
     }
