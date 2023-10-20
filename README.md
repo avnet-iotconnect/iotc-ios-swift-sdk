@@ -45,6 +45,8 @@ SDKClient.shared.getTwinUpdateCallBack { (twinMessage) in
   print("twinMessage: ", twinMessage as Any)
 }
 
+SDKClient.shared.sendData(data: data)
+
 ```
 
 
