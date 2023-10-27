@@ -19,7 +19,7 @@ public enum Environment: String {
     case QA = "QA"
     case PROD = "PROD"
     case AVNET = "AVNETPOC"
-    case PREQA  = "PREQA"
+    case PREQA  = "preqa"
 }
 
 class EnvironmentSelector {

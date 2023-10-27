@@ -40,6 +40,45 @@ public struct SDKClientOption {
         }
     }
     
+    public var broker = Broker.az.EnvironmentA.dev
+    
     //MARK: - Method - SDK-Initialiase
     public init () {}
+}
+
+
+public struct Broker {
+    public struct az {
+        let environment: EnvironmentA
+        public enum EnvironmentA {
+            case dev
+            case qa
+            case prod
+            
+//            public var rawValue: String {
+//                switch self {
+//                case .dev:  return "dev"
+//                case .qa:  return "qa"
+//                case .prod:  return "prod"
+//                }
+//            }
+        }
+    }
+    
+    public struct aws {
+        let environment: EnvironmentA
+        public enum EnvironmentA {
+            case d
+            case q
+            case p
+            
+//            public var rawValue: String {
+//                switch self {
+//                case .d:  return "aws_dev"
+//                case .q:  return "aws_qa"
+//                case .p:  return "aws_prod"
+//                }
+//            }
+        }
+    }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Environment: String {
+public enum IoTEnvironment: String {
     case DEV = "DEV"
     case STAGE = "STAGE"
     case POC = "poc"
@@ -17,7 +17,7 @@ public enum Environment: String {
 }
 
 class EnvironmentSelector {
-    class var environment: Environment {
+    class var environment: IoTEnvironment {
         return .QA
     }
 }

@@ -16,6 +16,7 @@
 		C0C04CD126D015D900182C45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CCF26D015D900182C45 /* Main.storyboard */; };
 		C0C04CD326D015DA00182C45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD226D015DA00182C45 /* Assets.xcassets */; };
 		C0C04CD626D015DA00182C45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */; };
+		DD229E812AE930A900A6E7E8 /* clientAWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD229E802AE930A900A6E7E8 /* clientAWS.p12 */; };
 		DD36C4412A304EF9008BA007 /* IoTConnect_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */; };
 		DD5B602D2A936EB80018BB1C /* iOSDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */; };
 		DD7E84A12A9340180031A231 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7E84A02A9340180031A231 /* ChildOperationVC.swift */; };
@@ -23,7 +24,6 @@
 		DD989A1C2AB193CF00FD70DD /* client.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD989A1B2AB193CF00FD70DD /* client.p12 */; };
 		DDA1BAF02A41810F00DBA886 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA1BAEF2A41810F00DBA886 /* Attributes.swift */; };
 		DDA60A602A2F176300F686BF /* IoTConnect_2_0.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DDB3EBCE2AD55BFF004B57C6 /* clientAWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DDB3EBCD2AD55BFF004B57C6 /* clientAWS.p12 */; };
 		DDBB4AA72A40891C00783F26 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DDBB4AA62A40891C00783F26 /* IQKeyboardManagerSwift */; };
 		DDC0C2972A38958A001793C5 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0C2962A38958A001793C5 /* RadioButtonController.swift */; };
 		DDD1BEF72A52F50800B00F52 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD1BEF62A52F50800B00F52 /* Identity.swift */; };
@@ -56,6 +56,7 @@
 		C0C04CD226D015DA00182C45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0C04CD526D015DA00182C45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0C04CD726D015DA00182C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD229E802AE930A900A6E7E8 /* clientAWS.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = clientAWS.p12; path = ../../../../../Downloads/E39C09D0F58B2B6B941E4FD2D869C31D6617BB54/AWS/clientAWS.p12; sourceTree = "<group>"; };
 		DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iOSDropDown.swift; sourceTree = "<group>"; };
 		DD7E84A02A9340180031A231 /* ChildOperationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildOperationVC.swift; sourceTree = "<group>"; };
@@ -63,7 +64,6 @@
 		DD989A1B2AB193CF00FD70DD /* client.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = client.p12; sourceTree = "<group>"; };
 		DDA1BAEF2A41810F00DBA886 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 		DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DDB3EBCD2AD55BFF004B57C6 /* clientAWS.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = clientAWS.p12; sourceTree = "<group>"; };
 		DDC0C2962A38958A001793C5 /* RadioButtonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonController.swift; sourceTree = "<group>"; };
 		DDD1BEF62A52F50800B00F52 /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
 		DDFA34632A3C297400232B5C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 				C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */,
 				C0C04CD726D015DA00182C45 /* Info.plist */,
 				DDFA34632A3C297400232B5C /* Enums.swift */,
-				DDB3EBCD2AD55BFF004B57C6 /* clientAWS.p12 */,
+				DD229E802AE930A900A6E7E8 /* clientAWS.p12 */,
 				DD989A1B2AB193CF00FD70DD /* client.p12 */,
 				DD989A192AB18FFF00FD70DD /* DeviceCertificate.pfx */,
 			);
@@ -243,7 +243,7 @@
 				C0C04CD326D015DA00182C45 /* Assets.xcassets in Resources */,
 				9285F66E26D62EEF00BC30DC /* TableHeaderView.xib in Resources */,
 				C0C04CD126D015D900182C45 /* Main.storyboard in Resources */,
-				DDB3EBCE2AD55BFF004B57C6 /* clientAWS.p12 in Resources */,
+				DD229E812AE930A900A6E7E8 /* clientAWS.p12 in Resources */,
 				DD989A1A2AB18FFF00FD70DD /* DeviceCertificate.pfx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

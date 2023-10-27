@@ -144,6 +144,8 @@ class ViewController: UIViewController {
             //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
             
+          //  sdkOptions.broker = Broker.aws.EnvironmentA.d
+            
             //SSL Certificates with password
 //            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client.p12", ofType: nil)
 //           sdkOptions.ssl.password = "Softweb@123"
@@ -161,7 +163,8 @@ class ViewController: UIViewController {
            // sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
             
             //for AWS choose brpker type AWS
-           // sdkOptions.brokerType = .aws
+            sdkOptions.brokerType = .aws
+        
             
             let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
             
