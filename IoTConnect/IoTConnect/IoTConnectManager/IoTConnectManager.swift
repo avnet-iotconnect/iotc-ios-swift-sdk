@@ -36,7 +36,7 @@ class IoTConnectManager {
     var intervalObj: [Any] = []
     var repeatTimerCount = 0
     
-    init() {}
+   init() {}
     
     //MARK: - Method - SDK-Initialiase
     init(cpId: String, uniqueId: String, env: String, sdkOptions: SDKClientOption?, deviceCallback: @escaping GetDeviceCallBackBlock, twinUpdateCallback: @escaping GetDeviceCallBackBlock) {

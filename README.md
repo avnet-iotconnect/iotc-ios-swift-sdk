@@ -13,11 +13,12 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
 ## Third party Frameworks Used
 - [CocoaMQTT] (https://github.com/emqx/CocoaMQTT) for MQTTClient connection
 - [Starscream] (https://github.com/nuclearace/Starscream) for Websocket library
-- [CocoaAsyncSocket] (https://github.com/robbiehanson/CocoaAsyncSocket) for socket library
+- [MqttCocoaAsyncSocket] (https://github.com/leeway1208/MqttCocoaAsyncSocket) for socket library
 
 ## Build Details
 - IDE
-- - Please use Xcode 12.4 to compile
+- - Please use Xcode 13 to compile
+- - Minimum iOS 12.0 Compatible
 - Targets
 - - IoTConnect
 - - IoTConnectDemo
@@ -44,6 +45,12 @@ SDKClient.shared.getDeviceCallBack { (message) in
 SDKClient.shared.getTwinUpdateCallBack { (twinMessage) in
   print("twinMessage: ", twinMessage as Any)
 }
+
+var data=[[
+    "uniqueId": "sdk001",
+    "time": "2018-03-08T15:13:13.573Z", 
+    "data": ["temperature": "45”,"humidity": "40"]
+]] 
 
 SDKClient.shared.sendData(data: data)
 

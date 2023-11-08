@@ -12,7 +12,6 @@
 		9285F66F26D62EEF00BC30DC /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285F66D26D62EEF00BC30DC /* TableHeaderView.swift */; };
 		9285F67126D62F5000BC30DC /* PropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285F67026D62F5000BC30DC /* PropertyCell.swift */; };
 		C07B0FFB26D3D8180067B02C /* IoTConnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C07B0FFA26D3D8180067B02C /* IoTConnect.framework */; };
-		C07B0FFC26D3D8180067B02C /* IoTConnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C07B0FFA26D3D8180067B02C /* IoTConnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C0C04CCA26D015D900182C45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C04CC926D015D900182C45 /* AppDelegate.swift */; };
 		C0C04CCC26D015D900182C45 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C04CCB26D015D900182C45 /* SceneDelegate.swift */; };
 		C0C04CCE26D015D900182C45 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C04CCD26D015D900182C45 /* ViewController.swift */; };
@@ -33,7 +32,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C07B0FFC26D3D8180067B02C /* IoTConnect.framework in Embed Frameworks */,
 				C0C04CE226D015FF00182C45 /* IoTConnect.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -368,6 +366,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 85Z6DRR6M5;
 				INFOPLIST_FILE = IoTConnectDemo/Info.plist;
@@ -388,6 +387,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 85Z6DRR6M5;
 				INFOPLIST_FILE = IoTConnectDemo/Info.plist;

@@ -1,0 +1,1316 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
+// swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name IoTConnect
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import CommonCrypto
+import CoreFoundation
+import Dispatch
+import Foundation
+@_exported import IoTConnect
+import Network
+import Security
+import Swift
+import SystemConfiguration
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import zlib
+@objc public enum CocoaMQTTConnState : Swift.UInt8, Swift.CustomStringConvertible {
+  case disconnected = 0
+  case connecting
+  case connected
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public protocol CocoaMQTT5Delegate {
+  @objc func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didConnectAck ack: IoTConnect.CocoaMQTTCONNACKReasonCode, connAckData: IoTConnect.MqttDecodeConnAck?)
+  @objc func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didPublishMessage message: IoTConnect.CocoaMQTT5Message, id: Swift.UInt16)
+  @objc func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didPublishAck id: Swift.UInt16, pubAckData: IoTConnect.MqttDecodePubAck?)
+  @objc func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didPublishRec id: Swift.UInt16, pubRecData: IoTConnect.MqttDecodePubRec?)
+  @objc func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didReceiveMessage message: IoTConnect.CocoaMQTT5Message, id: Swift.UInt16, publishData: IoTConnect.MqttDecodePublish?)
+  @objc func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didSubscribeTopics success: Foundation.NSDictionary, failed: [Swift.String], subAckData: IoTConnect.MqttDecodeSubAck?)
+  @objc func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didUnsubscribeTopics topics: [Swift.String], unsubAckData: IoTConnect.MqttDecodeUnsubAck?)
+  @objc func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didReceiveDisconnectReasonCode reasonCode: IoTConnect.CocoaMQTTDISCONNECTReasonCode)
+  @objc func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didReceiveAuthReasonCode reasonCode: IoTConnect.CocoaMQTTAUTHReasonCode)
+  @objc func mqtt5DidPing(_ mqtt5: IoTConnect.CocoaMQTT5)
+  @objc func mqtt5DidReceivePong(_ mqtt5: IoTConnect.CocoaMQTT5)
+  @objc func mqtt5DidDisconnect(_ mqtt5: IoTConnect.CocoaMQTT5, withError err: (any Swift.Error)?)
+  @objc optional func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didReceive trust: Security.SecTrust, completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  @objc optional func mqtt5UrlSession(_ mqtt: IoTConnect.CocoaMQTT5, didReceiveTrust trust: Security.SecTrust, didReceiveChallenge challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  @objc optional func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didPublishComplete id: Swift.UInt16, pubCompData: IoTConnect.MqttDecodePubComp?)
+  @objc optional func mqtt5(_ mqtt5: IoTConnect.CocoaMQTT5, didStateChangeTo state: IoTConnect.CocoaMQTTConnState)
+}
+public func setMqtt5Version()
+@objc public class CocoaMQTT5 : ObjectiveC.NSObject {
+  weak public var delegate: (any IoTConnect.CocoaMQTT5Delegate)?
+  public var host: Swift.String
+  public var port: Swift.UInt16
+  public var clientID: Swift.String
+  public var username: Swift.String?
+  public var password: Swift.String?
+  public var cleanSession: Swift.Bool
+  public var willMessage: IoTConnect.CocoaMQTT5Message?
+  public var backgroundOnSocket: Swift.Bool {
+    get
+    set
+  }
+  public var delegateQueue: Dispatch.DispatchQueue
+  public var connState: IoTConnect.CocoaMQTTConnState {
+    get
+    set
+  }
+  public var deliverTimeout: Swift.Double {
+    get
+    set
+  }
+  public var messageQueueSize: Swift.UInt {
+    get
+    set
+  }
+  public var inflightWindowSize: Swift.UInt {
+    get
+    set
+  }
+  public var keepAlive: Swift.UInt16
+  public var autoReconnect: Swift.Bool
+  public var autoReconnectTimeInterval: Swift.UInt16
+  public var maxAutoReconnectTimeInterval: Swift.UInt16
+  public var connectProperties: IoTConnect.MqttConnectProperties?
+  public var authProperties: IoTConnect.MqttAuthProperties?
+  public var logLevel: IoTConnect.CocoaMQTTLoggerLevel {
+    get
+    set
+  }
+  public var enableSSL: Swift.Bool {
+    get
+    set
+  }
+  public var sslSettings: [Swift.String : ObjectiveC.NSObject]? {
+    get
+    set
+  }
+  public var allowUntrustCACertificate: Swift.Bool {
+    get
+    set
+  }
+  public var subscriptions: IoTConnect.ThreadSafeDictionary<Swift.String, IoTConnect.CocoaMQTTQoS>
+  public var didConnectAck: (IoTConnect.CocoaMQTT5, IoTConnect.CocoaMQTTCONNACKReasonCode, IoTConnect.MqttDecodeConnAck?) -> Swift.Void
+  public var didPublishMessage: (IoTConnect.CocoaMQTT5, IoTConnect.CocoaMQTT5Message, Swift.UInt16) -> Swift.Void
+  public var didPublishAck: (IoTConnect.CocoaMQTT5, Swift.UInt16, IoTConnect.MqttDecodePubAck?) -> Swift.Void
+  public var didPublishRec: (IoTConnect.CocoaMQTT5, Swift.UInt16, IoTConnect.MqttDecodePubRec?) -> Swift.Void
+  public var didReceiveMessage: (IoTConnect.CocoaMQTT5, IoTConnect.CocoaMQTT5Message, Swift.UInt16, IoTConnect.MqttDecodePublish?) -> Swift.Void
+  public var didSubscribeTopics: (IoTConnect.CocoaMQTT5, Foundation.NSDictionary, [Swift.String], IoTConnect.MqttDecodeSubAck?) -> Swift.Void
+  public var didUnsubscribeTopics: (IoTConnect.CocoaMQTT5, [Swift.String], IoTConnect.MqttDecodeUnsubAck?) -> Swift.Void
+  public var didPing: (IoTConnect.CocoaMQTT5) -> Swift.Void
+  public var didReceivePong: (IoTConnect.CocoaMQTT5) -> Swift.Void
+  public var didDisconnect: (IoTConnect.CocoaMQTT5, (any Swift.Error)?) -> Swift.Void
+  public var didDisconnectReasonCode: (IoTConnect.CocoaMQTT5, IoTConnect.CocoaMQTTDISCONNECTReasonCode) -> Swift.Void
+  public var didAuthReasonCode: (IoTConnect.CocoaMQTT5, IoTConnect.CocoaMQTTAUTHReasonCode) -> Swift.Void
+  public var didReceiveTrust: (IoTConnect.CocoaMQTT5, Security.SecTrust, @escaping (Swift.Bool) -> Swift.Void) -> Swift.Void
+  public var didCompletePublish: (IoTConnect.CocoaMQTT5, Swift.UInt16, IoTConnect.MqttDecodePubComp?) -> Swift.Void
+  public var didChangeState: (IoTConnect.CocoaMQTT5, IoTConnect.CocoaMQTTConnState) -> Swift.Void
+  public init(clientID: Swift.String, host: Swift.String = "localhost", port: Swift.UInt16 = 1883, socket: any IoTConnect.CocoaMQTTSocketProtocol = CocoaMQTTSocket())
+  @objc deinit
+  public func connect() -> Swift.Bool
+  public func connect(timeout: Foundation.TimeInterval) -> Swift.Bool
+  public func disconnect()
+  public func disconnect(reasonCode: IoTConnect.CocoaMQTTDISCONNECTReasonCode, userProperties: [Swift.String : Swift.String])
+  public func ping()
+  @discardableResult
+  public func publish(_ topic: Swift.String, withString string: Swift.String, qos: IoTConnect.CocoaMQTTQoS = .qos1, DUP: Swift.Bool = false, retained: Swift.Bool = false, properties: IoTConnect.MqttPublishProperties) -> Swift.Int
+  @discardableResult
+  public func publish(_ message: IoTConnect.CocoaMQTT5Message, DUP: Swift.Bool = false, retained: Swift.Bool = false, properties: IoTConnect.MqttPublishProperties) -> Swift.Int
+  public func subscribe(_ topic: Swift.String, qos: IoTConnect.CocoaMQTTQoS = .qos1)
+  public func subscribe(_ topics: [IoTConnect.MqttSubscription])
+  public func subscribe(_ topics: [IoTConnect.MqttSubscription], packetIdentifier: Swift.UInt16? = nil, subscriptionIdentifier: Swift.UInt32? = nil, userProperty: [Swift.String : Swift.String] = [:])
+  public func unsubscribe(_ topic: Swift.String)
+  public func unsubscribe(_ topics: [IoTConnect.MqttSubscription])
+  public func auth(reasonCode: IoTConnect.CocoaMQTTAUTHReasonCode, authProperties: IoTConnect.MqttAuthProperties)
+}
+extension IoTConnect.CocoaMQTT5 : IoTConnect.CocoaMQTTSocketDelegate {
+  public func socketConnected(_ socket: any IoTConnect.CocoaMQTTSocketProtocol)
+  public func socket(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didReceive trust: Security.SecTrust, completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  public func socketUrlSession(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didReceiveTrust trust: Security.SecTrust, didReceiveChallenge challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  public func socketDidSecure(_ sock: IoTConnect.MGCDAsyncSocket)
+  public func socket(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didWriteDataWithTag tag: Swift.Int)
+  public func socket(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didRead data: Foundation.Data, withTag tag: Swift.Int)
+  public func socketDidDisconnect(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, withError err: (any Swift.Error)?)
+}
+public struct SSLClientCertificateError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String?
+}
+public class SSLClientCertificate {
+  convenience public init(pkcs12Path: Swift.String, password: Swift.String) throws
+  public init(identity: Security.SecIdentity, identityCertificate: Security.SecCertificate)
+  convenience public init(pkcs12Url: Foundation.URL, password: Swift.String) throws
+  public init(pkcs12Url: Foundation.URL, importOptions: CoreFoundation.CFDictionary) throws
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class MqttDecodePubComp : ObjectiveC.NSObject {
+  public var reasonCode: IoTConnect.CocoaMQTTPUBCOMPReasonCode?
+  public var msgid: Swift.UInt16
+  public var reasonString: Swift.String?
+  public var userProperty: [Swift.String : Swift.String]?
+  public func decodePubComp(fixedHeader: Swift.UInt8, pubAckData: [Swift.UInt8])
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum Environment : Swift.String {
+  case DEV
+  case STAGE
+  case POC
+  case QA
+  case PROD
+  case AVNETPOC
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public let WebsocketDidConnectNotification: Swift.String
+public let WebsocketDidDisconnectNotification: Swift.String
+public let WebsocketDisconnectionErrorKeyName: Swift.String
+public enum CloseCode : Swift.UInt16 {
+  case normal
+  case goingAway
+  case protocolError
+  case protocolUnhandledType
+  case noStatusReceived
+  case encoding
+  case policyViolated
+  case messageTooBig
+  public init?(rawValue: Swift.UInt16)
+  public typealias RawValue = Swift.UInt16
+  public var rawValue: Swift.UInt16 {
+    get
+  }
+}
+public enum ErrorType : Swift.Error {
+  case outputStreamWriteError
+  case compressionError
+  case invalidSSLError
+  case writeTimeoutError
+  case protocolError
+  case upgradeError
+  case closeError
+  public static func == (a: IoTConnect.ErrorType, b: IoTConnect.ErrorType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct WSError : Swift.Error {
+  public let type: IoTConnect.ErrorType
+  public let message: Swift.String
+  public let code: Swift.Int
+}
+public protocol WebSocketClient : AnyObject {
+  var delegate: (any IoTConnect.WebSocketDelegate)? { get set }
+  var pongDelegate: (any IoTConnect.WebSocketPongDelegate)? { get set }
+  var disableSSLCertValidation: Swift.Bool { get set }
+  var overrideTrustHostname: Swift.Bool { get set }
+  var desiredTrustHostname: Swift.String? { get set }
+  var sslClientCertificate: IoTConnect.SSLClientCertificate? { get set }
+  var security: (any IoTConnect.SSLTrustValidator)? { get set }
+  var enabledSSLCipherSuites: [Security.SSLCipherSuite]? { get set }
+  var isConnected: Swift.Bool { get }
+  func connect()
+  func disconnect(forceTimeout: Foundation.TimeInterval?, closeCode: Swift.UInt16)
+  func write(string: Swift.String, completion: (() -> ())?)
+  func write(data: Foundation.Data, completion: (() -> ())?)
+  func write(ping: Foundation.Data, completion: (() -> ())?)
+  func write(pong: Foundation.Data, completion: (() -> ())?)
+}
+extension IoTConnect.WebSocketClient {
+  public func write(string: Swift.String)
+  public func write(data: Foundation.Data)
+  public func write(ping: Foundation.Data)
+  public func write(pong: Foundation.Data)
+  public func disconnect()
+}
+public struct SSLSettings {
+  public let useSSL: Swift.Bool
+  public let disableCertValidation: Swift.Bool
+  public var overrideTrustHostname: Swift.Bool
+  public var desiredTrustHostname: Swift.String?
+  public let sslClientCertificate: IoTConnect.SSLClientCertificate?
+  public let cipherSuites: [Security.SSLCipherSuite]?
+}
+public protocol WSStreamDelegate : AnyObject {
+  func newBytesInStream()
+  func streamDidError(error: (any Swift.Error)?)
+}
+public protocol WSStream {
+  var delegate: (any IoTConnect.WSStreamDelegate)? { get set }
+  func connect(url: Foundation.URL, port: Swift.Int, timeout: Foundation.TimeInterval, ssl: IoTConnect.SSLSettings, completion: @escaping (((any Swift.Error)?) -> Swift.Void))
+  func write(data: Foundation.Data) -> Swift.Int
+  func read() -> Foundation.Data?
+  func cleanup()
+  func sslTrust() -> (trust: Security.SecTrust?, domain: Swift.String?)
+}
+@objc @_inheritsConvenienceInitializers open class FoundationStream : ObjectiveC.NSObject, IoTConnect.WSStream, Foundation.StreamDelegate {
+  weak public var delegate: (any IoTConnect.WSStreamDelegate)?
+  public var enableSOCKSProxy: Swift.Bool
+  public func connect(url: Foundation.URL, port: Swift.Int, timeout: Foundation.TimeInterval, ssl: IoTConnect.SSLSettings, completion: @escaping (((any Swift.Error)?) -> Swift.Void))
+  public func write(data: Foundation.Data) -> Swift.Int
+  public func read() -> Foundation.Data?
+  public func cleanup()
+  public func sslTrust() -> (trust: Security.SecTrust?, domain: Swift.String?)
+  @objc open func stream(_ aStream: Foundation.Stream, handle eventCode: Foundation.Stream.Event)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol WebSocketDelegate : AnyObject {
+  func websocketDidConnect(socket: any IoTConnect.WebSocketClient)
+  func websocketDidDisconnect(socket: any IoTConnect.WebSocketClient, error: (any Swift.Error)?)
+  func websocketDidReceiveMessage(socket: any IoTConnect.WebSocketClient, text: Swift.String)
+  func websocketDidReceiveData(socket: any IoTConnect.WebSocketClient, data: Foundation.Data)
+}
+public protocol WebSocketPongDelegate : AnyObject {
+  func websocketDidReceivePong(socket: any IoTConnect.WebSocketClient, data: Foundation.Data?)
+}
+public protocol WebSocketAdvancedDelegate : AnyObject {
+  func websocketDidConnect(socket: IoTConnect.WebSocket)
+  func websocketDidDisconnect(socket: IoTConnect.WebSocket, error: (any Swift.Error)?)
+  func websocketDidReceiveMessage(socket: IoTConnect.WebSocket, text: Swift.String, response: IoTConnect.WebSocket.WSResponse)
+  func websocketDidReceiveData(socket: IoTConnect.WebSocket, data: Foundation.Data, response: IoTConnect.WebSocket.WSResponse)
+  func websocketHttpUpgrade(socket: IoTConnect.WebSocket, request: Swift.String)
+  func websocketHttpUpgrade(socket: IoTConnect.WebSocket, response: Swift.String)
+}
+@objc open class WebSocket : ObjectiveC.NSObject, Foundation.StreamDelegate, IoTConnect.WebSocketClient, IoTConnect.WSStreamDelegate {
+  public enum OpCode : Swift.UInt8 {
+    case continueFrame
+    case textFrame
+    case binaryFrame
+    case connectionClose
+    case ping
+    case pong
+    public init?(rawValue: Swift.UInt8)
+    public typealias RawValue = Swift.UInt8
+    public var rawValue: Swift.UInt8 {
+      get
+    }
+  }
+  public static let ErrorDomain: Swift.String
+  public var callbackQueue: Dispatch.DispatchQueue
+  @_hasMissingDesignatedInitializers public class WSResponse {
+    public var code: IoTConnect.WebSocket.OpCode
+    public var frameCount: Swift.Int
+    public var buffer: Foundation.NSMutableData?
+    final public let firstFrame: Foundation.Date
+    @objc deinit
+  }
+  weak public var delegate: (any IoTConnect.WebSocketDelegate)?
+  weak public var advancedDelegate: (any IoTConnect.WebSocketAdvancedDelegate)?
+  weak public var pongDelegate: (any IoTConnect.WebSocketPongDelegate)?
+  public var onConnect: (() -> Swift.Void)?
+  public var onDisconnect: (((any Swift.Error)?) -> Swift.Void)?
+  public var onText: ((Swift.String) -> Swift.Void)?
+  public var onData: ((Foundation.Data) -> Swift.Void)?
+  public var onPong: ((Foundation.Data?) -> Swift.Void)?
+  public var onHttpResponseHeaders: (([Swift.String : Swift.String]) -> Swift.Void)?
+  public var disableSSLCertValidation: Swift.Bool
+  public var overrideTrustHostname: Swift.Bool
+  public var desiredTrustHostname: Swift.String?
+  public var sslClientCertificate: IoTConnect.SSLClientCertificate?
+  public var enableCompression: Swift.Bool
+  public var security: (any IoTConnect.SSLTrustValidator)?
+  public var enabledSSLCipherSuites: [Security.SSLCipherSuite]?
+  public var isConnected: Swift.Bool {
+    get
+  }
+  public var request: Foundation.URLRequest
+  public var currentURL: Foundation.URL {
+    get
+  }
+  public var respondToPingWithPong: Swift.Bool
+  public init(request: Foundation.URLRequest, protocols: [Swift.String]? = nil, stream: any IoTConnect.WSStream = FoundationStream())
+  convenience public init(url: Foundation.URL, protocols: [Swift.String]? = nil)
+  convenience public init(url: Foundation.URL, writeQueueQOS: Foundation.QualityOfService, protocols: [Swift.String]? = nil)
+  open func connect()
+  open func disconnect(forceTimeout: Foundation.TimeInterval? = nil, closeCode: Swift.UInt16 = CloseCode.normal.rawValue)
+  open func write(string: Swift.String, completion: (() -> ())? = nil)
+  open func write(data: Foundation.Data, completion: (() -> ())? = nil)
+  open func write(ping: Foundation.Data, completion: (() -> ())? = nil)
+  open func write(pong: Foundation.Data, completion: (() -> ())? = nil)
+  public func newBytesInStream()
+  public func streamDidError(error: (any Swift.Error)?)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class MqttConnectProperties : ObjectiveC.NSObject {
+  public var sessionExpiryInterval: Swift.UInt32?
+  public var receiveMaximum: Swift.UInt16?
+  public var maximumPacketSize: Swift.UInt32?
+  public var topicAliasMaximum: Swift.UInt16?
+  public var requestResponseInformation: Swift.UInt8?
+  public var requestProblemInfomation: Swift.UInt8?
+  public var userProperties: [Swift.String : Swift.String]?
+  public var authenticationMethod: Swift.String?
+  public var authenticationData: [Swift.UInt8]?
+  public var properties: [Swift.UInt8] {
+    get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class CocoaMQTTMessage : ObjectiveC.NSObject {
+  public var qos: IoTConnect.CocoaMQTTQoS
+  public var topic: Swift.String
+  public var payload: [Swift.UInt8]
+  public var retained: Swift.Bool
+  public var duplicated: Swift.Bool
+  public var string: Swift.String? {
+    get
+  }
+  public init(topic: Swift.String, string: Swift.String, qos: IoTConnect.CocoaMQTTQoS = .qos1, retained: Swift.Bool = false)
+  public init(topic: Swift.String, payload: [Swift.UInt8], qos: IoTConnect.CocoaMQTTQoS = .qos1, retained: Swift.Bool = false)
+  @objc deinit
+}
+extension IoTConnect.CocoaMQTTMessage {
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class MqttDecodePubAck : ObjectiveC.NSObject {
+  public var reasonCode: IoTConnect.CocoaMQTTPUBACKReasonCode?
+  public var msgid: Swift.UInt16
+  public var reasonString: Swift.String?
+  public var userProperty: [Swift.String : Swift.String]?
+  public func decodePubAck(fixedHeader: Swift.UInt8, pubAckData: [Swift.UInt8])
+  @objc override dynamic public init()
+  @objc deinit
+}
+public typealias GetDeviceCallBackBlock = (Any?) -> ()
+public typealias GetTwinUpdateCallBackBlock = (Any?) -> ()
+@_inheritsConvenienceInitializers @objc public class SDKClient : ObjectiveC.NSObject {
+  @objc public static let shared: IoTConnect.SDKClient
+  @objc public func initialize(config: IoTConnect.IoTConnectConfig)
+  @objc public func sendData(data: [[Swift.String : Any]])
+  @objc public func sendLog(data: [Swift.String : Any]?)
+  @objc public func sendAck(data: [[Swift.String : Any]], msgType: Swift.String)
+  @objc public func getAllTwins()
+  @objc public func updateTwin(key: Swift.String, value: Any)
+  @objc public func dispose(sdkconnection: Swift.String = "")
+  @objc public func getAttributes(callBack: @escaping (Swift.Bool, [[Swift.String : Any]]?, Swift.String) -> ())
+  @objc public func getDeviceCallBack(deviceCallback: @escaping IoTConnect.GetDeviceCallBackBlock)
+  @objc public func getTwinUpdateCallBack(twinUpdateCallback: @escaping IoTConnect.GetTwinUpdateCallBackBlock)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum ReachabilityError : Swift.Error {
+  case failedToCreateWithAddress(Darwin.sockaddr, Swift.Int32)
+  case failedToCreateWithHostname(Swift.String, Swift.Int32)
+  case unableToSetCallback(Swift.Int32)
+  case unableToSetDispatchQueue(Swift.Int32)
+  case unableToGetFlags(Swift.Int32)
+}
+@available(*, unavailable, renamed: "Notification.Name.reachabilityChanged")
+public let ReachabilityChangedNotification: Foundation.NSNotification.Name
+extension Foundation.NSNotification.Name {
+  public static let reachabilityChanged: Foundation.Notification.Name
+}
+public class Reachability {
+  public typealias NetworkReachable = (IoTConnect.Reachability) -> ()
+  public typealias NetworkUnreachable = (IoTConnect.Reachability) -> ()
+  @available(*, unavailable, renamed: "Connection")
+  public enum NetworkStatus : Swift.CustomStringConvertible {
+    case notReachable, reachableViaWiFi, reachableViaWWAN
+    public var description: Swift.String {
+      get
+    }
+    public static func == (a: IoTConnect.Reachability.NetworkStatus, b: IoTConnect.Reachability.NetworkStatus) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum Connection : Swift.CustomStringConvertible {
+    @available(*, deprecated, renamed: "unavailable")
+    case none
+    case unavailable, wifi, cellular
+    public var description: Swift.String {
+      get
+    }
+    public static func == (a: IoTConnect.Reachability.Connection, b: IoTConnect.Reachability.Connection) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public var whenReachable: IoTConnect.Reachability.NetworkReachable?
+  public var whenUnreachable: IoTConnect.Reachability.NetworkUnreachable?
+  @available(*, deprecated, renamed: "allowsCellularConnection")
+  final public let reachableOnWWAN: Swift.Bool
+  public var allowsCellularConnection: Swift.Bool
+  public var notificationCenter: Foundation.NotificationCenter
+  @available(*, deprecated, renamed: "connection.description")
+  public var currentReachabilityString: Swift.String {
+    get
+  }
+  @available(*, unavailable, renamed: "connection")
+  public var currentReachabilityStatus: IoTConnect.Reachability.Connection {
+    get
+  }
+  public var connection: IoTConnect.Reachability.Connection {
+    get
+  }
+  required public init(reachabilityRef: SystemConfiguration.SCNetworkReachability, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main)
+  convenience public init(hostname: Swift.String, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main) throws
+  convenience public init(queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main) throws
+  @objc deinit
+}
+extension IoTConnect.Reachability {
+  public func startNotifier() throws
+  public func stopNotifier()
+  @available(*, deprecated, message: "Please use `connection != .none`")
+  public var isReachable: Swift.Bool {
+    get
+  }
+  @available(*, deprecated, message: "Please use `connection == .cellular`")
+  public var isReachableViaWWAN: Swift.Bool {
+    get
+  }
+  @available(*, deprecated, message: "Please use `connection == .wifi`")
+  public var isReachableViaWiFi: Swift.Bool {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+}
+public class ThreadSafeDictionary<K, V> : Swift.Collection where K : Swift.Hashable {
+  public var startIndex: Swift.Dictionary<K, V>.Index {
+    get
+  }
+  public var endIndex: Swift.Dictionary<K, V>.Index {
+    get
+  }
+  public init(label: Swift.String, dict: [K : V] = [K:V]())
+  public func index(after i: Swift.Dictionary<K, V>.Index) -> Swift.Dictionary<K, V>.Index
+  public subscript(key: K) -> V? {
+    get
+    set(newValue)
+  }
+  public subscript(index: Swift.Dictionary<K, V>.Index) -> Swift.Dictionary<K, V>.Element {
+    get
+  }
+  @discardableResult
+  public func removeValue(forKey key: K) -> V?
+  public func removeAll()
+  public typealias Element = Swift.Dictionary<K, V>.Element
+  public typealias Index = Swift.Dictionary<K, V>.Index
+  public typealias Indices = Swift.DefaultIndices<IoTConnect.ThreadSafeDictionary<K, V>>
+  public typealias Iterator = Swift.IndexingIterator<IoTConnect.ThreadSafeDictionary<K, V>>
+  public typealias SubSequence = Swift.Slice<IoTConnect.ThreadSafeDictionary<K, V>>
+  @objc deinit
+}
+public struct OfflineStorageOption {
+  public var AvailSpaceInMb: Swift.Int
+  public var FileCount: Swift.Int
+  public var Disabled: Swift.Bool
+}
+@objc public class IoTConnectConfig : ObjectiveC.NSObject {
+  public init(cpId: Swift.String, uniqueId: Swift.String, env: IoTConnect.Environment, mqttConnectionType: IoTConnect.MqttConnectionType, debugConfig: IoTConnect.DebugConfig? = nil, mqttConfig: IoTConnect.MqttConfig? = nil, sdkOptions: IoTConnect.SDKClientOption?)
+  @objc deinit
+}
+public struct DebugConfig {
+  public var discoveryUrl: Swift.String
+  public var debug: Swift.Bool
+}
+public struct MqttConfig {
+  public let certificateConfig: IoTConnect.CertificateConfig?
+  public let offlineStorageConfig: IoTConnect.OfflineStorageConfig?
+}
+public struct CertificateConfig {
+  public let certificatePath: Swift.String
+  public let certificatePassword: Swift.String
+}
+public struct OfflineStorageConfig {
+  public var availSpaceInMb: Swift.Int
+  public var fileCount: Swift.Int
+  public var disabled: Swift.Bool
+}
+public enum MqttConnectionType {
+  case userCredntialAuthentication
+  case certificateAuthentication
+  public static func == (a: IoTConnect.MqttConnectionType, b: IoTConnect.MqttConnectionType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class MqttDecodeUnsubAck : ObjectiveC.NSObject {
+  public var reasonCodes: [IoTConnect.CocoaMQTTUNSUBACKReasonCode]
+  public var msgid: Swift.UInt16
+  public var reasonString: Swift.String?
+  public var userProperty: [Swift.String : Swift.String]?
+  public func decodeUnSubAck(fixedHeader: Swift.UInt8, pubAckData: [Swift.UInt8])
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol CocoaMQTTSocketDelegate : AnyObject {
+  func socketConnected(_ socket: any IoTConnect.CocoaMQTTSocketProtocol)
+  func socket(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didReceive trust: Security.SecTrust, completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  func socketUrlSession(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didReceiveTrust trust: Security.SecTrust, didReceiveChallenge challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  func socket(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didWriteDataWithTag tag: Swift.Int)
+  func socket(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didRead data: Foundation.Data, withTag tag: Swift.Int)
+  func socketDidDisconnect(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, withError err: (any Swift.Error)?)
+}
+public protocol CocoaMQTTSocketProtocol {
+  var enableSSL: Swift.Bool { get set }
+  func setDelegate(_ theDelegate: (any IoTConnect.CocoaMQTTSocketDelegate)?, delegateQueue: Dispatch.DispatchQueue?)
+  func connect(toHost host: Swift.String, onPort port: Swift.UInt16) throws
+  func connect(toHost host: Swift.String, onPort port: Swift.UInt16, withTimeout timeout: Foundation.TimeInterval) throws
+  func disconnect()
+  func readData(toLength length: Swift.UInt, withTimeout timeout: Foundation.TimeInterval, tag: Swift.Int)
+  func write(_ data: Foundation.Data, withTimeout timeout: Foundation.TimeInterval, tag: Swift.Int)
+}
+@objc @_inheritsConvenienceInitializers public class CocoaMQTTSocket : ObjectiveC.NSObject {
+  public var backgroundOnSocket: Swift.Bool
+  public var enableSSL: Swift.Bool
+  public var sslSettings: [Swift.String : ObjectiveC.NSObject]?
+  public var allowUntrustCACertificate: Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension IoTConnect.CocoaMQTTSocket : IoTConnect.CocoaMQTTSocketProtocol {
+  public func setDelegate(_ theDelegate: (any IoTConnect.CocoaMQTTSocketDelegate)?, delegateQueue: Dispatch.DispatchQueue?)
+  public func connect(toHost host: Swift.String, onPort port: Swift.UInt16) throws
+  public func connect(toHost host: Swift.String, onPort port: Swift.UInt16, withTimeout timeout: Foundation.TimeInterval) throws
+  public func disconnect()
+  public func readData(toLength length: Swift.UInt, withTimeout timeout: Foundation.TimeInterval, tag: Swift.Int)
+  public func write(_ data: Foundation.Data, withTimeout timeout: Foundation.TimeInterval, tag: Swift.Int)
+}
+extension IoTConnect.CocoaMQTTSocket : IoTConnect.MGCDAsyncSocketDelegate {
+  @objc dynamic public func socket(_ sock: IoTConnect.MGCDAsyncSocket, didConnectToHost host: Swift.String, port: Swift.UInt16)
+  @objc dynamic public func socket(_ sock: IoTConnect.MGCDAsyncSocket, didReceive trust: Security.SecTrust, completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  @objc dynamic public func socketDidSecure(_ sock: IoTConnect.MGCDAsyncSocket)
+  @objc dynamic public func socket(_ sock: IoTConnect.MGCDAsyncSocket, didWriteDataWithTag tag: Swift.Int)
+  @objc dynamic public func socket(_ sock: IoTConnect.MGCDAsyncSocket, didRead data: Foundation.Data, withTag tag: Swift.Int)
+  @objc dynamic public func socketDidDisconnect(_ sock: IoTConnect.MGCDAsyncSocket, withError err: (any Swift.Error)?)
+}
+public class MqttSubscription {
+  public var topic: Swift.String
+  public var qos: IoTConnect.CocoaMQTTQoS
+  public var noLocal: Swift.Bool
+  public var retainAsPublished: Swift.Bool
+  public var retainHandling: IoTConnect.CocoaRetainHandlingOption
+  public var subscriptionOptions: Swift.Bool
+  public init(topic: Swift.String)
+  public init(topic: Swift.String, qos: IoTConnect.CocoaMQTTQoS)
+  @objc deinit
+}
+@objc public enum CocoaMQTTAUTHReasonCode : Swift.UInt8 {
+  case success = 0x00
+  case continueAuthentication = 0x18
+  case ReAuthenticate = 0x19
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public enum CocoaMQTTCONNACKReasonCode : Swift.UInt8 {
+  case success = 0x00
+  case unspecifiedError = 0x80
+  case malformedPacket = 0x81
+  case protocolError = 0x82
+  case implementationSpecificError = 0x83
+  case unsupportedProtocolVersion = 0x84
+  case clientIdentifierNotValid = 0x85
+  case badUsernameOrPassword = 0x86
+  case notAuthorized = 0x87
+  case serverUnavailable = 0x88
+  case serverBusy = 0x89
+  case banned = 0x8A
+  case badAuthenticationMethod = 0x8C
+  case topicNameInvalid = 0x90
+  case packetTooLarge = 0x95
+  case quotaExceeded = 0x97
+  case payloadFormatInvalid = 0x99
+  case retainNotSupported = 0x9A
+  case qosNotSupported = 0x9B
+  case useAnotherServer = 0x9C
+  case serverMoved = 0x9D
+  case connectionRateExceeded = 0x9F
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public enum CocoaMQTTDISCONNECTReasonCode : Swift.UInt8 {
+  case normalDisconnection = 0x00
+  case disconnectWithWillMessage = 0x04
+  case unspecifiedError = 0x80
+  case malformedPacket = 0x81
+  case protocolError = 0x82
+  case implementationSpecificError = 0x83
+  case notAuthorized = 0x87
+  case serverBusy = 0x89
+  case serverShuttingDown = 0x8B
+  case keepAliveTimeout = 0x8D
+  case sessionTakenOver = 0x8E
+  case topicFilterInvalid = 0x8F
+  case topicNameInvalid = 0x90
+  case receiveMaximumExceeded = 0x93
+  case topicAliasInvalid = 0x94
+  case packetTooLarge = 0x95
+  case messageRateTooHigh = 0x96
+  case quotaExceeded = 0x97
+  case administrativeAction = 0x98
+  case payloadFormatInvalid = 0x99
+  case retainNotSupported = 0x9A
+  case qosNotSupported = 0x9B
+  case useAnotherServer = 0x9C
+  case serverMoved = 0x9D
+  case sharedSubscriptionsNotSupported = 0x9E
+  case connectionRateExceeded = 0x9F
+  case maximumConnectTime = 0xA0
+  case subscriptionIdentifiersNotSupported = 0xA1
+  case wildcardSubscriptionsNotSupported = 0xA2
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public enum CocoaMQTTPUBACKReasonCode : Swift.UInt8 {
+  case success = 0x00
+  case noMatchingSubscribers = 0x10
+  case unspecifiedError = 0x80
+  case implementationSpecificError = 0x83
+  case notAuthorized = 0x87
+  case topicNameInvalid = 0x90
+  case packetIdentifierInUse = 0x91
+  case quotaExceeded = 0x97
+  case payloadFormatInvalid = 0x99
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public enum CocoaMQTTPUBCOMPReasonCode : Swift.UInt8 {
+  case success = 0x00
+  case packetIdentifierNotFound = 0x92
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public enum CocoaMQTTPUBRECReasonCode : Swift.UInt8 {
+  case success = 0x00
+  case noMatchingSubscribers = 0x10
+  case unspecifiedError = 0x80
+  case implementationSpecificError = 0x83
+  case notAuthorized = 0x87
+  case topicNameInvalid = 0x90
+  case packetIdentifierInUse = 0x91
+  case quotaExceeded = 0x97
+  case payloadFormatInvalid = 0x99
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public enum CocoaMQTTPUBRELReasonCode : Swift.UInt8 {
+  case success = 0x00
+  case packetIdentifierNotFound = 0x92
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public enum CocoaMQTTSUBACKReasonCode : Swift.UInt8 {
+  case grantedQoS0 = 0x00
+  case grantedQoS1 = 0x01
+  case grantedQoS2 = 0x02
+  case unspecifiedError = 0x80
+  case implementationSpecificError = 0x83
+  case notAuthorized = 0x87
+  case topicFilterInvalid = 0x8F
+  case packetIdentifierInUse = 0x91
+  case quotaExceeded = 0x97
+  case sharedSubscriptionsNotSupported = 0x9E
+  case subscriptionIdentifiersNotSupported = 0xA1
+  case wildcardSubscriptionsNotSupported = 0xA2
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public enum CocoaMQTTUNSUBACKReasonCode : Swift.UInt8 {
+  case success = 0x00
+  case noSubscriptionExisted = 0x11
+  case unspecifiedError = 0x80
+  case implementationSpecificError = 0x83
+  case notAuthorized = 0x87
+  case topicFilterInvalid = 0x8F
+  case packetIdentifierInUse = 0x91
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public enum CocoaRetainHandlingOption : Swift.UInt8 {
+  case sendOnSubscribe = 0
+  case sendOnlyWhenSubscribeIsNew = 1
+  case none = 2
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public enum PayloadFormatIndicator : Swift.UInt8 {
+  case unspecified = 0x00
+  case utf8 = 0x01
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public enum CocoaMQTTLoggerLevel : Swift.Int {
+  case debug, info, warning, error, off
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers open class CocoaMQTTLogger : ObjectiveC.NSObject {
+  public static var logger: IoTConnect.CocoaMQTTLogger
+  @objc override dynamic public init()
+  open func log(level: IoTConnect.CocoaMQTTLoggerLevel, message: Swift.String)
+  @objc deinit
+}
+public protocol CocoaMQTTWebSocketConnectionDelegate : AnyObject {
+  func connection(_ conn: any IoTConnect.CocoaMQTTWebSocketConnection, didReceive trust: Security.SecTrust, completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  func connectionOpened(_ conn: any IoTConnect.CocoaMQTTWebSocketConnection)
+  func connectionClosed(_ conn: any IoTConnect.CocoaMQTTWebSocketConnection, withError error: (any Swift.Error)?)
+  func connection(_ conn: any IoTConnect.CocoaMQTTWebSocketConnection, receivedString string: Swift.String)
+  func connection(_ conn: any IoTConnect.CocoaMQTTWebSocketConnection, receivedData data: Foundation.Data)
+}
+public protocol CocoaMQTTWebSocketConnection : ObjectiveC.NSObjectProtocol {
+  var delegate: (any IoTConnect.CocoaMQTTWebSocketConnectionDelegate)? { get set }
+  var queue: Dispatch.DispatchQueue { get set }
+  func connect()
+  func disconnect()
+  func write(data: Foundation.Data, handler: @escaping ((any Swift.Error)?) -> Swift.Void)
+}
+public protocol CocoaMQTTWebSocketConnectionBuilder {
+  func buildConnection(forURL url: Foundation.URL, withHeaders headers: [Swift.String : Swift.String]) throws -> any IoTConnect.CocoaMQTTWebSocketConnection
+}
+public class CocoaMQTTWebSocket : IoTConnect.CocoaMQTTSocketProtocol {
+  public var enableSSL: Swift.Bool
+  public var headers: [Swift.String : Swift.String]
+  public typealias ConnectionBuilder = IoTConnect.CocoaMQTTWebSocketConnectionBuilder
+  public struct DefaultConnectionBuilder : IoTConnect.CocoaMQTTWebSocket.ConnectionBuilder {
+    public init()
+    public func buildConnection(forURL url: Foundation.URL, withHeaders headers: [Swift.String : Swift.String]) throws -> any IoTConnect.CocoaMQTTWebSocketConnection
+  }
+  public func setDelegate(_ theDelegate: (any IoTConnect.CocoaMQTTSocketDelegate)?, delegateQueue: Dispatch.DispatchQueue?)
+  public init(uri: Swift.String = "", builder: any IoTConnect.CocoaMQTTWebSocketConnectionBuilder = CocoaMQTTWebSocket.DefaultConnectionBuilder())
+  public func connect(toHost host: Swift.String, onPort port: Swift.UInt16) throws
+  public func connect(toHost host: Swift.String, onPort port: Swift.UInt16, withTimeout timeout: Foundation.TimeInterval) throws
+  public func disconnect()
+  public func readData(toLength length: Swift.UInt, withTimeout timeout: Foundation.TimeInterval, tag: Swift.Int)
+  public func write(_ data: Foundation.Data, withTimeout timeout: Foundation.TimeInterval, tag: Swift.Int)
+  @objc deinit
+}
+extension IoTConnect.CocoaMQTTWebSocket : IoTConnect.CocoaMQTTWebSocketConnectionDelegate {
+  public func connection(_ conn: any IoTConnect.CocoaMQTTWebSocketConnection, didReceive trust: Security.SecTrust, completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  public func connectionOpened(_ conn: any IoTConnect.CocoaMQTTWebSocketConnection)
+  public func connectionClosed(_ conn: any IoTConnect.CocoaMQTTWebSocketConnection, withError error: (any Swift.Error)?)
+  public func connection(_ conn: any IoTConnect.CocoaMQTTWebSocketConnection, receivedString string: Swift.String)
+  public func connection(_ conn: any IoTConnect.CocoaMQTTWebSocketConnection, receivedData data: Foundation.Data)
+}
+@available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+extension IoTConnect.CocoaMQTTWebSocket {
+  @objc public class FoundationConnection : ObjectiveC.NSObject, IoTConnect.CocoaMQTTWebSocketConnection {
+    weak public var delegate: (any IoTConnect.CocoaMQTTWebSocketConnectionDelegate)?
+    public var queue: Dispatch.DispatchQueue {
+      get
+      set
+    }
+    public init(url: Foundation.URL, config: Foundation.URLSessionConfiguration)
+    public func connect()
+    public func disconnect()
+    public func write(data: Foundation.Data, handler: @escaping ((any Swift.Error)?) -> Swift.Void)
+    @objc deinit
+  }
+}
+@available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+extension IoTConnect.CocoaMQTTWebSocket.FoundationConnection : Foundation.URLSessionWebSocketDelegate {
+  @objc dynamic public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didReceive challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  @objc dynamic public func urlSession(_ session: Foundation.URLSession, webSocketTask: Foundation.URLSessionWebSocketTask, didOpenWithProtocol protocol: Swift.String?)
+  @objc dynamic public func urlSession(_ session: Foundation.URLSession, webSocketTask: Foundation.URLSessionWebSocketTask, didCloseWith closeCode: Foundation.URLSessionWebSocketTask.CloseCode, reason: Foundation.Data?)
+}
+extension IoTConnect.CocoaMQTTWebSocket {
+  @objc public class StarscreamConnection : ObjectiveC.NSObject, IoTConnect.CocoaMQTTWebSocketConnection {
+    public var reference: IoTConnect.WebSocket
+    weak public var delegate: (any IoTConnect.CocoaMQTTWebSocketConnectionDelegate)?
+    public var queue: Dispatch.DispatchQueue {
+      get
+      set
+    }
+    public init(request: Foundation.URLRequest)
+    public func connect()
+    public func disconnect()
+    public func write(data: Foundation.Data, handler: @escaping ((any Swift.Error)?) -> Swift.Void)
+    @objc deinit
+  }
+}
+extension IoTConnect.CocoaMQTTWebSocket.StarscreamConnection : IoTConnect.SSLTrustValidator {
+  public func isValid(_ trust: Security.SecTrust, domain: Swift.String?) -> Swift.Bool
+}
+extension IoTConnect.CocoaMQTTWebSocket.StarscreamConnection : IoTConnect.WebSocketDelegate {
+  public func websocketDidConnect(socket: any IoTConnect.WebSocketClient)
+  public func websocketDidDisconnect(socket: any IoTConnect.WebSocketClient, error: (any Swift.Error)?)
+  public func websocketDidReceiveMessage(socket: any IoTConnect.WebSocketClient, text: Swift.String)
+  public func websocketDidReceiveData(socket: any IoTConnect.WebSocketClient, data: Foundation.Data)
+}
+@objc @_inheritsConvenienceInitializers public class MqttDecodePublish : ObjectiveC.NSObject {
+  public var propertyLength: Swift.Int?
+  public var payloadFormatIndicator: IoTConnect.PayloadFormatIndicator?
+  public var messageExpiryInterval: Swift.UInt32?
+  public var topicAlias: Swift.UInt16?
+  public var responseTopic: Swift.String?
+  public var correlationData: [Swift.UInt8]?
+  public var userProperty: [Swift.String : Swift.String]?
+  public var subscriptionIdentifier: Swift.Int
+  public var contentType: Swift.String?
+  public var topic: Swift.String
+  public var packetIdentifier: Swift.UInt16?
+  public var mqtt5DataIndex: Swift.Int
+  public func decodePublish(fixedHeader: Swift.UInt8, publishData: [Swift.UInt8])
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class MqttPublishProperties : ObjectiveC.NSObject {
+  public var propertyLength: Swift.Int?
+  public var payloadFormatIndicator: IoTConnect.PayloadFormatIndicator?
+  public var messageExpiryInterval: Swift.UInt32?
+  public var topicAlias: Swift.UInt16?
+  public var responseTopic: Swift.String?
+  public var correlationData: [Swift.UInt8]?
+  public var userProperty: [Swift.String : Swift.String]?
+  public var subscriptionIdentifier: Swift.UInt32?
+  public var contentType: Swift.String?
+  public init(propertyLength: Swift.Int? = nil, payloadFormatIndicator: IoTConnect.PayloadFormatIndicator? = nil, messageExpiryInterval: Swift.UInt32? = nil, topicAlias: Swift.UInt16? = nil, responseTopic: Swift.String? = nil, correlation: Swift.String? = nil, userProperty: [Swift.String : Swift.String]? = nil, subscriptionIdentifier: Swift.UInt32? = nil, contentType: Swift.String? = nil)
+  public var properties: [Swift.UInt8] {
+    get
+  }
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class MqttDecodePubRel : ObjectiveC.NSObject {
+  public var reasonCode: IoTConnect.CocoaMQTTPUBRELReasonCode?
+  public var msgid: Swift.UInt16
+  public var reasonString: Swift.String?
+  public var userProperty: [Swift.String : Swift.String]?
+  public func decodePubRel(fixedHeader: Swift.UInt8, pubAckData: [Swift.UInt8])
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class MqttDecodeSubAck : ObjectiveC.NSObject {
+  public var reasonCodes: [IoTConnect.CocoaMQTTSUBACKReasonCode]
+  public var msgid: Swift.UInt16
+  public var reasonString: Swift.String?
+  public var userProperty: [Swift.String : Swift.String]?
+  public func decodeSubAck(fixedHeader: Swift.UInt8, pubAckData: [Swift.UInt8])
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct SSLOption {
+  public var Certificate: Swift.String?
+  public var Password: Swift.String
+}
+@objc @_inheritsConvenienceInitializers public class MqttAuthProperties : ObjectiveC.NSObject {
+  public var authenticationMethod: Swift.String?
+  public var authenticationData: [Swift.UInt8]?
+  public var reasonString: Swift.String?
+  public var userProperties: [Swift.String : Swift.String]?
+  public var properties: [Swift.UInt8] {
+    get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class MqttDecodePubRec : ObjectiveC.NSObject {
+  public var reasonCode: IoTConnect.CocoaMQTTPUBACKReasonCode?
+  public var msgid: Swift.UInt16
+  public var reasonString: Swift.String?
+  public var userProperty: [Swift.String : Swift.String]?
+  public func decodePubRec(fixedHeader: Swift.UInt8, pubAckData: [Swift.UInt8])
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum CocoaMQTTConnAck : Swift.UInt8, Swift.CustomStringConvertible {
+  case accept = 0
+  case unacceptableProtocolVersion
+  case identifierRejected
+  case serverUnavailable
+  case badUsernameOrPassword
+  case notAuthorized
+  case reserved
+  public init(byte: Swift.UInt8)
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public protocol CocoaMQTTDelegate {
+  @objc func mqtt(_ mqtt: IoTConnect.CocoaMQTT, didConnectAck ack: IoTConnect.CocoaMQTTConnAck)
+  @objc func mqtt(_ mqtt: IoTConnect.CocoaMQTT, didPublishMessage message: IoTConnect.CocoaMQTTMessage, id: Swift.UInt16)
+  @objc func mqtt(_ mqtt: IoTConnect.CocoaMQTT, didPublishAck id: Swift.UInt16)
+  @objc func mqtt(_ mqtt: IoTConnect.CocoaMQTT, didReceiveMessage message: IoTConnect.CocoaMQTTMessage, id: Swift.UInt16)
+  @objc func mqtt(_ mqtt: IoTConnect.CocoaMQTT, didSubscribeTopics success: Foundation.NSDictionary, failed: [Swift.String])
+  @objc func mqtt(_ mqtt: IoTConnect.CocoaMQTT, didUnsubscribeTopics topics: [Swift.String])
+  @objc func mqttDidPing(_ mqtt: IoTConnect.CocoaMQTT)
+  @objc func mqttDidReceivePong(_ mqtt: IoTConnect.CocoaMQTT)
+  @objc func mqttDidDisconnect(_ mqtt: IoTConnect.CocoaMQTT, withError err: (any Swift.Error)?)
+  @objc optional func mqtt(_ mqtt: IoTConnect.CocoaMQTT, didReceive trust: Security.SecTrust, completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  @objc optional func mqttUrlSession(_ mqtt: IoTConnect.CocoaMQTT, didReceiveTrust trust: Security.SecTrust, didReceiveChallenge challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  @objc optional func mqtt(_ mqtt: IoTConnect.CocoaMQTT, didPublishComplete id: Swift.UInt16)
+  @objc optional func mqtt(_ mqtt: IoTConnect.CocoaMQTT, didStateChangeTo state: IoTConnect.CocoaMQTTConnState)
+}
+public func setMqtt3Version()
+@objc public class CocoaMQTT : ObjectiveC.NSObject {
+  weak public var delegate: (any IoTConnect.CocoaMQTTDelegate)?
+  public var host: Swift.String
+  public var port: Swift.UInt16
+  public var clientID: Swift.String
+  public var username: Swift.String?
+  public var password: Swift.String?
+  public var cleanSession: Swift.Bool
+  public var willMessage: IoTConnect.CocoaMQTTMessage?
+  public var backgroundOnSocket: Swift.Bool {
+    get
+    set
+  }
+  public var delegateQueue: Dispatch.DispatchQueue
+  public var connState: IoTConnect.CocoaMQTTConnState {
+    get
+    set
+  }
+  public var deliverTimeout: Swift.Double {
+    get
+    set
+  }
+  public var messageQueueSize: Swift.UInt {
+    get
+    set
+  }
+  public var inflightWindowSize: Swift.UInt {
+    get
+    set
+  }
+  public var keepAlive: Swift.UInt16
+  public var autoReconnect: Swift.Bool
+  public var autoReconnectTimeInterval: Swift.UInt16
+  public var maxAutoReconnectTimeInterval: Swift.UInt16
+  public var logLevel: IoTConnect.CocoaMQTTLoggerLevel {
+    get
+    set
+  }
+  public var enableSSL: Swift.Bool {
+    get
+    set
+  }
+  public var sslSettings: [Swift.String : ObjectiveC.NSObject]? {
+    get
+    set
+  }
+  public var allowUntrustCACertificate: Swift.Bool {
+    get
+    set
+  }
+  public var subscriptions: [Swift.String : IoTConnect.CocoaMQTTQoS]
+  public var didConnectAck: (IoTConnect.CocoaMQTT, IoTConnect.CocoaMQTTConnAck) -> Swift.Void
+  public var didPublishMessage: (IoTConnect.CocoaMQTT, IoTConnect.CocoaMQTTMessage, Swift.UInt16) -> Swift.Void
+  public var didPublishAck: (IoTConnect.CocoaMQTT, Swift.UInt16) -> Swift.Void
+  public var didReceiveMessage: (IoTConnect.CocoaMQTT, IoTConnect.CocoaMQTTMessage, Swift.UInt16) -> Swift.Void
+  public var didSubscribeTopics: (IoTConnect.CocoaMQTT, Foundation.NSDictionary, [Swift.String]) -> Swift.Void
+  public var didUnsubscribeTopics: (IoTConnect.CocoaMQTT, [Swift.String]) -> Swift.Void
+  public var didPing: (IoTConnect.CocoaMQTT) -> Swift.Void
+  public var didReceivePong: (IoTConnect.CocoaMQTT) -> Swift.Void
+  public var didDisconnect: (IoTConnect.CocoaMQTT, (any Swift.Error)?) -> Swift.Void
+  public var didReceiveTrust: (IoTConnect.CocoaMQTT, Security.SecTrust, @escaping (Swift.Bool) -> Swift.Void) -> Swift.Void
+  public var didCompletePublish: (IoTConnect.CocoaMQTT, Swift.UInt16) -> Swift.Void
+  public var didChangeState: (IoTConnect.CocoaMQTT, IoTConnect.CocoaMQTTConnState) -> Swift.Void
+  public init(clientID: Swift.String, host: Swift.String = "localhost", port: Swift.UInt16 = 1883, socket: any IoTConnect.CocoaMQTTSocketProtocol = CocoaMQTTSocket())
+  @objc deinit
+  public func connect() -> Swift.Bool
+  public func connect(timeout: Foundation.TimeInterval) -> Swift.Bool
+  public func disconnect()
+  public func ping()
+  @discardableResult
+  public func publish(_ topic: Swift.String, withString string: Swift.String, qos: IoTConnect.CocoaMQTTQoS = .qos1, retained: Swift.Bool = false) -> Swift.Int
+  @discardableResult
+  public func publish(_ message: IoTConnect.CocoaMQTTMessage) -> Swift.Int
+  public func subscribe(_ topic: Swift.String, qos: IoTConnect.CocoaMQTTQoS = .qos1)
+  public func subscribe(_ topics: [(Swift.String, IoTConnect.CocoaMQTTQoS)])
+  public func unsubscribe(_ topic: Swift.String)
+  public func unsubscribe(_ topics: [Swift.String])
+}
+extension IoTConnect.CocoaMQTT : IoTConnect.CocoaMQTTSocketDelegate {
+  public func socketConnected(_ socket: any IoTConnect.CocoaMQTTSocketProtocol)
+  public func socket(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didReceive trust: Security.SecTrust, completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  public func socketUrlSession(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didReceiveTrust trust: Security.SecTrust, didReceiveChallenge challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  public func socketDidSecure(_ sock: IoTConnect.MGCDAsyncSocket)
+  public func socket(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didWriteDataWithTag tag: Swift.Int)
+  public func socket(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, didRead data: Foundation.Data, withTag tag: Swift.Int)
+  public func socketDidDisconnect(_ socket: any IoTConnect.CocoaMQTTSocketProtocol, withError err: (any Swift.Error)?)
+}
+public enum CocoaMQTTError : Swift.Error {
+  case invalidURL
+  case readTimeout
+  case writeTimeout
+  @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+  public enum FoundationConnection : Swift.Error {
+    case closed(Foundation.URLSessionWebSocketTask.CloseCode)
+  }
+  public static func == (a: IoTConnect.CocoaMQTTError, b: IoTConnect.CocoaMQTTError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class MqttDecodeConnAck : ObjectiveC.NSObject {
+  public var propertyLength: Swift.Int?
+  public var sessionExpiryInterval: Swift.UInt32?
+  public var receiveMaximum: Swift.UInt16?
+  public var maximumQoS: IoTConnect.CocoaMQTTQoS?
+  public var retainAvailable: Swift.Bool?
+  public var maximumPacketSize: Swift.UInt32?
+  public var assignedClientIdentifier: Swift.String?
+  public var topicAliasMaximum: Swift.UInt16?
+  public var reasonString: Swift.String?
+  public var userProperty: [Swift.String : Swift.String]?
+  public var wildcardSubscriptionAvailable: Swift.Bool?
+  public var subscriptionIdentifiersAvailable: Swift.Bool?
+  public var sharedSubscriptionAvailable: Swift.Bool?
+  public var serverKeepAlive: Swift.UInt16?
+  public var responseInformation: Swift.String?
+  public var serverReference: Swift.String?
+  public var authenticationMethod: Swift.String?
+  public var authenticationData: [Swift.UInt8]
+  public func properties(connackData: [Swift.UInt8])
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct SDKClientOption {
+  public var SSL: IoTConnect.SSLOption
+  public var OfflineStorage: IoTConnect.OfflineStorageOption
+  public var discoveryUrl: Swift.String?
+  public var debug: Swift.Bool
+  public init()
+}
+extension Swift.String {
+  public init(string s: Swift.String)
+}
+public protocol SSLTrustValidator {
+  func isValid(_ trust: Security.SecTrust, domain: Swift.String?) -> Swift.Bool
+}
+open class SSLCert {
+  public init(data: Foundation.Data)
+  public init(key: Security.SecKey)
+  @objc deinit
+}
+open class SSLSecurity : IoTConnect.SSLTrustValidator {
+  public var validatedDN: Swift.Bool
+  public var validateEntireChain: Swift.Bool
+  convenience public init(usePublicKeys: Swift.Bool = false)
+  public init(certs: [IoTConnect.SSLCert], usePublicKeys: Swift.Bool)
+  open func isValid(_ trust: Security.SecTrust, domain: Swift.String?) -> Swift.Bool
+  public func extractPublicKey(_ data: Foundation.Data) -> Security.SecKey?
+  public func extractPublicKey(_ cert: Security.SecCertificate, policy: Security.SecPolicy) -> Security.SecKey?
+  public func certificateChain(_ trust: Security.SecTrust) -> [Foundation.Data]
+  public func publicKeyChain(_ trust: Security.SecTrust) -> [Security.SecKey]
+  @objc deinit
+}
+public enum CocoaMQTTPropertyName : Swift.UInt8 {
+  case payloadFormatIndicator
+  case willExpiryInterval
+  case contentType
+  case responseTopic
+  case correlationData
+  case subscriptionIdentifier
+  case sessionExpiryInterval
+  case assignedClientIdentifier
+  case serverKeepAlive
+  case authenticationMethod
+  case authenticationData
+  case requestProblemInformation
+  case willDelayInterval
+  case requestResponseInformation
+  case responseInformation
+  case serverReference
+  case reasonString
+  case receiveMaximum
+  case topicAliasMaximum
+  case topicAlias
+  case maximumQoS
+  case retainAvailable
+  case userProperty
+  case maximumPacketSize
+  case wildcardSubscriptionAvailable
+  case subscriptionIdentifiersAvailable
+  case sharedSubscriptionAvailable
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public enum formatInt : Swift.Int {
+  case formatUint8
+  case formatUint16
+  case formatUint32
+  case formatSint8
+  case formatSint16
+  case formatSint32
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class CocoaMQTT5Message : ObjectiveC.NSObject {
+  public var qos: IoTConnect.CocoaMQTTQoS
+  public var topic: Swift.String
+  public var payload: [Swift.UInt8]
+  public var retained: Swift.Bool
+  public var duplicated: Swift.Bool
+  public var isUTF8EncodedData: Swift.Bool
+  public var willDelayInterval: Swift.UInt32?
+  public var willExpiryInterval: Swift.UInt32?
+  public var contentType: Swift.String?
+  public var willResponseTopic: Swift.String?
+  public var willCorrelationData: [Swift.UInt8]?
+  public var willUserProperty: [Swift.String : Swift.String]?
+  public var string: Swift.String? {
+    get
+  }
+  public var properties: [Swift.UInt8] {
+    get
+  }
+  public init(topic: Swift.String, string: Swift.String, qos: IoTConnect.CocoaMQTTQoS = .qos1, retained: Swift.Bool = false)
+  public init(topic: Swift.String, payload: [Swift.UInt8], qos: IoTConnect.CocoaMQTTQoS = .qos1, retained: Swift.Bool = false)
+  public init(topic: Swift.String, payload: [Swift.String : Any], qos: IoTConnect.CocoaMQTTQoS = .qos1, retained: Swift.Bool = false) throws
+  @objc deinit
+}
+extension IoTConnect.CocoaMQTT5Message {
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+}
+@objc public enum CocoaMQTTQoS : Swift.UInt8, Swift.CustomStringConvertible {
+  case qos0 = 0
+  case qos1
+  case qos2
+  case FAILURE = 0x80
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+extension IoTConnect.CocoaMQTTQoS : Swift.Comparable {
+  public static func < (lhs: IoTConnect.CocoaMQTTQoS, rhs: IoTConnect.CocoaMQTTQoS) -> Swift.Bool
+  public static func <= (lhs: IoTConnect.CocoaMQTTQoS, rhs: IoTConnect.CocoaMQTTQoS) -> Swift.Bool
+  public static func > (lhs: IoTConnect.CocoaMQTTQoS, rhs: IoTConnect.CocoaMQTTQoS) -> Swift.Bool
+  public static func >= (lhs: IoTConnect.CocoaMQTTQoS, rhs: IoTConnect.CocoaMQTTQoS) -> Swift.Bool
+}
+extension IoTConnect.CocoaMQTTConnState : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTConnState : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTConnState : Swift.RawRepresentable {}
+extension IoTConnect.Environment : Swift.Equatable {}
+extension IoTConnect.Environment : Swift.Hashable {}
+extension IoTConnect.Environment : Swift.RawRepresentable {}
+extension IoTConnect.CloseCode : Swift.Equatable {}
+extension IoTConnect.CloseCode : Swift.Hashable {}
+extension IoTConnect.CloseCode : Swift.RawRepresentable {}
+extension IoTConnect.ErrorType : Swift.Equatable {}
+extension IoTConnect.ErrorType : Swift.Hashable {}
+extension IoTConnect.WebSocket.OpCode : Swift.Equatable {}
+extension IoTConnect.WebSocket.OpCode : Swift.Hashable {}
+extension IoTConnect.WebSocket.OpCode : Swift.RawRepresentable {}
+@available(*, unavailable, renamed: "Connection")
+extension IoTConnect.Reachability.NetworkStatus : Swift.Equatable {}
+@available(*, unavailable, renamed: "Connection")
+extension IoTConnect.Reachability.NetworkStatus : Swift.Hashable {}
+extension IoTConnect.Reachability.Connection : Swift.Equatable {}
+extension IoTConnect.Reachability.Connection : Swift.Hashable {}
+extension IoTConnect.MqttConnectionType : Swift.Equatable {}
+extension IoTConnect.MqttConnectionType : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTAUTHReasonCode : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTAUTHReasonCode : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTAUTHReasonCode : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTCONNACKReasonCode : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTCONNACKReasonCode : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTCONNACKReasonCode : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTDISCONNECTReasonCode : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTDISCONNECTReasonCode : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTDISCONNECTReasonCode : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTPUBACKReasonCode : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTPUBACKReasonCode : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTPUBACKReasonCode : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTPUBCOMPReasonCode : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTPUBCOMPReasonCode : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTPUBCOMPReasonCode : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTPUBRECReasonCode : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTPUBRECReasonCode : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTPUBRECReasonCode : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTPUBRELReasonCode : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTPUBRELReasonCode : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTPUBRELReasonCode : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTSUBACKReasonCode : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTSUBACKReasonCode : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTSUBACKReasonCode : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTUNSUBACKReasonCode : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTUNSUBACKReasonCode : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTUNSUBACKReasonCode : Swift.RawRepresentable {}
+extension IoTConnect.CocoaRetainHandlingOption : Swift.Equatable {}
+extension IoTConnect.CocoaRetainHandlingOption : Swift.Hashable {}
+extension IoTConnect.CocoaRetainHandlingOption : Swift.RawRepresentable {}
+extension IoTConnect.PayloadFormatIndicator : Swift.Equatable {}
+extension IoTConnect.PayloadFormatIndicator : Swift.Hashable {}
+extension IoTConnect.PayloadFormatIndicator : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTLoggerLevel : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTLoggerLevel : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTLoggerLevel : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTConnAck : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTConnAck : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTConnAck : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTError : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTError : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTPropertyName : Swift.Equatable {}
+extension IoTConnect.CocoaMQTTPropertyName : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTPropertyName : Swift.RawRepresentable {}
+extension IoTConnect.formatInt : Swift.Equatable {}
+extension IoTConnect.formatInt : Swift.Hashable {}
+extension IoTConnect.formatInt : Swift.RawRepresentable {}
+extension IoTConnect.CocoaMQTTQoS : Swift.Hashable {}
+extension IoTConnect.CocoaMQTTQoS : Swift.RawRepresentable {}

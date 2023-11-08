@@ -78,25 +78,7 @@ class ViewController: UIViewController {
     func connectSDK() {
 
     //This code works for certificate authentication
-/*
-        var sdkOptions = SDKClientOption()
-        
-        //SSL Certificates with password
-        sdkOptions.SSL.Certificate = Bundle.main.path(forResource: "device.pfx", ofType: nil)
-        sdkOptions.SSL.Password = "1234"
-        
-        //Offline Storage Configuration
-        sdkOptions.OfflineStorage.AvailSpaceInMb = 0
-        sdkOptions.OfflineStorage.FileCount = 10
-        
-        //For Developer
-        sdkOptions.discoveryUrl = "https://discovery.iotconnect.io"
-        sdkOptions.debug = true
-        
-        //For SSL Enable Device Connection
-        let objConfig = IoTConnectConfig(cpId: "nine", uniqueId: "iosss01", env: "QA", sdkOptions: sdkOptions)
- 
- */
+
         if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
             //This code works for token base authentication
             let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "",
