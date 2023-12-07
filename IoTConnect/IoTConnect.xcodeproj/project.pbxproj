@@ -126,6 +126,18 @@
 		DD1A9BC12AE2507E0033C6FD /* MGCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1A9B5D2AE24F960033C6FD /* MGCDAsyncSocket.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DDFF64422B1764EB009ABCA7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		060D2F7926A1C03200365CDE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		0627363726CFE69D00B9A037 /* ErrosLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrosLog.swift; sourceTree = "<group>"; };
@@ -523,6 +535,8 @@
 				06AA0EFE2656337100FC8F55 /* Sources */,
 				06AA0EFF2656337100FC8F55 /* Frameworks */,
 				06AA0F002656337100FC8F55 /* Resources */,
+				DDFF64422B1764EB009ABCA7 /* CopyFiles */,
+				DDFF64432B1764EF009ABCA7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -598,6 +612,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "REVEAL_ARCHIVE_IN_FINDER=true\nFRAMEWORK_NAME=${PROJECT_NAME}\necho $(date) > framework.log\necho \"\" >> framework.log\necho \"Archiving ${FRAMEWORK_NAME} for iOS simulator...\" >> framework.log\nxcodebuild archive -project \"${PROJECT_DIR}/${FRAMEWORK_NAME}.xcodeproj\" \\\n-scheme \"${FRAMEWORK_NAME}\" \\\n-destination \"generic/platform=iOS Simulator\" \\\n-archivePath \"${PROJECT_DIR}/Archives/${FRAMEWORK_NAME}-iOS-Simulator\" \\\nONLY_ACTIVE_ARCH=NO \\\nSKIP_INSTALL=NO \\\nBUILD_LIBRARY_FOR_DISTRIBUTION=YES\necho \"Done\" >> framework.log\necho \"\" >> framework.log\necho \"Archiving ${FRAMEWORK_NAME} for iOS...\" >> framework.log\nxcodebuild archive -project \"${PROJECT_DIR}/${FRAMEWORK_NAME}.xcodeproj\" \\\n-scheme \"${FRAMEWORK_NAME}\" \\\n-destination \"generic/platform=iOS\" \\\n-archivePath \"${PROJECT_DIR}/Archives/${FRAMEWORK_NAME}-iOS\" \\\nONLY_ACTIVE_ARCH=NO \\\nSKIP_INSTALL=NO \\\nBUILD_LIBRARY_FOR_DISTRIBUTION=YES\necho \"Done\" >> framework.log\necho \"\" >> framework.log\necho \"Creating the ${FRAMEWORK_NAME} XC Framework...\" >> framework.log\nxcodebuild -create-xcframework \\\n-framework \"${PROJECT_DIR}/Archives/${FRAMEWORK_NAME}-iOS-Simulator.xcarchive/Products/Library/Frameworks/${FRAMEWORK_NAME}.framework\" \\\n-framework \"${PROJECT_DIR}/Archives/${FRAMEWORK_NAME}-iOS.xcarchive/Products/Library/Frameworks/${FRAMEWORK_NAME}.framework\" \\\n-output \"${PROJECT_DIR}/${FRAMEWORK_NAME}.xcframework\"\necho \"Done\" >> framework.log\necho \"\" >> framework.log\necho \"Remove temporary Archives folder...\" >> framework.log\nrm -rf \"${PROJECT_DIR}/Archives\"\necho \"Done\" >> framework.log\nif [ $REVEAL_ARCHIVE_IN_FINDER = true ]; then\n    open ${PROJECT_DIR}\nfi\n";
+		};
+		DDFF64432B1764EF009ABCA7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#1. After then make a fresh directory directory \n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the [output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n\n# 2. Copy Device(arm64) Framework at fresh universal folder location \ncp -a \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n\n\n#3. Copy Sim(x86_64) Frameworks's \"MyFramework.swiftmodule\" Folder Content & paste it at  Fat(x86_64 + arm64) Frameworks's  \"MyFramework.swiftmodule\" folder.\n\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\nfi\n\n\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n\n\n# Step 5. Copy output at Project Directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}\"\n\n# Step 6. Open Project Directory\nopen \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
