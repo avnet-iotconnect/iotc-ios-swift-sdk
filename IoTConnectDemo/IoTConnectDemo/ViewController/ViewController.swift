@@ -144,15 +144,15 @@ class ViewController: UIViewController {
             //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
             
-          //  sdkOptions.broker = Broker.aws.EnvironmentA.d
+           // sdkOptions.brokerType = .aws
             
             //SSL Certificates with password
 //            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client.p12", ofType: nil)
 //           sdkOptions.ssl.password = "Softweb@123"
             sdkOptions.skipValidation = true
             
-            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "clientAWS.p12", ofType: nil)
-           sdkOptions.ssl.password = "1234"
+            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "cert_ANov1001.p12", ofType: nil)
+           sdkOptions.ssl.password = ""
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
