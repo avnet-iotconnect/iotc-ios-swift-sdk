@@ -51,7 +51,12 @@ public class SDKClient {
      Returns nothing
      */
     public func initialize(config: IoTConnectConfig) {
+        #if IOTAWS
+        print("SDKClient initialize AWS")
+        #else
         print("SDKClient initialize")
+        #endif
+       
         iotConnectManager = IoTConnectManager(cpId: config.cpId, uniqueId: config.uniqueId, env: config.env.rawValue, sdkOptions: config.sdkOptions, deviceCallback: { (message) in
             if self.blockHandlerDeviceCallBack != nil {
                 print("SDKClient blockHandlerDeviceCallBack")

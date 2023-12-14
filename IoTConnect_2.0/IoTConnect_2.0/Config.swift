@@ -56,14 +56,17 @@ struct SDKURL {
      Returns the Discovery URL.
      */
     
-    static func discovery(_ strDiscoveryURL:String, _ cpId:String, _ lang:String, _ ver:String, _ env:String,broker:BrokerType) -> String {
+    static func discovery(_ strDiscoveryURL:String, _ cpId:String, _ lang:String, _ ver:String, _ env:String) -> String {
         //kirtan
        
-        if broker == .aws{
+        #if IOTAWS
+//        if broker == .aws{
             return String(format: "\(SDKURL.discoveryHostAWS)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)")
-        }else{
+        #else
+//        }else{
             return String(format: "\(strDiscoveryURL)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)")
-        }
+        #endif
+//        }
     }
 }
 

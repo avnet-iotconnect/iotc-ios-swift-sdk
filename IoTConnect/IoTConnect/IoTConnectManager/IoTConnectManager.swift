@@ -20,7 +20,7 @@ class IoTConnectManager {
     var blockHandlerTwinUpdateCallBack : GetTwinUpdateCallBackBlock!
     var strCPId: String!
     var strUniqueId: String!
-    var strEnv: Environment = .PROD
+    var strEnv: IoTEnvironment = .PROD
     var strDiscoveryURL: String = SDKURL.discoveryHost
     var dictReference: [String:Any]!
     var dictSyncResponse: [String:Any]!
@@ -46,7 +46,7 @@ class IoTConnectManager {
         strCPId = cpId
         strUniqueId = uniqueId
         if !env.isEmpty {
-            strEnv = Environment(rawValue: env)!
+            strEnv = IoTEnvironment(rawValue: env)!
         }
 
         if sdkOptions != nil {

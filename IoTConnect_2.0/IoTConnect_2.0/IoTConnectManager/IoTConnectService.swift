@@ -36,7 +36,7 @@ extension IoTConnectManager {
         boolCanCallInialiseYN = true
         objCommon.createDirectoryFoldersForLogs()
         objCommon.manageDebugLog(code: Log.Info.INFO_IN04, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
-        objCommon.getBaseURL(strURL: SDKURL.discovery(strDiscoveryURL, cpId, SDKConstants.language, SDKConstants.version, strEnv.rawValue,broker:dataSDKOptions.brokerType ?? BrokerType.az)) { (status, data) in
+        objCommon.getBaseURL(strURL: SDKURL.discovery(strDiscoveryURL, cpId, SDKConstants.language, SDKConstants.version, strEnv.rawValue)) { (status, data) in
             if status {
                 if let dataRef = data as? [String : Any] {
                     self.objCommon.manageDebugLog(code: Log.Info.INFO_IN07, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)

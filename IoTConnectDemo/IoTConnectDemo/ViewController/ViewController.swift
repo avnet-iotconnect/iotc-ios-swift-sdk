@@ -6,7 +6,12 @@
 //
 
 import UIKit
+#if DEMOAWS
+import IoTConnect_2_aws
+#else
 import IoTConnect_2_0
+#endif
+
 
 public enum DeviceConnectionStatus{
     case connected
@@ -41,7 +46,7 @@ class ViewController: UIViewController {
     private var btnDisConnectTitle = "DISCONNECT"
     private let tblViewRowheight = 44.0
     private var noOfSecrions = 0
-    private var env:Environment = .QA
+    private var env:IOTCEnvironment = .PROD
     private var devivceStatus:DeviceConnectionStatus = .disconnected
     private let radioController: RadioButtonController = RadioButtonController()
     private var noOfAttributes = 0
@@ -65,7 +70,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         radioController.buttonsArray = [btnAvnet,btnQA,btnDev,btnPOC,btnPreQA]
-        radioController.defaultButton = btnQA
+        radioController.defaultButton = btnPOC
         
         //button Status Corner Radius
         btnStatus.layer.cornerRadius = 12.5
@@ -151,7 +156,7 @@ class ViewController: UIViewController {
 //           sdkOptions.ssl.password = "Softweb@123"
             sdkOptions.skipValidation = true
             
-            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "cert_ANov1001.p12", ofType: nil)
+//            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "cert_ANov1001.p12", ofType: nil)
            sdkOptions.ssl.password = ""
             
             //Offline Storage Configuration
@@ -163,8 +168,8 @@ class ViewController: UIViewController {
            // sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
             
             //for AWS choose brpker type AWS
-            sdkOptions.brokerType = .aws
-        
+//            sdkOptions.brokerType = .aws
+//        
             
             let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
             
@@ -782,7 +787,7 @@ class ViewController: UIViewController {
                 btn.backgroundColor = .systemBlue
                 btn.setTitleColor(.white, for: .normal)
             }else{
-                btn.backgroundColor = .systemGray3
+                btn.backgroundColor = .systemGray
                 btn.setTitleColor(.darkGray, for: .normal)
             }
         }
@@ -832,7 +837,11 @@ class ViewController: UIViewController {
     
     @IBAction func btnAvnetTapped(_ sender: UIButton) {
         radioController.buttonArrayUpdated(buttonSelected: sender)
-        env = .AVNET
+        #if DEMOAWS
+        
+        #else
+            env = .AVNET
+        #endif
     }
     
     @IBAction func btnPOCTapped(_ sender: UIButton) {
@@ -841,17 +850,27 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnQATapped(_ sender: UIButton) {
-        env = .QA
+        #if DEMOAWS
+            
+        #else
+            env = .QA
+        #endif
         radioController.buttonArrayUpdated(buttonSelected: sender)
     }
     
     @IBAction func btnDevTapped(_ sender: UIButton) {
-        env = .DEV
+        #if DEMOAWS
+            
+        #else
+            env = .DEV
+        #endif
         radioController.buttonArrayUpdated(buttonSelected: sender)
     }
     
     @IBAction func btnPREQATapped(_ sender: UIButton) {
+#if DEMOAWS
         env = .PREQA
+#endif
         radioController.buttonArrayUpdated(buttonSelected: sender)
     }
     

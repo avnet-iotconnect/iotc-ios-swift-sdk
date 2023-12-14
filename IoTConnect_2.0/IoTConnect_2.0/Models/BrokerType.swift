@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum BrokerType:String{
-    case az  = "az"
-    case aws = "aws"
-}
+//public enum BrokerType:String{
+//    case az  = "az"
+//    case aws = "aws"
+//}

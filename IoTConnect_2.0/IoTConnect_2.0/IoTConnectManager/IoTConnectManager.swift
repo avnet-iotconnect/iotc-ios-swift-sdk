@@ -37,7 +37,7 @@ class IoTConnectManager {
     var blockHandleronModuleCommandCallback : OnModuleCommandCallBackBlock!
     var strCPId: String!
     var strUniqueId: String!
-    var strEnv: Environment = .PROD
+    var strEnv: IOTCEnvironment = .PROD
     var strDiscoveryURL: String = SDKURL.discoveryHost
     var strDiscoveryURLAWS: String = SDKURL.discoveryHostAWS
     var dictReference: [String:Any]!
@@ -91,7 +91,7 @@ class IoTConnectManager {
         strCPId = cpId
         strUniqueId = uniqueId
         if !env.isEmpty {
-            strEnv = Environment(rawValue: env)!
+            strEnv = IOTCEnvironment(rawValue: env)!
         }
         
         if sdkOptions != nil {
@@ -125,7 +125,8 @@ class IoTConnectManager {
         objMQTTClient.boolIsInternetAvailableYN = checkInternetAvailable()
         reachabilityObserver()
         
-        if dataSDKOptions.brokerType == .aws{
+//        if dataSDKOptions.brokerType == .aws{
+        #if IOTAWS
             twinPropertyPubTopic =
             "$rid=1/aws/things/\(strCPId ?? "")/shadow/name/$\(strCPId ?? "")_twin_shadow/report"
                twinPropertySubTopic =
@@ -135,7 +136,7 @@ class IoTConnectManager {
             "aws/things/\(strCPId ?? "")/shadow/name/\(strCPId ?? "")_twin_shadow/get"
                twinResponseSubTopic =
             "aws/things/\(strCPId ?? "")/shadow/name/\(strCPId ?? "")_twin_shadow/get/all"
-        }
+        #endif
             
         initialize(cpId: cpId, uniqueId: uniqueId, deviceCallback: deviceCallback, twinUpdateCallback: twinUpdateCallback, getAttributesCallback: attributeCallBack,getTwinsCallback: twinsCallBack, getChildDevucesCallback: getChildCallback)
     }

@@ -24,21 +24,21 @@ public struct SDKClientOption {
     public var devicePK = ""
    
     //broker options
-    public var brokerType: BrokerType?{
-        didSet{
-            if brokerType == .aws{
-                enum Env:String{
-                    case a = "a"
-                    case b  = "b"
-                }
-            }else if brokerType == .az{
-                enum Env:String{
-                    case c = "a"
-                    case d  = "b"
-                }
-            }
-        }
-    }
+//    public var brokerType: BrokerType?{
+//        didSet{
+//            if brokerType == .aws{
+//                enum Env:String{
+//                    case a = "a"
+//                    case b  = "b"
+//                }
+//            }else if brokerType == .az{
+//                enum Env:String{
+//                    case c = "a"
+//                    case d  = "b"
+//                }
+//            }
+//        }
+//    }
     
     public var broker = Broker.az.EnvironmentA.dev
     

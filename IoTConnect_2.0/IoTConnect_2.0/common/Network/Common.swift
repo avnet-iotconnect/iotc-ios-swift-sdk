@@ -5,6 +5,21 @@
 
 import Foundation
 
+public enum IOTCEnvironment: String {
+    case PROD = "PROD"
+    
+    #if IOTAWS
+    //define AWS environment
+    case PREQA  = "PREQA"
+    case POC = "poc"
+    #else
+    //define Azure environment
+    case DEV = "DEV"
+    case AVNET = "AVNET"
+    case QA = "QA"
+    #endif
+}
+
 class Common {
     
     private var strCPID: String = ""

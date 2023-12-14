@@ -10,4 +10,7 @@
    <FileRef
       location = "group:IoTConnect_2.0/IoTConnect_2.0.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>
