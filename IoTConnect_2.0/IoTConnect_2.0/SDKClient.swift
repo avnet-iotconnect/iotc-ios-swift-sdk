@@ -51,6 +51,7 @@ public class SDKClient {
      Returns nothing
      */
     public func initialize(config: IoTConnectConfig) {
+        //, withBlock completionHandler: @escaping (Error:String?) -> Void
         #if IOTAWS
         print("SDKClient initialize AWS")
         #else

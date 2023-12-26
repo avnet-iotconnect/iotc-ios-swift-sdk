@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17CD4DB597368394993A8859 /* Pods_IoTConnectDemo_AWS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5189AF82DD2AF36EBD44DF /* Pods_IoTConnectDemo_AWS.framework */; };
 		37E87BC63FAD80D9BFC0BC53 /* Pods_IoTConnectDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 356E01D1B1EFB30532B29B27 /* Pods_IoTConnectDemo.framework */; };
+		8F0D2E8633F9962DC49E3D2F /* Pods_IoTConnectDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 356E01D1B1EFB30532B29B27 /* Pods_IoTConnectDemo.framework */; };
 		9285F66E26D62EEF00BC30DC /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9285F66C26D62EEF00BC30DC /* TableHeaderView.xib */; };
 		9285F66F26D62EEF00BC30DC /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285F66D26D62EEF00BC30DC /* TableHeaderView.swift */; };
 		9285F67126D62F5000BC30DC /* PropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285F67026D62F5000BC30DC /* PropertyCell.swift */; };
@@ -17,6 +19,7 @@
 		C0C04CD126D015D900182C45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CCF26D015D900182C45 /* Main.storyboard */; };
 		C0C04CD326D015DA00182C45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD226D015DA00182C45 /* Assets.xcassets */; };
 		C0C04CD626D015DA00182C45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */; };
+		DD0AFF802B318B2D007A1EB2 /* mytest.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD0AFF7F2B318B2D007A1EB2 /* mytest.p12 */; };
 		DD229E812AE930A900A6E7E8 /* clientAWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD229E802AE930A900A6E7E8 /* clientAWS.p12 */; };
 		DD36C4412A304EF9008BA007 /* IoTConnect_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */; };
 		DD3B09752B29A28A003C14B2 /* PropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285F67026D62F5000BC30DC /* PropertyCell.swift */; };
@@ -30,8 +33,6 @@
 		DD3B097D2B29A28A003C14B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C04CCB26D015D900182C45 /* SceneDelegate.swift */; };
 		DD3B097E2B29A28A003C14B2 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0C2962A38958A001793C5 /* RadioButtonController.swift */; };
 		DD3B097F2B29A28A003C14B2 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7E84A02A9340180031A231 /* ChildOperationVC.swift */; };
-		DD3B09812B29A28A003C14B2 /* IoTConnect_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */; };
-		DD3B09822B29A28A003C14B2 /* Pods_IoTConnectDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 356E01D1B1EFB30532B29B27 /* Pods_IoTConnectDemo.framework */; };
 		DD3B09842B29A28A003C14B2 /* client.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD989A1B2AB193CF00FD70DD /* client.p12 */; };
 		DD3B09852B29A28A003C14B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */; };
 		DD3B09862B29A28A003C14B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD226D015DA00182C45 /* Assets.xcassets */; };
@@ -40,9 +41,6 @@
 		DD3B09892B29A28A003C14B2 /* cert_ANov1001.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DDA4F5A42B1F1681008C31AD /* cert_ANov1001.p12 */; };
 		DD3B098A2B29A28A003C14B2 /* clientAWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD229E802AE930A900A6E7E8 /* clientAWS.p12 */; };
 		DD3B098B2B29A28A003C14B2 /* DeviceCertificate.pfx in Resources */ = {isa = PBXBuildFile; fileRef = DD989A192AB18FFF00FD70DD /* DeviceCertificate.pfx */; };
-		DD3B098D2B29A28A003C14B2 /* IoTConnect_2_0.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DD3B09AD2B2AD094003C14B2 /* IoTConnect_2_aws.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3B09AC2B2AD094003C14B2 /* IoTConnect_2_aws.framework */; };
-		DD3B09AE2B2AD094003C14B2 /* IoTConnect_2_aws.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD3B09AC2B2AD094003C14B2 /* IoTConnect_2_aws.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DD5B602D2A936EB80018BB1C /* iOSDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */; };
 		DD7E84A12A9340180031A231 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7E84A02A9340180031A231 /* ChildOperationVC.swift */; };
 		DD989A1A2AB18FFF00FD70DD /* DeviceCertificate.pfx in Resources */ = {isa = PBXBuildFile; fileRef = DD989A192AB18FFF00FD70DD /* DeviceCertificate.pfx */; };
@@ -52,6 +50,8 @@
 		DDA60A602A2F176300F686BF /* IoTConnect_2_0.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DDC0C2972A38958A001793C5 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0C2962A38958A001793C5 /* RadioButtonController.swift */; };
 		DDD1BEF72A52F50800B00F52 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD1BEF62A52F50800B00F52 /* Identity.swift */; };
+		DDF8F4C62B30532700B5BA30 /* IoTConnect_2_aws.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF8F4C52B30532700B5BA30 /* IoTConnect_2_aws.framework */; };
+		DDF8F4C72B30532700B5BA30 /* IoTConnect_2_aws.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDF8F4C52B30532700B5BA30 /* IoTConnect_2_aws.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DDFA34642A3C297400232B5C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA34632A3C297400232B5C /* Enums.swift */; };
 /* End PBXBuildFile section */
 
@@ -67,14 +67,13 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DD3B098C2B29A28A003C14B2 /* Embed Frameworks */ = {
+		DDF8F4C82B30532700B5BA30 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DD3B098D2B29A28A003C14B2 /* IoTConnect_2_0.framework in Embed Frameworks */,
-				DD3B09AE2B2AD094003C14B2 /* IoTConnect_2_aws.framework in Embed Frameworks */,
+				DDF8F4C72B30532700B5BA30 /* IoTConnect_2_aws.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,11 +81,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A5189AF82DD2AF36EBD44DF /* Pods_IoTConnectDemo_AWS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IoTConnectDemo_AWS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		356E01D1B1EFB30532B29B27 /* Pods_IoTConnectDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IoTConnectDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C3F61C56CEFBA3116DAB5D2 /* Pods-IoTConnectDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo.debug.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		5C64AC3ACA90DA213D95C55C /* Pods-IoTConnectDemo_AWS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo_AWS.release.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS.release.xcconfig"; sourceTree = "<group>"; };
+		6ADA7BBAAAEF9C7FD2D6B0EA /* Pods-IoTConnectDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo.release.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo.release.xcconfig"; sourceTree = "<group>"; };
 		9285F66C26D62EEF00BC30DC /* TableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
 		9285F66D26D62EEF00BC30DC /* TableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		9285F67026D62F5000BC30DC /* PropertyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyCell.swift; sourceTree = "<group>"; };
+		ABA5E5E8262E859A054F73AC /* Pods-IoTConnectDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo.debug.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C0C04CC626D015D900182C45 /* IoTConnectDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IoTConnectDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C04CC926D015D900182C45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0C04CCB26D015D900182C45 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,10 +97,12 @@
 		C0C04CD226D015DA00182C45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0C04CD526D015DA00182C45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0C04CD726D015DA00182C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1B97395C985B880218674FA /* Pods-IoTConnectDemo_AWS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo_AWS.debug.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS.debug.xcconfig"; sourceTree = "<group>"; };
+		DD0AFF7F2B318B2D007A1EB2 /* mytest.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mytest.p12; sourceTree = "<group>"; };
 		DD229E802AE930A900A6E7E8 /* clientAWS.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = clientAWS.p12; path = ../../../../../Downloads/E39C09D0F58B2B6B941E4FD2D869C31D6617BB54/AWS/clientAWS.p12; sourceTree = "<group>"; };
 		DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD3B09922B29A28A003C14B2 /* IoTConnectDemo_AWS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IoTConnectDemo_AWS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD3B09932B29A28B003C14B2 /* IoTConnectDemo copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "IoTConnectDemo copy-Info.plist"; path = "/Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnectDemo/IoTConnectDemo copy-Info.plist"; sourceTree = "<absolute>"; };
+		DD3B09932B29A28B003C14B2 /* IoTConnectDemo_AWS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = IoTConnectDemo_AWS.plist; path = "/Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnectDemo/IoTConnectDemo_AWS.plist"; sourceTree = "<absolute>"; };
 		DD3B09AC2B2AD094003C14B2 /* IoTConnect_2_aws.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_aws.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iOSDropDown.swift; sourceTree = "<group>"; };
 		DD7E84A02A9340180031A231 /* ChildOperationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildOperationVC.swift; sourceTree = "<group>"; };
@@ -110,8 +114,8 @@
 		DDA843C62B298D6D005EFD1A /* IoTConnect_2.0_aws.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2.0_aws.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC0C2962A38958A001793C5 /* RadioButtonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonController.swift; sourceTree = "<group>"; };
 		DDD1BEF62A52F50800B00F52 /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
+		DDF8F4C52B30532700B5BA30 /* IoTConnect_2_aws.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_aws.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDFA34632A3C297400232B5C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
-		FA0B58B3D0955EA3C9864225 /* Pods-IoTConnectDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo.release.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,7 @@
 			files = (
 				DD36C4412A304EF9008BA007 /* IoTConnect_2_0.framework in Frameworks */,
 				37E87BC63FAD80D9BFC0BC53 /* Pods_IoTConnectDemo.framework in Frameworks */,
+				8F0D2E8633F9962DC49E3D2F /* Pods_IoTConnectDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,9 +133,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD3B09812B29A28A003C14B2 /* IoTConnect_2_0.framework in Frameworks */,
-				DD3B09AD2B2AD094003C14B2 /* IoTConnect_2_aws.framework in Frameworks */,
-				DD3B09822B29A28A003C14B2 /* Pods_IoTConnectDemo.framework in Frameworks */,
+				17CD4DB597368394993A8859 /* Pods_IoTConnectDemo_AWS.framework in Frameworks */,
+				DDF8F4C62B30532700B5BA30 /* IoTConnect_2_aws.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,7 +157,7 @@
 				C0C04CC726D015D900182C45 /* Products */,
 				C0C04CDF26D015FF00182C45 /* Frameworks */,
 				E64634C8FACC45E204B87E7C /* Pods */,
-				DD3B09932B29A28B003C14B2 /* IoTConnectDemo copy-Info.plist */,
+				DD3B09932B29A28B003C14B2 /* IoTConnectDemo_AWS.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -181,6 +185,7 @@
 				C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */,
 				C0C04CD726D015DA00182C45 /* Info.plist */,
 				DDFA34632A3C297400232B5C /* Enums.swift */,
+				DD0AFF7F2B318B2D007A1EB2 /* mytest.p12 */,
 				DDA4F5A42B1F1681008C31AD /* cert_ANov1001.p12 */,
 				DD229E802AE930A900A6E7E8 /* clientAWS.p12 */,
 				DD989A1B2AB193CF00FD70DD /* client.p12 */,
@@ -192,11 +197,13 @@
 		C0C04CDF26D015FF00182C45 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DDF8F4C52B30532700B5BA30 /* IoTConnect_2_aws.framework */,
 				DD3B09AC2B2AD094003C14B2 /* IoTConnect_2_aws.framework */,
 				DDA843C62B298D6D005EFD1A /* IoTConnect_2.0_aws.framework */,
 				DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */,
 				DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */,
 				356E01D1B1EFB30532B29B27 /* Pods_IoTConnectDemo.framework */,
+				2A5189AF82DD2AF36EBD44DF /* Pods_IoTConnectDemo_AWS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -239,8 +246,10 @@
 		E64634C8FACC45E204B87E7C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3C3F61C56CEFBA3116DAB5D2 /* Pods-IoTConnectDemo.debug.xcconfig */,
-				FA0B58B3D0955EA3C9864225 /* Pods-IoTConnectDemo.release.xcconfig */,
+				ABA5E5E8262E859A054F73AC /* Pods-IoTConnectDemo.debug.xcconfig */,
+				6ADA7BBAAAEF9C7FD2D6B0EA /* Pods-IoTConnectDemo.release.xcconfig */,
+				D1B97395C985B880218674FA /* Pods-IoTConnectDemo_AWS.debug.xcconfig */,
+				5C64AC3ACA90DA213D95C55C /* Pods-IoTConnectDemo_AWS.release.xcconfig */,
 			);
 			name = Pods;
 			path = ../Pods;
@@ -273,12 +282,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD3B098F2B29A28A003C14B2 /* Build configuration list for PBXNativeTarget "IoTConnectDemo_AWS" */;
 			buildPhases = (
-				DD3B09732B29A28A003C14B2 /* [CP] Check Pods Manifest.lock */,
+				0E781A450E6AFAD60CEC3AF1 /* [CP] Check Pods Manifest.lock */,
 				DD3B09742B29A28A003C14B2 /* Sources */,
 				DD3B09802B29A28A003C14B2 /* Frameworks */,
 				DD3B09832B29A28A003C14B2 /* Resources */,
-				DD3B098C2B29A28A003C14B2 /* Embed Frameworks */,
-				DD3B098E2B29A28A003C14B2 /* [CP] Embed Pods Frameworks */,
+				F89DE3FBA70C438DA5807C75 /* [CP] Embed Pods Frameworks */,
+				DDF8F4C82B30532700B5BA30 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -333,6 +342,7 @@
 				9285F66E26D62EEF00BC30DC /* TableHeaderView.xib in Resources */,
 				C0C04CD126D015D900182C45 /* Main.storyboard in Resources */,
 				DDA4F5A52B1F1681008C31AD /* cert_ANov1001.p12 in Resources */,
+				DD0AFF802B318B2D007A1EB2 /* mytest.p12 in Resources */,
 				DD229E812AE930A900A6E7E8 /* clientAWS.p12 in Resources */,
 				DD989A1A2AB18FFF00FD70DD /* DeviceCertificate.pfx in Resources */,
 			);
@@ -356,6 +366,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0E781A450E6AFAD60CEC3AF1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IoTConnectDemo_AWS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4C36CD546A41980180A4D42D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -395,43 +427,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DD3B09732B29A28A003C14B2 /* [CP] Check Pods Manifest.lock */ = {
+		F89DE3FBA70C438DA5807C75 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-IoTConnectDemo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DD3B098E2B29A28A003C14B2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -613,7 +623,7 @@
 		};
 		C0C04CDB26D015DA00182C45 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C3F61C56CEFBA3116DAB5D2 /* Pods-IoTConnectDemo.debug.xcconfig */;
+			baseConfigurationReference = ABA5E5E8262E859A054F73AC /* Pods-IoTConnectDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -639,7 +649,7 @@
 		};
 		C0C04CDC26D015DA00182C45 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA0B58B3D0955EA3C9864225 /* Pods-IoTConnectDemo.release.xcconfig */;
+			baseConfigurationReference = 6ADA7BBAAAEF9C7FD2D6B0EA /* Pods-IoTConnectDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -665,7 +675,7 @@
 		};
 		DD3B09902B29A28A003C14B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C3F61C56CEFBA3116DAB5D2 /* Pods-IoTConnectDemo.debug.xcconfig */;
+			baseConfigurationReference = D1B97395C985B880218674FA /* Pods-IoTConnectDemo_AWS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -674,7 +684,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 85Z6DRR6M5;
-				INFOPLIST_FILE = "IoTConnectDemo copy-Info.plist";
+				INFOPLIST_FILE = IoTConnectDemo_AWS.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -692,7 +702,7 @@
 		};
 		DD3B09912B29A28A003C14B2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA0B58B3D0955EA3C9864225 /* Pods-IoTConnectDemo.release.xcconfig */;
+			baseConfigurationReference = 5C64AC3ACA90DA213D95C55C /* Pods-IoTConnectDemo_AWS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -701,7 +711,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 85Z6DRR6M5;
-				INFOPLIST_FILE = "IoTConnectDemo copy-Info.plist";
+				INFOPLIST_FILE = IoTConnectDemo_AWS.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

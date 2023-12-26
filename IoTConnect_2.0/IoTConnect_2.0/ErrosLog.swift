@@ -51,6 +51,7 @@ struct Log {//class
        case ERR_8     = "Connection Not Allowed"
        case ERR_9     = "Invalid Bootstrap Certificate"
        case ERR_10    = "Invalid Operational Certificate"
+       case ERR_InValidValue = "Please pass attribute value as String or check the format you have sent"
     }
     enum Info: String {
         case INFO_IN01 = "Device information received successfully"

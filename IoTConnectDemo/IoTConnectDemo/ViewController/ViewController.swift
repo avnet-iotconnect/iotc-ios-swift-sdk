@@ -144,9 +144,9 @@ class ViewController: UIViewController {
         //        let objConfig = IoTConnectConfig(cpId: "qaiot106", uniqueId: "SmplDevice", env: .QA, mqttConnectionType: .userCredntialAuthentication, sdkOptions: nil)
         
         if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
-            self.viewLoader.isHidden = false
+           // self.viewLoader.isHidden = false
             
-            //DeviceCertificate.pfx
+            //DeviceCertificate.pfx 
             var sdkOptions = SDKClientOption()
             
            // sdkOptions.brokerType = .aws
@@ -154,10 +154,10 @@ class ViewController: UIViewController {
             //SSL Certificates with password
 //            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client.p12", ofType: nil)
 //           sdkOptions.ssl.password = "Softweb@123"
-            sdkOptions.skipValidation = true
+          //  sdkOptions.skipValidation = true
             
 //            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "cert_ANov1001.p12", ofType: nil)
-           sdkOptions.ssl.password = ""
+//            sdkOptions.ssl.password = "iOS@P1777"
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
@@ -166,10 +166,6 @@ class ViewController: UIViewController {
             //for device PK
             //this is base64 string for SmplPk device
            // sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
-            
-            //for AWS choose brpker type AWS
-//            sdkOptions.brokerType = .aws
-//        
             
             let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
             
@@ -351,7 +347,8 @@ class ViewController: UIViewController {
                 SDKClient.shared.sendAckModule(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
             }
             
-        }else{
+        }
+        else{
             if txtCPID.text!.isEmpty{
                 presentAlert(title: "Please enter CPID value")
             }else{
@@ -371,7 +368,7 @@ class ViewController: UIViewController {
             dCount += data?.att?[i].d?.count ?? 0
             
             let p = data?.att?[i].p
-            print("simple device p \(String(describing: data?.att?[i])) \(String(describing: data?.att?[i].p))")
+            print("simple device p \(String(describing: data?.att?[i])) .0\(String(describing: data?.att?[i].p))")
              
             if arrAttData.count > 0{
                 for k in 0...(data?.att?[i].d?.count ?? 0)-1{
@@ -883,16 +880,37 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnSendDataTapped(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.viewLoader.isHidden = false
-        }
-        if self.arrChildAttributeData.count > 0{
-            loadData(data: arrChildAttributeData)
-        }else if arrParentData.count > 0{
-            loadData(data: arrParentData)
-        }else if arrSimpleDeviceData.count > 0{
-            loadData(data: arrSimpleDeviceData)
-        }
+//        DispatchQueue.main.async {
+//            self.viewLoader.isHidden = false
+//        }
+//        if self.arrChildAttributeData.count > 0{
+//            loadData(data: arrChildAttributeData)
+//        }else if arrParentData.count > 0{
+//            loadData(data: arrParentData)
+//        }else if arrSimpleDeviceData.count > 0{
+//            loadData(data: arrSimpleDeviceData)
+//        }
+        
+        ///wrong
+        let dict = ["d":
+                        [
+                            "P_Integer": 10
+                        ]
+        ] as [String:Any]
+        
+        //right way
+//        let dict = ["d":
+//                        [
+//                            [
+//                                "d":
+//                                    ["P_Integer": 10],
+//                                "dt": now(), "id": "Edge1901", "tg": ""
+//                            ]
+//                        ],
+//                    "dt": now()
+//        ] as [String : Any]
+        
+        SDKClient.shared.sendData(data: dict)
     }
     
     

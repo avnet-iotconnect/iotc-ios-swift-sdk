@@ -7,20 +7,29 @@ PODS:
   - MqttCocoaAsyncSocket (1.0.8)
 
 DEPENDENCIES:
-  - CocoaMQTT (= 2.1.6)
+  - CocoaMQTT (from `https://github.com/emqx/CocoaMQTT.git`, tag `2.1.6`)
   - IQKeyboardManagerSwift
 
 SPEC REPOS:
   trunk:
-    - CocoaMQTT
     - IQKeyboardManagerSwift
     - MqttCocoaAsyncSocket
+
+EXTERNAL SOURCES:
+  CocoaMQTT:
+    :git: https://github.com/emqx/CocoaMQTT.git
+    :tag: 2.1.6
+
+CHECKOUT OPTIONS:
+  CocoaMQTT:
+    :git: https://github.com/emqx/CocoaMQTT.git
+    :tag: 2.1.6
 
 SPEC CHECKSUMS:
   CocoaMQTT: 1f206228b29318eabdacad0c2e4e88575922c27a
   IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
   MqttCocoaAsyncSocket: 77d3b74f76228dd5a05d1f9526eab101d415b30c
 
-PODFILE CHECKSUM: 1a2eafed0f0348fd90a7ee7621dea111489cb8d1
+PODFILE CHECKSUM: 6b66bbdef55c2922d94839d01a52076b061b84b8
 
 COCOAPODS: 1.13.0

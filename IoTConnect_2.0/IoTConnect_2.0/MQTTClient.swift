@@ -808,7 +808,7 @@ extension MQTTClient: CocoaMQTTDelegate {
     
     func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
         TRACE("mqttDidDisconnect: \(err.debugDescription)")
-        objCommon.manageDebugLog(code: Log.Errors.ERR_IN14, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+        objCommon.manageDebugLog(code: Log.Errors.ERR_IN14.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         objCommon.manageDebugLog(code: Log.Info.INFO_IN03, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
 //        print(err)
         if err == nil{
@@ -821,7 +821,7 @@ extension MQTTClient: CocoaMQTTDelegate {
                                               Dictkeys.ackIDKey: "",
                                               Dictkeys.commandTypeKey: CommandType.DEVICE_CONNECTION_STATUS.rawValue]], 2)
         }else{
-            blockHandler?(["sdkStatus": Log.Errors.ERR_IN14], 1)
+            blockHandler?(["sdkStatus": Log.Errors.ERR_IN14.rawValue], 1)
         }
     }
 }

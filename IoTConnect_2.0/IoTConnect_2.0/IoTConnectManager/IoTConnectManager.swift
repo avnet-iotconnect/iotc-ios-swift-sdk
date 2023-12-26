@@ -94,6 +94,8 @@ class IoTConnectManager {
             strEnv = IOTCEnvironment(rawValue: env)!
         }
         
+        deviceCallback (["Error":"cpId is empty"])
+        
         if sdkOptions != nil {
             dataSDKOptions = sdkOptions
         } else {

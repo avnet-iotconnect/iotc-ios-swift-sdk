@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3ey-NY-Slv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3ey-NY-Slv">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,11 +14,11 @@
             <objects>
                 <viewController id="WM8-vI-5hN" customClass="ViewController" customModule="IoTConnectDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YYj-jx-Jhw">
-                        <rect key="frame" x="0.0" y="0.0" width="298" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="298" height="998"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sot-yl-FB8">
-                                <rect key="frame" x="0.0" y="48" width="298" height="858"/>
+                                <rect key="frame" x="0.0" y="48" width="298" height="856"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Lfy-nK-64s">
                                         <rect key="frame" x="0.0" y="0.0" width="298" height="725"/>
@@ -444,7 +444,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="9M6-ZE-OpX"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m26-RW-xNs">
-                                <rect key="frame" x="0.0" y="906" width="298" height="60"/>
+                                <rect key="frame" x="0.0" y="904" width="298" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device Disconnected..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOM-Lq-2fV">
                                         <rect key="frame" x="18" y="20" width="175.5" height="20.5"/>
@@ -474,7 +474,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2bu-Iy-GcD"/>
-                    <size key="freeformSize" width="298" height="1000"/>
+                    <size key="freeformSize" width="298" height="998"/>
                     <connections>
                         <outlet property="btnAvnet" destination="kFh-wh-FUs" id="qup-Xx-DvQ"/>
                         <outlet property="btnChildDevicesOperation" destination="AX7-f5-Ryp" id="Ezj-fW-F4H"/>

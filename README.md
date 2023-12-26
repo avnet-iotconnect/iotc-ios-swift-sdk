@@ -48,31 +48,12 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
     
     //device PK
     public var devicePK = ""
-   
-    //broker options
-    public var brokerType: BrokerType?{
-        didSet{
-            if brokerType == .aws{
-                enum Env:String{
-                    case a = "a"
-                    case b  = "b"
-                }
-            }else if brokerType == .az{
-                enum Env:String{
-                    case c = "a"
-                    case d  = "b"
-                }
-            }
-        }
-    }
-    
-    //MARK: - Method - SDK-Initialiase
+ 
     public init () {}
 }
 
 - Create object for SDKClientOption and init values
 
-* "brokerType": pass broker type either AZ or AWS from mentioned enum(BrokerType)
 * "devicePK":  If authentication type is symmetric key then use it.
 * "skipValidation": false = do not want to skip data validation for attributes, true= want to skip data validation for attributes
 * "SSLOption": It is indicated to define the path of the certificate file. Mandatory for X.509/SSL device CA signed or self-signed authentication type only.
@@ -82,8 +63,7 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
     - disabled : false = offline data storing, true = not storing offline data 
     - availSpaceInMb : Define the file size of off-line data which should be in (MB)
     - fileCount : Number of files need to create for off-line data
-   
-            > ****Note**:-**  In sdkOptions it is mandatory to pass broker type, and define other setting acording to needs. 
+
 If you do not provide off-line storage, it will set the default settings as per defined above. It may harm your device by storing the large data. Once memory gets full may chance to stop the execution.
 
 - To Initialize the SDK object and connect to the cloud.
@@ -194,7 +174,7 @@ If you do not provide off-line storage, it will set the default settings as per 
             }
 ```
 
-- This is the standard data input format for Gateway and non Gateway device to send the data on IoTConnect cloud(D2C).
+- This is the standard data input format for Gateway and non Gateway device to send the data on IoTConnect cloud(D2C) Please make sure to pass <value> of any attribute is in string.
 ```
      ["d":
       [
@@ -222,6 +202,7 @@ If you do not provide off-line storage, it will set the default settings as per 
 - - Please use Xcode 12.4 to compile
 - Targets
 - - IoTConnect
+- - IoTConnect_2.0
 - - IoTConnectDemo
 - Key Branches
 - -  **develop:** contains the latest dev code.
