@@ -85,7 +85,7 @@ class MQTTClient {
                 mqtt!.allowUntrustCACertificate = true
                 boolToConnectYN = true
             } else {
-                objCommon.manageDebugLog(code: Log.Errors.ERR_IN11, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+                objCommon.manageDebugLog(code: Log.Errors.ERR_IN11.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             }
         } else {
             boolToConnectYN = true
@@ -117,7 +117,7 @@ class MQTTClient {
                                            Dictkeys.ackIDKey: "",
                                            Dictkeys.commandTypeKey: CommandType.DEVICE_CONNECTION_STATUS.rawValue]], 2)
         } else {
-            objCommon.manageDebugLog(code: Log.Errors.ERR_DC02, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_DC02.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
     //MARK: - Offline Process Methods
@@ -163,7 +163,7 @@ class MQTTClient {
                                         let data = try Data(contentsOf: urlFile, options: [])
                                         guard var packageObj = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] else {
                                             print("PackageObj-Read-parse error")
-                                            objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+                                            objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
                                             return
                                         }
                                         print("PackageObj-Main:\(packageObj)")
@@ -175,11 +175,11 @@ class MQTTClient {
                                             objCommon.manageDebugLog(code: Log.Info.INFO_OS02, uniqueId: self.strUniqueID, cpId: self.strCPID, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
                                         } catch {
                                             print("UpdateFile-error.localizedDescription: \(error.localizedDescription)")
-                                            objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: self.strUniqueID, cpId: self.strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
+                                            objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: self.strUniqueID, cpId: self.strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
                                         }
                                     } catch {
                                         print("PackageObj-parse error: \(error.localizedDescription)")
-                                        objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+                                        objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
                                     }
                                     isRunningOfflineStoring = false
                                 } else {
@@ -244,7 +244,7 @@ class MQTTClient {
                                 }
                             } catch {
                                 print("offlineProcess-fileSize-error.localizedDescription: \(error.localizedDescription)")
-                                objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+                                objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
                                 isRunningOfflineStoring = false
                             }
                         }
@@ -255,7 +255,7 @@ class MQTTClient {
                 }
             } catch {
                 print("offlineProcess-error.localizedDescription: \(error.localizedDescription)")
-                objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+                objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
             }
         }
     }
@@ -276,7 +276,7 @@ class MQTTClient {
                 callBack(true)
             } catch {
                 print("createFile-error.localizedDescription: \(error.localizedDescription)")
-                self.objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: self.strUniqueID, cpId: self.strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
+                self.objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: self.strUniqueID, cpId: self.strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
                 callBack(false)
             }
         }
@@ -295,7 +295,7 @@ class MQTTClient {
                     callBack()
                 } catch {
                     print("swapFilename-error.localizedDescription: \(error.localizedDescription)")
-                    objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+                    objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
                     callBack()
                 }
             } else {
@@ -329,13 +329,13 @@ class MQTTClient {
                             objCommon.manageDebugLog(code: Log.Info.INFO_OS04, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
                         } catch {
                             print("deleteFile-Remove-error.localizedDescription: \(error.localizedDescription)")
-                            objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: uniqueId, cpId: cpId, message:error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+                            objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: uniqueId, cpId: cpId, message:error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
                         }
                     }
                 }
             } catch {
                 print("deleteFile-error.localizedDescription: \(error.localizedDescription)")
-                objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: uniqueId, cpId: cpId, message:error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+                objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: uniqueId, cpId: cpId, message:error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
             }
         } else {
             do {
@@ -343,7 +343,7 @@ class MQTTClient {
                 objCommon.manageDebugLog(code: Log.Info.INFO_OS04, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
             } catch {
                 print("deleteFilePath-error.localizedDescription: \(error.localizedDescription)")
-                objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: uniqueId, cpId: cpId, message:error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+                objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: uniqueId, cpId: cpId, message:error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
             }
         }
     }
@@ -371,7 +371,7 @@ class MQTTClient {
             }
         } catch {
             print("checkOfflineData-error.localizedDescription: \(error.localizedDescription)")
-            objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: strUniqueID, cpId: strCPID, message:error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message:error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
         }
         if dataPublishFileArray.count > 0 {
             dataPublishFileArray.forEach { (file) in
@@ -404,7 +404,7 @@ class MQTTClient {
                 let data = try Data(contentsOf: objCommon.getDocumentsDirectory().appendingPathComponent(offlineDataFile), options: [])
                 guard let offDataObj = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] else {
                     print("checkAndSendOfflineData-Read-parse error")
-                    objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+                    objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
                     callBack(true)
                     return
                 }
@@ -418,11 +418,11 @@ class MQTTClient {
                 }
             } catch {
                 print("checkAndSendOfflineData-parse error: \(error.localizedDescription)")
-                objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+                objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
                 callBack(true)
             }
         } else {
-            objCommon.manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             callBack(true)
         }
     }
@@ -496,7 +496,7 @@ class MQTTClient {
             publishDataOnMQTT(dictSDKToHubForOS: dictSDKToHub, strPubTopic: topicToSend, strMessageToPass: message)// p.pub
         } catch let error {
             print("parse error: \(error.localizedDescription)")
-            objCommon.manageDebugLog(code: Log.Errors.ERR_CM01, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_CM01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
     
@@ -509,11 +509,11 @@ class MQTTClient {
             if mqtt?.connState == .connected {
                 objCommon.manageDebugLog(code: Log.Info.INFO_TP01, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
             } else {
-                objCommon.manageDebugLog(code: Log.Errors.ERR_TP02, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+                objCommon.manageDebugLog(code: Log.Errors.ERR_TP02.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             }
         } catch let error {
             print("parse error: \(error.localizedDescription)")
-            objCommon.manageDebugLog(code: Log.Errors.ERR_TP01, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_TP01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
     
@@ -524,7 +524,7 @@ class MQTTClient {
                     mqtt!.publish(strPubTopic, withString: strMessageToPass, qos: .qos1)
                     objCommon.manageDebugLog(code: Log.Info.INFO_SD01, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
                 } else {
-                    objCommon.manageDebugLog(code: Log.Errors.ERR_SD10, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+                    objCommon.manageDebugLog(code: Log.Errors.ERR_SD10.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
                 }
             } else {
                 if !dataSDKOptions.offlineStorage.disabled {
@@ -540,7 +540,7 @@ class MQTTClient {
                 mqtt!.publish(IoTConnectManager.sharedInstance.twinResponsePubTopic, withString: "", qos: .qos1)
                 objCommon.manageDebugLog(code: Log.Info.INFO_TP02, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
             } else {
-                objCommon.manageDebugLog(code: Log.Errors.ERR_TP04, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+                objCommon.manageDebugLog(code: Log.Errors.ERR_TP04.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             }
         }
     }

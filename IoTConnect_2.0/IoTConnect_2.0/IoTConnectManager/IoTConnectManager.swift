@@ -94,7 +94,8 @@ class IoTConnectManager {
             strEnv = IOTCEnvironment(rawValue: env)!
         }
         
-        deviceCallback (["Error":"cpId is empty"])
+//        deviceCallback (["Error":Log.Errors.ERR_IN12.rawValue])
+//        print(Log.Errors.ERR_IN12.rawValue)
         
         if sdkOptions != nil {
             dataSDKOptions = sdkOptions
@@ -106,7 +107,7 @@ class IoTConnectManager {
         
         if dataSDKOptions.discoveryUrl != nil {
             if dataSDKOptions.discoveryUrl!.isEmpty {
-                objCommon.manageDebugLog(code: Log.Errors.ERR_IN02, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+                objCommon.manageDebugLog(code: Log.Errors.ERR_IN02.rawValue, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             } else {
                 strDiscoveryURL = dataSDKOptions.discoveryUrl!
             }
@@ -260,7 +261,7 @@ class IoTConnectManager {
                 validateData(data: data, skipValidation: dataSDKOptions.skipValidation)
             }
         }else {
-            self.objCommon.manageDebugLog(code: Log.Errors.ERR_SD06, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            self.objCommon.manageDebugLog(code: Log.Errors.ERR_SD06.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
     
@@ -280,7 +281,7 @@ class IoTConnectManager {
      */
     func sendAck(data: [[String:Any]], msgType: String) {
         if data.count == 0 || msgType.isEmpty {
-            objCommon.manageDebugLog(code: Log.Errors.ERR_CM02, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_CM02.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         } else {
             if dictSyncResponse.count > 0 {
                 let timeNow = objCommon.now()
@@ -299,7 +300,7 @@ class IoTConnectManager {
                 }
                 objCommon.manageDebugLog(code: Log.Info.INFO_CM10, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
             } else {
-                objCommon.manageDebugLog(code: Log.Errors.ERR_CM04, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+                objCommon.manageDebugLog(code: Log.Errors.ERR_CM04.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             }
         }
     }
@@ -320,7 +321,7 @@ class IoTConnectManager {
             objMQTTClient.publishTopicOnMQTT(withData: dictToSend, topic: topicAck)
             objCommon.manageDebugLog(code: Log.Info.INFO_CM10, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
         }else{
-            objCommon.manageDebugLog(code: Log.Errors.ERR_CM04, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_CM04.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
     
@@ -538,7 +539,7 @@ class IoTConnectManager {
         if dictSyncResponse.count > 0 {
             objMQTTClient.getAllTwins()
         } else {
-            objCommon.manageDebugLog(code: Log.Errors.ERR_TP04, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_TP04.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
     
@@ -558,12 +559,12 @@ class IoTConnectManager {
             let strV = value as? String
             
             if key.isEmpty || strV == nil || strV?.count == 0 {
-                objCommon.manageDebugLog(code: Log.Errors.ERR_TP03, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+                objCommon.manageDebugLog(code: Log.Errors.ERR_TP03.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             } else {
                 objMQTTClient.publishTwinPropertyDataOnMQTT(withData: [key: value])
             }
         } else {
-            objCommon.manageDebugLog(code: Log.Errors.ERR_TP02, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_TP02.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
     
@@ -611,7 +612,7 @@ class IoTConnectManager {
             objMQTTClient.publishTopicOnMQTT(withData:[Dictkeys.medsageTypekey:CommandType.GET_DEVICE_TEMPLATE_ATTRIBUTE.rawValue], topic: "")
             self.objCommon.manageDebugLog(code: Log.Info.INFO_GA01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
         } else {
-            objCommon.manageDebugLog(code: Log.Errors.ERR_GA02, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_GA02.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             callBack("Attributes data not found")
         }
     }
@@ -621,7 +622,7 @@ class IoTConnectManager {
         if dictSyncResponse.count > 0 {
             objMQTTClient.publishTopicOnMQTT(withData:[Dictkeys.medsageTypekey:CommandType.GET_DEVICE_TEMPLATE_TWIN.rawValue], topic: "")
         }else{
-            objCommon.manageDebugLog(code: Log.Errors.ERR_GA03, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_GA03.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             callBack("Twins data not found")
         }
     }
@@ -631,7 +632,7 @@ class IoTConnectManager {
         if dictSyncResponse.count > 0 {
             objMQTTClient.publishTopicOnMQTT(withData:[Dictkeys.medsageTypekey:CommandType.GET_CHILD_DEVICE.rawValue], topic: "")
         }else{
-            objCommon.manageDebugLog(code: Log.Errors.ERR_GA04, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            objCommon.manageDebugLog(code: Log.Errors.ERR_GA04.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
             callBack("Child Devices data not found")
         }
     }

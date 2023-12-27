@@ -35,8 +35,13 @@ extension IoTConnectManager {
         blockHandlerGetChildDevicesCallback = getChildDevucesCallback
         if cpId.isEmpty{
          //   deviceCallback(["sdkStatus": "CPID is empty"])
-            self.callBackDelegate?.onDeviceCommandCallback(response: nil, error: "CPID is empty")
-            self.blockHandlerDeviceCallBack(["sdkStatus": "CPID is empty"])
+            self.callBackDelegate?.onDeviceCommandCallback(response: nil, error: Log.Errors.ERR_IN12.rawValue)
+            self.blockHandlerDeviceCallBack(["sdkStatus": Log.Errors.ERR_IN12.rawValue])
+            print(Log.Errors.ERR_IN12.rawValue)
+            boolCanCallInialiseYN = true
+        }else  if uniqueId.isEmpty{
+            //   deviceCallback(["sdkStatus": "CPID is empty"])
+            print(Log.Errors.ERR_IN13.rawValue)
             boolCanCallInialiseYN = true
         }else{
             boolCanCallInialiseYN = true
@@ -55,11 +60,11 @@ extension IoTConnectManager {
                             self.objCommon.manageDebugLog(code: self.dictReference[keyPath:"d.ec"] ?? 15, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                         }
                     } else {
-                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN09, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN09.rawValue, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                     }
                 } else {
                     if let error = data as? Error {
-                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01, uniqueId: uniqueId, cpId: cpId, message: error.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
+                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01.rawValue, uniqueId: uniqueId, cpId: cpId, message: error.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
                     }
                 }
             }
@@ -94,7 +99,7 @@ extension IoTConnectManager {
                     if dataDeviceTemp == nil {
                         
                         print("Error parsing DSC: \(String(describing: errorParse))")
-                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_PS01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: errorParse?.localizedDescription ?? "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_PS01.rawValue, uniqueId: self.strUniqueId, cpId: self.strCPId, message: errorParse?.localizedDescription ?? "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                         self.blockHandlerDeviceCallBack(["sdkStatus": "error"])
                     } else {
                         let dataDevice = dataDeviceTemp as! [String:Any]
@@ -130,9 +135,9 @@ extension IoTConnectManager {
 //                                }
                                 let metaInfo = self.dictSyncResponse[DictSyncresponseKeys.metaKey] as? [String:Any]
                                 
-                                if metaInfo?[DictMetaKeys.atKey] as! Int == AuthType.caSigned || metaInfo?[DictMetaKeys.atKey] as! Int == AuthType.caSelfSigned && !self.certPathFlag {
+                                if metaInfo?[DictMetaKeys.atKey] as! Int == AuthType.caSigned && !self.certPathFlag || metaInfo?[DictMetaKeys.atKey] as! Int == AuthType.caSelfSigned && !self.certPathFlag {
                                     
-                                    self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN06, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+                                    self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN06.rawValue, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                                     
                                 }else if metaInfo?[DictMetaKeys.atKey] as! Int == AuthType.symetricKey{
                                     let resourceUrl = "\(dataDevice[keyPath: "d.p.h"] ?? "")/devices/\(dataDevice[keyPath: "d.p.id"] ?? "")"
@@ -162,8 +167,7 @@ extension IoTConnectManager {
                                         dblSyncFrequency = dblSyncFrequencyTemp
                                     }
                                     self.startTimerForReInitialiseDSC(durationSyncFrequency: dblSyncFrequency)
-                                }
-                                
+                                } 
                             } else if dataDevice[keyPath:"d.ec"] as! Int == DeviceSync.Response.autoRegister {//...Auto Register
                                 let errorDict = ["error":Log.getAPIErrorMsg(errorCode: dataDevice[keyPath:"d.ec"] as? Int ?? 15)]
                                 self.blockHandlerDeviceCallBack(errorDict)
@@ -215,14 +219,14 @@ extension IoTConnectManager {
                             
                         } else {
                             
-                            self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN10, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+                            self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN10.rawValue, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                             
                         }
                     }
                 } else {
                     
                     print("Error parsing DSC: \(String(describing: error))")
-                    self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: error!.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
+                    self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01.rawValue, uniqueId: self.strUniqueId, cpId: self.strCPId, message: error!.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
                 
                     if SDKConstants.developmentSDKYN {
                         self.blockHandlerDeviceCallBack(["sdkStatus": "error"])
@@ -384,7 +388,7 @@ extension IoTConnectManager {
                 }
             }
         } else {
-            self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN11, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
+            self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN11.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
     
@@ -413,7 +417,7 @@ extension IoTConnectManager {
                     let dataDeviceTemp = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
                     if dataDeviceTemp == nil {
                         print("Error parsing Sync Call: \(String(describing: errorParse))")
-                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_PS01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: errorParse?.localizedDescription ?? "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_PS01.rawValue, uniqueId: self.strUniqueId, cpId: self.strCPId, message: errorParse?.localizedDescription ?? "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                     } else {
                         print("Success Sync Call: \(String(describing: dataDeviceTemp))")
                         
@@ -430,7 +434,7 @@ extension IoTConnectManager {
                                     if dictToUpdate != nil {
                                         self.startMQTTCall(dataSyncResponse: dictToUpdate!)
                                     } else {
-                                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN11, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+                                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN11.rawValue, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                                     }
                                 } else if strKey == CommandType.DEVICE_INFO_UPDATE.rawValue {
                                     dictToUpdate?[Dictkeys.dKey] = dataDevice[keyPath:"d.d"]
@@ -444,13 +448,13 @@ extension IoTConnectManager {
                             
                         } else {
                             
-                            self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN10, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+                            self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN10.rawValue, uniqueId: self.strUniqueId, cpId: self.strCPId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                             
                         }
                     }
                 } else {
                     print("Error parsing Sync Call: \(String(describing: error))")
-                    self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01, uniqueId: self.strUniqueId, cpId: self.strCPId, message: error!.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
+                    self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01.rawValue, uniqueId: self.strUniqueId, cpId: self.strCPId, message: error!.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
                 }
             }
         }

@@ -5,7 +5,7 @@
 
 import Foundation
 
-public enum IOTCEnvironment: String {
+public enum IOTCEnvironment: String,CaseIterable {
     case PROD = "PROD"
     
     #if IOTAWS
@@ -153,13 +153,13 @@ class Common {
                         manageDebugLog(code: Log.Info.INFO_OS04, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: true, isDebugEnabled: debugYN)
                     } catch {
                         print("deleteAllLogFile-Remove-error.localizedDescription: \(error.localizedDescription)")
-                        manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: strUniqueID, cpId: strCPID, message:error.localizedDescription, logFlag: false, isDebugEnabled: debugYN)
+                        manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message:error.localizedDescription, logFlag: false, isDebugEnabled: debugYN)
                     }
                 }
             }
         } catch {
             print("deleteAllLogFile-error.localizedDescription: \(error.localizedDescription)")
-            manageDebugLog(code: Log.Errors.ERR_OS01, uniqueId: strUniqueID, cpId: strCPID, message:error.localizedDescription, logFlag: false, isDebugEnabled: debugYN)
+            manageDebugLog(code: Log.Errors.ERR_OS01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message:error.localizedDescription, logFlag: false, isDebugEnabled: debugYN)
         }
     }
     func getAttributes(dictSyncResponse: [String:Any], callBack: @escaping ([String:Any]?, String) -> ()) {

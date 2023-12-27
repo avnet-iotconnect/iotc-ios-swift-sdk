@@ -40,6 +40,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnGetTwins: UIButton!
     @IBOutlet weak var btnChildDevicesOperation: UIButton!
     @IBOutlet weak var btnPreQA: UIButton!
+    @IBOutlet weak var viewDropDown: UIView!
+    @IBOutlet weak var txtFieldDropDown: DropDown!
     
 //MARK: Variable
     private var btnConnectTitle = "CONNECT"
@@ -69,6 +71,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpDropDown()
         radioController.buttonsArray = [btnAvnet,btnQA,btnDev,btnPOC,btnPreQA]
         radioController.defaultButton = btnPOC
         
@@ -113,7 +116,6 @@ class ViewController: UIViewController {
 
     //MARK: - Custom Methods
     func connectSDK() {
-        
         //This code works for certificate authentication
         /*
          var sdkOptions = SDKClientOption()
@@ -143,7 +145,7 @@ class ViewController: UIViewController {
         //                                                 sdkOptions: nil)
         //        let objConfig = IoTConnectConfig(cpId: "qaiot106", uniqueId: "SmplDevice", env: .QA, mqttConnectionType: .userCredntialAuthentication, sdkOptions: nil)
         
-        if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
+//        if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
            // self.viewLoader.isHidden = false
             
             //DeviceCertificate.pfx 
@@ -347,13 +349,26 @@ class ViewController: UIViewController {
                 SDKClient.shared.sendAckModule(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
             }
             
-        }
-        else{
-            if txtCPID.text!.isEmpty{
-                presentAlert(title: "Please enter CPID value")
-            }else{
-                presentAlert(title: "Please enter unique ID value")
-            }
+//        }
+//        else{
+//            if txtCPID.text!.isEmpty{
+//                presentAlert(title: "Please enter CPID value")
+//            }else{
+//                presentAlert(title: "Please enter unique ID value")
+//            }
+//        }
+    }
+    
+    func setUpDropDown(){
+        let arrEnvValues: [String] = IOTCEnvironment.allCases.map { $0.rawValue }
+        let arrEnv = IOTCEnvironment.allCases
+        print("arrEnv \(arrEnv)")
+        txtFieldDropDown.optionArray = arrEnvValues
+        txtFieldDropDown.arrowSize = 20.0
+        txtFieldDropDown.arrowColor = .black
+        txtFieldDropDown.didSelect{(selectedText , index ,id) in
+            self.env = arrEnv[index]
+            print("Env \(self.env)")
         }
     }
     

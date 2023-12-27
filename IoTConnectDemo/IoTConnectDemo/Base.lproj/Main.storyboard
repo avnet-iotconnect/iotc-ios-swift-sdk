@@ -35,7 +35,7 @@
                                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="911-2G-pNQ">
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="911-2G-pNQ">
                                                         <rect key="frame" x="4" y="34" width="290" height="35"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFh-wh-FUs">
@@ -134,14 +134,35 @@
                                                             <constraint firstItem="mN6-cK-weW" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="t38-oG-uNR"/>
                                                         </constraints>
                                                     </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uHx-sX-TOs">
+                                                        <rect key="frame" x="4" y="34" width="290" height="35"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xmo-1g-MJs" customClass="DropDown" customModule="IoTConnectDemo" customModuleProvider="target">
+                                                                <rect key="frame" x="20" y="0.0" width="250" height="35"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="Xmo-1g-MJs" firstAttribute="leading" secondItem="uHx-sX-TOs" secondAttribute="leading" constant="20" id="0eW-P8-xQv"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Xmo-1g-MJs" secondAttribute="trailing" constant="20" id="auv-pf-Mna"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Xmo-1g-MJs" secondAttribute="bottom" id="o6H-u0-mXi"/>
+                                                            <constraint firstItem="Xmo-1g-MJs" firstAttribute="top" secondItem="uHx-sX-TOs" secondAttribute="top" id="taG-vD-9i9"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="911-2G-pNQ" secondAttribute="trailing" constant="4" id="2VX-nU-ayw"/>
                                                     <constraint firstItem="911-2G-pNQ" firstAttribute="top" secondItem="gll-0F-FAm" secondAttribute="bottom" constant="8" id="3Ow-tJ-V72"/>
+                                                    <constraint firstItem="uHx-sX-TOs" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="3vI-Ur-fey"/>
+                                                    <constraint firstItem="uHx-sX-TOs" firstAttribute="bottom" secondItem="911-2G-pNQ" secondAttribute="bottom" id="JRl-0g-qhq"/>
+                                                    <constraint firstItem="uHx-sX-TOs" firstAttribute="leading" secondItem="911-2G-pNQ" secondAttribute="leading" id="ScD-hw-Kiv"/>
                                                     <constraint firstItem="gll-0F-FAm" firstAttribute="leading" secondItem="sgC-y5-AfG" secondAttribute="leading" constant="20" symbolic="YES" id="b9B-wk-7yk"/>
                                                     <constraint firstAttribute="trailing" secondItem="gll-0F-FAm" secondAttribute="trailing" constant="20" symbolic="YES" id="esg-F1-9Fu"/>
                                                     <constraint firstAttribute="height" constant="100" id="kZG-2h-0mQ"/>
+                                                    <constraint firstItem="uHx-sX-TOs" firstAttribute="trailing" secondItem="911-2G-pNQ" secondAttribute="trailing" id="lIU-0L-QP6"/>
                                                     <constraint firstItem="gll-0F-FAm" firstAttribute="top" secondItem="sgC-y5-AfG" secondAttribute="top" constant="5" id="n18-jD-4da"/>
                                                     <constraint firstItem="911-2G-pNQ" firstAttribute="leading" secondItem="sgC-y5-AfG" secondAttribute="leading" constant="4" id="pqs-KM-BRa"/>
                                                 </constraints>
@@ -491,8 +512,10 @@
                         <outlet property="tblProperty" destination="g2q-sT-T3T" id="4B0-og-JcN"/>
                         <outlet property="tblViewHeightConstraint" destination="zeu-SV-aXC" id="aff-wY-tS8"/>
                         <outlet property="txtCPID" destination="y2P-F9-iPs" id="RVj-kW-U2K"/>
+                        <outlet property="txtFieldDropDown" destination="Xmo-1g-MJs" id="h4T-TQ-xde"/>
                         <outlet property="txtUniqueID" destination="hdW-o5-EgI" id="D08-ye-qgb"/>
                         <outlet property="txtView" destination="RXa-Ew-89Z" id="H4B-G2-guB"/>
+                        <outlet property="viewDropDown" destination="uHx-sX-TOs" id="Qlq-fz-yuh"/>
                         <outlet property="viewLblTag" destination="PXk-d3-Z2l" id="h7b-gL-tYS"/>
                         <outlet property="viewLoader" destination="m4C-D5-fDr" id="Sbh-Bi-9az"/>
                     </connections>

@@ -52,36 +52,44 @@ public class SDKClient {
      */
     public func initialize(config: IoTConnectConfig) {
         //, withBlock completionHandler: @escaping (Error:String?) -> Void
-        #if IOTAWS
+    #if IOTAWS
         print("SDKClient initialize AWS")
-        #else
+    #else
         print("SDKClient initialize")
-        #endif
-       
-        iotConnectManager = IoTConnectManager(cpId: config.cpId, uniqueId: config.uniqueId, env: config.env.rawValue, sdkOptions: config.sdkOptions, deviceCallback: { (message) in
-            if self.blockHandlerDeviceCallBack != nil {
-                print("SDKClient blockHandlerDeviceCallBack")
-                self.blockHandlerDeviceCallBack!(message)
-            }
-        }, twinUpdateCallback: { (twinMessage) in
-            if self.blockHandlerTwinUpdateCallBack != nil {
-                self.blockHandlerTwinUpdateCallBack!(twinMessage)
-            }
-        }, attributeCallBack: { (attributesMsg) in
-            if self.blockHandlerGetAttributesCallBack != nil{
-                self.blockHandlerGetAttributesCallBack!(attributesMsg)
-            }
-        }, twinsCallBack: { (twinsMsg) in
-            if self.blockHandlerGetTwinsCallBack != nil{
-                self.blockHandlerGetTwinsCallBack!(twinsMsg)
-            }
-        }, getChildCallback: { (msg) in
-            if self.blockHandlerGetChildDevicesCallBack != nil{
-                self.blockHandlerGetChildDevicesCallBack!(msg)
-            }
-        })
+    #endif
         
-        iotConnectManager.callBackDelegate = self
+        if config.cpId.isEmpty{
+            //   deviceCallback(["sdkStatus": "CPID is empty"])
+            print(Log.Errors.ERR_IN12.rawValue)
+        }else  if config.uniqueId.isEmpty{
+            print(Log.Errors.ERR_IN13.rawValue)
+        }else if config.env.rawValue.isEmpty{
+            print(Log.Errors.ERR_IN13.rawValue)
+        }else{
+            iotConnectManager = IoTConnectManager(cpId: config.cpId, uniqueId: config.uniqueId, env: config.env.rawValue, sdkOptions: config.sdkOptions, deviceCallback: { (message) in
+                if self.blockHandlerDeviceCallBack != nil {
+                    print("SDKClient blockHandlerDeviceCallBack")
+                    self.blockHandlerDeviceCallBack!(message)
+                }
+            }, twinUpdateCallback: { (twinMessage) in
+                if self.blockHandlerTwinUpdateCallBack != nil {
+                    self.blockHandlerTwinUpdateCallBack!(twinMessage)
+                }
+            }, attributeCallBack: { (attributesMsg) in
+                if self.blockHandlerGetAttributesCallBack != nil{
+                    self.blockHandlerGetAttributesCallBack!(attributesMsg)
+                }
+            }, twinsCallBack: { (twinsMsg) in
+                if self.blockHandlerGetTwinsCallBack != nil{
+                    self.blockHandlerGetTwinsCallBack!(twinsMsg)
+                }
+            }, getChildCallback: { (msg) in
+                if self.blockHandlerGetChildDevicesCallBack != nil{
+                    self.blockHandlerGetChildDevicesCallBack!(msg)
+                }
+            })
+            iotConnectManager.callBackDelegate = self
+        }
     }
     
     /**
