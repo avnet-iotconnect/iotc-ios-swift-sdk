@@ -25,7 +25,6 @@
 		0627363826CFE69D00B9A037 /* ErrosLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627363726CFE69D00B9A037 /* ErrosLog.swift */; };
 		065D8AAB265BD24100B4B083 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065D8AAA265BD24100B4B083 /* Config.swift */; };
 		065D8AAE265BD69600B4B083 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065D8AAD265BD69600B4B083 /* Common.swift */; };
-		06AA0F072656337100FC8F55 /* IoTConnect.h in Headers */ = {isa = PBXBuildFile; fileRef = 06AA0F052656337100FC8F55 /* IoTConnect.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		06AA0F0F265633CE00FC8F55 /* SDKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AA0F0E265633CE00FC8F55 /* SDKClient.swift */; };
 		06F354892669F206005DD522 /* MQTTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F354882669F206005DD522 /* MQTTClient.swift */; };
 		92AF288E2667A9B4008E9A46 /* CocoaMQTTTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AF28692667A9B4008E9A46 /* CocoaMQTTTypes.swift */; };
@@ -57,12 +56,9 @@
 		92AF28A82667A9B5008E9A46 /* CocoaMQTTWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AF28842667A9B4008E9A46 /* CocoaMQTTWebSocket.swift */; };
 		92AF28A92667A9B5008E9A46 /* FrameSubAck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AF28852667A9B4008E9A46 /* FrameSubAck.swift */; };
 		92AF28AA2667A9B5008E9A46 /* FramePublish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AF28862667A9B4008E9A46 /* FramePublish.swift */; };
-		92AF28AB2667A9B5008E9A46 /* MQTTwihtoutPods-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AF28872667A9B4008E9A46 /* MQTTwihtoutPods-Bridging-Header.h */; };
-		92AF28AC2667A9B5008E9A46 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AF28892667A9B4008E9A46 /* GCDAsyncUdpSocket.m */; };
-		92AF28AD2667A9B5008E9A46 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AF288A2667A9B4008E9A46 /* GCDAsyncSocket.m */; };
 		92AF28AE2667A9B5008E9A46 /* GCDAsyncUdpSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AF288B2667A9B4008E9A46 /* GCDAsyncUdpSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92AF28AF2667A9B5008E9A46 /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AF288C2667A9B4008E9A46 /* GCDAsyncSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		92AF28B02667A9B5008E9A46 /* MQTTwihtoutPods-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AF288D2667A9B4008E9A46 /* MQTTwihtoutPods-Bridging-Header.h */; };
+		92AF28B02667A9B5008E9A46 /* MQTTwihtoutPods-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AF288D2667A9B4008E9A46 /* MQTTwihtoutPods-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C04B538C26D404E100A9F1DF /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04B538B26D404E100A9F1DF /* HTTPService.swift */; };
 		C04B538F26D43C8000A9F1DF /* Discovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04B538E26D43C8000A9F1DF /* Discovery.swift */; };
 		C04B539326D43EF300A9F1DF /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04B539226D43EF300A9F1DF /* Date+Extension.swift */; };
@@ -88,6 +84,10 @@
 		C0C3395226D7ED3400EE6BE1 /* CacheManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3395126D7ED3400EE6BE1 /* CacheManagerDelegate.swift */; };
 		C0E1D92C26D6BC7A00B576FE /* IoTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E1D92B26D6BC7A00B576FE /* IoTData.swift */; };
 		DD9FD7F62A28A60F007ED90E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FD7F52A28A60F007ED90E /* Extension.swift */; };
+		DDE9AA752B3E9CE00096F792 /* IoTConnect.h in Headers */ = {isa = PBXBuildFile; fileRef = 06AA0F052656337100FC8F55 /* IoTConnect.h */; };
+		DDE9AA792B3E9F4F0096F792 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AF28892667A9B4008E9A46 /* GCDAsyncUdpSocket.m */; };
+		DDE9AA7A2B3E9F530096F792 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AF288A2667A9B4008E9A46 /* GCDAsyncSocket.m */; };
+		DDE9AA7B2B3E9FED0096F792 /* MQTTwihtoutPods-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AF28872667A9B4008E9A46 /* MQTTwihtoutPods-Bridging-Header.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -359,10 +359,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92AF28AB2667A9B5008E9A46 /* MQTTwihtoutPods-Bridging-Header.h in Headers */,
+				DDE9AA752B3E9CE00096F792 /* IoTConnect.h in Headers */,
 				92AF28AE2667A9B5008E9A46 /* GCDAsyncUdpSocket.h in Headers */,
 				92AF28AF2667A9B5008E9A46 /* GCDAsyncSocket.h in Headers */,
-				06AA0F072656337100FC8F55 /* IoTConnect.h in Headers */,
+				DDE9AA7B2B3E9FED0096F792 /* MQTTwihtoutPods-Bridging-Header.h in Headers */,
 				92AF28B02667A9B5008E9A46 /* MQTTwihtoutPods-Bridging-Header.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -479,6 +479,7 @@
 				92AF28962667A9B5008E9A46 /* FrameUnsubscribe.swift in Sources */,
 				92AF289B2667A9B5008E9A46 /* Compression.swift in Sources */,
 				C04B539626D4442800A9F1DF /* NetworkConstants.swift in Sources */,
+				DDE9AA792B3E9F4F0096F792 /* GCDAsyncUdpSocket.m in Sources */,
 				92AF28AA2667A9B5008E9A46 /* FramePublish.swift in Sources */,
 				C0C3393A26D7E2A100EE6BE1 /* CacheManager.swift in Sources */,
 				C0C3395226D7ED3400EE6BE1 /* CacheManagerDelegate.swift in Sources */,
@@ -500,15 +501,14 @@
 				C0906FE226D05B7B00245C44 /* HTTPRequestConfig.swift in Sources */,
 				92AF28952667A9B5008E9A46 /* FramePingReq.swift in Sources */,
 				92AF288E2667A9B4008E9A46 /* CocoaMQTTTypes.swift in Sources */,
+				DDE9AA7A2B3E9F530096F792 /* GCDAsyncSocket.m in Sources */,
 				C0C04CF626D04DE200182C45 /* SSLOption.swift in Sources */,
 				C0C04CEA26D018B800182C45 /* IoTConnectManager.swift in Sources */,
 				C0C04CF326D04D9C00182C45 /* SDKClientOption.swift in Sources */,
-				92AF28AC2667A9B5008E9A46 /* GCDAsyncUdpSocket.m in Sources */,
 				065D8AAE265BD69600B4B083 /* Common.swift in Sources */,
 				06F354892669F206005DD522 /* MQTTClient.swift in Sources */,
 				92AF28972667A9B5008E9A46 /* FramePubComp.swift in Sources */,
 				92AF28932667A9B5008E9A46 /* FrameUnsubAck.swift in Sources */,
-				92AF28AD2667A9B5008E9A46 /* GCDAsyncSocket.m in Sources */,
 				92AF289F2667A9B5008E9A46 /* FramePubRel.swift in Sources */,
 				92AF28A42667A9B5008E9A46 /* SSLSecurity.swift in Sources */,
 				92AF28A82667A9B5008E9A46 /* CocoaMQTTWebSocket.swift in Sources */,

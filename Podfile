@@ -29,5 +29,5 @@ target :'IoTConnect_2_aws' do
   platform :ios, '12.0'
   project 'IoTConnect_2.0/IoTConnect_2.0.xcodeproj'
 end
-
+
 

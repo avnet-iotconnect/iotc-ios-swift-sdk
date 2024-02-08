@@ -158,8 +158,8 @@ class ViewController: UIViewController {
 //           sdkOptions.ssl.password = "Softweb@123"
           //  sdkOptions.skipValidation = true
             
-//            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "cert_ANov1001.p12", ofType: nil)
-//            sdkOptions.ssl.password = "iOS@P1777"
+            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "cert_05012026.p12", ofType: nil)
+            sdkOptions.ssl.password = "Softweb#123"
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
@@ -169,7 +169,7 @@ class ViewController: UIViewController {
             //this is base64 string for SmplPk device
            // sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
             
-            let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
+        let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .certificateAuthentication, sdkOptions: sdkOptions)
             
             SDKClient.shared.initialize(config: objConfig)
             

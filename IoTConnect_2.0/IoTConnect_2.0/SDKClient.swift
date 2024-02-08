@@ -66,7 +66,7 @@ public class SDKClient {
         }else if config.env.rawValue.isEmpty{
             print(Log.Errors.ERR_IN13.rawValue)
         }else{
-            iotConnectManager = IoTConnectManager(cpId: config.cpId, uniqueId: config.uniqueId, env: config.env.rawValue, sdkOptions: config.sdkOptions, deviceCallback: { (message) in
+            iotConnectManager = IoTConnectManager(cpId: config.cpId, uniqueId: config.uniqueId, env: config.env.rawValue, sdkOptions: config.sdkOptions, isTest: false, deviceCallback: { (message) in
                 if self.blockHandlerDeviceCallBack != nil {
                     print("SDKClient blockHandlerDeviceCallBack")
                     self.blockHandlerDeviceCallBack!(message)

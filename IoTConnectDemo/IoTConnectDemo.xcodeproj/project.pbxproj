@@ -20,8 +20,13 @@
 		C0C04CD326D015DA00182C45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD226D015DA00182C45 /* Assets.xcassets */; };
 		C0C04CD626D015DA00182C45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */; };
 		DD0AFF802B318B2D007A1EB2 /* mytest.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD0AFF7F2B318B2D007A1EB2 /* mytest.p12 */; };
-		DD229E812AE930A900A6E7E8 /* clientAWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD229E802AE930A900A6E7E8 /* clientAWS.p12 */; };
 		DD36C4412A304EF9008BA007 /* IoTConnect_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */; };
+		DD37E4302B4EB8E500BCF08B /* cert_Jethanand01.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD37E42F2B4EB8E500BCF08B /* cert_Jethanand01.p12 */; };
+		DD37E4312B4EB8E500BCF08B /* cert_Jethanand01.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD37E42F2B4EB8E500BCF08B /* cert_Jethanand01.p12 */; };
+		DD37E4332B4EBF2600BCF08B /* JDN.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD37E4322B4EBF2600BCF08B /* JDN.p12 */; };
+		DD37E4342B4EBF2600BCF08B /* JDN.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD37E4322B4EBF2600BCF08B /* JDN.p12 */; };
+		DD37E4392B4EC3DB00BCF08B /* JethaAWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD37E4382B4EC3DB00BCF08B /* JethaAWS.p12 */; };
+		DD37E43A2B4EC3DB00BCF08B /* JethaAWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD37E4382B4EC3DB00BCF08B /* JethaAWS.p12 */; };
 		DD3B09752B29A28A003C14B2 /* PropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285F67026D62F5000BC30DC /* PropertyCell.swift */; };
 		DD3B09762B29A28A003C14B2 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD1BEF62A52F50800B00F52 /* Identity.swift */; };
 		DD3B09772B29A28A003C14B2 /* iOSDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */; };
@@ -38,15 +43,18 @@
 		DD3B09862B29A28A003C14B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD226D015DA00182C45 /* Assets.xcassets */; };
 		DD3B09872B29A28A003C14B2 /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9285F66C26D62EEF00BC30DC /* TableHeaderView.xib */; };
 		DD3B09882B29A28A003C14B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CCF26D015D900182C45 /* Main.storyboard */; };
-		DD3B09892B29A28A003C14B2 /* cert_ANov1001.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DDA4F5A42B1F1681008C31AD /* cert_ANov1001.p12 */; };
-		DD3B098A2B29A28A003C14B2 /* clientAWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD229E802AE930A900A6E7E8 /* clientAWS.p12 */; };
 		DD3B098B2B29A28A003C14B2 /* DeviceCertificate.pfx in Resources */ = {isa = PBXBuildFile; fileRef = DD989A192AB18FFF00FD70DD /* DeviceCertificate.pfx */; };
+		DD3FA9602B3C182400FE3642 /* clientAWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD3FA95F2B3C182400FE3642 /* clientAWS.p12 */; };
+		DD49F5152B5507A900010F0D /* cert_05012026.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD49F5142B5507A900010F0D /* cert_05012026.p12 */; };
 		DD5B602D2A936EB80018BB1C /* iOSDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */; };
+		DD7719D92B4D6F0B00764E39 /* cert_ANov1001.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD7719D82B4D6F0B00764E39 /* cert_ANov1001.p12 */; };
+		DD7719DA2B4D6F0B00764E39 /* cert_ANov1001.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD7719D82B4D6F0B00764E39 /* cert_ANov1001.p12 */; };
+		DD7719DC2B4D6F9400764E39 /* cert_AKSS182305.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD7719DB2B4D6F9400764E39 /* cert_AKSS182305.p12 */; };
+		DD7719DD2B4D6F9400764E39 /* cert_AKSS182305.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD7719DB2B4D6F9400764E39 /* cert_AKSS182305.p12 */; };
 		DD7E84A12A9340180031A231 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7E84A02A9340180031A231 /* ChildOperationVC.swift */; };
 		DD989A1A2AB18FFF00FD70DD /* DeviceCertificate.pfx in Resources */ = {isa = PBXBuildFile; fileRef = DD989A192AB18FFF00FD70DD /* DeviceCertificate.pfx */; };
 		DD989A1C2AB193CF00FD70DD /* client.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD989A1B2AB193CF00FD70DD /* client.p12 */; };
 		DDA1BAF02A41810F00DBA886 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA1BAEF2A41810F00DBA886 /* Attributes.swift */; };
-		DDA4F5A52B1F1681008C31AD /* cert_ANov1001.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DDA4F5A42B1F1681008C31AD /* cert_ANov1001.p12 */; };
 		DDA60A602A2F176300F686BF /* IoTConnect_2_0.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DDC0C2972A38958A001793C5 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0C2962A38958A001793C5 /* RadioButtonController.swift */; };
 		DDD1BEF72A52F50800B00F52 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD1BEF62A52F50800B00F52 /* Identity.swift */; };
@@ -99,17 +107,22 @@
 		C0C04CD726D015DA00182C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1B97395C985B880218674FA /* Pods-IoTConnectDemo_AWS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo_AWS.debug.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS.debug.xcconfig"; sourceTree = "<group>"; };
 		DD0AFF7F2B318B2D007A1EB2 /* mytest.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mytest.p12; sourceTree = "<group>"; };
-		DD229E802AE930A900A6E7E8 /* clientAWS.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = clientAWS.p12; path = ../../../../../Downloads/E39C09D0F58B2B6B941E4FD2D869C31D6617BB54/AWS/clientAWS.p12; sourceTree = "<group>"; };
 		DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD37E42F2B4EB8E500BCF08B /* cert_Jethanand01.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert_Jethanand01.p12; sourceTree = "<group>"; };
+		DD37E4322B4EBF2600BCF08B /* JDN.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = JDN.p12; sourceTree = "<group>"; };
+		DD37E4382B4EC3DB00BCF08B /* JethaAWS.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = JethaAWS.p12; sourceTree = "<group>"; };
 		DD3B09922B29A28A003C14B2 /* IoTConnectDemo_AWS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IoTConnectDemo_AWS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD3B09932B29A28B003C14B2 /* IoTConnectDemo_AWS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = IoTConnectDemo_AWS.plist; path = "/Users/kirtan.vaghela/Documents/IotSDK_git/iotc-ios-swift-sdk/IoTConnectDemo/IoTConnectDemo_AWS.plist"; sourceTree = "<absolute>"; };
 		DD3B09AC2B2AD094003C14B2 /* IoTConnect_2_aws.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_aws.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD3FA95F2B3C182400FE3642 /* clientAWS.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = clientAWS.p12; sourceTree = "<group>"; };
+		DD49F5142B5507A900010F0D /* cert_05012026.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert_05012026.p12; sourceTree = "<group>"; };
 		DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iOSDropDown.swift; sourceTree = "<group>"; };
+		DD7719D82B4D6F0B00764E39 /* cert_ANov1001.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert_ANov1001.p12; sourceTree = "<group>"; };
+		DD7719DB2B4D6F9400764E39 /* cert_AKSS182305.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert_AKSS182305.p12; sourceTree = "<group>"; };
 		DD7E84A02A9340180031A231 /* ChildOperationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildOperationVC.swift; sourceTree = "<group>"; };
 		DD989A192AB18FFF00FD70DD /* DeviceCertificate.pfx */ = {isa = PBXFileReference; lastKnownFileType = file; path = DeviceCertificate.pfx; sourceTree = "<group>"; };
 		DD989A1B2AB193CF00FD70DD /* client.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = client.p12; sourceTree = "<group>"; };
 		DDA1BAEF2A41810F00DBA886 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
-		DDA4F5A42B1F1681008C31AD /* cert_ANov1001.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert_ANov1001.p12; sourceTree = "<group>"; };
 		DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA843C62B298D6D005EFD1A /* IoTConnect_2.0_aws.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2.0_aws.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC0C2962A38958A001793C5 /* RadioButtonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonController.swift; sourceTree = "<group>"; };
@@ -185,9 +198,14 @@
 				C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */,
 				C0C04CD726D015DA00182C45 /* Info.plist */,
 				DDFA34632A3C297400232B5C /* Enums.swift */,
+				DD37E4322B4EBF2600BCF08B /* JDN.p12 */,
+				DD37E42F2B4EB8E500BCF08B /* cert_Jethanand01.p12 */,
+				DD49F5142B5507A900010F0D /* cert_05012026.p12 */,
+				DD37E4382B4EC3DB00BCF08B /* JethaAWS.p12 */,
+				DD7719DB2B4D6F9400764E39 /* cert_AKSS182305.p12 */,
+				DD7719D82B4D6F0B00764E39 /* cert_ANov1001.p12 */,
 				DD0AFF7F2B318B2D007A1EB2 /* mytest.p12 */,
-				DDA4F5A42B1F1681008C31AD /* cert_ANov1001.p12 */,
-				DD229E802AE930A900A6E7E8 /* clientAWS.p12 */,
+				DD3FA95F2B3C182400FE3642 /* clientAWS.p12 */,
 				DD989A1B2AB193CF00FD70DD /* client.p12 */,
 				DD989A192AB18FFF00FD70DD /* DeviceCertificate.pfx */,
 			);
@@ -336,14 +354,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD49F5152B5507A900010F0D /* cert_05012026.p12 in Resources */,
+				DD37E4392B4EC3DB00BCF08B /* JethaAWS.p12 in Resources */,
 				DD989A1C2AB193CF00FD70DD /* client.p12 in Resources */,
 				C0C04CD626D015DA00182C45 /* LaunchScreen.storyboard in Resources */,
 				C0C04CD326D015DA00182C45 /* Assets.xcassets in Resources */,
 				9285F66E26D62EEF00BC30DC /* TableHeaderView.xib in Resources */,
+				DD37E4332B4EBF2600BCF08B /* JDN.p12 in Resources */,
+				DD7719DC2B4D6F9400764E39 /* cert_AKSS182305.p12 in Resources */,
 				C0C04CD126D015D900182C45 /* Main.storyboard in Resources */,
-				DDA4F5A52B1F1681008C31AD /* cert_ANov1001.p12 in Resources */,
+				DD7719D92B4D6F0B00764E39 /* cert_ANov1001.p12 in Resources */,
 				DD0AFF802B318B2D007A1EB2 /* mytest.p12 in Resources */,
-				DD229E812AE930A900A6E7E8 /* clientAWS.p12 in Resources */,
+				DD37E4302B4EB8E500BCF08B /* cert_Jethanand01.p12 in Resources */,
 				DD989A1A2AB18FFF00FD70DD /* DeviceCertificate.pfx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,13 +374,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD37E43A2B4EC3DB00BCF08B /* JethaAWS.p12 in Resources */,
+				DD3FA9602B3C182400FE3642 /* clientAWS.p12 in Resources */,
 				DD3B09842B29A28A003C14B2 /* client.p12 in Resources */,
 				DD3B09852B29A28A003C14B2 /* LaunchScreen.storyboard in Resources */,
 				DD3B09862B29A28A003C14B2 /* Assets.xcassets in Resources */,
+				DD37E4342B4EBF2600BCF08B /* JDN.p12 in Resources */,
+				DD7719DD2B4D6F9400764E39 /* cert_AKSS182305.p12 in Resources */,
 				DD3B09872B29A28A003C14B2 /* TableHeaderView.xib in Resources */,
+				DD7719DA2B4D6F0B00764E39 /* cert_ANov1001.p12 in Resources */,
 				DD3B09882B29A28A003C14B2 /* Main.storyboard in Resources */,
-				DD3B09892B29A28A003C14B2 /* cert_ANov1001.p12 in Resources */,
-				DD3B098A2B29A28A003C14B2 /* clientAWS.p12 in Resources */,
+				DD37E4312B4EB8E500BCF08B /* cert_Jethanand01.p12 in Resources */,
 				DD3B098B2B29A28A003C14B2 /* DeviceCertificate.pfx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

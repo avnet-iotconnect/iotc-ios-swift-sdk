@@ -85,9 +85,9 @@ class IoTConnectManager {
      - Returns
      returns nothing
      */
-    init(cpId: String, uniqueId: String, env: String, sdkOptions: SDKClientOption?, deviceCallback: @escaping GetDeviceCallBackBlock, twinUpdateCallback: @escaping GetDeviceCallBackBlock, attributeCallBack: @escaping GetAttributesCallbackBlock, twinsCallBack: @escaping GetTwinCallBackBlock,getChildCallback: @escaping GetChildDevicesCallBackBlock) {
+    init(cpId: String, uniqueId: String, env: String, sdkOptions: SDKClientOption?,isTest:Bool, deviceCallback: @escaping GetDeviceCallBackBlock, twinUpdateCallback: @escaping GetDeviceCallBackBlock, attributeCallBack: @escaping GetAttributesCallbackBlock, twinsCallBack: @escaping GetTwinCallBackBlock,getChildCallback: @escaping GetChildDevicesCallBackBlock) {
         
-        objCommon = Common(cpId, uniqueId)
+        objCommon = Common(cpId, uniqueId,isTest)
         strCPId = cpId
         strUniqueId = uniqueId
         if !env.isEmpty {

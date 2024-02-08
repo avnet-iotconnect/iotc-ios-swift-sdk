@@ -62,13 +62,15 @@ class MQTTClient {
         if !password.isEmpty{
             mqtt!.password = password
         }else{
+            print("dataSyncResponse \(dataSyncResponse)")
             mqtt!.password = dataSyncResponse[keyPath:"p.pwd"] as? String
         }
-        
+         
 //                mqtt!.keepAlive = 10//600
         mqtt!.delegate = self
         mqtt!.enableSSL = true
-        mqtt!.autoReconnect = true
+        mqtt!.autoReconnect = false
+        
         
         var boolToConnectYN = false
         

@@ -24,21 +24,26 @@ class Common {
     
     private var strCPID: String = ""
     private var strUniqueID: String = ""
+    private var isTest = false
     
-    init(_ cpId: String, _ uniqueId: String) {
+    init(_ cpId: String, _ uniqueId: String,_ _isTest:Bool = false) {
         strCPID = cpId
         strUniqueID = uniqueId
+        isTest = _isTest
     }
     
-    //MARK: Get Base URL
+    //MARK: Get Base URL
     func getBaseURL(strURL: String, callBack: @escaping (Bool, Any) -> ()) {
-        print("getBaseURL \(strURL)")
+        print("BaseURL \(strURL)")
         let dataTaskMain = URLSession.shared.dataTask(with: URL(string: strURL)!) { (data, response, error) in
             if error == nil {
                
                 let errorParse: Error? = nil
                 let jsonData = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-                print("getBaseURL response \(jsonData ?? "")")
+                if self.isTest{
+                    print("getBaseURL response \(jsonData ?? "")")
+                }
+              
                 if jsonData == nil {
                     callBack(false, errorParse as Any)
                 } else {
@@ -55,21 +60,16 @@ class Common {
     func makeSyncCall(withBaseURL strURL: String, withData dictToPass: [AnyHashable: Any]?, withBlock completionHandler: @escaping (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void) {
         
         var urlRequest : URLRequest = URLRequest(url: URL(string: strURL)!)
-//        var postData: Data? = nil
-//        if let aPass = dictToPass {
-//            postData = try? JSONSerialization.data(withJSONObject: aPass, options: .prettyPrinted)
-//        }
         // Convert POST string parameters to data using UTF8 Encoding
         //kirtan
-        urlRequest.httpMethod = "GET"//"POST"
-//        urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
-//        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        urlRequest.setValue("\(UInt(postData!.count))", forHTTPHeaderField: "Content-Length")
-//        urlRequest.httpBody = postData
-        
+        urlRequest.httpMethod = "GET"
+
         print("makeSyncCall \(strURL)")
         let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            print("makeSyncCall response\(String(describing: response))")
+            if self.isTest{
+                print("makeSyncCall response\(String(describing: response))")
+            }
+            
             completionHandler(data, response, error)
         }
         dataTask.resume()
