@@ -4,15 +4,10 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>BuildXCFramework.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>9</integer>
-		</dict>
 		<key>IoTConnect.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>3</integer>
 		</dict>
 	</dict>
 </dict>

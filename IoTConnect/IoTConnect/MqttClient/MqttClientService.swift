@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CocoaMQTT
 
 class MqttClientService {
     static let shared = MqttClientService()

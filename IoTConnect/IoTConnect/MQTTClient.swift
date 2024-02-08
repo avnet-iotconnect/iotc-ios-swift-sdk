@@ -3,6 +3,8 @@
 //  IoTConnect
 
 import Foundation
+import CocoaMQTT
+
 
 typealias GetMQTTStatusCallBackBlock = (Any?, Int) -> Void
 
@@ -45,9 +47,9 @@ class MQTTClient {
         mqtt!.username = dataSyncResponse[keyPath:"p.un"] as? String
         mqtt!.password = dataSyncResponse[keyPath:"p.pwd"] as? String
 //        mqtt!.keepAlive = 600
-        mqtt!.delegate = self 
+        mqtt!.delegate = self
         mqtt!.enableSSL = true
-         
+        
         var boolToConnectYN = false
         if (dictSyncResponse["at"] as! Int == AuthType.CA_SIGNED || dictSyncResponse["at"] as! Int == AuthType.CA_SELF_SIGNED) {
             if CERT_PATH_FLAG {
@@ -556,10 +558,7 @@ extension MQTTClient: CocoaMQTTDelegate {
         TRACE("new state: \(state)")
     }
     func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
-        TRACE("Publish message: \(String(describing: message.string?.description)), id: \(id)")
-    }
-    func mqtt(_ mqtt: CocoaMQTT, didPublishComplete id: UInt16) {
-        TRACE("didPublishComplete: id: \(id)")
+        //TRACE("Publish message: \(String(describing: message.string?.description)), id: \(id)")
     }
     func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
         //TRACE("id: \(id)")

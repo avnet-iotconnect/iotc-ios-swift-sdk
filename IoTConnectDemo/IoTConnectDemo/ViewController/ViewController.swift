@@ -6,11 +6,11 @@
 //
 
 import UIKit
-#if DEMOAWS
-import IoTConnect_2_aws
-#else
-import IoTConnect_2_0
-#endif
+//#if DEMOAWS
+import IoTConnect2_AWS
+//#else
+//import IoTConnect2
+//#endif
 
 
 public enum DeviceConnectionStatus{
@@ -145,20 +145,20 @@ class ViewController: UIViewController {
         //                                                 sdkOptions: nil)
         //        let objConfig = IoTConnectConfig(cpId: "qaiot106", uniqueId: "SmplDevice", env: .QA, mqttConnectionType: .userCredntialAuthentication, sdkOptions: nil)
         
-//        if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
-           // self.viewLoader.isHidden = false
+        if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
+             self.viewLoader.isHidden = false
             
-            //DeviceCertificate.pfx 
+            //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
             
-           // sdkOptions.brokerType = .aws
+            // sdkOptions.brokerType = .aws
             
             //SSL Certificates with password
-//            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client.p12", ofType: nil)
-//           sdkOptions.ssl.password = "Softweb@123"
-          //  sdkOptions.skipValidation = true
+            //            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client.p12", ofType: nil)
+            //           sdkOptions.ssl.password = "Softweb@123"
+            //  sdkOptions.skipValidation = true
             
-            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "cert_05012026.p12", ofType: nil)
+            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client2301.p12", ofType: nil)
             sdkOptions.ssl.password = "Softweb#123"
             
             //Offline Storage Configuration
@@ -167,9 +167,9 @@ class ViewController: UIViewController {
             
             //for device PK
             //this is base64 string for SmplPk device
-           // sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
+            // sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
             
-        let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .certificateAuthentication, sdkOptions: sdkOptions)
+            let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .certificateAuthentication, sdkOptions: sdkOptions)
             
             SDKClient.shared.initialize(config: objConfig)
             
@@ -348,15 +348,14 @@ class ViewController: UIViewController {
                 self.txtView.text = "\(msg ?? [:])"
                 SDKClient.shared.sendAckModule(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
             }
-            
-//        }
-//        else{
-//            if txtCPID.text!.isEmpty{
-//                presentAlert(title: "Please enter CPID value")
-//            }else{
-//                presentAlert(title: "Please enter unique ID value")
-//            }
-//        }
+        }
+        else{
+            if txtCPID.text!.isEmpty{
+                presentAlert(title: "Please enter CPID value")
+            }else{
+                presentAlert(title: "Please enter unique ID value")
+            }
+        }
     }
     
     func setUpDropDown(){
@@ -366,6 +365,8 @@ class ViewController: UIViewController {
         txtFieldDropDown.optionArray = arrEnvValues
         txtFieldDropDown.arrowSize = 20.0
         txtFieldDropDown.arrowColor = .black
+        self.env = arrEnv[0]
+        txtFieldDropDown.text = arrEnv[0].rawValue
         txtFieldDropDown.didSelect{(selectedText , index ,id) in
             self.env = arrEnv[index]
             print("Env \(self.env)")
@@ -895,23 +896,23 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnSendDataTapped(_ sender: Any) {
-//        DispatchQueue.main.async {
-//            self.viewLoader.isHidden = false
-//        }
-//        if self.arrChildAttributeData.count > 0{
-//            loadData(data: arrChildAttributeData)
-//        }else if arrParentData.count > 0{
-//            loadData(data: arrParentData)
-//        }else if arrSimpleDeviceData.count > 0{
-//            loadData(data: arrSimpleDeviceData)
-//        }
+        DispatchQueue.main.async {
+            self.viewLoader.isHidden = false
+        }
+        if self.arrChildAttributeData.count > 0{
+            loadData(data: arrChildAttributeData)
+        }else if arrParentData.count > 0{
+            loadData(data: arrParentData)
+        }else if arrSimpleDeviceData.count > 0{
+            loadData(data: arrSimpleDeviceData)
+        }
         
         ///wrong
-        let dict = ["d":
-                        [
-                            "P_Integer": 10
-                        ]
-        ] as [String:Any]
+//        let dict = ["d":
+//                        [
+//                            "P_Integer": 10
+//                        ]
+//        ] as [String:Any]
         
         //right way
 //        let dict = ["d":
@@ -925,7 +926,7 @@ class ViewController: UIViewController {
 //                    "dt": now()
 //        ] as [String : Any]
         
-        SDKClient.shared.sendData(data: dict)
+//        SDKClient.shared.sendData(data: dict)
     }
     
     

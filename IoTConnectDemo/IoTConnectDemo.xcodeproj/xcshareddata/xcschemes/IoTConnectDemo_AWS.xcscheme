@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1500"
+   LastUpgradeVersion = "1520"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DD3B09722B29A28A003C14B2"
+               BlueprintIdentifier = "DD3C72F42B4FB8970019551D"
                BuildableName = "IoTConnectDemo_AWS.app"
                BlueprintName = "IoTConnectDemo_AWS"
                ReferencedContainer = "container:IoTConnectDemo.xcodeproj">
@@ -43,7 +43,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DD3B09722B29A28A003C14B2"
+            BlueprintIdentifier = "DD3C72F42B4FB8970019551D"
             BuildableName = "IoTConnectDemo_AWS.app"
             BlueprintName = "IoTConnectDemo_AWS"
             ReferencedContainer = "container:IoTConnectDemo.xcodeproj">
@@ -60,7 +60,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DD3B09722B29A28A003C14B2"
+            BlueprintIdentifier = "DD3C72F42B4FB8970019551D"
             BuildableName = "IoTConnectDemo_AWS.app"
             BlueprintName = "IoTConnectDemo_AWS"
             ReferencedContainer = "container:IoTConnectDemo.xcodeproj">

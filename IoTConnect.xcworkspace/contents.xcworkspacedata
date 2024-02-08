@@ -5,12 +5,9 @@
       location = "group:IoTConnectDemo/IoTConnectDemo.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:IoTConnect2/IoTConnect2.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:IoTConnect/IoTConnect.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:IoTConnect_2.0/IoTConnect_2.0.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

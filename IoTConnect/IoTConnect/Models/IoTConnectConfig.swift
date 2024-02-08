@@ -25,13 +25,13 @@ import Foundation
 public struct IoTConnectConfig {
     let cpId: String
     let uniqueId: String
-    let env: IoTEnvironment
+    let env: Environment
     let mqttConnectionType: MqttConnectionType
     let debugConfig: DebugConfig?
     let mqttConfig: MqttConfig?
     let sdkOptions: SDKClientOption?
     
-    public init(cpId: String, uniqueId: String, env: IoTEnvironment, mqttConnectionType: MqttConnectionType, debugConfig: DebugConfig? = nil, mqttConfig: MqttConfig? = nil, sdkOptions: SDKClientOption?) {
+    public init(cpId: String, uniqueId: String, env: Environment, mqttConnectionType: MqttConnectionType, debugConfig: DebugConfig? = nil, mqttConfig: MqttConfig? = nil, sdkOptions: SDKClientOption?) {
         self.cpId = cpId
         self.uniqueId = uniqueId
         self.env = env

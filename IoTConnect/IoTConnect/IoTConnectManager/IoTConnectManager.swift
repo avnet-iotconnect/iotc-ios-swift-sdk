@@ -20,7 +20,7 @@ class IoTConnectManager {
     var blockHandlerTwinUpdateCallBack : GetTwinUpdateCallBackBlock!
     var strCPId: String!
     var strUniqueId: String!
-    var strEnv: IoTEnvironment = .PROD
+    var strEnv: Environment = .PROD
     var strDiscoveryURL: String = SDKURL.discoveryHost
     var dictReference: [String:Any]!
     var dictSyncResponse: [String:Any]!
@@ -34,8 +34,7 @@ class IoTConnectManager {
     var CERT_PATH_FLAG: Bool = true
     var reachability: Reachability?
     var intervalObj: [Any] = []
-    
-
+    var repeatTimerCount = 0
     
     init() {}
     
@@ -46,7 +45,7 @@ class IoTConnectManager {
         strCPId = cpId
         strUniqueId = uniqueId
         if !env.isEmpty {
-            strEnv = IoTEnvironment(rawValue: env)!
+            strEnv = Environment(rawValue: env)!
         }
 
         if sdkOptions != nil {
