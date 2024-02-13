@@ -28,28 +28,28 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
 * IoTConnect_2.0   - This target is for AZ platform.
 * IoTConnect_2_AWS - This target is for AWS platform.
 
--The Example also has two targets
+# The Example also has two targets
 
 * IoTConnectDemo     - This is AZ platform Demo
 * IoTConnectDemo_AWS - This is AWS okatfirm Demo. 
 
 # How to create XCFramework:
 
-* 1. Open terminal
-* 2. Go to file path by this ocmmand
+* Open terminal
+* Go to file path by this ocmmand
         cd <Path of project path>
-* 3. Create archive for device by this command
+* Create archive for device by this command
         xcodebuild archive \-workspace IoTConnect_2.0.xcworkspace \-scheme IoTConnect_2.0  \-configuration Release \-destination 'generic/platform=iOS' \-archivePath './build/IoTConnect_2.0.framework-iphoneos.xcarchive' \ SKIP_INSTALL=NO \ BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
-* 4. Create archive for simlulator by this command:
+* Create archive for simlulator by this command:
         xcodebuild archive \-workspace IoTConnect_2.0.xcworkspace \-scheme IoTConnect_2.0 \-configuration Release \-destination 'generic/platform=iOS Simulator' \-archivePath './build/IoTConnect_2.0.framework-iphonesimulator.xcarchive' \ SKIP_INSTALL=NO \ BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
-* 5. Then create XCFramework by this command:
+* Then create XCFramework by this command:
         xcodebuild -create-xcframework -archive IoTConnect_2.0.framework-iphoneos.xcarchive -framework IoTConnect_2_0.framework -archive IoTConnect_2.0.framework-iphonesimulator.xcarchive -framework IoTConnect_2_0.framework  -output xcframeworks/IoTConnect_2_0.xcframework
 
 # Example Usage:
 
 The demo contins list of envioenment accrding to selected targets.
 
--Prerequisite input data *
+* Prerequisite input data 
 
 * "uniqueId"     : Your device uniqueId
 * "cpId"         : It is the company code. It gets from the IoTConnect UI portal "Settings->Key Vault"

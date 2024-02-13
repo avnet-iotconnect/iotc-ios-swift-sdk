@@ -841,10 +841,14 @@ class ViewController: UIViewController {
     //MARK: IBAction events
     
     @IBAction func btnConnectTapped(_ sender: Any) {
-        if self.devivceStatus == .disconnected{
-            connectSDK()
+        if txtFieldDropDown.text != "" ||  ((txtFieldDropDown.text?.isEmpty) == nil){
+            if self.devivceStatus == .disconnected{
+                connectSDK()
+            }else{
+                SDKClient.shared.dispose()
+            }
         }else{
-            SDKClient.shared.dispose()
+            txtView.text = "Please select env."
         }
     }
     
