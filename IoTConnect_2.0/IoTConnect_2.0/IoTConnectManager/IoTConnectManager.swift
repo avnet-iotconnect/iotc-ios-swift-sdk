@@ -107,8 +107,8 @@ class IoTConnectManager {
         }
         
         
-        if dataSDKOptions.ssl.eertificatePath != nil {
-            let dataCertificate = dataSDKOptions.ssl.eertificatePath
+        if dataSDKOptions.ssl.certificatePath != nil {
+            let dataCertificate = dataSDKOptions.ssl.certificatePath
             if !objCommon.checkForIfFileExistAtPath(filePath: dataCertificate as Any) {
                 certPathFlag = false
             }

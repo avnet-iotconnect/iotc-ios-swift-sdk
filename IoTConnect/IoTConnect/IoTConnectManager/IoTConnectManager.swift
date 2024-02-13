@@ -137,7 +137,7 @@ class IoTConnectManager {
     }
     
     //MARK: - Methods - SDK
-    func sendData(data: [[String:Any]],skipValidation:Bool) {
+    func sendData(data: [[String:Any]]) {
         if data.count > 0 {
             if dictSyncResponse.count > 0 {
                 if strUniqueId != data[0]["uniqueId"] as? String {

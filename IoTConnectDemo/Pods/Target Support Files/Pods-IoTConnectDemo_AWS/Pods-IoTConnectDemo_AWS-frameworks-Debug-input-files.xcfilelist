@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS-frameworks.sh
+${BUILT_PRODUCTS_DIR}/CocoaMQTT/CocoaMQTT.framework
+${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework
+${BUILT_PRODUCTS_DIR}/MqttCocoaAsyncSocket/MqttCocoaAsyncSocket.framework

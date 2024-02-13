@@ -79,7 +79,7 @@ class MQTTClient {
             if CERT_PATH_FLAG {
                 var sslSettings: [String: NSObject] = [:]
                 let pwd = dataSDKOptions.ssl.password
-                let clientCertificate = objCommon.getClientCertFromP12File(pathCertificate: objCommon.getFilePath(dataSDKOptions.ssl.eertificatePath as Any), certPassword: pwd)
+                let clientCertificate = objCommon.getClientCertFromP12File(pathCertificate: objCommon.getFilePath(dataSDKOptions.ssl.certificatePath as Any), certPassword: pwd)
                 sslSettings[kCFStreamSSLCertificates as String] = clientCertificate
                 mqtt!.sslSettings = sslSettings
                 mqtt!.allowUntrustCACertificate = true
