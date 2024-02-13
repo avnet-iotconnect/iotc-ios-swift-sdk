@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		048B1CC473BACF3C2CB1DE40 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		048B1CC473BACF3C2CB1DE40 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		4C24DDC7CF2D91BD7C63067E /* Pods_IoTConnectDemo_AWS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1E617999D1F398A35D21CD /* Pods_IoTConnectDemo_AWS.framework */; };
+		8068697A79797946EC64D57B /* Pods_IoTConnectDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C2B046F98BE42D0CB904584 /* Pods_IoTConnectDemo.framework */; };
 		DD0CE2DC2B4D4EBB00DFFFB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE2DB2B4D4EBB00DFFFB7 /* AppDelegate.swift */; };
 		DD0CE2DE2B4D4EBB00DFFFB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE2DD2B4D4EBB00DFFFB7 /* SceneDelegate.swift */; };
 		DD0CE2E52B4D4EBC00DFFFB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD0CE2E42B4D4EBC00DFFFB7 /* Assets.xcassets */; };
@@ -90,6 +91,7 @@
 		20CF3E15D5D17968F5A8AEE8 /* Pods-IoTConnectDemo_AWS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo_AWS.debug.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS.debug.xcconfig"; sourceTree = "<group>"; };
 		7D1E617999D1F398A35D21CD /* Pods_IoTConnectDemo_AWS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IoTConnectDemo_AWS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		873259EA453C2BB835A246A1 /* Pods-IoTConnectDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo.debug.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		9C2B046F98BE42D0CB904584 /* Pods_IoTConnectDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IoTConnectDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD0CE2D82B4D4EBB00DFFFB7 /* IoTConnectDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IoTConnectDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD0CE2DB2B4D4EBB00DFFFB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD0CE2DD2B4D4EBB00DFFFB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,8 +132,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDE8B5462B4FE32F004865D2 /* IoTConnect2.xcframework in Frameworks */,
-				048B1CC473BACF3C2CB1DE40 /* (null) in Frameworks */,
+				048B1CC473BACF3C2CB1DE40 /* BuildFile in Frameworks */,
 				DD43347B2B73806300AC0B99 /* IoTConnect_2_AWS.xcframework in Frameworks */,
+				8068697A79797946EC64D57B /* Pods_IoTConnectDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +218,7 @@
 				DDC51F592B4FCBC200BC613D /* IoTConnect2.framework */,
 				DD7719DF2B4D7BA100764E39 /* IoTConnect2.framework */,
 				7D1E617999D1F398A35D21CD /* Pods_IoTConnectDemo_AWS.framework */,
+				9C2B046F98BE42D0CB904584 /* Pods_IoTConnectDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
