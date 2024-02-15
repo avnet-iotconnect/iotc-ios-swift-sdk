@@ -105,7 +105,6 @@ class ViewController: UIViewController {
                         self.setDisconnectUI(isRefresh: true)
                         self.noOfSecrions = arrDict.count
                         self.is204Received = true
-                        print("no of sections \(arrDict.count)")
                         self.arrChildDevicesAttributes = arrDict
                         self.getChildDevicesAttributes()
                     }
@@ -117,49 +116,15 @@ class ViewController: UIViewController {
     //MARK: - Custom Methods
     func connectSDK() {
         //This code works for certificate authentication
-        /*
-         var sdkOptions = SDKClientOption()
-         
-         //SSL Certificates with password
-         sdkOptions.SSL.Certificate = Bundle.main.path(forResource: "device.pfx", ofType: nil)
-         sdkOptions.SSL.Password = "1234"
-         
-         //Offline Storage Configuration
-         sdkOptions.OfflineStorage.AvailSpaceInMb = 0
-         sdkOptions.OfflineStorage.Fil      eCount = 10
-         
-         //For Developer
-         sdkOptions.discoveryUrl = "https://discovery.iotconnect.io"
-         sdkOptions.debug = true
-         
-         //For SSL Enable Device Connection
-         let objConfig = IoTConnectConfig(cpId: "nine", uniqueId: "iosss01", env: "QA", sdkOptions: sdkOptions)
-         
-         */
-        
-        //This code works for token base authentication
-        //        let objConfig = IoTConnectConfig(cpId: "{replace-with-your-id}",
-        //                                                 uniqueId: "{replace-with-your-id}",
-        //                                                 env: .QA,
-        //                                                 mqttConnectionType: .userCredntialAuthentication,
-        //                                                 sdkOptions: nil)
-        //        let objConfig = IoTConnectConfig(cpId: "qaiot106", uniqueId: "SmplDevice", env: .QA, mqttConnectionType: .userCredntialAuthentication, sdkOptions: nil)
-        
+      
         if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
              self.viewLoader.isHidden = false
             
             //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
             
-            // sdkOptions.brokerType = .aws
-            
-            //SSL Certificates with password
-            //            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client.p12", ofType: nil)
-            //           sdkOptions.ssl.password = "Softweb@123"
-            //  sdkOptions.skipValidation = true
-            
-            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client2301.p12", ofType: nil)
-            sdkOptions.ssl.password = "Softweb#123"
+            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<certificate name>", ofType: nil)
+            sdkOptions.ssl.password = "<certificate password>"
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
@@ -167,7 +132,7 @@ class ViewController: UIViewController {
             
             //for device PK
             //this is base64 string for SmplPk device
-            // sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
+            // sdkOptions.devicePK = "<Device PK>"
             
             let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .certificateAuthentication, sdkOptions: sdkOptions)
             
@@ -251,8 +216,6 @@ class ViewController: UIViewController {
             
             //callback for twin update
             SDKClient.shared.onTwinChangeCommand { (twinMessage) in
-                print("twinMessage: ", twinMessage as Any)
-                //twinMessage:  Optional(["uniqueId": "AndroidEdgeGateway", "desired": ["$version": 2, "dt1": 1]])
                 var keyToSend = ""
                 var valToSend = ""
                 let msgDict = twinMessage as? [String:Any]
@@ -299,7 +262,6 @@ class ViewController: UIViewController {
                 self.isGetDevicesCalled = false
                 self.arrSimpleDeviceData.removeAll()
                 if self.is204Received{
-                    //                    self.arrChildAttributeData.removeAll()
                     self.arrParentData.removeAll()
                 }
                 
@@ -308,7 +270,6 @@ class ViewController: UIViewController {
                         if let msg = responseDict["d"] as? [[String:Any]]{
                             self.noOfSecrions = msg.count
                             self.is204Received = true
-                            print("no of sections \(msg.count)")
                             self.arrChildDevicesAttributes = msg
                             if  self.is201Received{
                                 self.getChildDevicesAttributes()
@@ -361,7 +322,6 @@ class ViewController: UIViewController {
     func setUpDropDown(){
         let arrEnvValues: [String] = IOTCEnvironment.allCases.map { $0.rawValue }
         let arrEnv = IOTCEnvironment.allCases
-        print("arrEnv \(arrEnv)")
         txtFieldDropDown.optionArray = arrEnvValues
         txtFieldDropDown.arrowSize = 20.0
         txtFieldDropDown.arrowColor = .black
@@ -369,7 +329,6 @@ class ViewController: UIViewController {
         txtFieldDropDown.text = arrEnv[0].rawValue
         txtFieldDropDown.didSelect{(selectedText , index ,id) in
             self.env = arrEnv[index]
-            print("Env \(self.env)")
         }
     }
     
@@ -384,8 +343,7 @@ class ViewController: UIViewController {
             dCount += data?.att?[i].d?.count ?? 0
             
             let p = data?.att?[i].p
-            print("simple device p \(String(describing: data?.att?[i])) .0\(String(describing: data?.att?[i].p))")
-             
+        
             if arrAttData.count > 0{
                 for k in 0...(data?.att?[i].d?.count ?? 0)-1{
                     data?.att?[i].d?[k].p = p
@@ -398,7 +356,6 @@ class ViewController: UIViewController {
         }
         arrSimpleDeviceData.append(["Tag":arrAttData])
         if arrSimpleDeviceData[0]["Tag"]?.count ?? 0 > 0{
-            print("final arr \(arrSimpleDeviceData) \(arrSimpleDeviceData[0]["Tag"]?[0].count ?? 0)")
             noOfAttributes = arrSimpleDeviceData[0]["Tag"]?[0].count ?? 0
         }
     }
