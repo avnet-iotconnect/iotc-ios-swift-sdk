@@ -23,18 +23,18 @@ import Foundation
     Returns nothing
  */
 public struct IoTConnectConfig {
-    let cpId: String
+//    let cpId: String
     let uniqueId: String
-    let env: IOTCEnvironment
+//    let env: IOTCEnvironment
     let mqttConnectionType: MqttConnectionType
     let debugConfig: DebugConfig?
     let mqttConfig: MqttConfig?
     let sdkOptions: SDKClientOption?
     
-    public init(cpId: String, uniqueId: String, env: IOTCEnvironment, mqttConnectionType: MqttConnectionType, debugConfig: DebugConfig? = nil, mqttConfig: MqttConfig? = nil, sdkOptions: SDKClientOption?) {
-        self.cpId = cpId
+    public init( uniqueId: String, mqttConnectionType: MqttConnectionType, debugConfig: DebugConfig? = nil, mqttConfig: MqttConfig? = nil, sdkOptions: SDKClientOption) {
+      //  self.cpId = cpId
         self.uniqueId = uniqueId
-        self.env = env
+     //   self.env = env
         self.mqttConnectionType = mqttConnectionType
         self.debugConfig = debugConfig
         self.mqttConfig = mqttConfig

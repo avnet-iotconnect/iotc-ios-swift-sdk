@@ -20,6 +20,11 @@ public enum IOTCEnvironment: String,CaseIterable {
     #endif
 }
 
+public enum IoTCPf:String{
+    case az = "AZ"
+    case aws = "AWS"
+}
+
 class Common {
     
     private var strCPID: String = ""

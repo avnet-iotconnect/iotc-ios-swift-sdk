@@ -58,15 +58,15 @@ public class SDKClient {
         print("SDKClient initialize")
     #endif
         
-        if config.cpId.isEmpty{
+        if config.sdkOptions!.cpId.isEmpty{
             //   deviceCallback(["sdkStatus": "CPID is empty"])
             print(Log.Errors.ERR_IN12.rawValue)
         }else  if config.uniqueId.isEmpty{
             print(Log.Errors.ERR_IN13.rawValue)
-        }else if config.env.rawValue.isEmpty{
+        }else if config.sdkOptions!.env!.rawValue.isEmpty{
             print(Log.Errors.ERR_IN13.rawValue)
         }else{
-            iotConnectManager = IoTConnectManager(cpId: config.cpId, uniqueId: config.uniqueId, env: config.env.rawValue, sdkOptions: config.sdkOptions, deviceCallback: { (message) in
+            iotConnectManager = IoTConnectManager(cpId: config.sdkOptions!.cpId, uniqueId: config.uniqueId, env: config.sdkOptions!.env!.rawValue, sdkOptions: config.sdkOptions, deviceCallback: { (message) in
                 if self.blockHandlerDeviceCallBack != nil {
 //                    print("SDKClient blockHandlerDeviceCallBack")
                     self.blockHandlerDeviceCallBack!(message)

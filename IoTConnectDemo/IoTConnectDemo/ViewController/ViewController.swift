@@ -129,12 +129,15 @@ class ViewController: UIViewController {
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
             sdkOptions.offlineStorage.fileCount = 10
+            sdkOptions.cpId = txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? ""
+            sdkOptions.env = env
+            sdkOptions.pf = .aws
             
             //for device PK
             //this is base64 string for SmplPk device
             // sdkOptions.devicePK = "<Device PK>"
             
-            let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .certificateAuthentication, sdkOptions: sdkOptions)
+            let objConfig = IoTConnectConfig(uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", mqttConnectionType: .certificateAuthentication, sdkOptions: sdkOptions)
             
             SDKClient.shared.initialize(config: objConfig)
             

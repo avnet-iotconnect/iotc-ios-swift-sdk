@@ -22,6 +22,10 @@ public struct SDKClientOption {
     
     //device PK
     public var devicePK = ""
+    
+    public let cpId: String = ""
+    public var pf:IoTCPf?
+    public var env: IOTCEnvironment?
        
 //    public var broker = Broker.az.EnvironmentA.dev
     
