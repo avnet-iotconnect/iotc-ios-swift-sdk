@@ -142,7 +142,7 @@ class IoTConnectManager {
 //        "aws/things/\(strCPId ?? "")/shadow/name/\(strCPId ?? "")_twin_shadow/get/all"
 //#endif
             
-        initialize(cpId: cpId, uniqueId: uniqueId, deviceCallback: deviceCallback, twinUpdateCallback: twinUpdateCallback, getAttributesCallback: attributeCallBack,getTwinsCallback: twinsCallBack, getChildDevucesCallback: getChildCallback)
+        initialize(cpId: cpId, uniqueId: uniqueId, pf: sdkOptions?.pf?.rawValue ?? "", deviceCallback: deviceCallback, twinUpdateCallback: twinUpdateCallback, getAttributesCallback: attributeCallBack,getTwinsCallback: twinsCallBack, getChildDevucesCallback: getChildCallback)
     }
     
     //MARK:- Sample API check

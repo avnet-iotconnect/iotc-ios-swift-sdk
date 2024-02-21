@@ -129,16 +129,16 @@ class ViewController: UIViewController {
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
             sdkOptions.offlineStorage.fileCount = 10
-            sdkOptions.cpId = txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? ""
-            sdkOptions.env = env
-            sdkOptions.pf = .aws
+//            sdkOptions.cpId = txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? ""
+//            sdkOptions.env = env
+//            sdkOptions.pf = .aws
             
             //for device PK
             //this is base64 string for SmplPk device
             // sdkOptions.devicePK = "<Device PK>"
             
-            let objConfig = IoTConnectConfig(uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", mqttConnectionType: .certificateAuthentication, sdkOptions: sdkOptions)
-            
+            let objConfig =  IoTConnectConfig(uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", mqttConnectionType: .certificateAuthentication, sdkOptions: sdkOptions)
+          
             SDKClient.shared.initialize(config: objConfig)
             
             //callback fro connect,disconnect,identity,attribute,get child device and get twins reponse
@@ -817,7 +817,7 @@ class ViewController: UIViewController {
         #if DEMOAWS
         
         #else
-            env = .AVNET
+           // env = .AVNET
         #endif
     }
     
@@ -830,7 +830,7 @@ class ViewController: UIViewController {
         #if DEMOAWS
             
         #else
-            env = .QA
+        //  env = .QA
         #endif
         radioController.buttonArrayUpdated(buttonSelected: sender)
     }
@@ -839,7 +839,7 @@ class ViewController: UIViewController {
         #if DEMOAWS
             
         #else
-            env = .DEV
+          //  env = .DEV
         #endif
         radioController.buttonArrayUpdated(buttonSelected: sender)
     }

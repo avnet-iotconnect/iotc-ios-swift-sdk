@@ -19,7 +19,7 @@ public struct SDKClientOption {
   public var debug: Swift.Bool
   public var skipValidation: Swift.Bool
   public var devicePK: Swift.String
-  public let cpId: Swift.String
+  public var cpId: Swift.String
   public var pf: IoTConnect2_AWS.IoTCPf?
   public var env: IoTConnect2_AWS.IOTCEnvironment?
   public init()

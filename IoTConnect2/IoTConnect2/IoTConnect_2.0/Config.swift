@@ -41,7 +41,7 @@ struct SDKURL {
     static let discoveryHostAWSPOC = "https://awsdiscovery.iotconnect.io"//"https://awspoc.iotconnect.io"
     static let discoveryHostAWSPROD = "https://discoveryconsole.iotconnect.io"
     //"https://54.160.162.148:219"
-    static let endPointAWS = "?pf=aws"
+    static let endPointAWS = "?pf="
     
     /**
     get the Discovery URL
@@ -58,16 +58,16 @@ struct SDKURL {
      Returns the Discovery URL.
      */
     
-    static func discovery(_ strDiscoveryURL:String, _ cpId:String, _ lang:String, _ ver:String, _ env:String) -> String {
+    static func discovery(_ strDiscoveryURL:String, _ cpId:String, _ lang:String, _ ver:String, _ env:String, _ pf:String) -> String {
         //kirtan
        
         #if IOTAWS
         if env == IOTCEnvironment.PREQA.rawValue{
-            return String(format: "\(SDKURL.discoveryHostAWS)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)")
+            return String(format: "\(SDKURL.discoveryHostAWS)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)\(pf)")
         }else if env == IOTCEnvironment.POC.rawValue{
-            return String(format: "\(SDKURL.discoveryHostAWSPOC)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)")
+            return String(format: "\(SDKURL.discoveryHostAWSPOC)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)\(pf)")
         }else{
-            return String(format: "\(SDKURL.discoveryHostAWSPROD)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)")
+            return String(format: "\(SDKURL.discoveryHostAWSPROD)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)\(pf)")
         }
         #else
             return String(format: "\(strDiscoveryURL)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)")

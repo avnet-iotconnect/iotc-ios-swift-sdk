@@ -23,7 +23,7 @@ public struct SDKClientOption {
     //device PK
     public var devicePK = ""
     
-    public let cpId: String = ""
+    public var cpId: String = ""
     public var pf:IoTCPf?
     public var env: IOTCEnvironment?
        

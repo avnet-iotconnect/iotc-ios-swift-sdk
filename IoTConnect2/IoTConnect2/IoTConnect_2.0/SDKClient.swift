@@ -63,7 +63,8 @@ public class SDKClient {
             print(Log.Errors.ERR_IN12.rawValue)
         }else  if config.uniqueId.isEmpty{
             print(Log.Errors.ERR_IN13.rawValue)
-        }else if config.sdkOptions!.env!.rawValue.isEmpty{
+        }else if let ioTEnv = config.sdkOptions!.env,!ioTEnv.rawValue.isEmpty{
+            //config.sdkOptions!.env!.rawValue.isEmpty{
             print(Log.Errors.ERR_IN13.rawValue)
         }else{
             iotConnectManager = IoTConnectManager(cpId: config.sdkOptions!.cpId, uniqueId: config.uniqueId, env: config.sdkOptions!.env!.rawValue, sdkOptions: config.sdkOptions, deviceCallback: { (message) in
