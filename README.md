@@ -51,7 +51,7 @@ You must install COCOAMQTT as pod:
 
 pod 'CocoaMQTT', :git => 'https://github.com/emqx/CocoaMQTT.git', :tag => '2.1.6'
 
-The demo contins list of envioenment accrding to selected targets.
+The demo contains list of envioenment accrding to selected targets.
 
 * Prerequisite input data 
 
@@ -93,7 +93,7 @@ The demo contins list of envioenment accrding to selected targets.
     - disabled : false = offline data storing, true = not storing offline data 
     - availSpaceInMb : Define the file size of off-line data which should be in (MB)
     - fileCount : Number of files need to create for off-line data
-* "spID" : Enter the device CPID
+* "cpID" : Enter the device CPID
 * "env"  : Enter device pf
 * "pf"   : give tghe platform AZ or AWS  
 
