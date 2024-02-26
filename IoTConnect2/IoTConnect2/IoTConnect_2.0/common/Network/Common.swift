@@ -21,8 +21,8 @@ public enum IOTCEnvironment: String,CaseIterable {
 }
 
 public enum IoTCPf:String{
-    case az = "AZ"
-    case aws = "AWS"
+    case az = "az"
+    case aws = "aws"
 }
 
 class Common {

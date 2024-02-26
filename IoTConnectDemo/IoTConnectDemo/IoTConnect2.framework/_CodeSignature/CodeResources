@@ -4,65 +4,65 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Headers/IoTConnect2-Swift.h</key>
+		<data>
+		hb1j8BSELxsMxRkyQzEN4qCy/wA=
+		</data>
 		<key>Headers/IoTConnect2.h</key>
 		<data>
 		MFBk6sP7gS1X/0X1hRsYZqcEwZE=
 		</data>
-		<key>Headers/IoTConnect2_AWS-Swift.h</key>
-		<data>
-		M/CXFlPRyHOIXl8xqJqS+jNgnlE=
-		</data>
 		<key>Info.plist</key>
 		<data>
-		zEeKuzPd9S57oezFhf12Bn6Bo5k=
+		xKArejn/SHVkIyOaw6KICeiahCM=
 		</data>
 		<key>LICENSE</key>
 		<data>
 		cAwGertcN2M+44E7ukXT88b1tCA=
 		</data>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
+		<key>Modules/IoTConnect2.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		4hT//bc5Tb69dpmA5WiQmn8ZxUY=
+		T6CWIwD3tqRDCH8qDq5X3W0mFlw=
 		</data>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
+		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		7lrITwmzIupwrXHfhzvMR4PGE0E=
+		WY0G7heLrwO3DDE7U7gOnHSN34s=
 		</data>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
+		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		ZllcdZ/ds7invqo4hol/DdRQX3g=
+		MUsm2Sd8ZoZalu9mAckVqAYEvME=
 		</data>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
+		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		gqFpDbXIHVgu/rlwtYAXBcqNuOU=
+		6rSi9a+IuBOjy7WMCR90DBNyizY=
 		</data>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
+		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		ZllcdZ/ds7invqo4hol/DdRQX3g=
+		MUsm2Sd8ZoZalu9mAckVqAYEvME=
 		</data>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
+		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		NdpHtSHHjGCsZkXHugtlp06nRK8=
+		xv+tcn+X9LU4uLbgWrstlyegulc=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		gdkUSHXl+7qz6qAbvnA6VoWiESU=
+		vvQEmB+IwRRkEh/zNlcbGRDGmvU=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Headers/IoTConnect2-Swift.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TlYXI2Nc3SqyxdRimlh31hlLDC7HHQzVVOMS7ULinrQ=
+			</data>
+		</dict>
 		<key>Headers/IoTConnect2.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			4ZNYTQCGOOtfe3Ua4TtxU5+uaWQSlaAYiCX1iCJXJqQ=
-			</data>
-		</dict>
-		<key>Headers/IoTConnect2_AWS-Swift.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			nSDSqnRE0h6gqbm+nXkfyEaHPwFnXFvF09JRievr1is=
 			</data>
 		</dict>
 		<key>LICENSE</key>
@@ -72,53 +72,53 @@
 			K0S8b0qbkwXGkGwqbuDlYGmTeHRA+0paeQVinqDWw4Y=
 			</data>
 		</dict>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
+		<key>Modules/IoTConnect2.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			NAwEzw/XwJalaHxAWOtwBbjMQroaILVYZkm8iKs+3nY=
+			eiRuw7DXQN2IjeLppP414WLJ9etF7/G/5eA9pts7DGk=
 			</data>
 		</dict>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
+		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			rSMsu5iDBqCpb8aWpheruFlcYRYHsa/hzIYgneE2NZ4=
+			K2dGRyCQVdyAp0f8j8VY7NwpOfQ1lLiidK03C+ueUOY=
 			</data>
 		</dict>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
+		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ks3zcy3w8Ik1SjjXmOreWWLXedD2nMp1AmBcOr8KRBU=
+			iS0ltoMs2tw73QdxvGIN48W9dqNvBn/lPeotn1PYO18=
 			</data>
 		</dict>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
+		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			E8G9yuRg54voScpm4uudBMr0aPVU8nts+566d6ilL94=
+			mECxhKuqPi5TLqscgpVvvOvQYwyjm7u+1jeiKpEDnao=
 			</data>
 		</dict>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
+		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ks3zcy3w8Ik1SjjXmOreWWLXedD2nMp1AmBcOr8KRBU=
+			iS0ltoMs2tw73QdxvGIN48W9dqNvBn/lPeotn1PYO18=
 			</data>
 		</dict>
-		<key>Modules/IoTConnect2_AWS.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
+		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9KMNpPtiQ/RS2MBXP3gLMxbojmDkx28Y1CCrF7RehtM=
+			4R2eDQ+Skwnw571/XzJoZY4Vk8pSl3s8OW4cfN0MkBM=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			I7D9bgjH4hD48wU38Ev3fo7lv5uQ8izNSJ9cI8DJSwY=
+			1ID/bfzchnpxqoShvU4tNHpw7WeG54nROSkp3Vp4qG8=
 			</data>
 		</dict>
 	</dict>

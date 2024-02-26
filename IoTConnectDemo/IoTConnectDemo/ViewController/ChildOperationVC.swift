@@ -7,9 +7,9 @@
 
 import UIKit
 //#if DEMOAWS
-import IoTConnect2_AWS
+//import IoTConnect2_AWS
 //#else
-//import IoTConnect2
+import IoTConnect2
 //#endif
 
 

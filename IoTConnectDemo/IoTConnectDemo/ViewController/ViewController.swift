@@ -7,9 +7,9 @@
 
 import UIKit
 //#if DEMOAWS
-import IoTConnect2_AWS
+//import IoTConnect2_AWS
 //#else
-//import IoTConnect2
+import IoTConnect2
 //#endif
 
 
@@ -123,15 +123,15 @@ class ViewController: UIViewController {
             //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
             
-            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<certificate name>", ofType: nil)
-            sdkOptions.ssl.password = "<certificate password>"
+//            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<certificate name>", ofType: nil)
+//            sdkOptions.ssl.password = "<certificate password>"
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
             sdkOptions.offlineStorage.fileCount = 10
-//            sdkOptions.cpId = txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? ""
-//            sdkOptions.env = env
-//            sdkOptions.pf = .aws
+            sdkOptions.cpId = txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? ""
+            sdkOptions.env = env
+            sdkOptions.pf = .az
             
             //for device PK
             //this is base64 string for SmplPk device

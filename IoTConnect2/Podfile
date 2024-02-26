@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 workspace 'IoTConnect2'
-
+
 pod 'CocoaMQTT', :git => 'https://github.com/emqx/CocoaMQTT.git', :tag => '2.1.6'
 
 target 'IoTConnect2' do
