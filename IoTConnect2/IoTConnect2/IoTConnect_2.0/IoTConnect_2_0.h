@@ -7,8 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-//#import "GCDAsyncSocket.h"
-//#import "GCDAsyncUdpSocket.h"
 
 //! Project version number for IoTConnect_2_0.
 FOUNDATION_EXPORT double IoTConnect_2_0VersionNumber;

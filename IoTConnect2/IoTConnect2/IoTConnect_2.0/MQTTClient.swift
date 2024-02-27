@@ -57,19 +57,19 @@ class MQTTClient {
             mqtt!.disconnect()
         }
         mqtt = CocoaMQTT(clientID: dataSyncResponse[keyPath:"p.id"] as! String, host: dataSyncResponse[keyPath:"p.h"] as! String, port: dataSyncResponse[keyPath:"p.p"] as! UInt16)
-        mqtt!.username = dataSyncResponse[keyPath:"p.un"] as? String
+        
+        guard let mqtt = mqtt else { return  }
+        mqtt.username = dataSyncResponse[keyPath:"p.un"] as? String
         
         if !password.isEmpty{
-            mqtt!.password = password
+            mqtt.password = password
         }else{
-//            print("dataSyncResponse \(dataSyncResponse)")
-            mqtt!.password = dataSyncResponse[keyPath:"p.pwd"] as? String
+            mqtt.password = dataSyncResponse[keyPath:"p.pwd"] as? String
         }
          
-//                mqtt!.keepAlive = 10//600
-        mqtt!.delegate = self
-        mqtt!.enableSSL = true
-        mqtt!.autoReconnect = true
+        mqtt.delegate = self
+        mqtt.enableSSL = true
+        mqtt.autoReconnect = true
         
         var boolToConnectYN = false
         
@@ -82,8 +82,8 @@ class MQTTClient {
                 let pwd = dataSDKOptions.ssl.password
                 let clientCertificate = objCommon.getClientCertFromP12File(pathCertificate: objCommon.getFilePath(dataSDKOptions.ssl.certificatePath as Any), certPassword: pwd)
                 sslSettings[kCFStreamSSLCertificates as String] = clientCertificate
-                mqtt!.sslSettings = sslSettings
-                mqtt!.allowUntrustCACertificate = true
+                mqtt.sslSettings = sslSettings
+                mqtt.allowUntrustCACertificate = true
                 boolToConnectYN = true
             } else {
                 objCommon.manageDebugLog(code: Log.Errors.ERR_IN11.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
@@ -93,7 +93,7 @@ class MQTTClient {
         }
         if boolToConnectYN {
             boolAlreadyConnectedYN = true
-            _ = mqtt!.connect()
+            _ = mqtt.connect()
         }
     }
     func connectMQTTAgain() {
@@ -124,7 +124,7 @@ class MQTTClient {
     //MARK: - Offline Process Methods
     private func offlineProcess(_ offlineData: [String: Any]) {
         let offlinePerFileDataLimit = ((dataSDKOptions.offlineStorage.availSpaceInMb * 1024) / dataSDKOptions.offlineStorage.fileCount) * 1000 //Convert > KB > Bytes
-//        print("offlinePerFileDataLimit: ", offlinePerFileDataLimit as Any)
+
         if isRunningOfflineStoring {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.offlineProcess(offlineData)
@@ -135,11 +135,11 @@ class MQTTClient {
             do {
                 // Get the directory contents urls (including subfolders urls)
                 var files = try FileManager.default.contentsOfDirectory(atPath: objCommon.getDocumentsDirectory().appendingPathComponent(logPath).path)
-                print("directoryContents-Before: \(files)")
+              
                 if files.contains(".DS_Store") {
                     files.remove(at: files.firstIndex(of: ".DS_Store")!)
                 }
-                print("directoryContents-After: \(files)")
+                
                 if (files.count == 0) {
                     createFile(offlineData: offlineData, oldFile: nil, logPath: logPath) { (res) in
                         self.isRunningOfflineStoring = false
@@ -450,15 +450,9 @@ class MQTTClient {
                 var dataOfflineResult = offlineDataResult
                 dataOfflineResult["od"] = 1
                 
-//                if (dataOfflineResult[Dictkeys.mtKey] != nil) || dataOfflineResult[Dictkeys.mtKey] as? Int == 0 {
+
                     let topic = dataSyncResponse[keyPath:"p.topics.od"] as! String
                     publishTopicOnMQTT(withData: dataOfflineResult, topic: topic)
-//                } else {
-//                    if dataOfflineResult[Dictkeys.cpIDkey] != nil {
-//                        dataOfflineResult.removeValue(forKey: Dictkeys.cpIDkey)
-//                    }
-//                    publishTwinPropertyDataOnMQTT(withData: dataOfflineResult)
-//                }
                 dataOfflineToModify[indX] = [:]
                 if(actualDataLength == totalRecordCnt) {
                     dataOfflineToModify = dataOfflineToModify.filter { (obj) -> Bool in

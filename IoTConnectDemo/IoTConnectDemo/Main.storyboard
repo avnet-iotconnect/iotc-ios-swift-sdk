@@ -35,110 +35,11 @@
                                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="911-2G-pNQ">
-                                                        <rect key="frame" x="4" y="34" width="290" height="35"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFh-wh-FUs">
-                                                                <rect key="frame" x="0.0" y="0.0" width="58" height="35"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="B5w-3H-Ud2"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="Avnet" image="icon_radio_normal">
-                                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <state key="selected" image="icon_radio_selected"/>
-                                                                <connections>
-                                                                    <action selector="btnAvnetTapped:" destination="WM8-vI-5hN" eventType="touchUpInside" id="I0P-mF-1vh"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33h-2u-Gv1">
-                                                                <rect key="frame" x="58" y="0.0" width="58" height="35"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="dEY-Yh-Uul"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="POC" image="icon_radio_normal">
-                                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <state key="selected" image="icon_radio_selected"/>
-                                                                <connections>
-                                                                    <action selector="btnPOCTapped:" destination="WM8-vI-5hN" eventType="touchUpInside" id="7za-gq-guI"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mN6-cK-weW">
-                                                                <rect key="frame" x="116" y="0.0" width="58" height="35"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="RqP-g1-eIc"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="QA" image="icon_radio_normal">
-                                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <state key="selected" image="icon_radio_selected"/>
-                                                                <connections>
-                                                                    <action selector="btnQATapped:" destination="WM8-vI-5hN" eventType="touchUpInside" id="xyE-Q4-NLD"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7u-mv-Jxa">
-                                                                <rect key="frame" x="174" y="0.0" width="58" height="35"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="S8y-c4-ASr"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="Dev" image="icon_radio_normal">
-                                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <state key="selected" image="icon_radio_selected"/>
-                                                                <connections>
-                                                                    <action selector="btnDevTapped:" destination="WM8-vI-5hN" eventType="touchUpInside" id="0Bz-55-OoL"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lv0-Mh-gC7">
-                                                                <rect key="frame" x="232" y="0.0" width="58" height="35"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="wcj-lm-cXN"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="PreQA" image="icon_radio_normal">
-                                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <state key="selected" image="icon_radio_selected"/>
-                                                                <connections>
-                                                                    <action selector="btnPREQATapped:" destination="WM8-vI-5hN" eventType="touchUpInside" id="Eqm-sX-9DW"/>
-                                                                </connections>
-                                                            </button>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstItem="lv0-Mh-gC7" firstAttribute="width" secondItem="R7u-mv-Jxa" secondAttribute="width" id="2f2-rw-Ewy"/>
-                                                            <constraint firstItem="R7u-mv-Jxa" firstAttribute="leading" secondItem="mN6-cK-weW" secondAttribute="trailing" id="2rc-Eu-UB7"/>
-                                                            <constraint firstItem="33h-2u-Gv1" firstAttribute="width" secondItem="kFh-wh-FUs" secondAttribute="width" id="4Ct-mU-iHr"/>
-                                                            <constraint firstItem="kFh-wh-FUs" firstAttribute="leading" secondItem="911-2G-pNQ" secondAttribute="leading" id="7Y1-aV-ZDE"/>
-                                                            <constraint firstAttribute="height" constant="35" id="9Ty-mi-u6O"/>
-                                                            <constraint firstItem="R7u-mv-Jxa" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="JZE-gD-jPZ"/>
-                                                            <constraint firstItem="mN6-cK-weW" firstAttribute="width" secondItem="kFh-wh-FUs" secondAttribute="width" id="N03-7R-ksD"/>
-                                                            <constraint firstItem="kFh-wh-FUs" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="UNq-9H-zpo"/>
-                                                            <constraint firstAttribute="trailing" secondItem="lv0-Mh-gC7" secondAttribute="trailing" id="XaG-RX-PVJ"/>
-                                                            <constraint firstItem="lv0-Mh-gC7" firstAttribute="leading" secondItem="R7u-mv-Jxa" secondAttribute="trailing" id="gWo-Qe-8xY"/>
-                                                            <constraint firstItem="33h-2u-Gv1" firstAttribute="leading" secondItem="kFh-wh-FUs" secondAttribute="trailing" id="gYM-WY-fRH"/>
-                                                            <constraint firstItem="mN6-cK-weW" firstAttribute="leading" secondItem="33h-2u-Gv1" secondAttribute="trailing" id="jR0-LU-Rvh"/>
-                                                            <constraint firstItem="lv0-Mh-gC7" firstAttribute="top" secondItem="R7u-mv-Jxa" secondAttribute="top" id="mM3-zI-dfA"/>
-                                                            <constraint firstItem="R7u-mv-Jxa" firstAttribute="width" secondItem="kFh-wh-FUs" secondAttribute="width" id="pKz-dQ-Ed5"/>
-                                                            <constraint firstItem="33h-2u-Gv1" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="qFS-Ff-bTm"/>
-                                                            <constraint firstItem="mN6-cK-weW" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="t38-oG-uNR"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uHx-sX-TOs">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uHx-sX-TOs">
                                                         <rect key="frame" x="4" y="34" width="290" height="35"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xmo-1g-MJs" customClass="DropDown" customModule="IoTConnectDemo" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="0.0" width="250" height="35"/>
+                                                                <rect key="frame" x="20" y="0.0" width="32" height="34"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -154,17 +55,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="911-2G-pNQ" secondAttribute="trailing" constant="4" id="2VX-nU-ayw"/>
-                                                    <constraint firstItem="911-2G-pNQ" firstAttribute="top" secondItem="gll-0F-FAm" secondAttribute="bottom" constant="8" id="3Ow-tJ-V72"/>
-                                                    <constraint firstItem="uHx-sX-TOs" firstAttribute="top" secondItem="911-2G-pNQ" secondAttribute="top" id="3vI-Ur-fey"/>
-                                                    <constraint firstItem="uHx-sX-TOs" firstAttribute="bottom" secondItem="911-2G-pNQ" secondAttribute="bottom" id="JRl-0g-qhq"/>
-                                                    <constraint firstItem="uHx-sX-TOs" firstAttribute="leading" secondItem="911-2G-pNQ" secondAttribute="leading" id="ScD-hw-Kiv"/>
                                                     <constraint firstItem="gll-0F-FAm" firstAttribute="leading" secondItem="sgC-y5-AfG" secondAttribute="leading" constant="20" symbolic="YES" id="b9B-wk-7yk"/>
                                                     <constraint firstAttribute="trailing" secondItem="gll-0F-FAm" secondAttribute="trailing" constant="20" symbolic="YES" id="esg-F1-9Fu"/>
                                                     <constraint firstAttribute="height" constant="100" id="kZG-2h-0mQ"/>
-                                                    <constraint firstItem="uHx-sX-TOs" firstAttribute="trailing" secondItem="911-2G-pNQ" secondAttribute="trailing" id="lIU-0L-QP6"/>
                                                     <constraint firstItem="gll-0F-FAm" firstAttribute="top" secondItem="sgC-y5-AfG" secondAttribute="top" constant="5" id="n18-jD-4da"/>
-                                                    <constraint firstItem="911-2G-pNQ" firstAttribute="leading" secondItem="sgC-y5-AfG" secondAttribute="leading" constant="4" id="pqs-KM-BRa"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mF1-zd-oZ4">
@@ -497,14 +391,9 @@
                     <navigationItem key="navigationItem" id="2bu-Iy-GcD"/>
                     <size key="freeformSize" width="298" height="998"/>
                     <connections>
-                        <outlet property="btnAvnet" destination="kFh-wh-FUs" id="qup-Xx-DvQ"/>
                         <outlet property="btnChildDevicesOperation" destination="AX7-f5-Ryp" id="Ezj-fW-F4H"/>
                         <outlet property="btnConnect" destination="duJ-eO-2Zi" id="FXp-Od-aCg"/>
-                        <outlet property="btnDev" destination="R7u-mv-Jxa" id="GIb-gk-ZhR"/>
                         <outlet property="btnGetTwins" destination="Rz8-HM-KS3" id="evp-Jr-CQL"/>
-                        <outlet property="btnPOC" destination="33h-2u-Gv1" id="W1F-mp-hpA"/>
-                        <outlet property="btnPreQA" destination="lv0-Mh-gC7" id="11E-4S-UWt"/>
-                        <outlet property="btnQA" destination="mN6-cK-weW" id="yxs-PU-BbP"/>
                         <outlet property="btnSendData" destination="kMT-xY-5CA" id="DGO-rp-WeV"/>
                         <outlet property="btnStatus" destination="QYG-mX-9F4" id="Lxa-pU-iNN"/>
                         <outlet property="lblStatus" destination="IOM-Lq-2fV" id="GYK-9W-Bbv"/>

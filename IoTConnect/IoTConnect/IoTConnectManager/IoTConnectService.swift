@@ -483,13 +483,7 @@ extension IoTConnectManager {
     }
     private func checkForIsValidOrNotWith(forData dictForData: [String: Any], withValue idValue: Any) -> Bool {
         if dictForData["dt"] as? Int == DataType.DTNumber {
-//            let scan = Scanner(string: "\(Int(String(describing: idValue)) ?? 0)")
-//            var val: Int32 = 0
-//            if scan.scanInt32(&val) && scan.isAtEnd {
-//                
-//            } else {
-//                return false
-//            }
+
             if Int(idValue as? String ?? "") != nil{
                     // Successfully converted to integers
                 } else {
@@ -509,7 +503,6 @@ extension IoTConnectManager {
                         let max = Int(arrayComponent[1].trimmingCharacters(in: .whitespaces)) ?? 0
 
                         if valueToCheck <= max && valueToCheck >= min {
-                           // print("if")
                             boolInYN = true
                         }
                     } else {

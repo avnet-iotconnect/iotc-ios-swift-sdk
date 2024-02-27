@@ -59,17 +59,14 @@ public class SDKClient {
     #endif
         
         if config.sdkOptions!.cpId.isEmpty{
-            //   deviceCallback(["sdkStatus": "CPID is empty"])
             print(Log.Errors.ERR_IN12.rawValue)
         }else  if config.uniqueId.isEmpty{
             print(Log.Errors.ERR_IN13.rawValue)
         }else if let ioTEnv = config.sdkOptions!.env,ioTEnv.rawValue.isEmpty{
-            //config.sdkOptions!.env!.rawValue.isEmpty{
             print(Log.Errors.ERR_IN15.rawValue)
         }else{
             iotConnectManager = IoTConnectManager(cpId: config.sdkOptions!.cpId, uniqueId: config.uniqueId, env: config.sdkOptions!.env!.rawValue, sdkOptions: config.sdkOptions, deviceCallback: { (message) in
                 if self.blockHandlerDeviceCallBack != nil {
-//                    print("SDKClient blockHandlerDeviceCallBack")
                     self.blockHandlerDeviceCallBack!(message)
                 }
             }, twinUpdateCallback: { (twinMessage) in
@@ -408,7 +405,6 @@ extension SDKClient : callBackResponse{
     }
     
     func onDeviceCommandCallback(response:[String:Any]?,error:String?) {
-//        print("onDeviceCommandCallback called \(response ?? [:])")
         blockHandlerOnDeviceCommand?(response)
     }
 }

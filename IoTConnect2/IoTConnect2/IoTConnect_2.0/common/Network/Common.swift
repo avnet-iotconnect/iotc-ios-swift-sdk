@@ -162,27 +162,7 @@ class Common {
     func getAttributes(dictSyncResponse: [String:Any], callBack: @escaping ([String:Any]?, String) -> ()) {
         DispatchQueue.main.async {
             let newAttributeObj = dictSyncResponse[keyPath: "p.topics.di"]
-            //dictSyncResponse["att"] as! [[String:Any]]
-//            let isEdgeDevice = dictSyncResponse["ee"] as! Bool
-            
-            
-//            newAttributeObj = newAttributeObj.map { (attributes) -> [String:Any] in
-//                var dataAttributes = attributes
-//                if !isEdgeDevice {
-//                    dataAttributes.removeValue(forKey: "tw")
-//                    dataAttributes.removeValue(forKey: "agt")
-//                }
-//                dataAttributes["d"] = (dataAttributes["d"] as! [[String:Any]]).map({ (data) -> [String : Any] in
-//                    var dataDevice = data
-//                    if !isEdgeDevice {
-//                        dataDevice.removeValue(forKey: "tw")
-//                        dataDevice.removeValue(forKey: "agt")
-//                    }
-//                    dataDevice.removeValue(forKey: "sq")
-//                    return dataDevice
-//                })
-//                return dataAttributes
-//            }
+           
             callBack(["attribute": newAttributeObj ?? ""], "Data sync successfully.")
         }
     }
@@ -228,12 +208,6 @@ class Common {
     }
     func getClientCertFromP12File(pathCertificate: String, certPassword: String) -> CFArray? {
         // get p12 file path
-        /*let resourcePath = getDocumentsDirectory().appendingPathComponent(certName).path
-        
-        guard let filePath = resourcePath as? String, let p12Data = NSData(contentsOfFile: filePath) else {
-            print("Failed to open the certificate file-1: \(certName)")
-            return nil
-        }*/
         let p12Data = NSData(contentsOfFile: pathCertificate)!
         
         // create key dictionary for reading p12 file

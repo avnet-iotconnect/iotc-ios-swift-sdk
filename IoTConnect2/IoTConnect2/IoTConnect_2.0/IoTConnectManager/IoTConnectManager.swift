@@ -94,9 +94,6 @@ class IoTConnectManager {
             strEnv = IOTCEnvironment(rawValue: env)!
         }
         
-        //        deviceCallback (["Error":Log.Errors.ERR_IN12.rawValue])
-        //        print(Log.Errors.ERR_IN12.rawValue)
-        
         if sdkOptions != nil {
             dataSDKOptions = sdkOptions
         } else {
@@ -129,19 +126,6 @@ class IoTConnectManager {
         objMQTTClient.boolIsInternetAvailableYN = checkInternetAvailable()
         reachabilityObserver()
         
-        //        if dataSDKOptions.brokerType == .aws{
-//#if IOTAWS
-//        IoTConnectManager.sharedInstance.twinPropertyPubTopic =
-//        "$rid=1/aws/things/\(strCPId ?? "")/shadow/name/$\(strCPId ?? "")_twin_shadow/report"
-//        IoTConnectManager.sharedInstance.twinPropertySubTopic =
-//        "aws/things/\(strCPId ?? "")/shadow/name/\(strCPId ?? "")_twin_shadow/property-shadow"
-//        //
-//        IoTConnectManager.sharedInstance.twinResponsePubTopic =
-//        "aws/things/\(strCPId ?? "")/shadow/name/\(strCPId ?? "")_twin_shadow/get"
-//        IoTConnectManager.sharedInstance.twinResponseSubTopic =
-//        "aws/things/\(strCPId ?? "")/shadow/name/\(strCPId ?? "")_twin_shadow/get/all"
-//#endif
-            
         initialize(cpId: cpId, uniqueId: uniqueId, pf: sdkOptions?.pf?.rawValue ?? "", deviceCallback: deviceCallback, twinUpdateCallback: twinUpdateCallback, getAttributesCallback: attributeCallBack,getTwinsCallback: twinsCallBack, getChildDevucesCallback: getChildCallback)
     }
     
@@ -255,11 +239,7 @@ class IoTConnectManager {
                 if diff >= df{
                     validateData(data: data, skipValidation: dataSDKOptions.skipValidation)
                 }
-//                else{
-//                    print("Diff is lt")
-//                }
             }else{
-//                print("prevsendData is nil")
                 validateData(data: data, skipValidation: dataSDKOptions.skipValidation)
             }
         }else {
@@ -337,7 +317,6 @@ class IoTConnectManager {
         
         if arrData.count > 0{
             if let firstIndex = arrData.firstIndex(where: {$0[key] != nil}){
-//                print("key \(key) exist")
                 if let dictValue = value as? [String:Any]{
                     var data = arrData[firstIndex][key] as? [String:Any]
                     for (valDictKey,valDictValue) in dictValue{
@@ -345,15 +324,11 @@ class IoTConnectManager {
                             var arrDataObj = val as? [String]
                             arrDataObj?.append(valDictValue as? String ?? "")
                             data?[valDictKey] = arrDataObj
-//                            print("arrData before \(arrData)")
                             arrData[firstIndex][key] = data ?? [:]
-//                            print("arrData \(arrData)")
                         }else{
                             data?.append(anotherDict: [
                                 valDictKey:[valDictValue]])
-//                            print("arrData before \(arrData)")
                             arrData[firstIndex][key] = data ?? [:]
-//                            print("arrData \(arrData)")
                         }
                     }
                 }else{
@@ -361,20 +336,16 @@ class IoTConnectManager {
                         var arrVal =   arrData[firstIndex][key] as? [String]
                         arrVal?.append(value as? String ?? "")
                         arrData[firstIndex][key] = arrVal
-//                        print("arrData \(arrData)")
                     }
                 }
             }else{
-//                print("key \(key) not exist")
                 if let dictValue = value as? [String:Any]{
                     for (valDictKey,valDictValue) in dictValue{
                         arrData.append([key:[
                             valDictKey:[valDictValue]]])
-//                        print("arrData \(arrData)")
                     }
                 }else{
                     arrData.append([key:[value]])
-//                    print("arrData \(arrData)")
                 }
             }
         }else{
@@ -382,11 +353,9 @@ class IoTConnectManager {
                 for (valDictKey,valDictValue) in valDict{
                     arrData.append([key:[
                         valDictKey:[valDictValue]]])
-//                    print("arrData \(arrData)")
                 }
             }else{
                 arrData.append([key:[value]])
-//                print("arrData \(arrData)")
             }
         }
         
@@ -404,27 +373,22 @@ class IoTConnectManager {
                     }
                     dataDevice[Dictkeys.dKey] = dictD
                     arrCalcDictEdgeDevice[firstIndex] = dataDevice
-//                    print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
                 }else{
                     if let val = dictD?[key], let firstIndexData = arrData.firstIndex(where: {$0[key] != nil}){
                         if let valDict = val as? [String:Any]{
                             let arrObjData = arrData[firstIndexData][key] as? [String:Any]
-//                            print("key \(key) exist in arrEdgeDeviceData")
-                            
+ 
                             if let dictValue = value as? [String:Any]{
-//                                print("\(value) \(key)")
+
                                 for (dictValueKey,dictVal) in dictValue{
                                     var arrValues = arrObjData?[dictValueKey] as? [String]
                                     arrValues = calcEdgeData(arrValues: arrValues ?? [], latestVal: "\(dictVal)")
                                     if valDict[dictValueKey] is [String]{
-//                                        print("\(dictValueKey) exist in arrCalcEdgeDevice")
                                         var val = dictD?[key] as? [String:Any]
                                         val?[dictValueKey] = arrValues
                                         dictD?[key] = val
                                         arrCalcDictEdgeDevice[firstIndex]["d"] = dictD ?? [:]
                                     }else{
-//                                        print("\(dictValueKey) not exist in arrCalcEdgeDevice")
-                                        
                                         var val = dictD?[key] as? [String:Any]
                                         val?.append(anotherDict: [dictValueKey:arrValues ?? []])
                                         dictD?[key] = val
@@ -437,7 +401,6 @@ class IoTConnectManager {
                             dictD?[key] = calcEdgeData(arrValues: arr ?? [], latestVal: "\(value)")
                             arrCalcDictEdgeDevice[firstIndex][Dictkeys.dKey] = dictD ?? [:]
                         }
-//                        print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
                     }else{
                         if let valDict = value as? [String:Any]{
                             for (valDictKey,valDictValue) in valDict{
@@ -448,7 +411,6 @@ class IoTConnectManager {
                             dictD?.append(anotherDict: ["\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]])
                         }
                         arrCalcDictEdgeDevice[firstIndex][Dictkeys.dKey] = dictD ?? [:]
-//                        print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
                     }
                 }
             }else{
@@ -461,46 +423,7 @@ class IoTConnectManager {
                     arrCalcDictEdgeDevice.append([Dictkeys.idkey:id ?? "",Dictkeys.tagkey:tg ?? "",Dictkeys.datekey:dt,Dictkeys.dKey:[
                         "\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]]])
                 }
-//                print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
             }
-
-            //old
-            //            if let firstIndexCalcDict = arrD?.firstIndex(where: {$0[key] != nil}), let firstIndexData = arrData.firstIndex(where: {$0[key] != nil}){
-            //                let arr = arrData[firstIndexData][key] as? [String]
-            //                let arrFloat = arr?.lazy.compactMap{
-            //                    Float($0.trimmingCharacters(in: .whitespaces))
-            //                }
-            //                let sum = arrFloat?.reduce(0,+) ?? 0.0
-            //                let avg = Int(sum)/(arrFloat?.count ?? 1)
-            //
-            //                arrD?[firstIndexCalcDict] = ["\(key)":["\(arrFloat?.min() ?? 0)","\(arrFloat?.max() ?? 0)","\(sum)","\(avg)","\(arrFloat?.count ?? 1)","\(value)"]]
-            //                arrCalcDictEdgeDevice[0]["d"] = arrD
-            //                print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
-            //            }else{
-            //                arrD?.append(["\(key)":["\(value)","\(value)","\(value)","\(value)","1.0","\(value)"]])
-            //                arrCalcDictEdgeDevice[0]["d"] = arrD
-            //                print("arrCalcDictEdgeDevice \(arrCalcDictEdgeDevice)")
-            //            }
-            
-            //            let filterArrCalc =  arrCalcDictEdgeDevice.compactMap { $0["key"] }
-            //            let filterArrData =  arrData.compactMap { $0["key"] }
-            //
-            //
-            //            if filterArrCalc.count > 0 && filterArrData.count > 0{
-            //
-            //            }else{
-            //                arrCalcDictEdgeDevice.append(["\(key)":["\(value)","\(value)","\(value)","\(value)","1.0","\(value)"]])
-            //            }
-            
-            //            for i in 0...arrCalcDictEdgeDevice.count-1{
-            //                for(validDataKey,_) in arrCalcDictEdgeDevice[i]{
-            //                    if key == validDataKey{
-            //
-            //                    }else{
-            //                        arrCalcDictEdgeDevice.append(["\(key)":["\(value)","\(value)","\(value)","\(value)","1.0","\(value)"]])
-            //                    }
-            //                }
-            //            }
         }else{
             if let valDict = value as? [String:Any]{
                 for (valDictKey,valDictValue) in valDict{
@@ -511,7 +434,6 @@ class IoTConnectManager {
                 arrCalcDictEdgeDevice.append([Dictkeys.idkey:id ?? "",Dictkeys.tagkey:tg ?? "",Dictkeys.datekey:dt,Dictkeys.dKey:[
                     "\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]]])
             }
-//            print("arrCalcDictEdgeDevice contains \(arrCalcDictEdgeDevice)")
         }
         return arrData
     }

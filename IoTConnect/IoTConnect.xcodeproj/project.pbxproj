@@ -38,8 +38,7 @@
 		DD7719C92B4D5B3000764E39 /* CachProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7719142B4D5B3000764E39 /* CachProtocol.swift */; };
 		DD7719CA2B4D5B3000764E39 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7719152B4D5B3000764E39 /* CacheManager.swift */; };
 		DD7719CB2B4D5B3000764E39 /* CacheModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7719162B4D5B3000764E39 /* CacheModel.swift */; };
-		DD7719CC2B4D60CF00764E39 /* IoTConnect.h in Headers */ = {isa = PBXBuildFile; fileRef = DD7718FF2B4D5B3000764E39 /* IoTConnect.h */; };
-		DDAC3A892B4D4C06006FBC0D /* IoTConnect.h in Headers */ = {isa = PBXBuildFile; fileRef = DDAC3A882B4D4C06006FBC0D /* IoTConnect.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DDECC98F2B8DB0060050A5D8 /* IoTConnect.h in Headers */ = {isa = PBXBuildFile; fileRef = DDECC98E2B8DB0050050A5D8 /* IoTConnect.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,7 +57,6 @@
 		DD7718FC2B4D5B3000764E39 /* IoTConnectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IoTConnectManager.swift; sourceTree = "<group>"; };
 		DD7718FD2B4D5B3000764E39 /* IoTConnectService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IoTConnectService.swift; sourceTree = "<group>"; };
 		DD7718FE2B4D5B3000764E39 /* IoTConnectDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IoTConnectDelegate.swift; sourceTree = "<group>"; };
-		DD7718FF2B4D5B3000764E39 /* IoTConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IoTConnect.h; path = "../../../IoTConnectSDK _1/IoTConnectSDK/IoTConnectSDK/IoTConnect.h"; sourceTree = "<group>"; };
 		DD7719002B4D5B3000764E39 /* SDKClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKClient.swift; sourceTree = "<group>"; };
 		DD7719012B4D5B3000764E39 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD7719032B4D5B3000764E39 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
@@ -80,6 +78,7 @@
 		DD7719162B4D5B3000764E39 /* CacheModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheModel.swift; sourceTree = "<group>"; };
 		DDAC3A852B4D4C06006FBC0D /* IoTConnect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IoTConnect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDAC3A882B4D4C06006FBC0D /* IoTConnect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IoTConnect.h; sourceTree = "<group>"; };
+		DDECC98E2B8DB0050050A5D8 /* IoTConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IoTConnect.h; sourceTree = "<group>"; };
 		E204FEEA52101E73112647CC /* Pods_IoTConnect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IoTConnect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -211,7 +210,7 @@
 				DD7718F82B4D5B3000764E39 /* Config.swift */,
 				DD7718F92B4D5B3000764E39 /* ErrosLog.swift */,
 				DD7719012B4D5B3000764E39 /* Info.plist */,
-				DD7718FF2B4D5B3000764E39 /* IoTConnect.h */,
+				DDECC98E2B8DB0050050A5D8 /* IoTConnect.h */,
 				DD7718FB2B4D5B3000764E39 /* IoTConnectManager */,
 				DD77190E2B4D5B3000764E39 /* IoTConnectSDK.h */,
 				DD7718F12B4D5B3000764E39 /* Models */,
@@ -234,8 +233,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD7719CC2B4D60CF00764E39 /* IoTConnect.h in Headers */,
-				DDAC3A892B4D4C06006FBC0D /* IoTConnect.h in Headers */,
+				DDECC98F2B8DB0060050A5D8 /* IoTConnect.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

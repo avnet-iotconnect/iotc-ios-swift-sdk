@@ -6,11 +6,11 @@
 //
 
 import UIKit
-//#if DEMOAWS
-//import IoTConnect2_AWS
-//#else
+#if DEMOAWS
+import IoTConnect2_AWS
+#else 
 import IoTConnect2
-//#endif
+#endif
 
 
 public enum DeviceConnectionStatus{
@@ -27,10 +27,6 @@ class ViewController: UIViewController {
     @IBOutlet var txtCPID,txtUniqueID : UITextField!
     @IBOutlet var tblProperty : UITableView!
     @IBOutlet var txtView : UITextView!
-    @IBOutlet weak var btnAvnet: UIButton!
-    @IBOutlet weak var btnPOC: UIButton!
-    @IBOutlet weak var btnQA: UIButton!
-    @IBOutlet weak var btnDev: UIButton!
     @IBOutlet weak var lblStatus: UILabel!
     @IBOutlet weak var viewLoader: UIView!
     @IBOutlet weak var tblViewHeightConstraint: NSLayoutConstraint!
@@ -39,7 +35,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnSendData: UIButton!
     @IBOutlet weak var btnGetTwins: UIButton!
     @IBOutlet weak var btnChildDevicesOperation: UIButton!
-    @IBOutlet weak var btnPreQA: UIButton!
     @IBOutlet weak var viewDropDown: UIView!
     @IBOutlet weak var txtFieldDropDown: DropDown!
     
@@ -48,7 +43,7 @@ class ViewController: UIViewController {
     private var btnDisConnectTitle = "DISCONNECT"
     private let tblViewRowheight = 44.0
     private var noOfSecrions = 0
-    private var env:IOTCEnvironment = .PROD
+    private var env:IOTCEnvironment = .POC
     private var devivceStatus:DeviceConnectionStatus = .disconnected
     private let radioController: RadioButtonController = RadioButtonController()
     private var noOfAttributes = 0
@@ -72,9 +67,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setUpDropDown()
-        radioController.buttonsArray = [btnAvnet,btnQA,btnDev,btnPOC,btnPreQA]
-        radioController.defaultButton = btnPOC
-        
+
         //button Status Corner Radius
         btnStatus.layer.cornerRadius = 12.5
         
@@ -131,7 +124,7 @@ class ViewController: UIViewController {
             sdkOptions.offlineStorage.fileCount = 10
             sdkOptions.cpId = txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? ""
             sdkOptions.env = env
-            sdkOptions.pf = .az
+            sdkOptions.pf = .aws
             
             //for device PK
             //this is base64 string for SmplPk device
@@ -812,45 +805,6 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func btnAvnetTapped(_ sender: UIButton) {
-        radioController.buttonArrayUpdated(buttonSelected: sender)
-        #if DEMOAWS
-        
-        #else
-           // env = .AVNET
-        #endif
-    }
-    
-    @IBAction func btnPOCTapped(_ sender: UIButton) {
-        env = .PROD
-        radioController.buttonArrayUpdated(buttonSelected: sender)
-    }
-    
-    @IBAction func btnQATapped(_ sender: UIButton) {
-        #if DEMOAWS
-            
-        #else
-        //  env = .QA
-        #endif
-        radioController.buttonArrayUpdated(buttonSelected: sender)
-    }
-    
-    @IBAction func btnDevTapped(_ sender: UIButton) {
-        #if DEMOAWS
-            
-        #else
-          //  env = .DEV
-        #endif
-        radioController.buttonArrayUpdated(buttonSelected: sender)
-    }
-    
-    @IBAction func btnPREQATapped(_ sender: UIButton) {
-#if DEMOAWS
-        env = .PREQA
-#endif
-        radioController.buttonArrayUpdated(buttonSelected: sender)
-    }
-    
     @IBAction func btnClearTapped(_ sender: Any) {
         self.txtView.text = ""
     }
@@ -892,7 +846,6 @@ class ViewController: UIViewController {
         
 //        SDKClient.shared.sendData(data: dict)
     }
-    
     
     @IBAction func btnChildDevicesTaped(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChildOperationVC") as? ChildOperationVC

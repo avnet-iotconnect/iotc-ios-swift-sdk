@@ -7,10 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-//#import "MqttCocoaAsyncSocket.h"
-//#import "MGCDAsyncSocket.h"
-//#import "MGCDAsyncUdpSocket.h"
-
 //! Project version number for IoTConnectSDK.
 FOUNDATION_EXPORT double IoTConnectSDKVersionNumber;
 

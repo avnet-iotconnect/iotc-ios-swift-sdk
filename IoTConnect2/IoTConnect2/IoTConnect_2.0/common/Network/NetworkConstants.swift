@@ -12,16 +12,6 @@ enum b:String{
     case aws = "aws"
 }
 
-//public enum Environment: String {
-//    case DEV = "DEV"
-//    case STAGE = "STAGE"
-//    case POC = "poc"
-//    case QA = "QA"
-//    case PROD = "PROD"
-//    case AVNET = "AVNETPOC"
-//    case PREQA  = "preqa"
-//}
-
 class EnvironmentSelector {
     class var environment: IOTCEnvironment {
         return .PROD
