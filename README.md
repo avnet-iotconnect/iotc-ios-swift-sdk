@@ -95,13 +95,13 @@ The demo contains list of envioenment accrding to selected targets.
     - fileCount : Number of files need to create for off-line data
 * "cpID" : Enter the device CPID
 * "env"  : Enter device pf
-* "pf"   : give tghe platform AZ or AWS  
+* "pf"   : give the platform AZ or AWS  
 
 If you do not provide off-line storage, it will set the default settings as per defined above. It may harm your device by storing the large data. Once memory gets full may chance to stop the execution.
 
 - To Initialize the SDK object and connect to the cloud.
 ```
-            let objConfig = IoTConnectConfig( uniqueId:<UNIQUE ID>, env: <env>, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
+            let objConfig = IoTConnectConfig( uniqueId:<UNIQUE ID>, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
             
             SDKClient.shared.initialize(config: objConfig)
 ```
