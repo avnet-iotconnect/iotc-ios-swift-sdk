@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../../Desktop/IoTConnect/IoTConnectDemo2/IoTConnectDemo2.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:IoTConnectDemo/IoTConnectDemo.xcodeproj">
    </FileRef>
    <FileRef

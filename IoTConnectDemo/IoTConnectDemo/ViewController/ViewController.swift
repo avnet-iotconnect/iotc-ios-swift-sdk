@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     private var btnDisConnectTitle = "DISCONNECT"
     private let tblViewRowheight = 44.0
     private var noOfSecrions = 0
-    private var env:IOTCEnvironment = .POC
+    private var env:IOTCEnvironment = .PROD
     private var devivceStatus:DeviceConnectionStatus = .disconnected
     private let radioController: RadioButtonController = RadioButtonController()
     private var noOfAttributes = 0
@@ -116,8 +116,8 @@ class ViewController: UIViewController {
             //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
             
-//            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<certificate name>", ofType: nil)
-//            sdkOptions.ssl.password = "<certificate password>"
+            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client2301AWS.p12", ofType: nil)
+            sdkOptions.ssl.password = "Softweb#123"
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0

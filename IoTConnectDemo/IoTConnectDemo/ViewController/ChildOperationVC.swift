@@ -6,11 +6,11 @@
 //
 
 import UIKit
-//#if DEMOAWS
-//import IoTConnect2_AWS
-//#else
+#if DEMOAWS
+import IoTConnect2_AWS
+#else
 import IoTConnect2
-//#endif
+#endif
 
 
 class ChildOperationVC: UIViewController {

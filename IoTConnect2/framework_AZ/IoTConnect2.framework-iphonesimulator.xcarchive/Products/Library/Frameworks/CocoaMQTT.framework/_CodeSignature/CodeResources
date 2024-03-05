@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/CocoaMQTT-Swift.h</key>
 		<data>
-		09jIl+tNISiLuaERkEWqy6PBdfI=
+		NVO2jRWTSkyH2Jbm/hWnIKfc7Ik=
 		</data>
 		<key>Headers/CocoaMQTT-umbrella.h</key>
 		<data>
@@ -18,43 +18,27 @@
 		</data>
 		<key>Modules/CocoaMQTT.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		/e/TY0AInqCt4CJmj+in5TxDrZw=
-		</data>
-		<key>Modules/CocoaMQTT.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
-		<data>
-		IrTjrhmUT1Tmjqd6WjBREyc66z0=
+		FSPnLbho3G+LL9smI3XgVOqBIQ4=
 		</data>
 		<key>Modules/CocoaMQTT.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
 		/VAQom9nhl4rLlXQmtFdCaXbnzo=
 		</data>
-		<key>Modules/CocoaMQTT.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
-		<data>
-		IrTjrhmUT1Tmjqd6WjBREyc66z0=
-		</data>
 		<key>Modules/CocoaMQTT.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		CJS935wbHpAlPJdYKqmGOtf3MOg=
+		spdQ+PqRdStzDPxUt3myqiEQBjE=
 		</data>
 		<key>Modules/CocoaMQTT.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		/e/TY0AInqCt4CJmj+in5TxDrZw=
-		</data>
-		<key>Modules/CocoaMQTT.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
-		<data>
-		yevqYJVEzBFSzIs+xcJbimit/+U=
+		FSPnLbho3G+LL9smI3XgVOqBIQ4=
 		</data>
 		<key>Modules/CocoaMQTT.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
 		Eqyux7gszWDl3nhF2uReuPsL8LQ=
 		</data>
-		<key>Modules/CocoaMQTT.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
-		<data>
-		yevqYJVEzBFSzIs+xcJbimit/+U=
-		</data>
 		<key>Modules/CocoaMQTT.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		CDsghL8aG2Z7pGWDXf6WJAkKy4o=
+		kRDCklva+/PCRXvLDdtwd/4nlf4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -67,7 +51,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zVL19IYG+/H2jIg4WlIC4vmt0pLjPgUKRr/FppjVabs=
+			2IJGvXSkAxMMejqCF5OeA5595ax7DMKWT8l5YW4sJoU=
 			</data>
 		</dict>
 		<key>Headers/CocoaMQTT-umbrella.h</key>
@@ -81,14 +65,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			D1LX3Jtt1he0W1cpXbihb1q11J8EzGroADnRa2eVE6A=
-			</data>
-		</dict>
-		<key>Modules/CocoaMQTT.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			u9h5T89+BcASjcdYt2Pi7VQAlbOiXgxSsDXfwDdr8Ug=
+			KnRdWE4y6t4QM5zi5JDptPdHFgJy1Tku+7GLkZS2aNM=
 			</data>
 		</dict>
 		<key>Modules/CocoaMQTT.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -98,32 +75,18 @@
 			Ue59w2h+PI/waMRPmIJPPwflvk/guTygKGzXbrGOucE=
 			</data>
 		</dict>
-		<key>Modules/CocoaMQTT.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			u9h5T89+BcASjcdYt2Pi7VQAlbOiXgxSsDXfwDdr8Ug=
-			</data>
-		</dict>
 		<key>Modules/CocoaMQTT.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			nC4ePi+0M0KfWwRQn1fiRN2ZQKJwrFao2dDxfGGn4D8=
+			hQF1tSC7Yd5SIuVC3tcazEdnwZjqR0QSZn2tgWJ/kRY=
 			</data>
 		</dict>
 		<key>Modules/CocoaMQTT.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			D1LX3Jtt1he0W1cpXbihb1q11J8EzGroADnRa2eVE6A=
-			</data>
-		</dict>
-		<key>Modules/CocoaMQTT.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			3noS6WnlBpgyYgYxNZiOdAiNCz7pjATZrUsOndY586Y=
+			KnRdWE4y6t4QM5zi5JDptPdHFgJy1Tku+7GLkZS2aNM=
 			</data>
 		</dict>
 		<key>Modules/CocoaMQTT.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -133,18 +96,11 @@
 			hda1a/sNcamez2kgkpgTmOXTXvDCYgfqELYaWgvE/tA=
 			</data>
 		</dict>
-		<key>Modules/CocoaMQTT.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			3noS6WnlBpgyYgYxNZiOdAiNCz7pjATZrUsOndY586Y=
-			</data>
-		</dict>
 		<key>Modules/CocoaMQTT.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			JA5n0jsBoB4EN00or+u3iSUNwrkGeMm7HAGX/N3visE=
+			pjoUtcFTDx6Hsv+QGKj3uEtr39FVng8jyNscfxTABdo=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

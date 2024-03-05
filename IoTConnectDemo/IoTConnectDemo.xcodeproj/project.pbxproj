@@ -18,6 +18,7 @@
 		DD3C72F92B4FB8970019551D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE2DD2B4D4EBB00DFFFB7 /* SceneDelegate.swift */; };
 		DD3C72FD2B4FB8970019551D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD0CE2E62B4D4EBC00DFFFB7 /* LaunchScreen.storyboard */; };
 		DD3C72FE2B4FB8970019551D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD0CE2E42B4D4EBC00DFFFB7 /* Assets.xcassets */; };
+		DD7729602B90766900EFEA7F /* client2301AWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD77295F2B90766900EFEA7F /* client2301AWS.p12 */; };
 		DDD5BCA62B4FBF5D0087A0E2 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC8D2B4FBF5C0087A0E2 /* RadioButtonController.swift */; };
 		DDD5BCA72B4FBF5D0087A0E2 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC8D2B4FBF5C0087A0E2 /* RadioButtonController.swift */; };
 		DDD5BCA82B4FBF5D0087A0E2 /* DeviceCertificate.pfx in Resources */ = {isa = PBXBuildFile; fileRef = DDD5BC8E2B4FBF5C0087A0E2 /* DeviceCertificate.pfx */; };
@@ -40,14 +41,12 @@
 		DDD5BCBB2B4FBF5D0087A0E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9C2B4FBF5D0087A0E2 /* ViewController.swift */; };
 		DDD5BCBC2B4FBF5D0087A0E2 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */; };
 		DDD5BCBD2B4FBF5D0087A0E2 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */; };
+		DDE7BFCB2B95836400484D75 /* IoTConnect2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */; };
+		DDE7BFCC2B95836400484D75 /* IoTConnect2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DDE7BFD32B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */; };
+		DDE7BFD42B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DDE8B54E2B4FEC3B004865D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */; };
 		DDE8B54F2B4FEC3B004865D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */; };
-		DDECC9912B8DD1160050A5D8 /* IoTConnect_2_AWS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDECC9902B8DD1160050A5D8 /* IoTConnect_2_AWS.xcframework */; };
-		DDECC9952B8DD1240050A5D8 /* IoTConnect2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDECC9932B8DD1240050A5D8 /* IoTConnect2.xcframework */; };
-		DDECC9962B8DD1340050A5D8 /* IoTConnect2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDECC9932B8DD1240050A5D8 /* IoTConnect2.xcframework */; };
-		DDECC9972B8DD1340050A5D8 /* IoTConnect2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDECC9932B8DD1240050A5D8 /* IoTConnect2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DDECC99B2B8DD5200050A5D8 /* IoTConnect_2_AWS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDECC9902B8DD1160050A5D8 /* IoTConnect_2_AWS.xcframework */; };
-		DDECC99C2B8DD5200050A5D8 /* IoTConnect_2_AWS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDECC9902B8DD1160050A5D8 /* IoTConnect_2_AWS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,7 +56,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DDECC99C2B8DD5200050A5D8 /* IoTConnect_2_AWS.xcframework in Embed Frameworks */,
+				DDE7BFD42B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,7 +67,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DDECC9972B8DD1340050A5D8 /* IoTConnect2.xcframework in Embed Frameworks */,
+				DDE7BFCC2B95836400484D75 /* IoTConnect2.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,6 +92,7 @@
 		DD3C73052B4FB8970019551D /* IoTConnectDemo_AWS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = IoTConnectDemo_AWS.plist; path = /Users/kirtan.vaghela/Documents/IoTSDK/IoTConnectDemo/IoTConnectDemo_AWS.plist; sourceTree = "<absolute>"; };
 		DD49F5222B5519D700010F0D /* IoTConnect2_AWS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IoTConnect2_AWS.framework; path = IoTConnectDemo/IoTConnect2_AWS.framework; sourceTree = "<group>"; };
 		DD7719DF2B4D7BA100764E39 /* IoTConnect2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD77295F2B90766900EFEA7F /* client2301AWS.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = client2301AWS.p12; sourceTree = "<group>"; };
 		DDC51F592B4FCBC200BC613D /* IoTConnect2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC51F5D2B4FCBEC00BC613D /* IoTConnect2_AWS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect2_AWS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDD5BC8D2B4FBF5C0087A0E2 /* RadioButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonController.swift; sourceTree = "<group>"; };
@@ -106,10 +106,10 @@
 		DDD5BC9A2B4FBF5D0087A0E2 /* Attributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 		DDD5BC9C2B4FBF5D0087A0E2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildOperationVC.swift; sourceTree = "<group>"; };
+		DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = IoTConnect2.xcframework; sourceTree = "<group>"; };
+		DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = IoTConnect_2_AWS.xcframework; sourceTree = "<group>"; };
 		DDE8B5452B4FE32F004865D2 /* IoTConnect2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = IoTConnect2.xcframework; path = ../IoTConnect2/build/xcframeworks/IoTConnect2.xcframework; sourceTree = "<group>"; };
 		DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		DDECC9902B8DD1160050A5D8 /* IoTConnect_2_AWS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = IoTConnect_2_AWS.xcframework; path = ../../IoTConnect2/framework_AWS/xcframeworks/IoTConnect_2_AWS.xcframework; sourceTree = "<group>"; };
-		DDECC9932B8DD1240050A5D8 /* IoTConnect2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = IoTConnect2.xcframework; path = ../../IoTConnect2/framework_AZ/xcframeworks/IoTConnect2.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,8 +119,7 @@
 			files = (
 				048B1CC473BACF3C2CB1DE40 /* (null) in Frameworks */,
 				8068697A79797946EC64D57B /* Pods_IoTConnectDemo.framework in Frameworks */,
-				DDECC9962B8DD1340050A5D8 /* IoTConnect2.xcframework in Frameworks */,
-				DDECC9912B8DD1160050A5D8 /* IoTConnect_2_AWS.xcframework in Frameworks */,
+				DDE7BFCB2B95836400484D75 /* IoTConnect2.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,9 +127,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDE7BFD32B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Frameworks */,
 				4C24DDC7CF2D91BD7C63067E /* Pods_IoTConnectDemo_AWS.framework in Frameworks */,
-				DDECC9952B8DD1240050A5D8 /* IoTConnect2.xcframework in Frameworks */,
-				DDECC99B2B8DD5200050A5D8 /* IoTConnect_2_AWS.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,8 +169,9 @@
 		DD0CE2DA2B4D4EBB00DFFFB7 /* IoTConnectDemo */ = {
 			isa = PBXGroup;
 			children = (
-				DDECC9932B8DD1240050A5D8 /* IoTConnect2.xcframework */,
-				DDECC9902B8DD1160050A5D8 /* IoTConnect_2_AWS.xcframework */,
+				DD77295F2B90766900EFEA7F /* client2301AWS.p12 */,
+				DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */,
+				DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */,
 				DD0CE2DB2B4D4EBB00DFFFB7 /* AppDelegate.swift */,
 				DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */,
 				DD0CE2DD2B4D4EBB00DFFFB7 /* SceneDelegate.swift */,
@@ -343,6 +342,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD7729602B90766900EFEA7F /* client2301AWS.p12 in Resources */,
 				DDD5BCA92B4FBF5D0087A0E2 /* DeviceCertificate.pfx in Resources */,
 				DDE8B54F2B4FEC3B004865D2 /* Main.storyboard in Resources */,
 				DD3C72FD2B4FB8970019551D /* LaunchScreen.storyboard in Resources */,

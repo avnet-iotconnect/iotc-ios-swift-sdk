@@ -1,6 +1,6 @@
 ---
 triple:          'x86_64-apple-darwin'
-binary-path:     '/Users/kirtan.vaghela/Library/Developer/Xcode/DerivedData/IoTConnect2-fbmfdnrrpxbrbjejligeuvsjhsyt/Build/Intermediates.noindex/ArchiveIntermediates/IoTConnect2/InstallationBuildProductsLocation/Library/Frameworks/MqttCocoaAsyncSocket.framework/MqttCocoaAsyncSocket'
+binary-path:     '/Users/kirtan.vaghela/Library/Developer/Xcode/DerivedData/IoTConnect2-bhvazebfhzdirfdaqumgilgqnuod/Build/Intermediates.noindex/ArchiveIntermediates/IoTConnect2/InstallationBuildProductsLocation/Library/Frameworks/MqttCocoaAsyncSocket.framework/MqttCocoaAsyncSocket'
 relocations:
   - { offsetInCU: 0x34, offset: 0x54D02, size: 0x8, addend: 0x0, symName: _MqttCocoaAsyncSocketVersionString, symObjAddr: 0x0, symBinAddr: 0x1E2E0, symSize: 0x0 }
   - { offsetInCU: 0x69, offset: 0x54D37, size: 0x8, addend: 0x0, symName: _MqttCocoaAsyncSocketVersionNumber, symObjAddr: 0x38, symBinAddr: 0x1E318, symSize: 0x0 }
@@ -19,10 +19,10 @@ relocations:
   - { offsetInCU: 0x153, offset: 0x54EA0, size: 0x8, addend: 0x0, symName: _MGCDAsyncSocketSSLALPN, symObjAddr: 0x12218, symBinAddr: 0x24568, symSize: 0x0 }
   - { offsetInCU: 0x16B, offset: 0x54EB8, size: 0x8, addend: 0x0, symName: '-[MGCDAsyncSocket doWriteData]', symObjAddr: 0xBCE8, symBinAddr: 0xCA08, symSize: 0x616 }
   - { offsetInCU: 0x69C, offset: 0x553E9, size: 0x8, addend: 0x0, symName: '+[MGCDAsyncSocket startCFStreamThreadIfNeeded]', symObjAddr: 0xE6AD, symBinAddr: 0xF3CD, symSize: 0x6F }
-  - { offsetInCU: 0x6C4, offset: 0x55411, size: 0x8, addend: 0x0, symName: _startCFStreamThreadIfNeeded.predicate, symObjAddr: 0x62A70, symBinAddr: 0x2AB00, symSize: 0x0 }
-  - { offsetInCU: 0x72C, offset: 0x55479, size: 0x8, addend: 0x0, symName: _cfstreamThread, symObjAddr: 0x62A88, symBinAddr: 0x2AB18, symSize: 0x0 }
-  - { offsetInCU: 0x747, offset: 0x55494, size: 0x8, addend: 0x0, symName: _cfstreamThreadRetainCount, symObjAddr: 0x62A78, symBinAddr: 0x2AB08, symSize: 0x0 }
-  - { offsetInCU: 0x764, offset: 0x554B1, size: 0x8, addend: 0x0, symName: _cfstreamThreadSetupQueue, symObjAddr: 0x62A80, symBinAddr: 0x2AB10, symSize: 0x0 }
+  - { offsetInCU: 0x6C4, offset: 0x55411, size: 0x8, addend: 0x0, symName: _startCFStreamThreadIfNeeded.predicate, symObjAddr: 0x62A48, symBinAddr: 0x2AB00, symSize: 0x0 }
+  - { offsetInCU: 0x72C, offset: 0x55479, size: 0x8, addend: 0x0, symName: _cfstreamThread, symObjAddr: 0x62A60, symBinAddr: 0x2AB18, symSize: 0x0 }
+  - { offsetInCU: 0x747, offset: 0x55494, size: 0x8, addend: 0x0, symName: _cfstreamThreadRetainCount, symObjAddr: 0x62A50, symBinAddr: 0x2AB08, symSize: 0x0 }
+  - { offsetInCU: 0x764, offset: 0x554B1, size: 0x8, addend: 0x0, symName: _cfstreamThreadSetupQueue, symObjAddr: 0x62A58, symBinAddr: 0x2AB10, symSize: 0x0 }
   - { offsetInCU: 0xDA0, offset: 0x55AED, size: 0x8, addend: 0x0, symName: '-[MGCDAsyncSocketPreBuffer init]', symObjAddr: 0x0, symBinAddr: 0xD20, symSize: 0xE }
   - { offsetInCU: 0xDEC, offset: 0x55B39, size: 0x8, addend: 0x0, symName: '-[MGCDAsyncSocketPreBuffer initWithCapacity:]', symObjAddr: 0xE, symBinAddr: 0xD2E, symSize: 0x5B }
   - { offsetInCU: 0xE33, offset: 0x55B80, size: 0x8, addend: 0x0, symName: '-[MGCDAsyncSocketPreBuffer dealloc]', symObjAddr: 0x69, symBinAddr: 0xD89, symSize: 0x3F }
@@ -395,8 +395,8 @@ relocations:
   - { offsetInCU: 0x77, offset: 0x6B0FD, size: 0x8, addend: 0x0, symName: _MGCDAsyncUdpSocketQueueName, symObjAddr: 0xDF18, symBinAddr: 0x24C30, symSize: 0x0 }
   - { offsetInCU: 0x8D, offset: 0x6B113, size: 0x8, addend: 0x0, symName: _MGCDAsyncUdpSocketThreadName, symObjAddr: 0xDF20, symBinAddr: 0x24C38, symSize: 0x0 }
   - { offsetInCU: 0x97, offset: 0x6B11D, size: 0x8, addend: 0x0, symName: '+[MGCDAsyncUdpSocket startListenerThreadIfNeeded]', symObjAddr: 0xB5D6, symBinAddr: 0x1C1AB, symSize: 0x58 }
-  - { offsetInCU: 0xBF, offset: 0x6B145, size: 0x8, addend: 0x0, symName: _startListenerThreadIfNeeded.predicate, symObjAddr: 0x49228, symBinAddr: 0x2AB20, symSize: 0x0 }
-  - { offsetInCU: 0x125, offset: 0x6B1AB, size: 0x8, addend: 0x0, symName: _listenerThread, symObjAddr: 0x49230, symBinAddr: 0x2AB28, symSize: 0x0 }
+  - { offsetInCU: 0xBF, offset: 0x6B145, size: 0x8, addend: 0x0, symName: _startListenerThreadIfNeeded.predicate, symObjAddr: 0x49200, symBinAddr: 0x2AB20, symSize: 0x0 }
+  - { offsetInCU: 0x125, offset: 0x6B1AB, size: 0x8, addend: 0x0, symName: _listenerThread, symObjAddr: 0x49208, symBinAddr: 0x2AB28, symSize: 0x0 }
   - { offsetInCU: 0x65E, offset: 0x6B6E4, size: 0x8, addend: 0x0, symName: '-[MGCDAsyncUdpSendPacket init]', symObjAddr: 0x0, symBinAddr: 0x10EE0, symSize: 0xE }
   - { offsetInCU: 0x6AB, offset: 0x6B731, size: 0x8, addend: 0x0, symName: '-[MGCDAsyncUdpSendPacket initWithData:timeout:tag:]', symObjAddr: 0xE, symBinAddr: 0x10EEE, symSize: 0x8E }
   - { offsetInCU: 0x73F, offset: 0x6B7C5, size: 0x8, addend: 0x0, symName: '-[MGCDAsyncUdpSendPacket .cxx_destruct]', symObjAddr: 0x9C, symBinAddr: 0x10F7C, symSize: 0x3E }
