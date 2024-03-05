@@ -94,7 +94,7 @@ The demo contains list of envioenment accrding to selected targets.
     - availSpaceInMb : Define the file size of off-line data which should be in (MB)
     - fileCount : Number of files need to create for off-line data
 * "cpID" : Enter the device CPID
-* "env"  : Enter device pf
+* "env"  : Enter device env
 * "pf"   : give the platform AZ or AWS  
 
 If you do not provide off-line storage, it will set the default settings as per defined above. It may harm your device by storing the large data. Once memory gets full may chance to stop the execution.
