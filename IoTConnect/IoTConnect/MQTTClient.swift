@@ -3,6 +3,8 @@
 //  IoTConnect
 
 import Foundation
+import CocoaMQTT
+
 
 typealias GetMQTTStatusCallBackBlock = (Any?, Int) -> Void
 
@@ -42,12 +44,15 @@ class MQTTClient {
             mqtt!.disconnect()
         }
         mqtt = CocoaMQTT(clientID: dataSyncResponse[keyPath:"p.id"] as! String, host: dataSyncResponse[keyPath:"p.h"] as! String, port: dataSyncResponse[keyPath:"p.p"] as! UInt16)
-        mqtt!.username = dataSyncResponse[keyPath:"p.un"] as? String
-        mqtt!.password = dataSyncResponse[keyPath:"p.pwd"] as? String
+        
+        guard let mqtt = mqtt else { return  }
+        
+        mqtt.username = dataSyncResponse[keyPath:"p.un"] as? String
+        mqtt.password = dataSyncResponse[keyPath:"p.pwd"] as? String
 //        mqtt!.keepAlive = 600
-        mqtt!.delegate = self 
-        mqtt!.enableSSL = true
-         
+        mqtt.delegate = self
+        mqtt.enableSSL = true
+        
         var boolToConnectYN = false
         if (dictSyncResponse["at"] as! Int == AuthType.CA_SIGNED || dictSyncResponse["at"] as! Int == AuthType.CA_SELF_SIGNED) {
             if CERT_PATH_FLAG {
@@ -55,8 +60,8 @@ class MQTTClient {
                 let pwd = dataSDKOptions.SSL.Password
                 let clientCertificate = objCommon.getClientCertFromP12File(pathCertificate: objCommon.getFilePath(dataSDKOptions.SSL.Certificate as Any), certPassword: pwd)
                 sslSettings[kCFStreamSSLCertificates as String] = clientCertificate
-                mqtt!.sslSettings = sslSettings
-                mqtt!.allowUntrustCACertificate = true
+                mqtt.sslSettings = sslSettings
+                mqtt.allowUntrustCACertificate = true
                 boolToConnectYN = true
             } else {
                 objCommon.manageDebugLog(code: Log.Errors.ERR_IN11, uniqueId: strUniqueID, cpId: strCPID, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
@@ -66,7 +71,7 @@ class MQTTClient {
         }
         if boolToConnectYN {
             boolAlreadyConnectedYN = true
-            _ = mqtt!.connect()
+            _ = mqtt.connect()
         }
     }
     func connectMQTTAgain() {
@@ -556,10 +561,7 @@ extension MQTTClient: CocoaMQTTDelegate {
         TRACE("new state: \(state)")
     }
     func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
-        TRACE("Publish message: \(String(describing: message.string?.description)), id: \(id)")
-    }
-    func mqtt(_ mqtt: CocoaMQTT, didPublishComplete id: UInt16) {
-        TRACE("didPublishComplete: id: \(id)")
+        //TRACE("Publish message: \(String(describing: message.string?.description)), id: \(id)")
     }
     func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
         //TRACE("id: \(id)")

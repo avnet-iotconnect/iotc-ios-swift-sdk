@@ -1,0 +1,4 @@
+framework module IoTConnect2_AWS {
+  header "IoTConnect2_AWS-Swift.h"
+  requires objc
+}

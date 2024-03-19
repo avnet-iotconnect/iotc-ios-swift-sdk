@@ -6,7 +6,12 @@
 //
 
 import UIKit
-import IoTConnect_2_0
+#if DEMOAWS
+import IoTConnect2_AWS
+#else 
+import IoTConnect2
+#endif
+
 
 public enum DeviceConnectionStatus{
     case connected
@@ -22,10 +27,6 @@ class ViewController: UIViewController {
     @IBOutlet var txtCPID,txtUniqueID : UITextField!
     @IBOutlet var tblProperty : UITableView!
     @IBOutlet var txtView : UITextView!
-    @IBOutlet weak var btnAvnet: UIButton!
-    @IBOutlet weak var btnPOC: UIButton!
-    @IBOutlet weak var btnQA: UIButton!
-    @IBOutlet weak var btnDev: UIButton!
     @IBOutlet weak var lblStatus: UILabel!
     @IBOutlet weak var viewLoader: UIView!
     @IBOutlet weak var tblViewHeightConstraint: NSLayoutConstraint!
@@ -34,13 +35,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnSendData: UIButton!
     @IBOutlet weak var btnGetTwins: UIButton!
     @IBOutlet weak var btnChildDevicesOperation: UIButton!
+    @IBOutlet weak var viewDropDown: UIView!
+    @IBOutlet weak var txtFieldDropDown: DropDown!
     
 //MARK: Variable
     private var btnConnectTitle = "CONNECT"
     private var btnDisConnectTitle = "DISCONNECT"
     private let tblViewRowheight = 44.0
     private var noOfSecrions = 0
-    private var env:Environment = .QA
+    private var env:IOTCEnvironment = .PROD
     private var devivceStatus:DeviceConnectionStatus = .disconnected
     private let radioController: RadioButtonController = RadioButtonController()
     private var noOfAttributes = 0
@@ -63,9 +66,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        radioController.buttonsArray = [btnAvnet,btnQA,btnDev,btnPOC]
-        radioController.defaultButton = btnQA
-        
+        setUpDropDown()
+
         //button Status Corner Radius
         btnStatus.layer.cornerRadius = 12.5
         
@@ -96,7 +98,6 @@ class ViewController: UIViewController {
                         self.setDisconnectUI(isRefresh: true)
                         self.noOfSecrions = arrDict.count
                         self.is204Received = true
-                        print("no of sections \(arrDict.count)")
                         self.arrChildDevicesAttributes = arrDict
                         self.getChildDevicesAttributes()
                     }
@@ -107,57 +108,30 @@ class ViewController: UIViewController {
 
     //MARK: - Custom Methods
     func connectSDK() {
-        
         //This code works for certificate authentication
-        /*
-         var sdkOptions = SDKClientOption()
-         
-         //SSL Certificates with password
-         sdkOptions.SSL.Certificate = Bundle.main.path(forResource: "device.pfx", ofType: nil)
-         sdkOptions.SSL.Password = "1234"
-         
-         //Offline Storage Configuration
-         sdkOptions.OfflineStorage.AvailSpaceInMb = 0
-         sdkOptions.OfflineStorage.Fil      eCount = 10
-         
-         //For Developer
-         sdkOptions.discoveryUrl = "https://discovery.iotconnect.io"
-         sdkOptions.debug = true
-         
-         //For SSL Enable Device Connection
-         let objConfig = IoTConnectConfig(cpId: "nine", uniqueId: "iosss01", env: "QA", sdkOptions: sdkOptions)
-         
-         */
-        
-        //This code works for token base authentication
-        //        let objConfig = IoTConnectConfig(cpId: "{replace-with-your-id}",
-        //                                                 uniqueId: "{replace-with-your-id}",
-        //                                                 env: .QA,
-        //                                                 mqttConnectionType: .userCredntialAuthentication,
-        //                                                 sdkOptions: nil)
-        //        let objConfig = IoTConnectConfig(cpId: "qaiot106", uniqueId: "SmplDevice", env: .QA, mqttConnectionType: .userCredntialAuthentication, sdkOptions: nil)
-        
+      
         if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
-            self.viewLoader.isHidden = false
+             self.viewLoader.isHidden = false
             
             //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
             
-            //SSL Certificates with password
-//            sdkOptions.SSL.Certificate = Bundle.main.path(forResource: "client.p12", ofType: nil)
-//            sdkOptions.SSL.Password = "Softweb@123"
-            sdkOptions.skipValidation = true
+            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client2301AWS.p12", ofType: nil)
+            sdkOptions.ssl.password = "Softweb#123"
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
             sdkOptions.offlineStorage.fileCount = 10
+            sdkOptions.cpId = txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? ""
+            sdkOptions.env = env
+            sdkOptions.pf = .aws
             
             //for device PK
             //this is base64 string for SmplPk device
-            sdkOptions.devicePK = "dGhpcyBpcyBwcmltYXJ5IGs="
+            // sdkOptions.devicePK = "<Device PK>"
             
-            let objConfig = IoTConnectConfig(cpId: txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? "", uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", env: env, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
-            
+            let objConfig =  IoTConnectConfig(uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", mqttConnectionType: .certificateAuthentication, sdkOptions: sdkOptions)
+          
             SDKClient.shared.initialize(config: objConfig)
             
             //callback fro connect,disconnect,identity,attribute,get child device and get twins reponse
@@ -238,8 +212,6 @@ class ViewController: UIViewController {
             
             //callback for twin update
             SDKClient.shared.onTwinChangeCommand { (twinMessage) in
-                print("twinMessage: ", twinMessage as Any)
-                //twinMessage:  Optional(["uniqueId": "AndroidEdgeGateway", "desired": ["$version": 2, "dt1": 1]])
                 var keyToSend = ""
                 var valToSend = ""
                 let msgDict = twinMessage as? [String:Any]
@@ -286,7 +258,6 @@ class ViewController: UIViewController {
                 self.isGetDevicesCalled = false
                 self.arrSimpleDeviceData.removeAll()
                 if self.is204Received{
-                    //                    self.arrChildAttributeData.removeAll()
                     self.arrParentData.removeAll()
                 }
                 
@@ -295,7 +266,6 @@ class ViewController: UIViewController {
                         if let msg = responseDict["d"] as? [[String:Any]]{
                             self.noOfSecrions = msg.count
                             self.is204Received = true
-                            print("no of sections \(msg.count)")
                             self.arrChildDevicesAttributes = msg
                             if  self.is201Received{
                                 self.getChildDevicesAttributes()
@@ -335,13 +305,26 @@ class ViewController: UIViewController {
                 self.txtView.text = "\(msg ?? [:])"
                 SDKClient.shared.sendAckModule(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
             }
-            
-        }else{
+        }
+        else{
             if txtCPID.text!.isEmpty{
                 presentAlert(title: "Please enter CPID value")
             }else{
                 presentAlert(title: "Please enter unique ID value")
             }
+        }
+    }
+    
+    func setUpDropDown(){
+        let arrEnvValues: [String] = IOTCEnvironment.allCases.map { $0.rawValue }
+        let arrEnv = IOTCEnvironment.allCases
+        txtFieldDropDown.optionArray = arrEnvValues
+        txtFieldDropDown.arrowSize = 20.0
+        txtFieldDropDown.arrowColor = .black
+        self.env = arrEnv[0]
+        txtFieldDropDown.text = arrEnv[0].rawValue
+        txtFieldDropDown.didSelect{(selectedText , index ,id) in
+            self.env = arrEnv[index]
         }
     }
     
@@ -356,8 +339,7 @@ class ViewController: UIViewController {
             dCount += data?.att?[i].d?.count ?? 0
             
             let p = data?.att?[i].p
-            print("simple device p \(String(describing: data?.att?[i])) \(String(describing: data?.att?[i].p))")
-             
+        
             if arrAttData.count > 0{
                 for k in 0...(data?.att?[i].d?.count ?? 0)-1{
                     data?.att?[i].d?[k].p = p
@@ -370,7 +352,6 @@ class ViewController: UIViewController {
         }
         arrSimpleDeviceData.append(["Tag":arrAttData])
         if arrSimpleDeviceData[0]["Tag"]?.count ?? 0 > 0{
-            print("final arr \(arrSimpleDeviceData) \(arrSimpleDeviceData[0]["Tag"]?[0].count ?? 0)")
             noOfAttributes = arrSimpleDeviceData[0]["Tag"]?[0].count ?? 0
         }
     }
@@ -772,7 +753,7 @@ class ViewController: UIViewController {
                 btn.backgroundColor = .systemBlue
                 btn.setTitleColor(.white, for: .normal)
             }else{
-                btn.backgroundColor = .systemGray3
+                btn.backgroundColor = .systemGray
                 btn.setTitleColor(.darkGray, for: .normal)
             }
         }
@@ -813,31 +794,15 @@ class ViewController: UIViewController {
     //MARK: IBAction events
     
     @IBAction func btnConnectTapped(_ sender: Any) {
-        if self.devivceStatus == .disconnected{
-            connectSDK()
+        if txtFieldDropDown.text != "" ||  ((txtFieldDropDown.text?.isEmpty) == nil){
+            if self.devivceStatus == .disconnected{
+                connectSDK()
+            }else{
+                SDKClient.shared.dispose()
+            }
         }else{
-            SDKClient.shared.dispose()
+            txtView.text = "Please select env."
         }
-    }
-    
-    @IBAction func btnAvnetTapped(_ sender: UIButton) {
-        radioController.buttonArrayUpdated(buttonSelected: sender)
-        env = .AVNETPOC
-    }
-    
-    @IBAction func btnPOCTapped(_ sender: UIButton) {
-        env = .PROD
-        radioController.buttonArrayUpdated(buttonSelected: sender)
-    }
-    
-    @IBAction func btnQATapped(_ sender: UIButton) {
-        env = .QA
-        radioController.buttonArrayUpdated(buttonSelected: sender)
-    }
-    
-    @IBAction func btnDevTapped(_ sender: UIButton) {
-        env = .DEV
-        radioController.buttonArrayUpdated(buttonSelected: sender)
     }
     
     @IBAction func btnClearTapped(_ sender: Any) {
@@ -859,8 +824,28 @@ class ViewController: UIViewController {
         }else if arrSimpleDeviceData.count > 0{
             loadData(data: arrSimpleDeviceData)
         }
+        
+        ///wrong
+//        let dict = ["d":
+//                        [
+//                            "P_Integer": 10
+//                        ]
+//        ] as [String:Any]
+        
+        //right way
+//        let dict = ["d":
+//                        [
+//                            [
+//                                "d":
+//                                    ["P_Integer": 10],
+//                                "dt": now(), "id": "Edge1901", "tg": ""
+//                            ]
+//                        ],
+//                    "dt": now()
+//        ] as [String : Any]
+        
+//        SDKClient.shared.sendData(data: dict)
     }
-    
     
     @IBAction func btnChildDevicesTaped(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChildOperationVC") as? ChildOperationVC

@@ -3,40 +3,71 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9285F66E26D62EEF00BC30DC /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9285F66C26D62EEF00BC30DC /* TableHeaderView.xib */; };
-		9285F66F26D62EEF00BC30DC /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285F66D26D62EEF00BC30DC /* TableHeaderView.swift */; };
-		9285F67126D62F5000BC30DC /* PropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285F67026D62F5000BC30DC /* PropertyCell.swift */; };
-		C0C04CCA26D015D900182C45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C04CC926D015D900182C45 /* AppDelegate.swift */; };
-		C0C04CCC26D015D900182C45 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C04CCB26D015D900182C45 /* SceneDelegate.swift */; };
-		C0C04CCE26D015D900182C45 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C04CCD26D015D900182C45 /* ViewController.swift */; };
-		C0C04CD126D015D900182C45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CCF26D015D900182C45 /* Main.storyboard */; };
-		C0C04CD326D015DA00182C45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD226D015DA00182C45 /* Assets.xcassets */; };
-		C0C04CD626D015DA00182C45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */; };
-		DD36C4412A304EF9008BA007 /* IoTConnect_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */; };
-		DD5B602D2A936EB80018BB1C /* iOSDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */; };
-		DD7E84A12A9340180031A231 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7E84A02A9340180031A231 /* ChildOperationVC.swift */; };
-		DD989A1A2AB18FFF00FD70DD /* DeviceCertificate.pfx in Resources */ = {isa = PBXBuildFile; fileRef = DD989A192AB18FFF00FD70DD /* DeviceCertificate.pfx */; };
-		DD989A1C2AB193CF00FD70DD /* client.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD989A1B2AB193CF00FD70DD /* client.p12 */; };
-		DDA1BAF02A41810F00DBA886 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA1BAEF2A41810F00DBA886 /* Attributes.swift */; };
-		DDA60A602A2F176300F686BF /* IoTConnect_2_0.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DDBB4AA72A40891C00783F26 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DDBB4AA62A40891C00783F26 /* IQKeyboardManagerSwift */; };
-		DDC0C2972A38958A001793C5 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC0C2962A38958A001793C5 /* RadioButtonController.swift */; };
-		DDD1BEF72A52F50800B00F52 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD1BEF62A52F50800B00F52 /* Identity.swift */; };
-		DDFA34642A3C297400232B5C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA34632A3C297400232B5C /* Enums.swift */; };
+		048B1CC473BACF3C2CB1DE40 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		4C24DDC7CF2D91BD7C63067E /* Pods_IoTConnectDemo_AWS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1E617999D1F398A35D21CD /* Pods_IoTConnectDemo_AWS.framework */; };
+		8068697A79797946EC64D57B /* Pods_IoTConnectDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C2B046F98BE42D0CB904584 /* Pods_IoTConnectDemo.framework */; };
+		DD0CE2DC2B4D4EBB00DFFFB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE2DB2B4D4EBB00DFFFB7 /* AppDelegate.swift */; };
+		DD0CE2DE2B4D4EBB00DFFFB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE2DD2B4D4EBB00DFFFB7 /* SceneDelegate.swift */; };
+		DD0CE2E52B4D4EBC00DFFFB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD0CE2E42B4D4EBC00DFFFB7 /* Assets.xcassets */; };
+		DD0CE2E82B4D4EBC00DFFFB7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD0CE2E62B4D4EBC00DFFFB7 /* LaunchScreen.storyboard */; };
+		DD3C72F82B4FB8970019551D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE2DB2B4D4EBB00DFFFB7 /* AppDelegate.swift */; };
+		DD3C72F92B4FB8970019551D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE2DD2B4D4EBB00DFFFB7 /* SceneDelegate.swift */; };
+		DD3C72FD2B4FB8970019551D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD0CE2E62B4D4EBC00DFFFB7 /* LaunchScreen.storyboard */; };
+		DD3C72FE2B4FB8970019551D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD0CE2E42B4D4EBC00DFFFB7 /* Assets.xcassets */; };
+		DD7729602B90766900EFEA7F /* client2301AWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD77295F2B90766900EFEA7F /* client2301AWS.p12 */; };
+		DDD5BCA62B4FBF5D0087A0E2 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC8D2B4FBF5C0087A0E2 /* RadioButtonController.swift */; };
+		DDD5BCA72B4FBF5D0087A0E2 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC8D2B4FBF5C0087A0E2 /* RadioButtonController.swift */; };
+		DDD5BCA82B4FBF5D0087A0E2 /* DeviceCertificate.pfx in Resources */ = {isa = PBXBuildFile; fileRef = DDD5BC8E2B4FBF5C0087A0E2 /* DeviceCertificate.pfx */; };
+		DDD5BCA92B4FBF5D0087A0E2 /* DeviceCertificate.pfx in Resources */ = {isa = PBXBuildFile; fileRef = DDD5BC8E2B4FBF5C0087A0E2 /* DeviceCertificate.pfx */; };
+		DDD5BCAC2B4FBF5D0087A0E2 /* PropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC912B4FBF5C0087A0E2 /* PropertyCell.swift */; };
+		DDD5BCAD2B4FBF5D0087A0E2 /* PropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC912B4FBF5C0087A0E2 /* PropertyCell.swift */; };
+		DDD5BCAE2B4FBF5D0087A0E2 /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD5BC932B4FBF5C0087A0E2 /* TableHeaderView.xib */; };
+		DDD5BCAF2B4FBF5D0087A0E2 /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD5BC932B4FBF5C0087A0E2 /* TableHeaderView.xib */; };
+		DDD5BCB02B4FBF5D0087A0E2 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC942B4FBF5D0087A0E2 /* TableHeaderView.swift */; };
+		DDD5BCB12B4FBF5D0087A0E2 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC942B4FBF5D0087A0E2 /* TableHeaderView.swift */; };
+		DDD5BCB22B4FBF5D0087A0E2 /* iOSDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC962B4FBF5D0087A0E2 /* iOSDropDown.swift */; };
+		DDD5BCB32B4FBF5D0087A0E2 /* iOSDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC962B4FBF5D0087A0E2 /* iOSDropDown.swift */; };
+		DDD5BCB42B4FBF5D0087A0E2 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC972B4FBF5D0087A0E2 /* Enums.swift */; };
+		DDD5BCB52B4FBF5D0087A0E2 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC972B4FBF5D0087A0E2 /* Enums.swift */; };
+		DDD5BCB62B4FBF5D0087A0E2 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC992B4FBF5D0087A0E2 /* Identity.swift */; };
+		DDD5BCB72B4FBF5D0087A0E2 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC992B4FBF5D0087A0E2 /* Identity.swift */; };
+		DDD5BCB82B4FBF5D0087A0E2 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9A2B4FBF5D0087A0E2 /* Attributes.swift */; };
+		DDD5BCB92B4FBF5D0087A0E2 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9A2B4FBF5D0087A0E2 /* Attributes.swift */; };
+		DDD5BCBA2B4FBF5D0087A0E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9C2B4FBF5D0087A0E2 /* ViewController.swift */; };
+		DDD5BCBB2B4FBF5D0087A0E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9C2B4FBF5D0087A0E2 /* ViewController.swift */; };
+		DDD5BCBC2B4FBF5D0087A0E2 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */; };
+		DDD5BCBD2B4FBF5D0087A0E2 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */; };
+		DDE7BFCB2B95836400484D75 /* IoTConnect2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */; };
+		DDE7BFCC2B95836400484D75 /* IoTConnect2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DDE7BFD32B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */; };
+		DDE7BFD42B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DDE8B54E2B4FEC3B004865D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */; };
+		DDE8B54F2B4FEC3B004865D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C0C04CE326D015FF00182C45 /* Embed Frameworks */ = {
+		DD073F1A2B85E73500F03617 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DDA60A602A2F176300F686BF /* IoTConnect_2_0.framework in Embed Frameworks */,
+				DDE7BFD42B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD0F327F2B8C71CF00C5832F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DDE7BFCC2B95836400484D75 /* IoTConnect2.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -44,242 +75,409 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9285F66C26D62EEF00BC30DC /* TableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
-		9285F66D26D62EEF00BC30DC /* TableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
-		9285F67026D62F5000BC30DC /* PropertyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyCell.swift; sourceTree = "<group>"; };
-		C0C04CC626D015D900182C45 /* IoTConnectDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IoTConnectDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0C04CC926D015D900182C45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C0C04CCB26D015D900182C45 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C0C04CCD26D015D900182C45 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C0C04CD026D015D900182C45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C0C04CD226D015DA00182C45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C0C04CD526D015DA00182C45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C0C04CD726D015DA00182C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iOSDropDown.swift; sourceTree = "<group>"; };
-		DD7E84A02A9340180031A231 /* ChildOperationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildOperationVC.swift; sourceTree = "<group>"; };
-		DD989A192AB18FFF00FD70DD /* DeviceCertificate.pfx */ = {isa = PBXFileReference; lastKnownFileType = file; path = DeviceCertificate.pfx; sourceTree = "<group>"; };
-		DD989A1B2AB193CF00FD70DD /* client.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = client.p12; sourceTree = "<group>"; };
-		DDA1BAEF2A41810F00DBA886 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
-		DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DDC0C2962A38958A001793C5 /* RadioButtonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonController.swift; sourceTree = "<group>"; };
-		DDD1BEF62A52F50800B00F52 /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
-		DDFA34632A3C297400232B5C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		06087317FDCD2DCEA8C65456 /* Pods-IoTConnectDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo.release.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo.release.xcconfig"; sourceTree = "<group>"; };
+		1B9A23C7988F280B89E0C2E0 /* Pods-IoTConnectDemo_AWS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo_AWS.release.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS.release.xcconfig"; sourceTree = "<group>"; };
+		20CF3E15D5D17968F5A8AEE8 /* Pods-IoTConnectDemo_AWS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo_AWS.debug.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS.debug.xcconfig"; sourceTree = "<group>"; };
+		7D1E617999D1F398A35D21CD /* Pods_IoTConnectDemo_AWS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IoTConnectDemo_AWS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		873259EA453C2BB835A246A1 /* Pods-IoTConnectDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnectDemo.debug.xcconfig"; path = "Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		9C2B046F98BE42D0CB904584 /* Pods_IoTConnectDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IoTConnectDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD0CE2D82B4D4EBB00DFFFB7 /* IoTConnectDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IoTConnectDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD0CE2DB2B4D4EBB00DFFFB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DD0CE2DD2B4D4EBB00DFFFB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DD0CE2E42B4D4EBC00DFFFB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DD0CE2E72B4D4EBC00DFFFB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DD0CE2E92B4D4EBC00DFFFB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD36C1E42B85BC5500FAF017 /* IoTConnect2_AWS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect2_AWS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD3C73042B4FB8970019551D /* IoTConnectDemo_AWS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IoTConnectDemo_AWS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD3C73052B4FB8970019551D /* IoTConnectDemo_AWS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = IoTConnectDemo_AWS.plist; path = /Users/kirtan.vaghela/Documents/IoTSDK/IoTConnectDemo/IoTConnectDemo_AWS.plist; sourceTree = "<absolute>"; };
+		DD49F5222B5519D700010F0D /* IoTConnect2_AWS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IoTConnect2_AWS.framework; path = IoTConnectDemo/IoTConnect2_AWS.framework; sourceTree = "<group>"; };
+		DD7719DF2B4D7BA100764E39 /* IoTConnect2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD77295F2B90766900EFEA7F /* client2301AWS.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = client2301AWS.p12; sourceTree = "<group>"; };
+		DDC51F592B4FCBC200BC613D /* IoTConnect2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDC51F5D2B4FCBEC00BC613D /* IoTConnect2_AWS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect2_AWS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDD5BC8D2B4FBF5C0087A0E2 /* RadioButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonController.swift; sourceTree = "<group>"; };
+		DDD5BC8E2B4FBF5C0087A0E2 /* DeviceCertificate.pfx */ = {isa = PBXFileReference; lastKnownFileType = file; path = DeviceCertificate.pfx; sourceTree = "<group>"; };
+		DDD5BC912B4FBF5C0087A0E2 /* PropertyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyCell.swift; sourceTree = "<group>"; };
+		DDD5BC932B4FBF5C0087A0E2 /* TableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
+		DDD5BC942B4FBF5D0087A0E2 /* TableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
+		DDD5BC962B4FBF5D0087A0E2 /* iOSDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iOSDropDown.swift; sourceTree = "<group>"; };
+		DDD5BC972B4FBF5D0087A0E2 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		DDD5BC992B4FBF5D0087A0E2 /* Identity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
+		DDD5BC9A2B4FBF5D0087A0E2 /* Attributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
+		DDD5BC9C2B4FBF5D0087A0E2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildOperationVC.swift; sourceTree = "<group>"; };
+		DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = IoTConnect2.xcframework; sourceTree = "<group>"; };
+		DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = IoTConnect_2_AWS.xcframework; sourceTree = "<group>"; };
+		DDE8B5452B4FE32F004865D2 /* IoTConnect2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = IoTConnect2.xcframework; path = ../IoTConnect2/build/xcframeworks/IoTConnect2.xcframework; sourceTree = "<group>"; };
+		DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C0C04CC326D015D900182C45 /* Frameworks */ = {
+		DD0CE2D52B4D4EBB00DFFFB7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD36C4412A304EF9008BA007 /* IoTConnect_2_0.framework in Frameworks */,
-				DDBB4AA72A40891C00783F26 /* IQKeyboardManagerSwift in Frameworks */,
+				048B1CC473BACF3C2CB1DE40 /* (null) in Frameworks */,
+				8068697A79797946EC64D57B /* Pods_IoTConnectDemo.framework in Frameworks */,
+				DDE7BFCB2B95836400484D75 /* IoTConnect2.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD3C72FA2B4FB8970019551D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDE7BFD32B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Frameworks */,
+				4C24DDC7CF2D91BD7C63067E /* Pods_IoTConnectDemo_AWS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9285F66B26D62EEF00BC30DC /* TableHeaderView */ = {
+		334ACF7A9057C78444D34B02 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9285F66C26D62EEF00BC30DC /* TableHeaderView.xib */,
-				9285F66D26D62EEF00BC30DC /* TableHeaderView.swift */,
+				873259EA453C2BB835A246A1 /* Pods-IoTConnectDemo.debug.xcconfig */,
+				06087317FDCD2DCEA8C65456 /* Pods-IoTConnectDemo.release.xcconfig */,
+				20CF3E15D5D17968F5A8AEE8 /* Pods-IoTConnectDemo_AWS.debug.xcconfig */,
+				1B9A23C7988F280B89E0C2E0 /* Pods-IoTConnectDemo_AWS.release.xcconfig */,
 			);
-			path = TableHeaderView;
+			path = Pods;
 			sourceTree = "<group>";
 		};
-		C0C04CBD26D015D900182C45 = {
+		DD0CE2CF2B4D4EBB00DFFFB7 = {
 			isa = PBXGroup;
 			children = (
-				C0C04CC826D015D900182C45 /* IoTConnectDemo */,
-				C0C04CC726D015D900182C45 /* Products */,
-				C0C04CDF26D015FF00182C45 /* Frameworks */,
+				DD0CE2DA2B4D4EBB00DFFFB7 /* IoTConnectDemo */,
+				DD0CE2D92B4D4EBB00DFFFB7 /* Products */,
+				DD7719DE2B4D7BA100764E39 /* Frameworks */,
+				334ACF7A9057C78444D34B02 /* Pods */,
+				DD3C73052B4FB8970019551D /* IoTConnectDemo_AWS.plist */,
 			);
 			sourceTree = "<group>";
 		};
-		C0C04CC726D015D900182C45 /* Products */ = {
+		DD0CE2D92B4D4EBB00DFFFB7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C0C04CC626D015D900182C45 /* IoTConnectDemo.app */,
+				DD0CE2D82B4D4EBB00DFFFB7 /* IoTConnectDemo.app */,
+				DD3C73042B4FB8970019551D /* IoTConnectDemo_AWS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C0C04CC826D015D900182C45 /* IoTConnectDemo */ = {
+		DD0CE2DA2B4D4EBB00DFFFB7 /* IoTConnectDemo */ = {
 			isa = PBXGroup;
 			children = (
-				DD7E849F2A933FEE0031A231 /* ViewController */,
-				DD7E84892A933E540031A231 /* Framework */,
-				DD2F10232A8DF44F008B15C1 /* View */,
-				DDA1BAEE2A4180FB00DBA886 /* Models */,
-				DDC0C2962A38958A001793C5 /* RadioButtonController.swift */,
-				C0C04CC926D015D900182C45 /* AppDelegate.swift */,
-				C0C04CCB26D015D900182C45 /* SceneDelegate.swift */,
-				C0C04CCF26D015D900182C45 /* Main.storyboard */,
-				C0C04CD226D015DA00182C45 /* Assets.xcassets */,
-				C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */,
-				C0C04CD726D015DA00182C45 /* Info.plist */,
-				DDFA34632A3C297400232B5C /* Enums.swift */,
-				DD989A1B2AB193CF00FD70DD /* client.p12 */,
-				DD989A192AB18FFF00FD70DD /* DeviceCertificate.pfx */,
+				DD77295F2B90766900EFEA7F /* client2301AWS.p12 */,
+				DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */,
+				DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */,
+				DD0CE2DB2B4D4EBB00DFFFB7 /* AppDelegate.swift */,
+				DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */,
+				DD0CE2DD2B4D4EBB00DFFFB7 /* SceneDelegate.swift */,
+				DDD5BC8E2B4FBF5C0087A0E2 /* DeviceCertificate.pfx */,
+				DDD5BC972B4FBF5D0087A0E2 /* Enums.swift */,
+				DDD5BC952B4FBF5D0087A0E2 /* Framework */,
+				DDD5BC982B4FBF5D0087A0E2 /* Models */,
+				DDD5BC8D2B4FBF5C0087A0E2 /* RadioButtonController.swift */,
+				DDD5BC902B4FBF5C0087A0E2 /* View */,
+				DDD5BC9B2B4FBF5D0087A0E2 /* ViewController */,
+				DD0CE2E42B4D4EBC00DFFFB7 /* Assets.xcassets */,
+				DD0CE2E62B4D4EBC00DFFFB7 /* LaunchScreen.storyboard */,
+				DD0CE2E92B4D4EBC00DFFFB7 /* Info.plist */,
 			);
 			path = IoTConnectDemo;
 			sourceTree = "<group>";
 		};
-		C0C04CDF26D015FF00182C45 /* Frameworks */ = {
+		DD7719DE2B4D7BA100764E39 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DD36C4402A304EF9008BA007 /* IoTConnect_2_0.framework */,
-				DDA60A5E2A2F176300F686BF /* IoTConnect_2_0.framework */,
+				DD36C1E42B85BC5500FAF017 /* IoTConnect2_AWS.framework */,
+				DD49F5222B5519D700010F0D /* IoTConnect2_AWS.framework */,
+				DDE8B5452B4FE32F004865D2 /* IoTConnect2.xcframework */,
+				DDC51F5D2B4FCBEC00BC613D /* IoTConnect2_AWS.framework */,
+				DDC51F592B4FCBC200BC613D /* IoTConnect2.framework */,
+				DD7719DF2B4D7BA100764E39 /* IoTConnect2.framework */,
+				7D1E617999D1F398A35D21CD /* Pods_IoTConnectDemo_AWS.framework */,
+				9C2B046F98BE42D0CB904584 /* Pods_IoTConnectDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DD2F10232A8DF44F008B15C1 /* View */ = {
+		DDD5BC902B4FBF5C0087A0E2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9285F67026D62F5000BC30DC /* PropertyCell.swift */,
-				9285F66B26D62EEF00BC30DC /* TableHeaderView */,
+				DDD5BC912B4FBF5C0087A0E2 /* PropertyCell.swift */,
+				DDD5BC922B4FBF5C0087A0E2 /* TableHeaderView */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		DD7E84892A933E540031A231 /* Framework */ = {
+		DDD5BC922B4FBF5C0087A0E2 /* TableHeaderView */ = {
 			isa = PBXGroup;
 			children = (
-				DD5B602C2A936EB80018BB1C /* iOSDropDown.swift */,
+				DDD5BC932B4FBF5C0087A0E2 /* TableHeaderView.xib */,
+				DDD5BC942B4FBF5D0087A0E2 /* TableHeaderView.swift */,
+			);
+			path = TableHeaderView;
+			sourceTree = "<group>";
+		};
+		DDD5BC952B4FBF5D0087A0E2 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				DDD5BC962B4FBF5D0087A0E2 /* iOSDropDown.swift */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
 		};
-		DD7E849F2A933FEE0031A231 /* ViewController */ = {
+		DDD5BC982B4FBF5D0087A0E2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C0C04CCD26D015D900182C45 /* ViewController.swift */,
-				DD7E84A02A9340180031A231 /* ChildOperationVC.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		DDA1BAEE2A4180FB00DBA886 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				DDA1BAEF2A41810F00DBA886 /* Attributes.swift */,
-				DDD1BEF62A52F50800B00F52 /* Identity.swift */,
+				DDD5BC992B4FBF5D0087A0E2 /* Identity.swift */,
+				DDD5BC9A2B4FBF5D0087A0E2 /* Attributes.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		DDD5BC9B2B4FBF5D0087A0E2 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DDD5BC9C2B4FBF5D0087A0E2 /* ViewController.swift */,
+				DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C0C04CC526D015D900182C45 /* IoTConnectDemo */ = {
+		DD0CE2D72B4D4EBB00DFFFB7 /* IoTConnectDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C0C04CDA26D015DA00182C45 /* Build configuration list for PBXNativeTarget "IoTConnectDemo" */;
+			buildConfigurationList = DD0CE2EC2B4D4EBC00DFFFB7 /* Build configuration list for PBXNativeTarget "IoTConnectDemo" */;
 			buildPhases = (
-				C0C04CC226D015D900182C45 /* Sources */,
-				C0C04CC326D015D900182C45 /* Frameworks */,
-				C0C04CC426D015D900182C45 /* Resources */,
-				C0C04CE326D015FF00182C45 /* Embed Frameworks */,
+				395903D1CCC643BC75A81A6C /* [CP] Check Pods Manifest.lock */,
+				DD0CE2D42B4D4EBB00DFFFB7 /* Sources */,
+				DD0CE2D52B4D4EBB00DFFFB7 /* Frameworks */,
+				DD0CE2D62B4D4EBB00DFFFB7 /* Resources */,
+				DF944A5A5D70731EB5FCFEE7 /* [CP] Embed Pods Frameworks */,
+				DD0F327F2B8C71CF00C5832F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = IoTConnectDemo;
-			packageProductDependencies = (
-				DDBB4AA62A40891C00783F26 /* IQKeyboardManagerSwift */,
-			);
 			productName = IoTConnectDemo;
-			productReference = C0C04CC626D015D900182C45 /* IoTConnectDemo.app */;
+			productReference = DD0CE2D82B4D4EBB00DFFFB7 /* IoTConnectDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DD3C72F42B4FB8970019551D /* IoTConnectDemo_AWS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD3C73012B4FB8970019551D /* Build configuration list for PBXNativeTarget "IoTConnectDemo_AWS" */;
+			buildPhases = (
+				DD3C72F52B4FB8970019551D /* [CP] Check Pods Manifest.lock */,
+				DD3C72F62B4FB8970019551D /* Sources */,
+				DD3C72FA2B4FB8970019551D /* Frameworks */,
+				DD3C72FC2B4FB8970019551D /* Resources */,
+				DD3C73002B4FB8970019551D /* [CP] Embed Pods Frameworks */,
+				DD073F1A2B85E73500F03617 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IoTConnectDemo_AWS;
+			productName = IoTConnectDemo;
+			productReference = DD3C73042B4FB8970019551D /* IoTConnectDemo_AWS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		C0C04CBE26D015D900182C45 /* Project object */ = {
+		DD0CE2D02B4D4EBB00DFFFB7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
-					C0C04CC526D015D900182C45 = {
-						CreatedOnToolsVersion = 12.4;
+					DD0CE2D72B4D4EBB00DFFFB7 = {
+						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
-			buildConfigurationList = C0C04CC126D015D900182C45 /* Build configuration list for PBXProject "IoTConnectDemo" */;
-			compatibilityVersion = "Xcode 9.3";
+			buildConfigurationList = DD0CE2D32B4D4EBB00DFFFB7 /* Build configuration list for PBXProject "IoTConnectDemo" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = C0C04CBD26D015D900182C45;
-			packageReferences = (
-				DDBB4AA52A40891C00783F26 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
-			);
-			productRefGroup = C0C04CC726D015D900182C45 /* Products */;
+			mainGroup = DD0CE2CF2B4D4EBB00DFFFB7;
+			productRefGroup = DD0CE2D92B4D4EBB00DFFFB7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C0C04CC526D015D900182C45 /* IoTConnectDemo */,
+				DD0CE2D72B4D4EBB00DFFFB7 /* IoTConnectDemo */,
+				DD3C72F42B4FB8970019551D /* IoTConnectDemo_AWS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C0C04CC426D015D900182C45 /* Resources */ = {
+		DD0CE2D62B4D4EBB00DFFFB7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD989A1C2AB193CF00FD70DD /* client.p12 in Resources */,
-				C0C04CD626D015DA00182C45 /* LaunchScreen.storyboard in Resources */,
-				C0C04CD326D015DA00182C45 /* Assets.xcassets in Resources */,
-				9285F66E26D62EEF00BC30DC /* TableHeaderView.xib in Resources */,
-				C0C04CD126D015D900182C45 /* Main.storyboard in Resources */,
-				DD989A1A2AB18FFF00FD70DD /* DeviceCertificate.pfx in Resources */,
+				DDD5BCA82B4FBF5D0087A0E2 /* DeviceCertificate.pfx in Resources */,
+				DDE8B54E2B4FEC3B004865D2 /* Main.storyboard in Resources */,
+				DD0CE2E82B4D4EBC00DFFFB7 /* LaunchScreen.storyboard in Resources */,
+				DD0CE2E52B4D4EBC00DFFFB7 /* Assets.xcassets in Resources */,
+				DDD5BCAE2B4FBF5D0087A0E2 /* TableHeaderView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD3C72FC2B4FB8970019551D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD7729602B90766900EFEA7F /* client2301AWS.p12 in Resources */,
+				DDD5BCA92B4FBF5D0087A0E2 /* DeviceCertificate.pfx in Resources */,
+				DDE8B54F2B4FEC3B004865D2 /* Main.storyboard in Resources */,
+				DD3C72FD2B4FB8970019551D /* LaunchScreen.storyboard in Resources */,
+				DD3C72FE2B4FB8970019551D /* Assets.xcassets in Resources */,
+				DDD5BCAF2B4FBF5D0087A0E2 /* TableHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		395903D1CCC643BC75A81A6C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IoTConnectDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD3C72F52B4FB8970019551D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IoTConnectDemo_AWS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD3C73002B4FB8970019551D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo_AWS/Pods-IoTConnectDemo_AWS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF944A5A5D70731EB5FCFEE7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IoTConnectDemo/Pods-IoTConnectDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		C0C04CC226D015D900182C45 /* Sources */ = {
+		DD0CE2D42B4D4EBB00DFFFB7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9285F67126D62F5000BC30DC /* PropertyCell.swift in Sources */,
-				DDD1BEF72A52F50800B00F52 /* Identity.swift in Sources */,
-				DD5B602D2A936EB80018BB1C /* iOSDropDown.swift in Sources */,
-				9285F66F26D62EEF00BC30DC /* TableHeaderView.swift in Sources */,
-				DDA1BAF02A41810F00DBA886 /* Attributes.swift in Sources */,
-				C0C04CCE26D015D900182C45 /* ViewController.swift in Sources */,
-				C0C04CCA26D015D900182C45 /* AppDelegate.swift in Sources */,
-				DDFA34642A3C297400232B5C /* Enums.swift in Sources */,
-				C0C04CCC26D015D900182C45 /* SceneDelegate.swift in Sources */,
-				DDC0C2972A38958A001793C5 /* RadioButtonController.swift in Sources */,
-				DD7E84A12A9340180031A231 /* ChildOperationVC.swift in Sources */,
+				DDD5BCB02B4FBF5D0087A0E2 /* TableHeaderView.swift in Sources */,
+				DDD5BCB62B4FBF5D0087A0E2 /* Identity.swift in Sources */,
+				DDD5BCB22B4FBF5D0087A0E2 /* iOSDropDown.swift in Sources */,
+				DDD5BCAC2B4FBF5D0087A0E2 /* PropertyCell.swift in Sources */,
+				DDD5BCBA2B4FBF5D0087A0E2 /* ViewController.swift in Sources */,
+				DD0CE2DC2B4D4EBB00DFFFB7 /* AppDelegate.swift in Sources */,
+				DD0CE2DE2B4D4EBB00DFFFB7 /* SceneDelegate.swift in Sources */,
+				DDD5BCA62B4FBF5D0087A0E2 /* RadioButtonController.swift in Sources */,
+				DDD5BCB42B4FBF5D0087A0E2 /* Enums.swift in Sources */,
+				DDD5BCB82B4FBF5D0087A0E2 /* Attributes.swift in Sources */,
+				DDD5BCBC2B4FBF5D0087A0E2 /* ChildOperationVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD3C72F62B4FB8970019551D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDD5BCB12B4FBF5D0087A0E2 /* TableHeaderView.swift in Sources */,
+				DDD5BCB72B4FBF5D0087A0E2 /* Identity.swift in Sources */,
+				DDD5BCB32B4FBF5D0087A0E2 /* iOSDropDown.swift in Sources */,
+				DDD5BCAD2B4FBF5D0087A0E2 /* PropertyCell.swift in Sources */,
+				DDD5BCBB2B4FBF5D0087A0E2 /* ViewController.swift in Sources */,
+				DD3C72F82B4FB8970019551D /* AppDelegate.swift in Sources */,
+				DD3C72F92B4FB8970019551D /* SceneDelegate.swift in Sources */,
+				DDD5BCA72B4FBF5D0087A0E2 /* RadioButtonController.swift in Sources */,
+				DDD5BCB52B4FBF5D0087A0E2 /* Enums.swift in Sources */,
+				DDD5BCB92B4FBF5D0087A0E2 /* Attributes.swift in Sources */,
+				DDD5BCBD2B4FBF5D0087A0E2 /* ChildOperationVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C0C04CCF26D015D900182C45 /* Main.storyboard */ = {
+		DD0CE2E62B4D4EBC00DFFFB7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C0C04CD026D015D900182C45 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C0C04CD426D015DA00182C45 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C0C04CD526D015DA00182C45 /* Base */,
+				DD0CE2E72B4D4EBC00DFFFB7 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -287,14 +485,14 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		C0C04CD826D015DA00182C45 /* Debug */ = {
+		DD0CE2EA2B4D4EBC00DFFFB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -324,7 +522,8 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -338,24 +537,25 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		C0C04CD926D015DA00182C45 /* Release */ = {
+		DD0CE2EB2B4D4EBC00DFFFB7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -385,7 +585,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -393,61 +594,175 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		C0C04CDB26D015DA00182C45 /* Debug */ = {
+		DD0CE2ED2B4D4EBC00DFFFB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 873259EA453C2BB835A246A1 /* Pods-IoTConnectDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 85Z6DRR6M5;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/IoTConnectDemo",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IoTConnectDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Emergency Distribution Profile 2023";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		C0C04CDC26D015DA00182C45 /* Release */ = {
+		DD0CE2EE2B4D4EBC00DFFFB7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06087317FDCD2DCEA8C65456 /* Pods-IoTConnectDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 85Z6DRR6M5;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/IoTConnectDemo",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IoTConnectDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Emergency Distribution Profile 2023";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DD3C73022B4FB8970019551D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20CF3E15D5D17968F5A8AEE8 /* Pods-IoTConnectDemo_AWS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 85Z6DRR6M5;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/IoTConnectDemo",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IoTConnectDemo_AWS.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DDEMOAWS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.testAWS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Emergency Distribution Profile 2023";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DD3C73032B4FB8970019551D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B9A23C7988F280B89E0C2E0 /* Pods-IoTConnectDemo_AWS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 85Z6DRR6M5;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/IoTConnectDemo",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IoTConnectDemo_AWS.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DDEMOAWS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.testAWS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Emergency Distribution Profile 2023";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -456,44 +771,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C0C04CC126D015D900182C45 /* Build configuration list for PBXProject "IoTConnectDemo" */ = {
+		DD0CE2D32B4D4EBB00DFFFB7 /* Build configuration list for PBXProject "IoTConnectDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C0C04CD826D015DA00182C45 /* Debug */,
-				C0C04CD926D015DA00182C45 /* Release */,
+				DD0CE2EA2B4D4EBC00DFFFB7 /* Debug */,
+				DD0CE2EB2B4D4EBC00DFFFB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C0C04CDA26D015DA00182C45 /* Build configuration list for PBXNativeTarget "IoTConnectDemo" */ = {
+		DD0CE2EC2B4D4EBC00DFFFB7 /* Build configuration list for PBXNativeTarget "IoTConnectDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C0C04CDB26D015DA00182C45 /* Debug */,
-				C0C04CDC26D015DA00182C45 /* Release */,
+				DD0CE2ED2B4D4EBC00DFFFB7 /* Debug */,
+				DD0CE2EE2B4D4EBC00DFFFB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD3C73012B4FB8970019551D /* Build configuration list for PBXNativeTarget "IoTConnectDemo_AWS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD3C73022B4FB8970019551D /* Debug */,
+				DD3C73032B4FB8970019551D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		DDBB4AA52A40891C00783F26 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		DDBB4AA62A40891C00783F26 /* IQKeyboardManagerSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DDBB4AA52A40891C00783F26 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
-			productName = IQKeyboardManagerSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = C0C04CBE26D015D900182C45 /* Project object */;
+	rootObject = DD0CE2D02B4D4EBB00DFFFB7 /* Project object */;
 }
