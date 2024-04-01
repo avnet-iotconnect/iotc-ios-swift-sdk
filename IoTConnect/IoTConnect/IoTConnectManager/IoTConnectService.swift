@@ -20,9 +20,17 @@ extension IoTConnectManager {
         objCommon.getBaseURL(strURL: SDKURL.discovery(strDiscoveryURL, cpId, SDKConstants.Language, SDKConstants.Version, strEnv.rawValue)) { (status, data) in
             if status {
                 if let dataRef = data as? [String : Any] {
-                    self.objCommon.manageDebugLog(code: Log.Info.INFO_IN07, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-                    self.dictReference = dataRef
-                    self.initaliseCall()
+                    if let bu = dataRef["baseUrl"] {
+                        self.objCommon.manageDebugLog(code: Log.Info.INFO_IN07, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
+                        self.dictReference = dataRef
+                        self.initaliseCall()
+                    }else{
+                        if let msgDict = dataRef["message"] {
+                            deviceCallback(msgDict)
+                        }
+                       
+                    }
+                 
                 } else {
                     self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN09, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                 }
@@ -165,13 +173,22 @@ extension IoTConnectManager {
         }
     }
     private func startTimerForReInitialiseDSC(durationSyncFrequency: Double) {
+        self.repeatTimerCount = 0
         self.timerNotRegister = Timer(timeInterval: durationSyncFrequency, target: self, selector: #selector(self.reInitialise), userInfo: nil, repeats: true)
         RunLoop.main.add(self.timerNotRegister!, forMode: .default)
         self.timerNotRegister!.fire()
     }
     @objc private func reInitialise() {
+        if self.repeatTimerCount < 5{
+            self.repeatTimerCount += 1
         self.objCommon.manageDebugLog(code: Log.Info.INFO_IN06, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
         initaliseCall()
+        }else{
+            if self.timerNotRegister != nil {
+                self.timerNotRegister?.invalidate()
+                self.timerNotRegister = nil
+            }
+        }
     }
     private func startMQTTCall(dataSyncResponse: [String:Any]) {
         if dataSyncResponse["p"] != nil {
@@ -466,13 +483,12 @@ extension IoTConnectManager {
     }
     private func checkForIsValidOrNotWith(forData dictForData: [String: Any], withValue idValue: Any) -> Bool {
         if dictForData["dt"] as? Int == DataType.DTNumber {
-            let scan = Scanner(string: "\(Int(String(describing: idValue)) ?? 0)")
-            var val: Int32 = 0
-            if scan.scanInt32(&val) && scan.isAtEnd {
-                
-            } else {
-                return false
-            }
+
+            if Int(idValue as? String ?? "") != nil{
+                    // Successfully converted to integers
+                } else {
+                    return false
+                }
         }
         let arr = (dictForData["dv"] as! String).components(separatedBy: ",")
         if arr.count != 0 && !(dictForData["dv"] as! String == "") {
@@ -487,7 +503,6 @@ extension IoTConnectManager {
                         let max = Int(arrayComponent[1].trimmingCharacters(in: .whitespaces)) ?? 0
 
                         if valueToCheck <= max && valueToCheck >= min {
-                           // print("if")
                             boolInYN = true
                         }
                     } else {
@@ -497,7 +512,8 @@ extension IoTConnectManager {
                     }
                 }
                 return boolInYN
-            } else if dictForData["dt"] as? Int == DataType.DTString {
+            } 
+            else if dictForData["dt"] as? Int == DataType.DTString {
                 if arr.contains(idValue as! String) {
                     return true
                 }

@@ -1,0 +1,31 @@
+PODS:
+  - CocoaMQTT (2.1.6):
+    - CocoaMQTT/Core (= 2.1.6)
+  - CocoaMQTT/Core (2.1.6):
+    - MqttCocoaAsyncSocket (~> 1.0.8)
+  - MqttCocoaAsyncSocket (1.0.8)
+
+DEPENDENCIES:
+  - CocoaMQTT (from `https://github.com/emqx/CocoaMQTT.git`, tag `2.1.6`)
+
+SPEC REPOS:
+  trunk:
+    - MqttCocoaAsyncSocket
+
+EXTERNAL SOURCES:
+  CocoaMQTT:
+    :git: https://github.com/emqx/CocoaMQTT.git
+    :tag: 2.1.6
+
+CHECKOUT OPTIONS:
+  CocoaMQTT:
+    :git: https://github.com/emqx/CocoaMQTT.git
+    :tag: 2.1.6
+
+SPEC CHECKSUMS:
+  CocoaMQTT: 1f206228b29318eabdacad0c2e4e88575922c27a
+  MqttCocoaAsyncSocket: 77d3b74f76228dd5a05d1f9526eab101d415b30c
+
+PODFILE CHECKSUM: f102b626b6b8d837f79d4fefcb54f0049fff005c
+
+COCOAPODS: 1.13.0

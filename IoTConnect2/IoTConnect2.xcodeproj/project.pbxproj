@@ -1,0 +1,860 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		76737EFAFA1EF2F9EC24F1A7 /* Pods_IoTConnect2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABC9923053943525EFF0EF45 /* Pods_IoTConnect2.framework */; };
+		C8DD42C8C9B2B49124C59944 /* Pods_IoTConnect2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABC9923053943525EFF0EF45 /* Pods_IoTConnect2.framework */; };
+		DD0CE2C92B4D4E8E00DFFFB7 /* IoTConnect2.h in Headers */ = {isa = PBXBuildFile; fileRef = DD0CE2C82B4D4E8E00DFFFB7 /* IoTConnect2.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DD0CE34A2B4D515900DFFFB7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DD0CE2F12B4D515900DFFFB7 /* LICENSE */; };
+		DD0CE34B2B4D515900DFFFB7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE2F22B4D515900DFFFB7 /* Reachability.swift */; };
+		DD0CE36F2B4D515900DFFFB7 /* MqttClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE31A2B4D515900DFFFB7 /* MqttClientService.swift */; };
+		DD0CE3702B4D515900DFFFB7 /* MqttClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE31B2B4D515900DFFFB7 /* MqttClientDelegate.swift */; };
+		DD0CE3712B4D515900DFFFB7 /* MqttClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE31C2B4D515900DFFFB7 /* MqttClientManager.swift */; };
+		DD0CE3722B4D515900DFFFB7 /* CocoaMqttConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE31D2B4D515900DFFFB7 /* CocoaMqttConfig.swift */; };
+		DD0CE3732B4D515900DFFFB7 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE31E2B4D515900DFFFB7 /* Config.swift */; };
+		DD0CE3742B4D515900DFFFB7 /* OfflineStorageOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3202B4D515900DFFFB7 /* OfflineStorageOption.swift */; };
+		DD0CE3752B4D515900DFFFB7 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3212B4D515900DFFFB7 /* Identity.swift */; };
+		DD0CE3762B4D515900DFFFB7 /* SDKClientOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3222B4D515900DFFFB7 /* SDKClientOption.swift */; };
+		DD0CE3772B4D515900DFFFB7 /* SSLOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3232B4D515900DFFFB7 /* SSLOption.swift */; };
+		DD0CE3782B4D515900DFFFB7 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3242B4D515900DFFFB7 /* Attributes.swift */; };
+		DD0CE3792B4D515900DFFFB7 /* BrokerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3252B4D515900DFFFB7 /* BrokerType.swift */; };
+		DD0CE37A2B4D515900DFFFB7 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3262B4D515900DFFFB7 /* File.swift */; };
+		DD0CE37B2B4D515900DFFFB7 /* Discovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3272B4D515900DFFFB7 /* Discovery.swift */; };
+		DD0CE37C2B4D515900DFFFB7 /* IoTConnectConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3282B4D515900DFFFB7 /* IoTConnectConfig.swift */; };
+		DD0CE37D2B4D515900DFFFB7 /* IoTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3292B4D515900DFFFB7 /* IoTData.swift */; };
+		DD0CE3822B4D515900DFFFB7 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3302B4D515900DFFFB7 /* CacheService.swift */; };
+		DD0CE3832B4D515900DFFFB7 /* CacheManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3312B4D515900DFFFB7 /* CacheManagerDelegate.swift */; };
+		DD0CE3842B4D515900DFFFB7 /* CachProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3322B4D515900DFFFB7 /* CachProtocol.swift */; };
+		DD0CE3852B4D515900DFFFB7 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3332B4D515900DFFFB7 /* CacheManager.swift */; };
+		DD0CE3862B4D515900DFFFB7 /* CacheModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3342B4D515900DFFFB7 /* CacheModel.swift */; };
+		DD0CE3872B4D515900DFFFB7 /* MQTTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3352B4D515900DFFFB7 /* MQTTClient.swift */; };
+		DD0CE3882B4D515900DFFFB7 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3382B4D515900DFFFB7 /* Common.swift */; };
+		DD0CE3892B4D515900DFFFB7 /* HTTPManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3392B4D515900DFFFB7 /* HTTPManagerDelegate.swift */; };
+		DD0CE38A2B4D515900DFFFB7 /* HTTPRequestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE33A2B4D515900DFFFB7 /* HTTPRequestConfig.swift */; };
+		DD0CE38B2B4D515900DFFFB7 /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE33B2B4D515900DFFFB7 /* HTTPManager.swift */; };
+		DD0CE38C2B4D515900DFFFB7 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE33C2B4D515900DFFFB7 /* NetworkConstants.swift */; };
+		DD0CE38D2B4D515900DFFFB7 /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE33D2B4D515900DFFFB7 /* HTTPService.swift */; };
+		DD0CE38E2B4D515900DFFFB7 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE33F2B4D515900DFFFB7 /* Date+Extension.swift */; };
+		DD0CE38F2B4D515900DFFFB7 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3402B4D515900DFFFB7 /* Extension.swift */; };
+		DD0CE3922B4D515900DFFFB7 /* SDKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3432B4D515900DFFFB7 /* SDKClient.swift */; };
+		DD0CE3942B4D515900DFFFB7 /* IoTConnectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3462B4D515900DFFFB7 /* IoTConnectManager.swift */; };
+		DD0CE3952B4D515900DFFFB7 /* IoTConnectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3472B4D515900DFFFB7 /* IoTConnectService.swift */; };
+		DD0CE3962B4D515900DFFFB7 /* IoTConnectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3482B4D515900DFFFB7 /* IoTConnectDelegate.swift */; };
+		DD0CE3972B4D515900DFFFB7 /* ErrosLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3492B4D515900DFFFB7 /* ErrosLog.swift */; };
+		DD3C72C32B4FB7510019551D /* IoTConnect2.h in Headers */ = {isa = PBXBuildFile; fileRef = DD0CE2C82B4D4E8E00DFFFB7 /* IoTConnect2.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DD3C72C52B4FB7510019551D /* IoTConnectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3462B4D515900DFFFB7 /* IoTConnectManager.swift */; };
+		DD3C72C62B4FB7510019551D /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE33C2B4D515900DFFFB7 /* NetworkConstants.swift */; };
+		DD3C72C72B4FB7510019551D /* IoTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3292B4D515900DFFFB7 /* IoTData.swift */; };
+		DD3C72C82B4FB7510019551D /* SDKClientOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3222B4D515900DFFFB7 /* SDKClientOption.swift */; };
+		DD3C72C92B4FB7510019551D /* ErrosLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3492B4D515900DFFFB7 /* ErrosLog.swift */; };
+		DD3C72CA2B4FB7510019551D /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE33F2B4D515900DFFFB7 /* Date+Extension.swift */; };
+		DD3C72CB2B4FB7510019551D /* CacheModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3342B4D515900DFFFB7 /* CacheModel.swift */; };
+		DD3C72CC2B4FB7510019551D /* MqttClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE31A2B4D515900DFFFB7 /* MqttClientService.swift */; };
+		DD3C72CD2B4FB7510019551D /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE2F22B4D515900DFFFB7 /* Reachability.swift */; };
+		DD3C72CE2B4FB7510019551D /* CachProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3322B4D515900DFFFB7 /* CachProtocol.swift */; };
+		DD3C72CF2B4FB7510019551D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3262B4D515900DFFFB7 /* File.swift */; };
+		DD3C72D02B4FB7510019551D /* HTTPManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3392B4D515900DFFFB7 /* HTTPManagerDelegate.swift */; };
+		DD3C72D12B4FB7510019551D /* IoTConnectConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3282B4D515900DFFFB7 /* IoTConnectConfig.swift */; };
+		DD3C72D22B4FB7510019551D /* IoTConnectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3472B4D515900DFFFB7 /* IoTConnectService.swift */; };
+		DD3C72D32B4FB7510019551D /* CocoaMqttConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE31D2B4D515900DFFFB7 /* CocoaMqttConfig.swift */; };
+		DD3C72D42B4FB7510019551D /* MQTTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3352B4D515900DFFFB7 /* MQTTClient.swift */; };
+		DD3C72D52B4FB7510019551D /* BrokerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3252B4D515900DFFFB7 /* BrokerType.swift */; };
+		DD3C72D62B4FB7510019551D /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3212B4D515900DFFFB7 /* Identity.swift */; };
+		DD3C72D72B4FB7510019551D /* IoTConnectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3482B4D515900DFFFB7 /* IoTConnectDelegate.swift */; };
+		DD3C72D82B4FB7510019551D /* OfflineStorageOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3202B4D515900DFFFB7 /* OfflineStorageOption.swift */; };
+		DD3C72D92B4FB7510019551D /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE33D2B4D515900DFFFB7 /* HTTPService.swift */; };
+		DD3C72DA2B4FB7510019551D /* MqttClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE31C2B4D515900DFFFB7 /* MqttClientManager.swift */; };
+		DD3C72DB2B4FB7510019551D /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3302B4D515900DFFFB7 /* CacheService.swift */; };
+		DD3C72DC2B4FB7510019551D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3402B4D515900DFFFB7 /* Extension.swift */; };
+		DD3C72DD2B4FB7510019551D /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3332B4D515900DFFFB7 /* CacheManager.swift */; };
+		DD3C72DE2B4FB7510019551D /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3382B4D515900DFFFB7 /* Common.swift */; };
+		DD3C72DF2B4FB7510019551D /* CacheManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3312B4D515900DFFFB7 /* CacheManagerDelegate.swift */; };
+		DD3C72E02B4FB7510019551D /* Discovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3272B4D515900DFFFB7 /* Discovery.swift */; };
+		DD3C72E12B4FB7510019551D /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3242B4D515900DFFFB7 /* Attributes.swift */; };
+		DD3C72E22B4FB7510019551D /* SSLOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3232B4D515900DFFFB7 /* SSLOption.swift */; };
+		DD3C72E32B4FB7510019551D /* HTTPRequestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE33A2B4D515900DFFFB7 /* HTTPRequestConfig.swift */; };
+		DD3C72E42B4FB7510019551D /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE31E2B4D515900DFFFB7 /* Config.swift */; };
+		DD3C72E52B4FB7510019551D /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE33B2B4D515900DFFFB7 /* HTTPManager.swift */; };
+		DD3C72E62B4FB7510019551D /* SDKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE3432B4D515900DFFFB7 /* SDKClient.swift */; };
+		DD3C72E72B4FB7510019551D /* MqttClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE31B2B4D515900DFFFB7 /* MqttClientDelegate.swift */; };
+		DD3C72EE2B4FB7510019551D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DD0CE2F12B4D515900DFFFB7 /* LICENSE */; };
+		F6A3E37623F92970BDD6D1EA /* Pods_IoTConnect2_AWS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFD25D88A07EA639D0CF8B2 /* Pods_IoTConnect2_AWS.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0F03E6035AB018BD772424BD /* Pods-IoTConnect2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnect2.release.xcconfig"; path = "Target Support Files/Pods-IoTConnect2/Pods-IoTConnect2.release.xcconfig"; sourceTree = "<group>"; };
+		229D1CE1E29072CF6B7A0513 /* Pods-IoTConnect2_AWS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnect2_AWS.release.xcconfig"; path = "Target Support Files/Pods-IoTConnect2_AWS/Pods-IoTConnect2_AWS.release.xcconfig"; sourceTree = "<group>"; };
+		7EFD25D88A07EA639D0CF8B2 /* Pods_IoTConnect2_AWS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IoTConnect2_AWS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABC9923053943525EFF0EF45 /* Pods_IoTConnect2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IoTConnect2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD0CE2C52B4D4E8E00DFFFB7 /* IoTConnect2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IoTConnect2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD0CE2C82B4D4E8E00DFFFB7 /* IoTConnect2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IoTConnect2.h; sourceTree = "<group>"; };
+		DD0CE2F12B4D515900DFFFB7 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		DD0CE2F22B4D515900DFFFB7 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		DD0CE31A2B4D515900DFFFB7 /* MqttClientService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MqttClientService.swift; sourceTree = "<group>"; };
+		DD0CE31B2B4D515900DFFFB7 /* MqttClientDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MqttClientDelegate.swift; sourceTree = "<group>"; };
+		DD0CE31C2B4D515900DFFFB7 /* MqttClientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MqttClientManager.swift; sourceTree = "<group>"; };
+		DD0CE31D2B4D515900DFFFB7 /* CocoaMqttConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaMqttConfig.swift; sourceTree = "<group>"; };
+		DD0CE31E2B4D515900DFFFB7 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		DD0CE3202B4D515900DFFFB7 /* OfflineStorageOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineStorageOption.swift; sourceTree = "<group>"; };
+		DD0CE3212B4D515900DFFFB7 /* Identity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
+		DD0CE3222B4D515900DFFFB7 /* SDKClientOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKClientOption.swift; sourceTree = "<group>"; };
+		DD0CE3232B4D515900DFFFB7 /* SSLOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSLOption.swift; sourceTree = "<group>"; };
+		DD0CE3242B4D515900DFFFB7 /* Attributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
+		DD0CE3252B4D515900DFFFB7 /* BrokerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrokerType.swift; sourceTree = "<group>"; };
+		DD0CE3262B4D515900DFFFB7 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		DD0CE3272B4D515900DFFFB7 /* Discovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discovery.swift; sourceTree = "<group>"; };
+		DD0CE3282B4D515900DFFFB7 /* IoTConnectConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IoTConnectConfig.swift; sourceTree = "<group>"; };
+		DD0CE3292B4D515900DFFFB7 /* IoTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IoTData.swift; sourceTree = "<group>"; };
+		DD0CE3302B4D515900DFFFB7 /* CacheService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
+		DD0CE3312B4D515900DFFFB7 /* CacheManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManagerDelegate.swift; sourceTree = "<group>"; };
+		DD0CE3322B4D515900DFFFB7 /* CachProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachProtocol.swift; sourceTree = "<group>"; };
+		DD0CE3332B4D515900DFFFB7 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		DD0CE3342B4D515900DFFFB7 /* CacheModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheModel.swift; sourceTree = "<group>"; };
+		DD0CE3352B4D515900DFFFB7 /* MQTTClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MQTTClient.swift; sourceTree = "<group>"; };
+		DD0CE3382B4D515900DFFFB7 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		DD0CE3392B4D515900DFFFB7 /* HTTPManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManagerDelegate.swift; sourceTree = "<group>"; };
+		DD0CE33A2B4D515900DFFFB7 /* HTTPRequestConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestConfig.swift; sourceTree = "<group>"; };
+		DD0CE33B2B4D515900DFFFB7 /* HTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
+		DD0CE33C2B4D515900DFFFB7 /* NetworkConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
+		DD0CE33D2B4D515900DFFFB7 /* HTTPService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
+		DD0CE33F2B4D515900DFFFB7 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		DD0CE3402B4D515900DFFFB7 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		DD0CE3412B4D515900DFFFB7 /* IoTConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IoTConnect.h; sourceTree = "<group>"; };
+		DD0CE3422B4D515900DFFFB7 /* IoTConnect_2_0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IoTConnect_2_0.h; sourceTree = "<group>"; };
+		DD0CE3432B4D515900DFFFB7 /* SDKClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKClient.swift; sourceTree = "<group>"; };
+		DD0CE3442B4D515900DFFFB7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD0CE3462B4D515900DFFFB7 /* IoTConnectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IoTConnectManager.swift; sourceTree = "<group>"; };
+		DD0CE3472B4D515900DFFFB7 /* IoTConnectService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IoTConnectService.swift; sourceTree = "<group>"; };
+		DD0CE3482B4D515900DFFFB7 /* IoTConnectDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IoTConnectDelegate.swift; sourceTree = "<group>"; };
+		DD0CE3492B4D515900DFFFB7 /* ErrosLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrosLog.swift; sourceTree = "<group>"; };
+		DD3C72F32B4FB7510019551D /* IoTConnect2_AWS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IoTConnect2_AWS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAB6BB18A04A9DF5B0E05F9A /* Pods-IoTConnect2_AWS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnect2_AWS.debug.xcconfig"; path = "Target Support Files/Pods-IoTConnect2_AWS/Pods-IoTConnect2_AWS.debug.xcconfig"; sourceTree = "<group>"; };
+		F7755BCF147B936AF616D9DD /* Pods-IoTConnect2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoTConnect2.debug.xcconfig"; path = "Target Support Files/Pods-IoTConnect2/Pods-IoTConnect2.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD0CE2C22B4D4E8E00DFFFB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C8DD42C8C9B2B49124C59944 /* Pods_IoTConnect2.framework in Frameworks */,
+				76737EFAFA1EF2F9EC24F1A7 /* Pods_IoTConnect2.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD3C72E82B4FB7510019551D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6A3E37623F92970BDD6D1EA /* Pods_IoTConnect2_AWS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		35FB7FBD3F64D96ABCADA53C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F7755BCF147B936AF616D9DD /* Pods-IoTConnect2.debug.xcconfig */,
+				0F03E6035AB018BD772424BD /* Pods-IoTConnect2.release.xcconfig */,
+				EAB6BB18A04A9DF5B0E05F9A /* Pods-IoTConnect2_AWS.debug.xcconfig */,
+				229D1CE1E29072CF6B7A0513 /* Pods-IoTConnect2_AWS.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		BEE082AD45423C1A82CF0BC2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ABC9923053943525EFF0EF45 /* Pods_IoTConnect2.framework */,
+				7EFD25D88A07EA639D0CF8B2 /* Pods_IoTConnect2_AWS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD0CE2BB2B4D4E8E00DFFFB7 = {
+			isa = PBXGroup;
+			children = (
+				DD0CE2C72B4D4E8E00DFFFB7 /* IoTConnect2 */,
+				DD0CE2C62B4D4E8E00DFFFB7 /* Products */,
+				35FB7FBD3F64D96ABCADA53C /* Pods */,
+				BEE082AD45423C1A82CF0BC2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DD0CE2C62B4D4E8E00DFFFB7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DD0CE2C52B4D4E8E00DFFFB7 /* IoTConnect2.framework */,
+				DD3C72F32B4FB7510019551D /* IoTConnect2_AWS.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DD0CE2C72B4D4E8E00DFFFB7 /* IoTConnect2 */ = {
+			isa = PBXGroup;
+			children = (
+				DD0CE2C82B4D4E8E00DFFFB7 /* IoTConnect2.h */,
+				DD0CE2EF2B4D515900DFFFB7 /* IoTConnect_2.0 */,
+			);
+			path = IoTConnect2;
+			sourceTree = "<group>";
+		};
+		DD0CE2EF2B4D515900DFFFB7 /* IoTConnect_2.0 */ = {
+			isa = PBXGroup;
+			children = (
+				DD0CE2F02B4D515900DFFFB7 /* OtherFramwork */,
+				DD0CE3192B4D515900DFFFB7 /* MqttClient */,
+				DD0CE31E2B4D515900DFFFB7 /* Config.swift */,
+				DD0CE31F2B4D515900DFFFB7 /* Models */,
+				DD0CE32F2B4D515900DFFFB7 /* Storage */,
+				DD0CE3352B4D515900DFFFB7 /* MQTTClient.swift */,
+				DD0CE3362B4D515900DFFFB7 /* common */,
+				DD0CE3412B4D515900DFFFB7 /* IoTConnect.h */,
+				DD0CE3422B4D515900DFFFB7 /* IoTConnect_2_0.h */,
+				DD0CE3432B4D515900DFFFB7 /* SDKClient.swift */,
+				DD0CE3442B4D515900DFFFB7 /* Info.plist */,
+				DD0CE3452B4D515900DFFFB7 /* IoTConnectManager */,
+				DD0CE3492B4D515900DFFFB7 /* ErrosLog.swift */,
+			);
+			path = IoTConnect_2.0;
+			sourceTree = "<group>";
+		};
+		DD0CE2F02B4D515900DFFFB7 /* OtherFramwork */ = {
+			isa = PBXGroup;
+			children = (
+				DD0CE2F12B4D515900DFFFB7 /* LICENSE */,
+				DD0CE2F22B4D515900DFFFB7 /* Reachability.swift */,
+			);
+			path = OtherFramwork;
+			sourceTree = "<group>";
+		};
+		DD0CE3192B4D515900DFFFB7 /* MqttClient */ = {
+			isa = PBXGroup;
+			children = (
+				DD0CE31A2B4D515900DFFFB7 /* MqttClientService.swift */,
+				DD0CE31B2B4D515900DFFFB7 /* MqttClientDelegate.swift */,
+				DD0CE31C2B4D515900DFFFB7 /* MqttClientManager.swift */,
+				DD0CE31D2B4D515900DFFFB7 /* CocoaMqttConfig.swift */,
+			);
+			path = MqttClient;
+			sourceTree = "<group>";
+		};
+		DD0CE31F2B4D515900DFFFB7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DD0CE3202B4D515900DFFFB7 /* OfflineStorageOption.swift */,
+				DD0CE3212B4D515900DFFFB7 /* Identity.swift */,
+				DD0CE3222B4D515900DFFFB7 /* SDKClientOption.swift */,
+				DD0CE3232B4D515900DFFFB7 /* SSLOption.swift */,
+				DD0CE3242B4D515900DFFFB7 /* Attributes.swift */,
+				DD0CE3252B4D515900DFFFB7 /* BrokerType.swift */,
+				DD0CE3262B4D515900DFFFB7 /* File.swift */,
+				DD0CE3272B4D515900DFFFB7 /* Discovery.swift */,
+				DD0CE3282B4D515900DFFFB7 /* IoTConnectConfig.swift */,
+				DD0CE3292B4D515900DFFFB7 /* IoTData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DD0CE32F2B4D515900DFFFB7 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				DD0CE3302B4D515900DFFFB7 /* CacheService.swift */,
+				DD0CE3312B4D515900DFFFB7 /* CacheManagerDelegate.swift */,
+				DD0CE3322B4D515900DFFFB7 /* CachProtocol.swift */,
+				DD0CE3332B4D515900DFFFB7 /* CacheManager.swift */,
+				DD0CE3342B4D515900DFFFB7 /* CacheModel.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		DD0CE3362B4D515900DFFFB7 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				DD0CE3372B4D515900DFFFB7 /* Network */,
+				DD0CE33E2B4D515900DFFFB7 /* Utilities */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		DD0CE3372B4D515900DFFFB7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DD0CE3382B4D515900DFFFB7 /* Common.swift */,
+				DD0CE3392B4D515900DFFFB7 /* HTTPManagerDelegate.swift */,
+				DD0CE33A2B4D515900DFFFB7 /* HTTPRequestConfig.swift */,
+				DD0CE33B2B4D515900DFFFB7 /* HTTPManager.swift */,
+				DD0CE33C2B4D515900DFFFB7 /* NetworkConstants.swift */,
+				DD0CE33D2B4D515900DFFFB7 /* HTTPService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		DD0CE33E2B4D515900DFFFB7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DD0CE33F2B4D515900DFFFB7 /* Date+Extension.swift */,
+				DD0CE3402B4D515900DFFFB7 /* Extension.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		DD0CE3452B4D515900DFFFB7 /* IoTConnectManager */ = {
+			isa = PBXGroup;
+			children = (
+				DD0CE3462B4D515900DFFFB7 /* IoTConnectManager.swift */,
+				DD0CE3472B4D515900DFFFB7 /* IoTConnectService.swift */,
+				DD0CE3482B4D515900DFFFB7 /* IoTConnectDelegate.swift */,
+			);
+			path = IoTConnectManager;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DD0CE2C02B4D4E8E00DFFFB7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD0CE2C92B4D4E8E00DFFFB7 /* IoTConnect2.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD3C72C22B4FB7510019551D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD3C72C32B4FB7510019551D /* IoTConnect2.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		DD0CE2C42B4D4E8E00DFFFB7 /* IoTConnect2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD0CE2CC2B4D4E8E00DFFFB7 /* Build configuration list for PBXNativeTarget "IoTConnect2" */;
+			buildPhases = (
+				E9E736D77D8745C96A289FDB /* [CP] Check Pods Manifest.lock */,
+				DD0CE2C02B4D4E8E00DFFFB7 /* Headers */,
+				DD0CE2C12B4D4E8E00DFFFB7 /* Sources */,
+				DD0CE2C22B4D4E8E00DFFFB7 /* Frameworks */,
+				DD0CE2C32B4D4E8E00DFFFB7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IoTConnect2;
+			productName = IoTConnect2;
+			productReference = DD0CE2C52B4D4E8E00DFFFB7 /* IoTConnect2.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DD3C72C02B4FB7510019551D /* IoTConnect2_AWS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD3C72F02B4FB7510019551D /* Build configuration list for PBXNativeTarget "IoTConnect2_AWS" */;
+			buildPhases = (
+				81EB528F97216F6F9BA9A01C /* [CP] Check Pods Manifest.lock */,
+				DD3C72C22B4FB7510019551D /* Headers */,
+				DD3C72C42B4FB7510019551D /* Sources */,
+				DD3C72E82B4FB7510019551D /* Frameworks */,
+				DD3C72EA2B4FB7510019551D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IoTConnect2_AWS;
+			productName = IoTConnect2;
+			productReference = DD3C72F32B4FB7510019551D /* IoTConnect2_AWS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DD0CE2BC2B4D4E8E00DFFFB7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					DD0CE2C42B4D4E8E00DFFFB7 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+				};
+			};
+			buildConfigurationList = DD0CE2BF2B4D4E8E00DFFFB7 /* Build configuration list for PBXProject "IoTConnect2" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DD0CE2BB2B4D4E8E00DFFFB7;
+			productRefGroup = DD0CE2C62B4D4E8E00DFFFB7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DD0CE2C42B4D4E8E00DFFFB7 /* IoTConnect2 */,
+				DD3C72C02B4FB7510019551D /* IoTConnect2_AWS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DD0CE2C32B4D4E8E00DFFFB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD0CE34A2B4D515900DFFFB7 /* LICENSE in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD3C72EA2B4FB7510019551D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD3C72EE2B4FB7510019551D /* LICENSE in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		81EB528F97216F6F9BA9A01C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IoTConnect2_AWS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9E736D77D8745C96A289FDB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IoTConnect2-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DD0CE2C12B4D4E8E00DFFFB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD0CE3942B4D515900DFFFB7 /* IoTConnectManager.swift in Sources */,
+				DD0CE38C2B4D515900DFFFB7 /* NetworkConstants.swift in Sources */,
+				DD0CE37D2B4D515900DFFFB7 /* IoTData.swift in Sources */,
+				DD0CE3762B4D515900DFFFB7 /* SDKClientOption.swift in Sources */,
+				DD0CE3972B4D515900DFFFB7 /* ErrosLog.swift in Sources */,
+				DD0CE38E2B4D515900DFFFB7 /* Date+Extension.swift in Sources */,
+				DD0CE3862B4D515900DFFFB7 /* CacheModel.swift in Sources */,
+				DD0CE36F2B4D515900DFFFB7 /* MqttClientService.swift in Sources */,
+				DD0CE34B2B4D515900DFFFB7 /* Reachability.swift in Sources */,
+				DD0CE3842B4D515900DFFFB7 /* CachProtocol.swift in Sources */,
+				DD0CE37A2B4D515900DFFFB7 /* File.swift in Sources */,
+				DD0CE3892B4D515900DFFFB7 /* HTTPManagerDelegate.swift in Sources */,
+				DD0CE37C2B4D515900DFFFB7 /* IoTConnectConfig.swift in Sources */,
+				DD0CE3952B4D515900DFFFB7 /* IoTConnectService.swift in Sources */,
+				DD0CE3722B4D515900DFFFB7 /* CocoaMqttConfig.swift in Sources */,
+				DD0CE3872B4D515900DFFFB7 /* MQTTClient.swift in Sources */,
+				DD0CE3792B4D515900DFFFB7 /* BrokerType.swift in Sources */,
+				DD0CE3752B4D515900DFFFB7 /* Identity.swift in Sources */,
+				DD0CE3962B4D515900DFFFB7 /* IoTConnectDelegate.swift in Sources */,
+				DD0CE3742B4D515900DFFFB7 /* OfflineStorageOption.swift in Sources */,
+				DD0CE38D2B4D515900DFFFB7 /* HTTPService.swift in Sources */,
+				DD0CE3712B4D515900DFFFB7 /* MqttClientManager.swift in Sources */,
+				DD0CE3822B4D515900DFFFB7 /* CacheService.swift in Sources */,
+				DD0CE38F2B4D515900DFFFB7 /* Extension.swift in Sources */,
+				DD0CE3852B4D515900DFFFB7 /* CacheManager.swift in Sources */,
+				DD0CE3882B4D515900DFFFB7 /* Common.swift in Sources */,
+				DD0CE3832B4D515900DFFFB7 /* CacheManagerDelegate.swift in Sources */,
+				DD0CE37B2B4D515900DFFFB7 /* Discovery.swift in Sources */,
+				DD0CE3782B4D515900DFFFB7 /* Attributes.swift in Sources */,
+				DD0CE3772B4D515900DFFFB7 /* SSLOption.swift in Sources */,
+				DD0CE38A2B4D515900DFFFB7 /* HTTPRequestConfig.swift in Sources */,
+				DD0CE3732B4D515900DFFFB7 /* Config.swift in Sources */,
+				DD0CE38B2B4D515900DFFFB7 /* HTTPManager.swift in Sources */,
+				DD0CE3922B4D515900DFFFB7 /* SDKClient.swift in Sources */,
+				DD0CE3702B4D515900DFFFB7 /* MqttClientDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD3C72C42B4FB7510019551D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD3C72C52B4FB7510019551D /* IoTConnectManager.swift in Sources */,
+				DD3C72C62B4FB7510019551D /* NetworkConstants.swift in Sources */,
+				DD3C72C72B4FB7510019551D /* IoTData.swift in Sources */,
+				DD3C72C82B4FB7510019551D /* SDKClientOption.swift in Sources */,
+				DD3C72C92B4FB7510019551D /* ErrosLog.swift in Sources */,
+				DD3C72CA2B4FB7510019551D /* Date+Extension.swift in Sources */,
+				DD3C72CB2B4FB7510019551D /* CacheModel.swift in Sources */,
+				DD3C72CC2B4FB7510019551D /* MqttClientService.swift in Sources */,
+				DD3C72CD2B4FB7510019551D /* Reachability.swift in Sources */,
+				DD3C72CE2B4FB7510019551D /* CachProtocol.swift in Sources */,
+				DD3C72CF2B4FB7510019551D /* File.swift in Sources */,
+				DD3C72D02B4FB7510019551D /* HTTPManagerDelegate.swift in Sources */,
+				DD3C72D12B4FB7510019551D /* IoTConnectConfig.swift in Sources */,
+				DD3C72D22B4FB7510019551D /* IoTConnectService.swift in Sources */,
+				DD3C72D32B4FB7510019551D /* CocoaMqttConfig.swift in Sources */,
+				DD3C72D42B4FB7510019551D /* MQTTClient.swift in Sources */,
+				DD3C72D52B4FB7510019551D /* BrokerType.swift in Sources */,
+				DD3C72D62B4FB7510019551D /* Identity.swift in Sources */,
+				DD3C72D72B4FB7510019551D /* IoTConnectDelegate.swift in Sources */,
+				DD3C72D82B4FB7510019551D /* OfflineStorageOption.swift in Sources */,
+				DD3C72D92B4FB7510019551D /* HTTPService.swift in Sources */,
+				DD3C72DA2B4FB7510019551D /* MqttClientManager.swift in Sources */,
+				DD3C72DB2B4FB7510019551D /* CacheService.swift in Sources */,
+				DD3C72DC2B4FB7510019551D /* Extension.swift in Sources */,
+				DD3C72DD2B4FB7510019551D /* CacheManager.swift in Sources */,
+				DD3C72DE2B4FB7510019551D /* Common.swift in Sources */,
+				DD3C72DF2B4FB7510019551D /* CacheManagerDelegate.swift in Sources */,
+				DD3C72E02B4FB7510019551D /* Discovery.swift in Sources */,
+				DD3C72E12B4FB7510019551D /* Attributes.swift in Sources */,
+				DD3C72E22B4FB7510019551D /* SSLOption.swift in Sources */,
+				DD3C72E32B4FB7510019551D /* HTTPRequestConfig.swift in Sources */,
+				DD3C72E42B4FB7510019551D /* Config.swift in Sources */,
+				DD3C72E52B4FB7510019551D /* HTTPManager.swift in Sources */,
+				DD3C72E62B4FB7510019551D /* SDKClient.swift in Sources */,
+				DD3C72E72B4FB7510019551D /* MqttClientDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DD0CE2CA2B4D4E8E00DFFFB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DD0CE2CB2B4D4E8E00DFFFB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		DD0CE2CD2B4D4E8E00DFFFB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7755BCF147B936AF616D9DD /* Pods-IoTConnect2.debug.xcconfig */;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = PS.IoTConnect2;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DD0CE2CE2B4D4E8E00DFFFB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F03E6035AB018BD772424BD /* Pods-IoTConnect2.release.xcconfig */;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = PS.IoTConnect2;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DD3C72F12B4FB7510019551D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAB6BB18A04A9DF5B0E05F9A /* Pods-IoTConnect2_AWS.debug.xcconfig */;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DIOTAWS";
+				PRODUCT_BUNDLE_IDENTIFIER = PS.IoTConnect2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DD3C72F22B4FB7510019551D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 229D1CE1E29072CF6B7A0513 /* Pods-IoTConnect2_AWS.release.xcconfig */;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DIOTAWS";
+				PRODUCT_BUNDLE_IDENTIFIER = PS.IoTConnect2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DD0CE2BF2B4D4E8E00DFFFB7 /* Build configuration list for PBXProject "IoTConnect2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD0CE2CA2B4D4E8E00DFFFB7 /* Debug */,
+				DD0CE2CB2B4D4E8E00DFFFB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD0CE2CC2B4D4E8E00DFFFB7 /* Build configuration list for PBXNativeTarget "IoTConnect2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD0CE2CD2B4D4E8E00DFFFB7 /* Debug */,
+				DD0CE2CE2B4D4E8E00DFFFB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD3C72F02B4FB7510019551D /* Build configuration list for PBXNativeTarget "IoTConnect2_AWS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD3C72F12B4FB7510019551D /* Debug */,
+				DD3C72F22B4FB7510019551D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DD0CE2BC2B4D4E8E00DFFFB7 /* Project object */;
+}

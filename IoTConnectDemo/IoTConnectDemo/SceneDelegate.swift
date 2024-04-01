@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  IoTConnectDemo
 //
-//  Created by Devesh Mevada on 8/20/21.
+//  Created by kirtan.vaghela on 09/01/24.
 //
 
 import UIKit

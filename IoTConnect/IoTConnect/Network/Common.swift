@@ -207,12 +207,7 @@ class Common {
     }
     func getClientCertFromP12File(pathCertificate: String, certPassword: String) -> CFArray? {
         // get p12 file path
-        /*let resourcePath = getDocumentsDirectory().appendingPathComponent(certName).path
-        
-        guard let filePath = resourcePath as? String, let p12Data = NSData(contentsOfFile: filePath) else {
-            print("Failed to open the certificate file-1: \(certName)")
-            return nil
-        }*/
+      
         let p12Data = NSData(contentsOfFile: pathCertificate)!
         
         // create key dictionary for reading p12 file
