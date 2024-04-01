@@ -3,6 +3,7 @@
 This is iOS library to connect with IoTConnect cloud by MQTT
 This library only abstract JSON responses from both end D2C and C2D
 
+
 IoTConnect Device SDKs (System Development Kit) are highly secure and reliable, solving the purpose of D2C (device to cloud) and C2D (cloud to device) communications. It is a mediator between device and cloud platforms.
 
 IoTConnect Device SDKs help you to easily and quickly connect your devices to IoTConnect. IoTConnect Device SDKs include a set of tools, libraries, developer guides with code samples, and porting guides. IoTConnect SDK is a full-fledged workshop for you to build innovative IoT products or solutions on your choice of hardware platforms.
