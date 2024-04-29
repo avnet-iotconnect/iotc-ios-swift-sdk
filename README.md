@@ -53,7 +53,7 @@ pod 'CocoaMQTT', :git => 'https://github.com/emqx/CocoaMQTT.git', :tag => '2.1.6
 
 The demo contains list of envioenment accrding to selected targets.
 
-* Prerequisite input data 
+# Prerequisite input data 
 
 * "uniqueId"     : Your device uniqueId
 * "cpId"         : It is the company code. It gets from the IoTConnect UI portal "Settings->Key Vault"
