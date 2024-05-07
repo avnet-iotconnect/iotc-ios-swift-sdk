@@ -240,7 +240,7 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
 
 ## Build Details
 - Targets
-- - IoTConnect
+ - IoTConnect
 - - IoTConnect_2.0
 - - IoTConnectDemo
   - IoTConnectDemo_AWS
