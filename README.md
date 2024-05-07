@@ -1,6 +1,6 @@
 
 # IOT Connect SDK: iotconnect-iOS-sdk(Device Message 2.1)
-![Platform](https://img.shields.io/badge/ios-blue?style=flat)
+![[Platform](https://img.shields.io/badge/ios-blue?style=flat)]
 
 
 This is iOS library to connect with IoTConnect cloud by MQTT
