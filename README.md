@@ -26,10 +26,12 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
 
 # The SDK has two targets
 
-* IoTConnect_2.0_az   - This target is for AZ platform.
+* IoTConnect_2.0_az - This target is for AZ platform.
 * IoTConnect_2_aws - This target is for AWS platform.
 
-# Third party Frameworks Used [!IMPORTANT]
+# Third party Frameworks Used
+> [!IMPORTANT]
+> Please install below framework
 - [CocoaMQTT](https://github.com/emqx/CocoaMQTT) for MQTTClient connection
 - [Starscream](https://github.com/nuclearace/Starscream) for Websocket library
 - [CocoaAsyncSocket](https://github.com/robbiehanson/CocoaAsyncSocket) for socket library
