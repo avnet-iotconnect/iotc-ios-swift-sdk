@@ -1,5 +1,7 @@
 
 # IOT Connect SDK: iotconnect-iOS-sdk(Device Message 2.1)
+![Platform](https://img.shields.io/badge/ios-blue?style=flat)
+
 
 This is iOS library to connect with IoTConnect cloud by MQTT
 This library only abstract JSON responses from both end D2C and C2D
@@ -247,9 +249,9 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
   - IoTConnect_2.0
   - IoTConnectDemo
   - IoTConnectDemo_AWS
-- Key Branches
-  - **develop:** contains the latest dev code.
-  - **master:** this contains the code for the current app store release.
+## Key Branches
+- **develop:** contains the latest dev code.
+- **master:** this contains the code for the current app store release.
 
 ## License
 [Softweb Proprietor](https://www.softwebsolutions.com)
