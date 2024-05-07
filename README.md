@@ -240,13 +240,13 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
 
 ## Build Details
 - Targets
- - IoTConnect
- - IoTConnect_2.0
- - IoTConnectDemo
- - IoTConnectDemo_AWS
+  - IoTConnect
+  - IoTConnect_2.0
+  - IoTConnectDemo
+  - IoTConnectDemo_AWS
 - Key Branches
- - **develop:** contains the latest dev code.
- - **master:** this contains the code for the current app store release.
+  - **develop:** contains the latest dev code.
+  - **master:** this contains the code for the current app store release.
 
 ## License
 [Softweb Proprietor](https://www.softwebsolutions.com)
