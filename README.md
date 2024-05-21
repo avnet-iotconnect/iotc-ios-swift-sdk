@@ -39,9 +39,9 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
 - [CocoaAsyncSocket](https://github.com/robbiehanson/CocoaAsyncSocket) for socket library
 
 # Requirements
-  * **ios version:** Minimum 12.0
-  * **xcode version:** Xcode 15.2 or higher
-  * **swift version:** Swift 5
+  * **iOS version:** Minimum 12.0
+  * **Xcode version:** Xcode 15.2 or higher
+  * **Swift version:** Swift 5
   * **pod requirement:**
     ```
     source 'https://github.com/CocoaPods/Specs.git'
@@ -54,173 +54,183 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
 # SDK Usage
 
  ## Import Framework:
-   * You have to drag and drop framework in Bundle.
-   * Click on your Project's Target section.
+   * You have to drag and drop framework in bundle.
+   * Click on your Project's target section.
    * In General section scroll down to Frameowrks, libraries, and embeded Content section.
-   * Here you can find IoTConnect2_az or IoTConnect2_aws SDk. select Embed & Sign option from there as shown in image below.
+   * Here you can find IoTConnect2_az or IoTConnect2_aws SDK. Select Embed & Sign option from there as shown in image below.
   
   ![Screenshot 2024-05-07 at 10 39 44 AM](https://github.com/avnet-iotconnect/iotc-ios-swift-sdk/assets/135005218/436d8985-1e0e-4246-946a-b8c7e7eeea6a)
   
  ## Input data
    ### Required Values: 
-    * "uniqueId"     : Your device uniqueID
-    * "cpId"         : It is the company code. It gets from the IoTConnect UI portal "Settings->Key Vault"
-    * "env"          : pass environment type from mentioned enum(EnvironmentType) i.e. AVNET, DEV, QA, PROD, POC, PREQA
-    * "pf"           : give the platform AZ or AWS
+   | Parameters | Description |
+   | --- | --- |
+   | uniqueId | Your device uniqueID |
+   | cpId | It is the company code. It gets from the IoTConnect UI portal "Settings->Key Vault |
+   | env | Pass environment type from mentioned enum(EnvironmentType) i.e. AVNET, DEV, QA, PROD, POC, PREQA |
+   | pf | Give the platform AZ or AWS |
 
    ### Optional values 
-    * You need a .p12 file to authenticate with certificate.
-    * "devicePK":  If authentication type is symmetric key then use it.
-    * "skipValidation": false = do not want to skip data validation for attributes, true= want to skip data validation for attributes
-    * "SSLOption": It is indicated to define the path of the certificate file. Mandatory for X.509/SSL device CA signed or self-signed authentication type only.
-     - certificatePath: your device certificate path
-     - password: your device certificate password
-    * "offlineStorage" : Define the configuration related to the offline data storage 
-     - disabled : false = offline data storing, true = not storing offline data 
-     - availSpaceInMb : Define the file size of off-line data which should be in (MB)
-     - fileCount : Number of files need to create for off-line data
+   * You need a .p12 file to authenticate with certificate.
+     
+   | Parameters | Description |
+   | --- | --- |
+   | devicePK | If authentication type is symmetric key then use it |
+   | skipValidation | false = do not want to skip data validation for attributes, true= want to skip data validation for attributes |
+   | SSLOption | It is indicated to define the path of the certificate file. Mandatory for X.509/SSL device CA signed or self-signed authentication type only. |
+   | certificatePath | Your device certificate path |
+   | password | Your device certificate password |
+   | offlineStorage | Define the configuration related to the offline data storage |
+   | disabled | false = offline data storing, true = not storing offline data |
+   | availSpaceInMb | Define the file size of off-line data which should be in (MB) |
+   | fileCount | Number of files need to create for off-line data |
 
  ## Functions and callbacks:
 
   - To Initialize the SDK object and connect to the cloud.
-   ```
+   ```swift
     let objConfig = IoTConnectConfig( uniqueId:<UNIQUE ID>, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
     SDKClient.shared.initialize(config: objConfig)
    ```
 
   - To receive the command from Cloud to Device(C2D).
-
-   ```
+   ```swift
     SDKClient.shared.getDeviceCallBack { (message) in
 
     }
    ```
 
   - To receive Device Command C2D(C2D)
-   ```
+   ```swift
     SDKClient.shared.onDeviceCommand { message in
                 
     }
    ```
 
   - To receive OTA Command(C2D)
-   ```
+   ```swift
     SDKClient.shared.onOTACommand { message in
                 
     }
    ```
 
   - To receive Module Command(C2D)
-   ```
+   ```swift
     SDKClient.shared.onModuleCommand { message in
                 
     }
    ```
 
   - To receive Attributes Change Command(C2D)
-   ```
+   ```swift
     SDKClient.shared.onAttrChangeCommand { message in
 
     }
    ```
 
   - To receive Twin Change Command(C2D)
-   ```
+   ```swift
     SDKClient.shared.onTwinChangeCommand { (twinMessage) in
 
     }
   ```
 
   - To receive Rule Change Command(C2D)
-   ```
+   ```swift
     SDKClient.shared.onRuleChangeCommand { response in
             
     }
    ```
 
   - To receive Device Change Command(C2D)
-   ```
+   ```swift
     SDKClient.shared.onDeviceChangeCommand { response in
             
     }
    ```
 
   - To get the list of attributes with respective device.
-   ```
+   ```swift
     SDKClient.shared.getAttributes { attrinuteResponse in
                 
     }
    ```
 
   - To get the all twin property Desired and Reported
-   ```
+   ```swift
     SDKClient.shared.getAllTwins()
    ```
 
   - To get the child devices
-   ```
+   ```swift
     SDKClient.shared.getChildDevices { response in
         
     }
    ```
 
   - To create child device
-   ```
+   ```swift
     SDKClient.shared.createChildDevice(deviceId: <Device_Id>, deviceTag:<Device_Tag>, displayName:  <Display_Name>, createChildCallBack:{ (response) in
             
     }
    ```
 
   - To delete child device
-   ```
+   ```swift
     SDKClient.shared.deleteChildDevice(deviceId:<Device_ID>) { response in
             
     }
    ```
 
   - This is the standard data input format for non Gateway device to send the data on IoTConnect cloud(D2C) Please make sure to pass <value> of any attribute is in string.
-   ```
-     ["d":
-      [
-        [
-       "d":[<ln>: <value>],
-      "dt": <dateTime>, "id": <id>, "tg": <tag>
-        ]
-      ],
-        "dt": <dateTime>
+   ```swift
+     [
+       "d": [
+         [
+           "d": [
+             <ln>: <value>
+             ],
+           "dt": <dateTime>,
+           "id": <id>,
+           "tg": <tag>
+         ]
+       ],
+       "dt": <dateTime>
      ]
    ```
 
   - This is the standard data input format for Gateway device to send the data on IoTConnect cloud(D2C) Please make sure to pass <value> of any attribute is in string.
  
-   ```      
-    ["dt": <dateTime>, 
-       "d": [
+   ```json
+    [
+      "dt": <dateTime>, 
+      "d": [
         "id”:<id>, 
         "dt": <dateTime>, 
         "tg": <tag>
         "d": [<ln>: <value>], 
-        ], 
-        ["dt": <dateTime>, 
-         "tg": <tag>, 
-         "id":<id>,
+      ], 
+      [
+        "dt": <dateTime>, 
+        "tg": <tag>, 
+        "id":<id>,
         "d": [<ln>: <value>]
-        ],
-    ["dt": <dateTime>, 
-     "id": <id>, 
-     "tg": <tag>
-     "d": [
-            <ln>: <value>,
-            <ln>: <value>
-          ]
+      ],
+      [
+        "dt": <dateTime>, 
+        "id": <id>, 
+        "tg": <tag>
+        "d": [
+          <ln>: <value>,
+          <ln>: <value>
+        ]
+      ]
     ]
-    ]
-]
    ```
 
 ## Usage Example:
 
-  ```
+  ```swift
    import IoTConnect_2_az
 
    var sdkOptions = SDKClientOption()
@@ -249,11 +259,13 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
 ```
 
 ## Build Details
-- Targets
-  - **IoTConnect_2_AWS:** This target contains code for IotCOnnectSDK code for AWS platform.
-  - **IoTConnect_2.0:** This target contains code for IotCOnnectSDK code for AZ platform.
-  - **IoTConnectDemo:** This target contains code for IotCOnnectSDK Demo for AZ platform.
-  - **IoTConnectDemo_AWS:** This target contains code for IotCOnnectSDK Demo for AWS platform.
+
+| Targets | Description |
+| --- | --- |
+| IoTConnect_2_AWS | This target contains code for IotCOnnectSDK code for AWS platform. |
+| IoTConnect_2.0 | This target contains code for IotCOnnectSDK code for AZ platform. |
+| IoTConnectDemo | This target contains code for IotCOnnectSDK Demo for AZ platform. |
+| IoTConnectDemo_AWS | This target contains code for IotCOnnectSDK Demo for AWS platform. |
     
 ## Key Branches
 - **develop:** contains the latest dev code.
