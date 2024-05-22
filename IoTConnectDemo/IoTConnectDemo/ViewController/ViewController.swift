@@ -116,8 +116,8 @@ class ViewController: UIViewController {
             //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
             
-            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client2301AWS.p12", ofType: nil)
-            sdkOptions.ssl.password = "Softweb#123"
+            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<p12 file name>", ofType: nil)
+            sdkOptions.ssl.password = "<SSL password>"
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
@@ -136,7 +136,7 @@ class ViewController: UIViewController {
             
             //callback fro connect,disconnect,identity,attribute,get child device and get twins reponse
             SDKClient.shared.getDeviceCallBack { (message) in
-                print("message: ", message as Any)
+                print("getDeviceCallBack message: ", message as Any)
                 DispatchQueue.main.async {
                     self.viewLoader.isHidden = true
                     self.txtView.text = "\(message ?? "")"

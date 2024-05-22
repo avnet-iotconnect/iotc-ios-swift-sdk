@@ -103,7 +103,9 @@ public class SDKClient {
      Returns nothing
      */
     public func sendData(data: [String:Any]) {
-        iotConnectManager.sendData(data: data)
+        if iotConnectManager != nil{
+            iotConnectManager.sendData(data: data)
+        }
     }
     
     /**

@@ -56,6 +56,11 @@ class MQTTClient {
         if mqtt?.connState == .connected {
             mqtt!.disconnect()
         }
+        
+        if mqtt != nil{
+            mqtt = nil
+        }
+        
         mqtt = CocoaMQTT(clientID: dataSyncResponse[keyPath:"p.id"] as! String, host: dataSyncResponse[keyPath:"p.h"] as! String, port: dataSyncResponse[keyPath:"p.p"] as! UInt16)
         
         guard let mqtt = mqtt else { return  }
