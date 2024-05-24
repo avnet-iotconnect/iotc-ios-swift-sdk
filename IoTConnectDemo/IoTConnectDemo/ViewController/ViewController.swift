@@ -116,15 +116,15 @@ class ViewController: UIViewController {
             //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
             
-            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<p12 file name>", ofType: nil)
-            sdkOptions.ssl.password = "<SSL password>"
+//            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<p12 file name>", ofType: nil)
+//            sdkOptions.ssl.password = "<SSL password>"
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
             sdkOptions.offlineStorage.fileCount = 10
             sdkOptions.cpId = txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? ""
             sdkOptions.env = env
-            sdkOptions.pf = .aws
+            sdkOptions.pf = .az
             
             //for device PK
             //this is base64 string for SmplPk device
