@@ -62,6 +62,8 @@ extension IoTConnectManager {
                     }
                 } else {
                     if let error = data as? Error {
+                        self.callBackDelegate?.onDeviceCommandCallback(response: nil, error: error.localizedDescription)
+                        self.blockHandlerDeviceCallBack(["sdkStatus": error.localizedDescription])
                         self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01.rawValue, uniqueId: uniqueId, cpId: cpId, message: error.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
                     }
                 }

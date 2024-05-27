@@ -109,9 +109,13 @@ class ViewController: UIViewController {
     //MARK: - Custom Methods
     func connectSDK() {
         //This code works for certificate authentication
-      
         if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
-             self.viewLoader.isHidden = false
+            DispatchQueue.main.async {
+                self.viewLoader.isHidden = false
+                self.txtCPID.resignFirstResponder()
+                self.txtUniqueID.resignFirstResponder()
+            }
+            
             
             //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
@@ -140,8 +144,7 @@ class ViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.viewLoader.isHidden = true
                     self.txtView.text = "\(message ?? "")"
-                    self.txtUniqueID.resignFirstResponder()
-                    self.txtCPID.resignFirstResponder()
+                    self.view.resignFirstResponder()
                 }
                 if let msg = message as? [String:Any]{
                     if let msg = msg["d"] as? [String:Any]{
@@ -816,6 +819,7 @@ class ViewController: UIViewController {
     @IBAction func btnSendDataTapped(_ sender: Any) {
         DispatchQueue.main.async {
             self.viewLoader.isHidden = false
+            self.view.resignFirstResponder()
         }
         if self.arrChildAttributeData.count > 0{
             loadData(data: arrChildAttributeData)
@@ -966,6 +970,12 @@ extension ViewController:UITextFieldDelegate{
         }
         return true
     }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        DispatchQueue.main.async {
+            self.view.resignFirstResponder()
+        }
+    }
 }
 
 
@@ -978,3 +988,6 @@ extension Dictionary where Key == String, Value == Any {
         }
     }
 }
+
+
+

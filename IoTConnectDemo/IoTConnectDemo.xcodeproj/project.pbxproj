@@ -18,6 +18,8 @@
 		DD3C72F92B4FB8970019551D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0CE2DD2B4D4EBB00DFFFB7 /* SceneDelegate.swift */; };
 		DD3C72FD2B4FB8970019551D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD0CE2E62B4D4EBC00DFFFB7 /* LaunchScreen.storyboard */; };
 		DD3C72FE2B4FB8970019551D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD0CE2E42B4D4EBC00DFFFB7 /* Assets.xcassets */; };
+		DDA560632C00C7B600099E1A /* IoTConnect2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA560612C00C7B100099E1A /* IoTConnect2.xcframework */; };
+		DDA560642C00C7B600099E1A /* IoTConnect2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDA560612C00C7B100099E1A /* IoTConnect2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DDD5BCA62B4FBF5D0087A0E2 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC8D2B4FBF5C0087A0E2 /* RadioButtonController.swift */; };
 		DDD5BCA72B4FBF5D0087A0E2 /* RadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC8D2B4FBF5C0087A0E2 /* RadioButtonController.swift */; };
 		DDD5BCAC2B4FBF5D0087A0E2 /* PropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC912B4FBF5C0087A0E2 /* PropertyCell.swift */; };
@@ -38,8 +40,6 @@
 		DDD5BCBB2B4FBF5D0087A0E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9C2B4FBF5D0087A0E2 /* ViewController.swift */; };
 		DDD5BCBC2B4FBF5D0087A0E2 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */; };
 		DDD5BCBD2B4FBF5D0087A0E2 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */; };
-		DDE7BFCB2B95836400484D75 /* IoTConnect2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */; };
-		DDE7BFCC2B95836400484D75 /* IoTConnect2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DDE7BFD32B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */; };
 		DDE7BFD42B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DDE8B54E2B4FEC3B004865D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */; };
@@ -58,13 +58,13 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DD0F327F2B8C71CF00C5832F /* Embed Frameworks */ = {
+		DDA560602C00C5E400099E1A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DDE7BFCC2B95836400484D75 /* IoTConnect2.xcframework in Embed Frameworks */,
+				DDA560642C00C7B600099E1A /* IoTConnect2.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,6 +89,7 @@
 		DD3C73052B4FB8970019551D /* IoTConnectDemo_AWS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = IoTConnectDemo_AWS.plist; path = /Users/kirtan.vaghela/Documents/IoTSDK/IoTConnectDemo/IoTConnectDemo_AWS.plist; sourceTree = "<absolute>"; };
 		DD49F5222B5519D700010F0D /* IoTConnect2_AWS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IoTConnect2_AWS.framework; path = IoTConnectDemo/IoTConnect2_AWS.framework; sourceTree = "<group>"; };
 		DD7719DF2B4D7BA100764E39 /* IoTConnect2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDA560612C00C7B100099E1A /* IoTConnect2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = IoTConnect2.xcframework; sourceTree = "<group>"; };
 		DDC51F592B4FCBC200BC613D /* IoTConnect2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC51F5D2B4FCBEC00BC613D /* IoTConnect2_AWS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IoTConnect2_AWS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDD5BC8D2B4FBF5C0087A0E2 /* RadioButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonController.swift; sourceTree = "<group>"; };
@@ -101,7 +102,6 @@
 		DDD5BC9A2B4FBF5D0087A0E2 /* Attributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 		DDD5BC9C2B4FBF5D0087A0E2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildOperationVC.swift; sourceTree = "<group>"; };
-		DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = IoTConnect2.xcframework; sourceTree = "<group>"; };
 		DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = IoTConnect_2_AWS.xcframework; sourceTree = "<group>"; };
 		DDE8B5452B4FE32F004865D2 /* IoTConnect2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = IoTConnect2.xcframework; path = ../IoTConnect2/build/xcframeworks/IoTConnect2.xcframework; sourceTree = "<group>"; };
 		DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 			files = (
 				048B1CC473BACF3C2CB1DE40 /* (null) in Frameworks */,
 				8068697A79797946EC64D57B /* Pods_IoTConnectDemo.framework in Frameworks */,
-				DDE7BFCB2B95836400484D75 /* IoTConnect2.xcframework in Frameworks */,
+				DDA560632C00C7B600099E1A /* IoTConnect2.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,8 +164,8 @@
 		DD0CE2DA2B4D4EBB00DFFFB7 /* IoTConnectDemo */ = {
 			isa = PBXGroup;
 			children = (
+				DDA560612C00C7B100099E1A /* IoTConnect2.xcframework */,
 				DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */,
-				DDE7BFC92B95835F00484D75 /* IoTConnect2.xcframework */,
 				DD0CE2DB2B4D4EBB00DFFFB7 /* AppDelegate.swift */,
 				DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */,
 				DD0CE2DD2B4D4EBB00DFFFB7 /* SceneDelegate.swift */,
@@ -253,7 +253,7 @@
 				DD0CE2D52B4D4EBB00DFFFB7 /* Frameworks */,
 				DD0CE2D62B4D4EBB00DFFFB7 /* Resources */,
 				DF944A5A5D70731EB5FCFEE7 /* [CP] Embed Pods Frameworks */,
-				DD0F327F2B8C71CF00C5832F /* Embed Frameworks */,
+				DDA560602C00C5E400099E1A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -601,7 +601,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -628,7 +628,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Emergency Distribution Profile 2023";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ripal Vyas All";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -642,7 +642,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -669,7 +669,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Emergency Distribution Profile 2023";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ripal Vyas All";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -682,7 +682,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -710,7 +710,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.testAWS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Emergency Distribution Profile 2023";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ripal Vyas All";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -723,7 +723,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -751,7 +751,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.softweb.testAWS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Emergency Distribution Profile 2023";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ripal Vyas All";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
