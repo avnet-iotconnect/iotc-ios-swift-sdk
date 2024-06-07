@@ -36,14 +36,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnGetTwins: UIButton!
     @IBOutlet weak var btnChildDevicesOperation: UIButton!
     @IBOutlet weak var viewDropDown: UIView!
-    @IBOutlet weak var txtFieldDropDown: DropDown!
-    
+    @IBOutlet weak var btnDropDown: UIButton!
+    @IBOutlet weak var imgArrow: UIImageView!
+
 //MARK: Variable
     private var btnConnectTitle = "CONNECT"
     private var btnDisConnectTitle = "DISCONNECT"
     private let tblViewRowheight = 44.0
     private var noOfSecrions = 0
-    private var env:IOTCEnvironment = .PROD
+    private var env:IOTCEnvironment? //= .PROD
     private var devivceStatus:DeviceConnectionStatus = .disconnected
     private let radioController: RadioButtonController = RadioButtonController()
     private var noOfAttributes = 0
@@ -61,6 +62,9 @@ class ViewController: UIViewController {
     private var isDeviceGateway = false
     private var isDeviceEdge = false
     private var is204WillCalled = false
+    private var btnEnvDropDown = DropDown()
+    
+    lazy var dropDown:DropDown = btnEnvDropDown
     
 //MARK: view lifecycle
     override func viewDidLoad() {
@@ -109,13 +113,12 @@ class ViewController: UIViewController {
     //MARK: - Custom Methods
     func connectSDK() {
         //This code works for certificate authentication
-        if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
+//        if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
             DispatchQueue.main.async {
                 self.viewLoader.isHidden = false
                 self.txtCPID.resignFirstResponder()
                 self.txtUniqueID.resignFirstResponder()
             }
-            
             
             //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
@@ -136,13 +139,21 @@ class ViewController: UIViewController {
             
             let objConfig =  IoTConnectConfig(uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", mqttConnectionType: .certificateAuthentication, sdkOptions: sdkOptions)
           
-            SDKClient.shared.initialize(config: objConfig)
+//            SDKClient.shared.initialize(config: objConfig)
+            
+            SDKClient.shared.initialize(config: objConfig) { error in
+                DispatchQueue.main.async {
+                    print(error)
+                    self.viewLoader.isHidden = true
+                    self.txtView.text = "\(error)"
+                }
+            }
             
             //callback fro connect,disconnect,identity,attribute,get child device and get twins reponse
             SDKClient.shared.getDeviceCallBack { (message) in
                 print("getDeviceCallBack message: ", message as Any)
                 DispatchQueue.main.async {
-                    self.viewLoader.isHidden = true
+//                    self.viewLoader.isHidden = true
                     self.txtView.text = "\(message ?? "")"
                     self.view.resignFirstResponder()
                 }
@@ -166,6 +177,7 @@ class ViewController: UIViewController {
                             }
                             else   if  msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_TWIN.rawValue{
                                 print("GET_DEVICE_TEMPLATE_TWIN \(msg)")
+                                self.hideLoader()
                                 DispatchQueue.main.async {
                                     self.txtView.text = "\(msg)"
                                 }
@@ -176,6 +188,7 @@ class ViewController: UIViewController {
                     }
                     else if let msg = msg["sdkStatus"] as? String{
                         if msg == "error"{
+                            self.hideLoader()
                             self.presentAlert(title: "Error")
                             self.setDisconnectUI()
                         }
@@ -186,16 +199,19 @@ class ViewController: UIViewController {
                             commandType == CommandType.DEVICE_RELEASED.rawValue ||
                             commandType == CommandType.STOP_OPERATION.rawValue ||
                             commandType == CommandType.DEVICE_CONNECTION_STATUS.rawValue{
+                            self.hideLoader()
                             SDKClient.shared.dispose()
                             self.setDisconnectUI()
                         }
                     }
                     else if let msgError = msg["error"]{
+                        self.hideLoader()
                         DispatchQueue.main.async {
                             self.txtView.text = msgError as? String
                         }
                         self.setDisconnectUI()
                     }else{
+                        self.hideLoader()
                         print("Message \(msg)")
                     }
                 }else if let msgData = message as? Data{
@@ -227,6 +243,7 @@ class ViewController: UIViewController {
                     }
                 })
                 
+                self.hideLoader()
                 SDKClient.shared.updateTwin(key: keyToSend, value: valToSend)
                 DispatchQueue.main.async {
                     self.txtView.text = "\(twinMessage ?? "")"
@@ -247,6 +264,7 @@ class ViewController: UIViewController {
                             self.arrChildAttributeData.removeAll()
                             self.arrParentData.removeAll()
                         }
+                        self.hideLoader()
                         DispatchQueue.main.async {
                             self.tblProperty.reloadData()
                         }
@@ -260,6 +278,7 @@ class ViewController: UIViewController {
                 self.arrChildAttributeData.removeAll()
                 self.isGetDevicesCalled = false
                 self.arrSimpleDeviceData.removeAll()
+                self.hideLoader()
                 if self.is204Received{
                     self.arrParentData.removeAll()
                 }
@@ -270,6 +289,7 @@ class ViewController: UIViewController {
                             self.noOfSecrions = msg.count
                             self.is204Received = true
                             self.arrChildDevicesAttributes = msg
+                            self.hideLoader()
                             if  self.is201Received{
                                 self.getChildDevicesAttributes()
                             }
@@ -281,6 +301,7 @@ class ViewController: UIViewController {
             //callback for refresh edge rule
             SDKClient.shared.onRuleChangeCommand { response in
                 print("Response on rule change \(response ?? [:])")
+                self.hideLoader()
                 DispatchQueue.main.async {
                     self.txtView.text = "\(response ?? "")"
                 }
@@ -289,7 +310,10 @@ class ViewController: UIViewController {
             //callback for device command and sending ack
             SDKClient.shared.onDeviceCommand { response in
                 print("response onDeviceCommand vc \(response ?? [:])")
-                self.txtView.text = "\(response ?? "")"
+                DispatchQueue.main.async {
+                    self.txtView.text = "\(response ?? "")"
+                }
+                self.hideLoader()
                 let msg = response as? [String:Any]
                 SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "6", msg: "Device command received ack",childId: msg?["id"] as? String ?? "")
             }
@@ -297,7 +321,10 @@ class ViewController: UIViewController {
             //callback on OTA and ack
             SDKClient.shared.onOTACommand { response in
                 let msg = response as? [String:Any]
-                self.txtView.text = "\(msg ?? [:])"
+                self.hideLoader()
+                DispatchQueue.main.async {
+                    self.txtView.text = "\(msg ?? [:])"
+                }
                 SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "OTA message received ack",childId: msg?["id"] as? String ?? "")
             }
             
@@ -305,30 +332,47 @@ class ViewController: UIViewController {
             SDKClient.shared.onModuleCommand { response in
                 print("On module command response \(response ?? [:])")
                 let msg = response as? [String:Any]
-                self.txtView.text = "\(msg ?? [:])"
+                self.hideLoader()
+                DispatchQueue.main.async {
+                    self.txtView.text = "\(msg ?? [:])"
+                }
                 SDKClient.shared.sendAckModule(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
             }
-        }
-        else{
-            if txtCPID.text!.isEmpty{
-                presentAlert(title: "Please enter CPID value")
-            }else{
-                presentAlert(title: "Please enter unique ID value")
-            }
-        }
+//        }
+//        else{
+//            if txtCPID.text!.isEmpty{
+//                presentAlert(title: "Please enter CPID value")
+//            }else{
+//                presentAlert(title: "Please enter unique ID value")
+//            }
+//        }
     }
     
     func setUpDropDown(){
+        DispatchQueue.main.async {
+            self.btnDropDown.layer.borderColor = UIColor.black.cgColor
+            self.btnDropDown.layer.borderWidth = 1.0
+            self.imgArrow.transform =  CGAffineTransform(rotationAngle: CGFloat.pi * 2)
+        }
         let arrEnvValues: [String] = IOTCEnvironment.allCases.map { $0.rawValue }
         let arrEnv = IOTCEnvironment.allCases
-        txtFieldDropDown.optionArray = arrEnvValues
-        txtFieldDropDown.arrowSize = 20.0
-        txtFieldDropDown.arrowColor = .black
-        self.env = arrEnv[0]
-        txtFieldDropDown.text = arrEnv[0].rawValue
-        txtFieldDropDown.didSelect{(selectedText , index ,id) in
-            self.env = arrEnv[index]
+        btnEnvDropDown.dataSource = arrEnvValues
+        btnEnvDropDown.selectionAction = { [weak self] (index,item) in
+            self?.env = arrEnv[index]
+            self?.btnDropDown.setTitle(arrEnvValues[index], for: .normal)
+            self?.imgArrow.transform =  CGAffineTransform(rotationAngle: CGFloat.pi * 2)
         }
+        btnEnvDropDown.anchorView = btnDropDown
+       btnEnvDropDown.bottomOffset = CGPoint(x: 0, y: btnDropDown.bounds.height+5)
+        
+//        txtFieldDropDown.optionArray = arrEnvValues
+//        txtFieldDropDown.arrowSize = 20.0
+//        txtFieldDropDown.arrowColor = .black
+//        self.env = arrEnv[0]
+//        txtFieldDropDown.text = arrEnv[0].rawValue
+//        txtFieldDropDown.didSelect{(selectedText , index ,id) in
+//            self.env = arrEnv[index]
+//        }
     }
     
     //get SimpleDevice Data
@@ -562,9 +606,7 @@ class ViewController: UIViewController {
         }
        
         print("finalDict \(finalDict)")
-        DispatchQueue.main.async {
-            self.viewLoader.isHidden = true
-        }
+        self.hideLoader()
         //Format for sending data to SDK
         //dateTime format "2023-08-24T05:52:11.392Z"
         
@@ -579,7 +621,16 @@ class ViewController: UIViewController {
 //         "dt": <dateTime>
 //        ]
         
+        DispatchQueue.main.async {
+            self.txtView.text = "\(finalDict)"
+        }
+        
         SDKClient.shared.sendData(data: finalDict)
+        
+        DispatchQueue.main.async {
+            self.tblProperty.reloadData()
+        }
+        
     }
     
     //parse Identity reponse and idenitfy device type
@@ -609,6 +660,7 @@ class ViewController: UIViewController {
                     }
                 }
             } else {
+              hideLoader()
               print("Error parsing syncCall Response")
             }
         }
@@ -645,6 +697,7 @@ class ViewController: UIViewController {
                 self.enableMessageBtns()
             }
         } catch {
+            self.hideLoader()
             print(error)
         }
     }
@@ -686,6 +739,7 @@ class ViewController: UIViewController {
      
         tblViewHeightConstraint.constant =  Double(totalCount) * tblViewRowheight
         print("total rows \(totalCount)")
+        self.hideLoader()
         DispatchQueue.main.async {
             self.tblProperty.reloadData()
         }
@@ -715,6 +769,10 @@ class ViewController: UIViewController {
                 self.viewLblTag.isHidden = true
                 self.tblProperty.isHidden = true
                 self.manageBtnControl(btn: self.btnChildDevicesOperation, isEnable: false)
+//                self.txtFieldDropDown.isEnabled = false
+                self.btnDropDown.isEnabled = true
+                self.txtCPID.isEnabled = true
+                self.txtUniqueID.isEnabled = true
             }
         }
         disableMsgBtns()
@@ -727,6 +785,10 @@ class ViewController: UIViewController {
             self.btnConnect.setTitle(self.btnDisConnectTitle, for: .normal)
             self.btnStatus.backgroundColor = .green
             self.lblStatus.text = statusText.connected.rawValue
+//            self.txtFieldDropDown.isEnabled = true
+            self.btnDropDown.isEnabled = false
+            self.txtCPID.isEnabled = false
+            self.txtUniqueID.isEnabled = false
             
             if boolBtnEnable{
                 self.enableMessageBtns()
@@ -772,6 +834,12 @@ class ViewController: UIViewController {
         }
     }
     
+    func hideLoader(){
+        DispatchQueue.main.async {
+            self.viewLoader.isHidden = true
+        }
+    }
+    
     //get current date time
     func now() -> String {
         return toString(fromDateTime: Date())
@@ -796,8 +864,23 @@ class ViewController: UIViewController {
     
     //MARK: IBAction events
     
+    @IBAction func btnDropDownTapped(_ sender: Any) {
+        
+        DispatchQueue.main.async {
+            if (DropDown.VisibleDropDown != nil) && DropDown.VisibleDropDown?.isHidden == false {
+                self.imgArrow.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+            }else{
+                self.imgArrow.transform =  CGAffineTransform(rotationAngle: CGFloat.pi * 2)
+            }  
+        }
+        self.btnEnvDropDown.show()
+    }
+    
+    
+    
     @IBAction func btnConnectTapped(_ sender: Any) {
-        if txtFieldDropDown.text != "" ||  ((txtFieldDropDown.text?.isEmpty) == nil){
+//        if txtFieldDropDown.text != "" ||  ((txtFieldDropDown.text?.isEmpty) == nil){
+        if env != nil{
             if self.devivceStatus == .disconnected{
                 connectSDK()
             }else{
@@ -936,6 +1019,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         let cell : PropertyCell = tableView.dequeueReusableCell(withIdentifier: "PropertyCell", for: indexPath) as! PropertyCell
         cell.selectionStyle = .none
         cell.txtField.delegate = self
+        cell.txtField.text = ""
         if self.arrChildAttributeData.count > indexPath.section, self.arrChildAttributeData.count > 0{
             cell.setAttData(data: (arrChildAttributeData[indexPath.section]["Tag"]?[0])!,index: indexPath.row)
         }else if arrParentData.count > 0{

@@ -16,15 +16,19 @@ import IoTConnect2
 class ChildOperationVC: UIViewController {
     
     //MARK: @IBOutlet
-    @IBOutlet weak var dropDown: DropDown!
+//    @IBOutlet weak var dropDown: DropDown!
     @IBOutlet weak var txtFieldUniqueID: UITextField!
     @IBOutlet weak var txtFieldDisplayName: UITextField!
     @IBOutlet weak var viewProgress: UIView!
+    @IBOutlet weak var btnDropDown: UIButton!
+    
     
     //MARK: Variable
     var tag = ""
     var tagArray = [String]()
     
+    private var btnTagDropDown = DropDown()
+    lazy var dropDown:DropDown = btnTagDropDown
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +42,24 @@ class ChildOperationVC: UIViewController {
     }
     
     func setupDropDown(){
-        dropDown.arrowSize = 20
-        dropDown.optionArray = tagArray//["Option 1", "Option 2", "Option 3"]
-        dropDown.didSelect{(selectedText , index ,id) in
-            self.tag = selectedText
+//        dropDown.arrowSize = 20
+//        dropDown.optionArray = tagArray//["Option 1", "Option 2", "Option 3"]
+//        dropDown.didSelect{(selectedText , index ,id) in
+//            self.tag = selectedText
+//        }
+        
+        DispatchQueue.main.async {
+            self.btnDropDown.layer.borderColor = UIColor.black.cgColor
+            self.btnDropDown.layer.borderWidth = 1.0
         }
+        
+        btnTagDropDown.dataSource = tagArray
+        btnTagDropDown.selectionAction = { [weak self] (index,item) in
+            self?.btnDropDown.setTitle(self?.tagArray[index], for: .normal)
+            self?.tag = self?.tagArray[index] ?? ""
+        }
+        btnTagDropDown.anchorView = btnDropDown
+        btnTagDropDown.bottomOffset = CGPoint(x: 0, y: btnDropDown.bounds.height+5)
     }
     
     func presentAlert(title:String = "",msg:String = ""){
@@ -64,17 +81,20 @@ class ChildOperationVC: UIViewController {
             tag != ""{
             DispatchQueue.main.async {
                 self.viewProgress.isHidden = false
+              
             }
             //Send data to SDK and handle response and show alert
             SDKClient.shared.createChildDevice(deviceId: txtFieldUniqueID.text ?? "", deviceTag:self.tag, displayName:  txtFieldDisplayName.text ?? ""  , createChildCallBack:{ (response) in
                 DispatchQueue.main.async {
                     self.viewProgress.isHidden = true
+                    self.txtFieldUniqueID.text = ""
+                    self.txtFieldDisplayName.text = ""
                 }
                 if let dict = response as? [String:Any]{
                     let dictD = dict["d"] as? [String:Any]
                     let ec = dictD?["ec"] as? Int
                     if ec == 0{
-                        self.presentAlert(title: "Device created successfully")
+                        self.presentAlert(title: "Child Device created successfully")
                     }else{
                         self.presentAlert(title: "Error")
                     }
@@ -87,6 +107,11 @@ class ChildOperationVC: UIViewController {
         }
     }
     
+    @IBAction func btnDropDownTapped(_ sender: Any) {
+        self.btnTagDropDown.show()
+    }
+    
+    
     @IBAction func deleteDeviceTapped(_ sender: Any) {
         if !txtFieldUniqueID.text!.isEmpty{
             DispatchQueue.main.async {
@@ -96,12 +121,14 @@ class ChildOperationVC: UIViewController {
             SDKClient.shared.deleteChildDevice(deviceId: txtFieldUniqueID.text ?? "") { response in
                 DispatchQueue.main.async {
                     self.viewProgress.isHidden = true
+                    self.txtFieldUniqueID.text = ""
+                    self.txtFieldDisplayName.text = ""
                 }
                 if let dict = response as? [String:Any]{
                     let dictD = dict["d"] as? [String:Any]
                     let ec = dictD?["ec"] as? Int
                     if ec == 0{
-                        self.presentAlert(title: "Device deleted successfully")
+                        self.presentAlert(title: "Child Device deleted successfully")
                     }else{
                         self.presentAlert(title: "Error")
                     }

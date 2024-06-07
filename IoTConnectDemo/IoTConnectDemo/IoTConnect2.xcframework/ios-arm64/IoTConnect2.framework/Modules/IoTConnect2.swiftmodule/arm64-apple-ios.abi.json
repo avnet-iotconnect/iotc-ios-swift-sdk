@@ -6182,7 +6182,7 @@
           {
             "kind": "Function",
             "name": "initialize",
-            "printedName": "initialize(config:)",
+            "printedName": "initialize(config:errorBlock:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -6194,11 +6194,29 @@
                 "name": "IoTConnectConfig",
                 "printedName": "IoTConnect2.IoTConnectConfig",
                 "usr": "s:11IoTConnect20A14TConnectConfigV"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
               }
             ],
             "declKind": "Func",
-            "usr": "s:11IoTConnect29SDKClientC10initialize6configyAA0A14TConnectConfigV_tF",
-            "mangledName": "$s11IoTConnect29SDKClientC10initialize6configyAA0A14TConnectConfigV_tF",
+            "usr": "s:11IoTConnect29SDKClientC10initialize6config10errorBlockyAA0A14TConnectConfigV_ySSctF",
+            "mangledName": "$s11IoTConnect29SDKClientC10initialize6config10errorBlockyAA0A14TConnectConfigV_ySSctF",
             "moduleName": "IoTConnect2",
             "declAttributes": [
               "AccessControl",
@@ -8031,21 +8049,21 @@
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "StringLiteral",
-      "offset": 10618,
+      "offset": 10694,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "StringLiteral",
-      "offset": 10638,
+      "offset": 10714,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "StringLiteral",
-      "offset": 20991,
+      "offset": 21067,
       "length": 2,
       "value": "\"\""
     },
@@ -8221,195 +8239,209 @@
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
       "offset": 930,
+      "length": 25,
+      "value": "\"Please enter valid CPID\""
+    },
+    {
+      "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
+      "kind": "StringLiteral",
+      "offset": 980,
+      "length": 29,
+      "value": "\"Please enter valid UniqueID\""
+    },
+    {
+      "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
+      "kind": "StringLiteral",
+      "offset": 1034,
       "length": 47,
       "value": "\"It does not matched with payload's 'uniqueId'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1002,
+      "offset": 1106,
       "length": 35,
       "value": "\"Missing required parameter 'data'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1062,
+      "offset": 1166,
       "length": 49,
       "value": "\"Publish data failed : MQTT connection not found\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1136,
+      "offset": 1240,
       "length": 31,
       "value": "\"<<Exception error message>>  \""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1192,
+      "offset": 1296,
       "length": 55,
       "value": "\"Device is barred updateTwin() method is not permitted\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1272,
+      "offset": 1376,
       "length": 69,
       "value": "\"Missing required parameter 'key' or 'value' to update twin property\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1366,
+      "offset": 1470,
       "length": 56,
       "value": "\"Device is barred getAllTwins() method is not permitted\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1447,
+      "offset": 1551,
       "length": 32,
       "value": "\"<<Exception error message>>   \""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1504,
+      "offset": 1608,
       "length": 72,
       "value": "\"Missing required parameter 'data' or 'msgType' to send acknowledgement\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1601,
+      "offset": 1705,
       "length": 52,
       "value": "\"Device is barred SendAck() method is not permitted\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1678,
+      "offset": 1782,
       "length": 30,
       "value": "\" <<Exception error message>>\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1733,
+      "offset": 1837,
       "length": 26,
       "value": "\"Unable to scan directory\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1784,
+      "offset": 1888,
       "length": 26,
       "value": "\"Connection not available\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1835,
+      "offset": 1939,
       "length": 27,
       "value": "\"Attributes data not found\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1887,
+      "offset": 1991,
       "length": 22,
       "value": "\"Twins data not found\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1934,
+      "offset": 2038,
       "length": 30,
       "value": "\"Child devices data not found\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1989,
+      "offset": 2093,
       "length": 20,
       "value": "\"JSON parsing error\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2047,
+      "offset": 2151,
       "length": 80,
       "value": "\"Device not found. Device is not whitelisted to                        platform\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2153,
+      "offset": 2257,
       "length": 22,
       "value": "\"Device is not active\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2201,
+      "offset": 2305,
       "length": 63,
       "value": "\"Un-Associated. Device has not any template associated with it\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2290,
+      "offset": 2394,
       "length": 70,
       "value": "\"Device is not acquired. Device is created but it is in release state\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2386,
+      "offset": 2490,
       "length": 67,
       "value": "\"Device is disabled. It’s disabled from IoTHub by Platform Admin\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2479,
+      "offset": 2583,
       "length": 39,
       "value": "\"Company not found as SID is not valid\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2543,
+      "offset": 2647,
       "length": 25,
       "value": "\"Subscription is expired\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2593,
+      "offset": 2697,
       "length": 24,
       "value": "\"Connection Not Allowed\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2642,
+      "offset": 2746,
       "length": 31,
       "value": "\"Invalid Bootstrap Certificate\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2698,
+      "offset": 2802,
       "length": 33,
       "value": "\"Invalid Operational Certificate\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2763,
+      "offset": 2867,
       "length": 73,
       "value": "\"Please pass attribute value as String or check the format you have sent\""
     },
@@ -8487,699 +8519,713 @@
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
       "offset": 930,
+      "length": 25,
+      "value": "\"Please enter valid CPID\""
+    },
+    {
+      "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
+      "kind": "StringLiteral",
+      "offset": 980,
+      "length": 29,
+      "value": "\"Please enter valid UniqueID\""
+    },
+    {
+      "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
+      "kind": "StringLiteral",
+      "offset": 1034,
       "length": 47,
       "value": "\"It does not matched with payload's 'uniqueId'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1002,
+      "offset": 1106,
       "length": 35,
       "value": "\"Missing required parameter 'data'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1062,
+      "offset": 1166,
       "length": 49,
       "value": "\"Publish data failed : MQTT connection not found\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1136,
+      "offset": 1240,
       "length": 31,
       "value": "\"<<Exception error message>>  \""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1192,
+      "offset": 1296,
       "length": 55,
       "value": "\"Device is barred updateTwin() method is not permitted\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1272,
+      "offset": 1376,
       "length": 69,
       "value": "\"Missing required parameter 'key' or 'value' to update twin property\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1366,
+      "offset": 1470,
       "length": 56,
       "value": "\"Device is barred getAllTwins() method is not permitted\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1447,
+      "offset": 1551,
       "length": 32,
       "value": "\"<<Exception error message>>   \""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1504,
+      "offset": 1608,
       "length": 72,
       "value": "\"Missing required parameter 'data' or 'msgType' to send acknowledgement\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1601,
+      "offset": 1705,
       "length": 52,
       "value": "\"Device is barred SendAck() method is not permitted\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1678,
+      "offset": 1782,
       "length": 30,
       "value": "\" <<Exception error message>>\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1733,
+      "offset": 1837,
       "length": 26,
       "value": "\"Unable to scan directory\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1784,
+      "offset": 1888,
       "length": 26,
       "value": "\"Connection not available\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1835,
+      "offset": 1939,
       "length": 27,
       "value": "\"Attributes data not found\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1887,
+      "offset": 1991,
       "length": 22,
       "value": "\"Twins data not found\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1934,
+      "offset": 2038,
       "length": 30,
       "value": "\"Child devices data not found\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 1989,
+      "offset": 2093,
       "length": 20,
       "value": "\"JSON parsing error\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2047,
+      "offset": 2151,
       "length": 80,
       "value": "\"Device not found. Device is not whitelisted to                        platform\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2153,
+      "offset": 2257,
       "length": 22,
       "value": "\"Device is not active\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2201,
+      "offset": 2305,
       "length": 63,
       "value": "\"Un-Associated. Device has not any template associated with it\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2290,
+      "offset": 2394,
       "length": 70,
       "value": "\"Device is not acquired. Device is created but it is in release state\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2386,
+      "offset": 2490,
       "length": 67,
       "value": "\"Device is disabled. It’s disabled from IoTHub by Platform Admin\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2479,
+      "offset": 2583,
       "length": 39,
       "value": "\"Company not found as SID is not valid\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2543,
+      "offset": 2647,
       "length": 25,
       "value": "\"Subscription is expired\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2593,
+      "offset": 2697,
       "length": 24,
       "value": "\"Connection Not Allowed\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2642,
+      "offset": 2746,
       "length": 31,
       "value": "\"Invalid Bootstrap Certificate\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2698,
+      "offset": 2802,
       "length": 33,
       "value": "\"Invalid Operational Certificate\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2763,
+      "offset": 2867,
       "length": 73,
       "value": "\"Please pass attribute value as String or check the format you have sent\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2892,
+      "offset": 2996,
       "length": 42,
       "value": "\"Device information received successfully\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2960,
+      "offset": 3064,
       "length": 18,
       "value": "\"Device connected\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3004,
+      "offset": 3108,
       "length": 21,
       "value": "\"Device disconnected\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3051,
+      "offset": 3155,
       "length": 17,
       "value": "\"Initializing...\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3094,
+      "offset": 3198,
       "length": 15,
       "value": "\"Connecting...\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3135,
+      "offset": 3239,
       "length": 15,
       "value": "\"Rechecking...\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3176,
+      "offset": 3280,
       "length": 49,
       "value": "\"BaseUrl received to sync the device information\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3251,
+      "offset": 3355,
       "length": 24,
       "value": "\"Response Code : 0 'OK'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3301,
+      "offset": 3405,
       "length": 43,
       "value": "\"Response Code : 1 'DEVICE_NOT_REGISTERED'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3370,
+      "offset": 3474,
       "length": 35,
       "value": "\"Response Code : 2 'AUTO_REGISTER'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3431,
+      "offset": 3535,
       "length": 38,
       "value": "\"Response Code : 3 'DEVICE_NOT_FOUND'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3495,
+      "offset": 3599,
       "length": 37,
       "value": "\"Response Code : 4 'DEVICE_INACTIVE'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3558,
+      "offset": 3662,
       "length": 34,
       "value": "\"Response Code : 5 'OBJECT_MOVED'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3618,
+      "offset": 3722,
       "length": 36,
       "value": "\"Response Code : 6 'CPID_NOT_FOUND'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3680,
+      "offset": 3784,
       "length": 44,
       "value": "\"Response Code : 'NO_RESPONSE_CODE_MATCHED'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3750,
+      "offset": 3854,
       "length": 14,
       "value": "\"Publish data\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3790,
+      "offset": 3894,
       "length": 36,
       "value": "\"Twin property updated successfully\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3852,
+      "offset": 3956,
       "length": 59,
       "value": "\"Request sent successfully to get the all twin properties.\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3937,
+      "offset": 4041,
       "length": 35,
       "value": "\"Command : 0x01 : STANDARD_COMMAND\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3998,
+      "offset": 4102,
       "length": 34,
       "value": "\"Command : 0x02 : FIRMWARE_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4058,
+      "offset": 4162,
       "length": 34,
       "value": "\"Command : 101 : ATTRIBUTE_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4118,
+      "offset": 4222,
       "length": 33,
       "value": "\"Command : 0x11 : SETTING_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4177,
+      "offset": 4281,
       "length": 34,
       "value": "\"Command : 0x12 : PASSWORD_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4237,
+      "offset": 4341,
       "length": 32,
       "value": "\"Command : 0x13 : DEVICE_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4295,
+      "offset": 4399,
       "length": 38,
       "value": "\"Command : 0x99 : STOP_SDK_CONNECTION\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4359,
+      "offset": 4463,
       "length": 35,
       "value": "\"Command acknowledgement success\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4420,
+      "offset": 4524,
       "length": 40,
       "value": "\"Command : 0x17 : DATA_FREQUENCY_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4486,
+      "offset": 4590,
       "length": 20,
       "value": "\"Offline data saved\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4532,
+      "offset": 4636,
       "length": 45,
       "value": "\"File has been created to store offline data\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4603,
+      "offset": 4707,
       "length": 26,
       "value": "\"Offline log file deleted\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4655,
+      "offset": 4759,
       "length": 23,
       "value": "\"No offline data found\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4704,
+      "offset": 4808,
       "length": 40,
       "value": "\"Offline data publish :: Send\/Total :: \""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4770,
+      "offset": 4874,
       "length": 29,
       "value": "\"Device already disconnected\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4825,
+      "offset": 4929,
       "length": 29,
       "value": "\"Get attributes successfully\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4880,
+      "offset": 4984,
       "length": 24,
       "value": "\"Get twind successfully\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4930,
+      "offset": 5034,
       "length": 32,
       "value": "\"Get child devices successfully\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2892,
+      "offset": 2996,
       "length": 42,
       "value": "\"Device information received successfully\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 2960,
+      "offset": 3064,
       "length": 18,
       "value": "\"Device connected\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3004,
+      "offset": 3108,
       "length": 21,
       "value": "\"Device disconnected\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3051,
+      "offset": 3155,
       "length": 17,
       "value": "\"Initializing...\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3094,
+      "offset": 3198,
       "length": 15,
       "value": "\"Connecting...\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3135,
+      "offset": 3239,
       "length": 15,
       "value": "\"Rechecking...\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3176,
+      "offset": 3280,
       "length": 49,
       "value": "\"BaseUrl received to sync the device information\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3251,
+      "offset": 3355,
       "length": 24,
       "value": "\"Response Code : 0 'OK'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3301,
+      "offset": 3405,
       "length": 43,
       "value": "\"Response Code : 1 'DEVICE_NOT_REGISTERED'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3370,
+      "offset": 3474,
       "length": 35,
       "value": "\"Response Code : 2 'AUTO_REGISTER'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3431,
+      "offset": 3535,
       "length": 38,
       "value": "\"Response Code : 3 'DEVICE_NOT_FOUND'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3495,
+      "offset": 3599,
       "length": 37,
       "value": "\"Response Code : 4 'DEVICE_INACTIVE'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3558,
+      "offset": 3662,
       "length": 34,
       "value": "\"Response Code : 5 'OBJECT_MOVED'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3618,
+      "offset": 3722,
       "length": 36,
       "value": "\"Response Code : 6 'CPID_NOT_FOUND'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3680,
+      "offset": 3784,
       "length": 44,
       "value": "\"Response Code : 'NO_RESPONSE_CODE_MATCHED'\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3750,
+      "offset": 3854,
       "length": 14,
       "value": "\"Publish data\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3790,
+      "offset": 3894,
       "length": 36,
       "value": "\"Twin property updated successfully\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3852,
+      "offset": 3956,
       "length": 59,
       "value": "\"Request sent successfully to get the all twin properties.\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3937,
+      "offset": 4041,
       "length": 35,
       "value": "\"Command : 0x01 : STANDARD_COMMAND\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 3998,
+      "offset": 4102,
       "length": 34,
       "value": "\"Command : 0x02 : FIRMWARE_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4058,
+      "offset": 4162,
       "length": 34,
       "value": "\"Command : 101 : ATTRIBUTE_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4118,
+      "offset": 4222,
       "length": 33,
       "value": "\"Command : 0x11 : SETTING_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4177,
+      "offset": 4281,
       "length": 34,
       "value": "\"Command : 0x12 : PASSWORD_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4237,
+      "offset": 4341,
       "length": 32,
       "value": "\"Command : 0x13 : DEVICE_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4295,
+      "offset": 4399,
       "length": 38,
       "value": "\"Command : 0x99 : STOP_SDK_CONNECTION\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4359,
+      "offset": 4463,
       "length": 35,
       "value": "\"Command acknowledgement success\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4420,
+      "offset": 4524,
       "length": 40,
       "value": "\"Command : 0x17 : DATA_FREQUENCY_UPDATE\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4486,
+      "offset": 4590,
       "length": 20,
       "value": "\"Offline data saved\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4532,
+      "offset": 4636,
       "length": 45,
       "value": "\"File has been created to store offline data\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4603,
+      "offset": 4707,
       "length": 26,
       "value": "\"Offline log file deleted\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4655,
+      "offset": 4759,
       "length": 23,
       "value": "\"No offline data found\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4704,
+      "offset": 4808,
       "length": 40,
       "value": "\"Offline data publish :: Send\/Total :: \""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4770,
+      "offset": 4874,
       "length": 29,
       "value": "\"Device already disconnected\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4825,
+      "offset": 4929,
       "length": 29,
       "value": "\"Get attributes successfully\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4880,
+      "offset": 4984,
       "length": 24,
       "value": "\"Get twind successfully\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/ErrosLog.swift",
       "kind": "StringLiteral",
-      "offset": 4930,
+      "offset": 5034,
       "length": 32,
       "value": "\"Get child devices successfully\""
     },
@@ -9221,14 +9267,14 @@
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Models\/IoTConnectConfig.swift",
       "kind": "BooleanLiteral",
-      "offset": 1116,
+      "offset": 1244,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectService.swift",
       "kind": "StringLiteral",
-      "offset": 17529,
+      "offset": 17549,
       "length": 2,
       "value": "\"\""
     },
@@ -9305,14 +9351,14 @@
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/MQTTClient.swift",
       "kind": "StringLiteral",
-      "offset": 19292,
+      "offset": 19290,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/MQTTClient.swift",
       "kind": "StringLiteral",
-      "offset": 33318,
+      "offset": 33316,
       "length": 2,
       "value": "\"\""
     },
@@ -11046,58 +11092,79 @@
       "value": "\"p\""
     },
     {
+      "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
+      "kind": "StringLiteral",
+      "offset": 7566,
+      "length": 9,
+      "value": "\"message\""
+    },
+    {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 5275,
+      "offset": 2071,
+      "length": 16,
+      "value": "\"^[a-zA-Z0-9]+$\""
+    },
+    {
+      "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2120,
+      "length": 17,
+      "value": "\"^[\\w\\d—-]*$\""
+    },
+    {
+      "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
+      "kind": "StringLiteral",
+      "offset": 6157,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 5295,
+      "offset": 6177,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 5523,
+      "offset": 6405,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 5543,
+      "offset": 6425,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 5773,
+      "offset": 6655,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 5793,
+      "offset": 6675,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 6673,
+      "offset": 7555,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "IntegerLiteral",
-      "offset": 9694,
+      "offset": 10576,
       "length": 1,
       "value": "0"
     }

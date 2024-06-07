@@ -836,7 +836,16 @@ extension MQTTClient: CocoaMQTTDelegate {
                                               Dictkeys.ackIDKey: "",
                                               Dictkeys.commandTypeKey: CommandType.DEVICE_CONNECTION_STATUS.rawValue]], 2)
         }else{
-            blockHandler?(["sdkStatus": Log.Errors.ERR_IN14.rawValue], 1)
+            blockHandler?([Dictkeys.commandTypeKey: CommandType.DEVICE_CONNECTION_STATUS.rawValue,
+                           Dictkeys.dataKey: [Dictkeys.cpIDkey: strCPID,
+                                              Dictkeys.guidKey: "",
+                                              Dictkeys.uniqueIDKey: strUniqueID,
+                                              Dictkeys.commandKey: false,
+                                              Dictkeys.ackKey: false,
+                                              Dictkeys.ackIDKey: "",
+                                              Dictkeys.message:Log.Errors.ERR_IN14.rawValue,
+                                              Dictkeys.commandTypeKey: CommandType.DEVICE_CONNECTION_STATUS.rawValue]], 2)
+//            blockHandler?(["sdkStatus": Log.Errors.ERR_IN14.rawValue], 1)
         }
     }
 }

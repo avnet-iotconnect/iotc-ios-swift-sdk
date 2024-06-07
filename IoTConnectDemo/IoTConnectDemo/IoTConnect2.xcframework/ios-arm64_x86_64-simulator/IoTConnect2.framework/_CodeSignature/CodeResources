@@ -18,43 +18,43 @@
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		iCnc7QFYgjkZmHahU9cN6yDqS1k=
+		Zwa5JPrDbnCGV7nOXOmaMP540XM=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		icjNfBLT+Pjbb/VVZZHPGSKmyIw=
+		0zgE8C7evAWz+QOvrbPhbefkT8A=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		lswH23gC83A8kN0JmV4rwmMGIiQ=
+		3rHSEnRlpE5N4UY/RAt4w9KuI98=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		icjNfBLT+Pjbb/VVZZHPGSKmyIw=
+		0zgE8C7evAWz+QOvrbPhbefkT8A=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		zdaSTf3efMP8webLiMjxr008SY4=
+		j5/Lr/0FWIdY3cScCQx6RMhiy7A=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		iCnc7QFYgjkZmHahU9cN6yDqS1k=
+		Zwa5JPrDbnCGV7nOXOmaMP540XM=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		srtaoPWDCwQYcqwz6JYixXqZHSs=
+		zwbOi3ERvyAo9StPIoyUTnftSk4=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		Dgl+C1L+xG6gA7QKMhx1IWOfKW0=
+		5NEwt1XkoCxIhZ0THwkyt2QlNA0=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		srtaoPWDCwQYcqwz6JYixXqZHSs=
+		zwbOi3ERvyAo9StPIoyUTnftSk4=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		Lh8F7yYxBkDKHlT+FWPfS8aySFA=
+		YynwdzuyDySWXa6M9au7Nx5P5O0=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -81,70 +81,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			okBc5Eoa68hDz4/v8rQ0hyDvhvO3IEiWd0cGXkYCWUE=
+			Gh5pWottfrgchJpjML88VTE/EmboKHa9tLpO0XAHEtY=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YFLMLtDKBAvuNP0vFWYMNEekg8G0lahhOESbSlUKgLE=
+			gTej35lPGBMb7jT8O4m+z7JU4gpC1jZbiQxnxOiXY9s=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ePbIKFsOaG0E6sqf8DyUVL9A8sdB8J8CPXCk9lbs7Lc=
+			cNczuW1d9qYZt5oolBhWHuEjSvaA/Ze9y02l9E/l2QI=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YFLMLtDKBAvuNP0vFWYMNEekg8G0lahhOESbSlUKgLE=
+			gTej35lPGBMb7jT8O4m+z7JU4gpC1jZbiQxnxOiXY9s=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			DxQQJtnPVXEhGTtC56qlF6aDySgvPBmvK6rqrW8MjAs=
+			B/32s7ZWLM8sGM0JegWwvJuLh1eViIsWemVcxPJb8Yc=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			okBc5Eoa68hDz4/v8rQ0hyDvhvO3IEiWd0cGXkYCWUE=
+			Gh5pWottfrgchJpjML88VTE/EmboKHa9tLpO0XAHEtY=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8psjuhfOgzwiK7BwjK8e880kXBi1IkA4sa3VLdf4vQ8=
+			ehJB/qWkk3NWLr2bDRR/940+6HwkiR61ihRMv9Ahm00=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			OIuQTxjueNMPDJIrThCL2xtg3HrLeSv4lzwsH2M7Krg=
+			Y1ZsbPnNIGdieqvb8xn48AmCO9XgU9oIkZDfmBk1iCc=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8psjuhfOgzwiK7BwjK8e880kXBi1IkA4sa3VLdf4vQ8=
+			ehJB/qWkk3NWLr2bDRR/940+6HwkiR61ihRMv9Ahm00=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			XoVdSIvrNOy7f4O3qOUTvominxZhYFz57rUVlt71jSo=
+			f22aRd0Ju48TApl+X9VlGNwPn0Sf1BGqmHnwoFiExNE=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

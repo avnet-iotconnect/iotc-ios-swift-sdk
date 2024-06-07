@@ -219,7 +219,7 @@ public typealias CreateChildDeviceCallBackBlock = (Any?) -> ()
 public typealias DeleteChildDeviceCallBackBlock = (Any?) -> ()
 @_hasMissingDesignatedInitializers public class SDKClient {
   public static let shared: IoTConnect2.SDKClient
-  public func initialize(config: IoTConnect2.IoTConnectConfig)
+  public func initialize(config: IoTConnect2.IoTConnectConfig, errorBlock: @escaping (_ error: Swift.String) -> Swift.Void)
   public func sendData(data: [Swift.String : Any])
   public func sendLog(data: [Swift.String : Any]?)
   public func sendAck(data: [[Swift.String : Any]], msgType: Swift.String)

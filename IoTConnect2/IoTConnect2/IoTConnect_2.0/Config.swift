@@ -232,5 +232,5 @@ struct Dictkeys{
     static let medsageTypekey      = "mt"
     static let displayNamekey      = "dn"
     static let protocolkey         = "p"
-    
+    static let message             = "message"
 }
