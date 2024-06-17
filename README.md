@@ -95,7 +95,7 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
     }
    ```
 
-  - To receive the command from Cloud to Device(C2D), or any error during the process will come in this callbackk.
+  - To receive the command from Cloud to Device(C2D), or any error during the process will come in this callback.
    ```swift
     SDKClient.shared.getDeviceCallBack { (message) in
 
