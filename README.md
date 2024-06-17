@@ -87,13 +87,15 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
 
  ## Functions and callbacks:
 
-  - To Initialize the SDK object and connect to the cloud.
+  - To Initialize the SDK object and connect to the cloud. If there is any error while initialising it will come in this completion handler. 
    ```swift
     let objConfig = IoTConnectConfig( uniqueId:<UNIQUE ID>, mqttConnectionType: .userCredntialAuthentication, sdkOptions: sdkOptions)
-    SDKClient.shared.initialize(config: objConfig)
+    SDKClient.shared.initialize(config: objConfig) { errorMsg in
+
+    }
    ```
 
-  - To receive the command from Cloud to Device(C2D).
+  - To receive the command from Cloud to Device(C2D), or any error during the process will come in this callbackk.
    ```swift
     SDKClient.shared.getDeviceCallBack { (message) in
 
