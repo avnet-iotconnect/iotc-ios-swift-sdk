@@ -43,10 +43,11 @@
 		DDD5BCBB2B4FBF5D0087A0E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9C2B4FBF5D0087A0E2 /* ViewController.swift */; };
 		DDD5BCBC2B4FBF5D0087A0E2 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */; };
 		DDD5BCBD2B4FBF5D0087A0E2 /* ChildOperationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */; };
+		DDD852292C197F830070FE63 /* IotConnect2_aws.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD852272C197F680070FE63 /* IotConnect2_aws.xcframework */; };
+		DDD8522A2C197F830070FE63 /* IotConnect2_aws.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDD852272C197F680070FE63 /* IotConnect2_aws.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DDD8522C2C197FD40070FE63 /* clientAWS.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DDD8522B2C197FD40070FE63 /* clientAWS.p12 */; };
 		DDDA8E332C11E2CE00925311 /* IoTConnect2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDA8E312C11E2C800925311 /* IoTConnect2.xcframework */; };
 		DDDA8E342C11E2CE00925311 /* IoTConnect2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDDA8E312C11E2C800925311 /* IoTConnect2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DDE7BFD32B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */; };
-		DDE7BFD42B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DDE8B54E2B4FEC3B004865D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */; };
 		DDE8B54F2B4FEC3B004865D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */; };
 		DDE9605F2C0455E300132567 /* DPDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4642782C0450E700FB4783 /* DPDConstants.swift */; };
@@ -65,7 +66,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DDE7BFD42B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Embed Frameworks */,
+				DDD8522A2C197F830070FE63 /* IotConnect2_aws.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -121,8 +122,9 @@
 		DDD5BC9A2B4FBF5D0087A0E2 /* Attributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 		DDD5BC9C2B4FBF5D0087A0E2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DDD5BC9D2B4FBF5D0087A0E2 /* ChildOperationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildOperationVC.swift; sourceTree = "<group>"; };
+		DDD852272C197F680070FE63 /* IotConnect2_aws.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = IotConnect2_aws.xcframework; sourceTree = "<group>"; };
+		DDD8522B2C197FD40070FE63 /* clientAWS.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = clientAWS.p12; sourceTree = "<group>"; };
 		DDDA8E312C11E2C800925311 /* IoTConnect2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = IoTConnect2.xcframework; sourceTree = "<group>"; };
-		DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = IoTConnect_2_AWS.xcframework; sourceTree = "<group>"; };
 		DDE8B5452B4FE32F004865D2 /* IoTConnect2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = IoTConnect2.xcframework; path = ../IoTConnect2/build/xcframeworks/IoTConnect2.xcframework; sourceTree = "<group>"; };
 		DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,7 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDE7BFD32B9597F300484D75 /* IoTConnect_2_AWS.xcframework in Frameworks */,
+				DDD852292C197F830070FE63 /* IotConnect2_aws.xcframework in Frameworks */,
 				4C24DDC7CF2D91BD7C63067E /* Pods_IoTConnectDemo_AWS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,8 +186,9 @@
 		DD0CE2DA2B4D4EBB00DFFFB7 /* IoTConnectDemo */ = {
 			isa = PBXGroup;
 			children = (
+				DDD8522B2C197FD40070FE63 /* clientAWS.p12 */,
+				DDD852272C197F680070FE63 /* IotConnect2_aws.xcframework */,
 				DDDA8E312C11E2C800925311 /* IoTConnect2.xcframework */,
-				DDE7BFD12B9597EA00484D75 /* IoTConnect_2_AWS.xcframework */,
 				DD0CE2DB2B4D4EBB00DFFFB7 /* AppDelegate.swift */,
 				DDE8B54D2B4FEC3B004865D2 /* Main.storyboard */,
 				DD0CE2DD2B4D4EBB00DFFFB7 /* SceneDelegate.swift */,
@@ -395,6 +398,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDD8522C2C197FD40070FE63 /* clientAWS.p12 in Resources */,
 				DDE8B54F2B4FEC3B004865D2 /* Main.storyboard in Resources */,
 				DD3C72FD2B4FB8970019551D /* LaunchScreen.storyboard in Resources */,
 				DD3C72FE2B4FB8970019551D /* Assets.xcassets in Resources */,
@@ -774,8 +778,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -815,8 +819,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -62,6 +62,7 @@ class ViewController: UIViewController {
     private var isDeviceGateway = false
     private var isDeviceEdge = false
     private var is204WillCalled = false
+    private var isDataSent = false
     private var btnEnvDropDown = DropDown()
     
     lazy var dropDown:DropDown = btnEnvDropDown
@@ -125,13 +126,16 @@ class ViewController: UIViewController {
             
 //            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<p12 file name>", ofType: nil)
 //            sdkOptions.ssl.password = "<SSL password>"
+        
+        sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "clientAWS.p12", ofType: nil)
+        sdkOptions.ssl.password = "Softweb#123"
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
             sdkOptions.offlineStorage.fileCount = 10
             sdkOptions.cpId = txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? ""
             sdkOptions.env = env
-            sdkOptions.pf = .az
+            sdkOptions.pf = .aws
             
             //for device PK
             //this is base64 string for SmplPk device
@@ -628,6 +632,7 @@ class ViewController: UIViewController {
         SDKClient.shared.sendData(data: finalDict)
         
         DispatchQueue.main.async {
+            self.isDataSent = true
             self.tblProperty.reloadData()
         }
         
@@ -1019,7 +1024,10 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         let cell : PropertyCell = tableView.dequeueReusableCell(withIdentifier: "PropertyCell", for: indexPath) as! PropertyCell
         cell.selectionStyle = .none
         cell.txtField.delegate = self
-        cell.txtField.text = ""
+        if isDataSent{
+            cell.txtField.text = ""
+        }
+
         if self.arrChildAttributeData.count > indexPath.section, self.arrChildAttributeData.count > 0{
             cell.setAttData(data: (arrChildAttributeData[indexPath.section]["Tag"]?[0])!,index: indexPath.row)
         }else if arrParentData.count > 0{
@@ -1043,6 +1051,7 @@ extension ViewController:UITextFieldDelegate{
            let textRange = Range(range, in: text) {
             let updatedText = text.replacingCharacters(in: textRange,
                                                        with: string)
+            self.isDataSent = false
             //update the updated textfield value in model
             if self.arrChildDevicesAttributes?.count ?? 0 > ip.section{
                 arrChildAttributeData[ip.section]["Tag"]?[0][ip.row].value = updatedText
