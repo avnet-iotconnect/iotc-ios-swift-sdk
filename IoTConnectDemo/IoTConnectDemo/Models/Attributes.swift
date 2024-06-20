@@ -25,7 +25,7 @@ struct Att: Codable {
     let p,tg: String?
 }
 
-struct AttData: Codable {
+class AttData: Codable {
     let dt: Int?
     let dv, ln,tw,tg: String?
     let sq: Int?

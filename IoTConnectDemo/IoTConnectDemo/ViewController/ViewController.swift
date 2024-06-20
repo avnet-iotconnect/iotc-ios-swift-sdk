@@ -127,7 +127,7 @@ class ViewController: UIViewController {
 //            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<p12 file name>", ofType: nil)
 //            sdkOptions.ssl.password = "<SSL password>"
         
-        sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "clientAWS.p12", ofType: nil)
+        sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "clientAZ.p12", ofType: nil)
         sdkOptions.ssl.password = "Softweb#123"
             
             //Offline Storage Configuration
@@ -135,7 +135,7 @@ class ViewController: UIViewController {
             sdkOptions.offlineStorage.fileCount = 10
             sdkOptions.cpId = txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? ""
             sdkOptions.env = env
-            sdkOptions.pf = .aws
+            sdkOptions.pf = .az
             
             //for device PK
             //this is base64 string for SmplPk device
@@ -499,7 +499,7 @@ class ViewController: UIViewController {
             if self.arrChildDevicesAttributes?.count ?? 0 > 0{
                 dataSection = self.arrChildDevicesAttributes?[i] ?? [:]
             }
-
+            
             if self.arrChildDevicesAttributes?.count ?? 0 > 0 &&
                 self.attributeData?.att?.count ?? 0 > 0{
                 for j in 0...(arrAttData?.count ?? 0)-1{
@@ -516,7 +516,7 @@ class ViewController: UIViewController {
                                 if let _ = itemd["\(arrAttData?[j].p ?? "")"] as? [String:Any]
                                     ,itemd["id"] as? String == dataSection["id"] as? String      //issue same object
                                 {
-                                   return true
+                                    return true
                                 }
                             }
                             return false
@@ -567,26 +567,26 @@ class ViewController: UIViewController {
                 }
                 
                 finalDict = ["dt":now(),
-                                 "d":[["dt":now(),
-                                      "id":txtUniqueID.text ?? "",
-                                      "tg":parentTag,
-                                       "d":dict]]] as [String : Any]
+                             "d":[["dt":now(),
+                                   "id":txtUniqueID.text ?? "",
+                                   "tg":parentTag,
+                                   "d":dict]]] as [String : Any]
             }
         }
         
         if arrParentData.count > 0 &&
-          self.arrChildDevicesAttributes?.count ?? 0 > 0{
+            self.arrChildDevicesAttributes?.count ?? 0 > 0{
             var dictParentData = [String:Any]()
             let parentData = arrParentData[0]["Tag"]
             let arrData = parentData?[0]
- 
+            
             for k in 0...(arrData?.count ?? 0)-1{
                 //                print("arrParentData \(arrParentData[k])")
                 if arrData?[k].p?.isEmpty == true ||
                     arrData?[k].p == nil{
                     dictParentData.append(anotherDict:  ["\(arrData?[k].ln! ?? "")": arrData?[k].value ?? ""])
                 }else{
-                     if dictParentData["\(arrData?[k].p ?? "")"] != nil{//arrAttData?[j].p{
+                    if dictParentData["\(arrData?[k].p ?? "")"] != nil{//arrAttData?[j].p{
                         let val = dictParentData["\(arrData?[k].p ?? "")"] as? [String:Any]
                         let newVal = ["\(arrData?[k].ln! ?? "")":arrData?[k].value ?? ""] as? [String:Any]
                         
@@ -608,22 +608,22 @@ class ViewController: UIViewController {
             finalDict = ["dt":now(),
                          "d":arrDictForChildDevices]
         }
-       
+        
         print("finalDict \(finalDict)")
         self.hideLoader()
         //Format for sending data to SDK
         //dateTime format "2023-08-24T05:52:11.392Z"
         
-//        ["d":
-//        [[
-//         "d":
-//        [
-//        <ln>: <value>],
-//        "dt": <dateTime>, "id": <id>, "tg": <tag>
-//        ]
-//        ],
-//         "dt": <dateTime>
-//        ]
+        //        ["d":
+        //        [[
+        //         "d":
+        //        [
+        //        <ln>: <value>],
+        //        "dt": <dateTime>, "id": <id>, "tg": <tag>
+        //        ]
+        //        ],
+        //         "dt": <dateTime>
+        //        ]
         
         DispatchQueue.main.async {
             self.txtView.text = "\(finalDict)"
@@ -636,6 +636,44 @@ class ViewController: UIViewController {
             self.tblProperty.reloadData()
         }
         
+        
+        //        if self.arrChildDevicesAttributes?.count ?? 0 > ip.section{
+        //            arrChildAttributeData[ip.section]["Tag"]?[0][ip.row].value = updatedText
+        //        }else if arrParentData.count > 0{
+        //            arrParentData[0]["Tag"]?[0][ip.row].value = updatedText
+        //        }else if arrSimpleDeviceData.count > 0{
+        //            arrSimpleDeviceData[ip.section]["Tag"]?[0][ip.row].value = updatedText
+        //        }
+        
+        if self.arrChildDevicesAttributes?.count ?? 0 > 0{
+            if sections > 0{
+                for i in 0...sections-1{
+                    _ = arrChildAttributeData[i]["Tag"]?[0].map({
+                        $0.value = ""
+                    })
+                }
+            }else{
+                _ = arrChildAttributeData[0]["Tag"]?[0].map({
+                    $0.value = ""
+                })
+            }
+        }else if arrParentData.count > 0{
+            _ = arrParentData[0]["Tag"]?[0].map({
+                $0.value = ""
+            })
+        }else if arrSimpleDeviceData.count > 0{
+            if sections > 0{
+                for i in 0...sections-1{
+                    _ = arrSimpleDeviceData[i]["Tag"]?[0].map({
+                        $0.value = ""
+                    })
+                }
+            }else{
+                _ = arrSimpleDeviceData[0]["Tag"]?[0].map({
+                    $0.value = ""
+                })
+            }
+        }
     }
     
     //parse Identity reponse and idenitfy device type
