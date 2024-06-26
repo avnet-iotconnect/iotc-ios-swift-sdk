@@ -36,7 +36,8 @@ public enum CommandType:Int{
 }
 
 struct SDKURL {
-    static let discoveryHost = "https://discovery.iotconnect.io"
+    static let discoveryHostAZ = "https://discovery.iotconnect.io"
+    static let discoveryHostAZEMEA = "https://eudiscovery.iotconnect.io"
     static let discoveryHostAWS = "https://jzbybwq654.execute-api.us-east-1.amazonaws.com/Prod"
     static let discoveryHostAWSPOC = "https://awsdiscovery.iotconnect.io"//"https://awspoc.iotconnect.io"
     static let discoveryHostAWSPROD = "https://discoveryconsole.iotconnect.io"
@@ -60,18 +61,18 @@ struct SDKURL {
     
     static func discovery(_ strDiscoveryURL:String, _ cpId:String, _ lang:String, _ ver:String, _ env:String, _ pf:String) -> String {
         //kirtan
-       
-        #if IOTAWS
-        if env == IOTCEnvironment.PREQA.rawValue{
-            return String(format: "\(SDKURL.discoveryHostAWS)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)\(pf)")
-        }else if env == IOTCEnvironment.POC.rawValue{
-            return String(format: "\(SDKURL.discoveryHostAWSPOC)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)\(pf)")
-        }else{
-            return String(format: "\(SDKURL.discoveryHostAWSPROD)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)\(pf)")
-        }
-        #else
-            return String(format: "\(strDiscoveryURL)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)")
-        #endif
+        return String(format: "\(strDiscoveryURL)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)\(pf)")
+//        #if IOTAWS
+//        if env == IOTCEnvironment.PREQA.rawValue{
+//            return String(format: "\(SDKURL.discoveryHostAWS)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)\(pf)")
+//        }else if env == IOTCEnvironment.POC.rawValue{
+//            return String(format: "\(SDKURL.discoveryHostAWSPOC)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)\(pf)")
+//        }else{
+//            return String(format: "\(SDKURL.discoveryHostAWSPROD)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)/\(endPointAWS)\(pf)")
+//        }
+//        #else
+//            return String(format: "\(strDiscoveryURL)/api/v\(ver)/dsdk/cpid/\(cpId)/env/\(env)")
+//        #endif
     }
 }
 
@@ -233,4 +234,5 @@ struct Dictkeys{
     static let displayNamekey      = "dn"
     static let protocolkey         = "p"
     static let message             = "message"
+    
 }

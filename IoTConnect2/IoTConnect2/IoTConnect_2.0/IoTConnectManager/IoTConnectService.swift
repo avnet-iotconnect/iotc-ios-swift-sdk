@@ -33,41 +33,55 @@ extension IoTConnectManager {
         blockHandlerGetAttribuesCallBack = getAttributesCallback
         blockHandlerGetTwinsCallBack = getTwinsCallback
         blockHandlerGetChildDevicesCallback = getChildDevucesCallback
-        if cpId.isEmpty{
-            self.callBackDelegate?.onDeviceCommandCallback(response: nil, error: Log.Errors.ERR_IN12.rawValue)
-            self.blockHandlerDeviceCallBack(["sdkStatus": Log.Errors.ERR_IN12.rawValue])
-            print(Log.Errors.ERR_IN12.rawValue)
-            boolCanCallInialiseYN = true
-        }else  if uniqueId.isEmpty{
-            print(Log.Errors.ERR_IN13.rawValue)
-            boolCanCallInialiseYN = true
-        }else{
-            boolCanCallInialiseYN = true
-            objCommon.createDirectoryFoldersForLogs()
-            objCommon.manageDebugLog(code: Log.Info.INFO_IN04, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
-            objCommon.getBaseURL(strURL: SDKURL.discovery(strDiscoveryURL, cpId, SDKConstants.language, SDKConstants.version, strEnv.rawValue, pf)) { (status, data) in
-                if status {
-                    if let dataRef = data as? [String : Any] {
-                        self.objCommon.manageDebugLog(code: Log.Info.INFO_IN07, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-                        self.dictReference = dataRef
-                        if self.dictReference[keyPath:"d.ec"] as? Int == 0{
-                            self.initaliseCall(uniqueId: uniqueId)
-                        }else{
-                            let errorDict = [Dictkeys.errorkey:Log.getAPIErrorMsg(errorCode: self.dictReference[keyPath:"d.ec"] as? Int ?? 15)]
-                            deviceCallback(errorDict)
-                            self.objCommon.manageDebugLog(code: self.dictReference[keyPath:"d.ec"] ?? 15, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
-                        }
-                    } else {
-                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN09.rawValue, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+        boolCanCallInialiseYN = true
+        objCommon.createDirectoryFoldersForLogs()
+        objCommon.manageDebugLog(code: Log.Info.INFO_IN04, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
+        var discoveryURL = getDiscoveryURL()
+        objCommon.getBaseURL(strURL: SDKURL.discovery(discoveryURL, cpId, SDKConstants.language, SDKConstants.version, strEnv.rawValue, pf)) { (status, data) in
+            if status {
+                if let dataRef = data as? [String : Any] {
+                    self.objCommon.manageDebugLog(code: Log.Info.INFO_IN07, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
+                    self.dictReference = dataRef
+                    if self.dictReference[keyPath:"d.ec"] as? Int == 0{
+                        self.initaliseCall(uniqueId: uniqueId)
+                    }else{
+                        let errorDict = [Dictkeys.errorkey:Log.getAPIErrorMsg(errorCode: self.dictReference[keyPath:"d.ec"] as? Int ?? 15)]
+                        deviceCallback(errorDict)
+                        self.objCommon.manageDebugLog(code: self.dictReference[keyPath:"d.ec"] ?? 15, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                     }
                 } else {
-                    if let error = data as? Error {
-                        self.callBackDelegate?.onDeviceCommandCallback(response: nil, error: error.localizedDescription)
-                        self.blockHandlerDeviceCallBack(["sdkStatus": error.localizedDescription])
-                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01.rawValue, uniqueId: uniqueId, cpId: cpId, message: error.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
-                    }
+                    self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN09.rawValue, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+                }
+            } else {
+                if let error = data as? Error {
+                    self.callBackDelegate?.onDeviceCommandCallback(response: nil, error: error.localizedDescription)
+                    self.blockHandlerDeviceCallBack(["sdkStatus": error.localizedDescription])
+                    self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01.rawValue, uniqueId: uniqueId, cpId: cpId, message: error.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
                 }
             }
+        }
+        //        }
+    }
+    
+    func getDiscoveryURL()->String{
+        if strDiscoveryURL.isEmpty{
+#if IOTAWS
+            if strEnv.rawValue == IOTCEnvironment.PREQA.rawValue{
+                return SDKURL.discoveryHostAWS
+            }else if strEnv.rawValue == IOTCEnvironment.POC.rawValue{
+                return SDKURL.discoveryHostAWSPOC
+            }else{
+                return SDKURL.discoveryHostAWSPROD
+            }
+#else
+            if strEnv.rawValue == IOTCEnvironment.EU.rawValue{
+                return SDKURL.discoveryHostAZEMEA
+            }else{
+                return SDKURL.discoveryHostAZ
+            }
+#endif
+        }else{
+            return strDiscoveryURL
         }
     }
     
@@ -251,7 +265,7 @@ extension IoTConnectManager {
     }
     
     @objc private func reInitialise() {
-        if self.repeatTimerCount < 5{
+        if self.repeatTimerCount < 3{
             print("reInitialise")
             self.repeatTimerCount += 1
             self.objCommon.manageDebugLog(code: Log.Info.INFO_IN06, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
@@ -707,81 +721,85 @@ extension IoTConnectManager {
             var arrDictValidData = [[String:Any]]()
             var arrDictInValidData = [[String:Any]]()
             let arrAtt = IoTConnectManager.sharedInstance.attributes
-
+            
             for i in 0...(arrData?.count ?? 0)-1{
                 if let dictValD = arrData?[i][Dictkeys.dKey] as? [String:Any]{
                     dictValD.forEach({ (dictkey:String,val:Any) in
-
+                        
                         for j in 0...(arrAtt?.att?.count ?? 0)-1{
                             if let valDict = val as? [String:Any]{
                                 for (valDictKey,dictValue) in valDict{
                                     if dictValue is String{
                                         var arrFilterD = arrAtt?.att?[j].d?.filter({$0.ln == valDictKey})
                                         if arrFilterD?.count ?? 0 > 0{
-
+                                            
                                             var isValidData = skipValidation
-                                            if !skipValidation{
+                                            
+                                            if !(dictValue as! String).isEmpty{
+                                                
+                                                if !skipValidation{
                                                     isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
-                                            }
-                                            if isValidData{
-                                                if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
-                                                    arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
-                                                    
-                                                    if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
-                                                        createResponseForEdgeRuleDeviceTelemetryData(dict: [dictkey:[valDictKey:dictValue]])
-                                                    }
                                                 }
-                                                if arrDictValidData.count == 0{
-                                                    arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
-                                                    )
-                                                    
-                                                }else{
-                                                    if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
-                                                        var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
-                                                        let attDict = dVal?[dictkey] as? [String:Any]
-
-                                                        let newDict = [valDictKey:dictValue]
-                                                        if attDict == nil{
-                                                            dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
-                                                        }else{
-                                                            dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                                return current
-                                                            })
+                                                if isValidData{
+                                                    if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
+                                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
+                                                        
+                                                        if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
+                                                            createResponseForEdgeRuleDeviceTelemetryData(dict: [dictkey:[valDictKey:dictValue]])
                                                         }
-                                                        arrDictValidData[index][Dictkeys.dKey]  = dVal
-                                                    }else{
+                                                    }
+                                                    if arrDictValidData.count == 0{
                                                         arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
                                                         )
-                                                    }
-                                                }
-                                            }else{
-                                                if arrDictInValidData.count == 0{
-                                                    arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
-                                                                              
-                                                    )
-                                                }else{
-                                                    if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
-                                                        var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
-                                                        let attDict = dVal?[dictkey] as? [String:Any]
-                                                        
-                                                        let newDict = [valDictKey:dictValue]
-                                                        if attDict == nil{
-                                                            dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
-                                                        }else{
-                                                            dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                                return current
-                                                            })
-                                                        }
-                                                       
-                                                        arrDictInValidData[index][Dictkeys.dKey]  = dVal
                                                         
                                                     }else{
+                                                        if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+                                                            var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
+                                                            let attDict = dVal?[dictkey] as? [String:Any]
+                                                            
+                                                            let newDict = [valDictKey:dictValue]
+                                                            if attDict == nil{
+                                                                dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
+                                                            }else{
+                                                                dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
+                                                                    return current
+                                                                })
+                                                            }
+                                                            arrDictValidData[index][Dictkeys.dKey]  = dVal
+                                                        }else{
+                                                            arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+                                                            )
+                                                        }
+                                                    }
+                                                }else{
+                                                    if arrDictInValidData.count == 0{
                                                         arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+                                                                                  
                                                         )
+                                                    }else{
+                                                        if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+                                                            var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
+                                                            let attDict = dVal?[dictkey] as? [String:Any]
+                                                            
+                                                            let newDict = [valDictKey:dictValue]
+                                                            if attDict == nil{
+                                                                dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
+                                                            }else{
+                                                                dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
+                                                                    return current
+                                                                })
+                                                            }
+                                                            
+                                                            arrDictInValidData[index][Dictkeys.dKey]  = dVal
+                                                            
+                                                        }else{
+                                                            arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+                                                            )
+                                                        }
                                                     }
                                                 }
+                                                arrFilterD?.removeAll()
                                             }
-                                            arrFilterD?.removeAll()
                                         }
                                     }else{
                                         print(Log.Errors.ERR_InValidValue.rawValue)
@@ -794,46 +812,48 @@ extension IoTConnectManager {
                                     if arrFilterD?.count ?? 0 > 0{
                                         var isValidData = skipValidation
                                         
-                                        if !skipValidation{
-                                            isValidData = checkisValValid(val: val as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
-                                        }
-                                        if isValidData{
-                                            if boolEdgeDevice == 1, let _ = Double(val as? String ?? ""){
-                                                arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:val],id: arrData?[i][Dictkeys.idkey] as? String,tg: arrData?[i][Dictkeys.tagkey] as? String,dt: arrData?[0][Dictkeys.datekey] as? String ?? "")
-                                                
-                                                if edgeRules != nil,!(val as? String ?? "").isEmpty{
-                                                    createResponseForEdgeRuleDeviceTelemetryData(dict:[dictkey:val])
+                                        if !(val as! String).isEmpty{
+                                            if !skipValidation{
+                                                isValidData = checkisValValid(val: val as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+                                            }
+                                            if isValidData{
+                                                if boolEdgeDevice == 1, let _ = Double(val as? String ?? ""){
+                                                    arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:val],id: arrData?[i][Dictkeys.idkey] as? String,tg: arrData?[i][Dictkeys.tagkey] as? String,dt: arrData?[0][Dictkeys.datekey] as? String ?? "")
+                                                    
+                                                    if edgeRules != nil,!(val as? String ?? "").isEmpty{
+                                                        createResponseForEdgeRuleDeviceTelemetryData(dict:[dictkey:val])
+                                                    }
+                                                    
+                                                }
+                                                //issue same id key
+                                                if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+                                                    var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
+                                                    let newDict = [dictkey:val]
+                                                    dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
+                                                        return current
+                                                    })
+                                                    arrDictValidData[index][Dictkeys.dKey]  = dVal
+                                                }else{
+                                                    arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]]
+                                                                            
+                                                    )
                                                 }
                                                 
-                                            }
-                                            //issue same id key
-                                            if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
-                                                var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
-                                                let newDict = [dictkey:val]
-                                                dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                    return current
-                                                })
-                                                arrDictValidData[index][Dictkeys.dKey]  = dVal
                                             }else{
-                                                arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]]
-                                                                        
-                                                )
+                                                if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.tagkey] as? String  == arrData?[i][Dictkeys.tagkey] as? String}) {
+                                                    var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
+                                                    
+                                                    let newDict = [dictkey:val]
+                                                    dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
+                                                        return current
+                                                    })
+                                                    arrDictInValidData[index][Dictkeys.dKey]  = dVal
+                                                }else{
+                                                    arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]])
+                                                }
                                             }
-
-                                        }else{
-                                            if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.tagkey] as? String  == arrData?[i][Dictkeys.tagkey] as? String}) {
-                                                var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
-
-                                                let newDict = [dictkey:val]
-                                                dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                    return current
-                                                })
-                                                arrDictInValidData[index][Dictkeys.dKey]  = dVal
-                                            }else{
-                                                arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]])
-                                            }
+                                            //                                    break
                                         }
-    //                                    break
                                     }
                                 }else{
                                     print(Log.Errors.ERR_InValidValue.rawValue)
@@ -889,38 +909,41 @@ extension IoTConnectManager {
                                         if arrFilterD?.count ?? 0 > 0{
                                             var dict = [String:Any]()
                                             var isValidData = skipValidation
-                                            if !skipValidation{
-                                                isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
-                                            }
                                             
-                                            if isValidData{
-                                                dict = dictValidData
-                                            }else{
-                                                dict = dictInValidData
-                                            }
-                                            
-                                            if dict[$0.key] != nil{
-                                                let val = dict[$0.key] as? [String:Any]
-                                                let newVal = [valDictKey:dictValue] as? [String:Any]
-                                                dict[$0.key] = val?.merging(newVal ?? [:], uniquingKeysWith: { current, _ in
-                                                    return current
-                                                })
-                                            }else{
-                                                dict.updateValue([valDictKey:dictValue], forKey:$0.key)
-                                            }
-                                            arrFilterD?.removeAll()
-                                            if isValidData{
-                                                dictValidData = dict
-                                                
-                                                if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
-                                                    arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
-                                                    
-                                                    if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
-                                                        createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:[valDictKey:dictValue]])
-                                                    }
+                                            if (dictValue as! String).isEmpty{
+                                                if !skipValidation{
+                                                    isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
                                                 }
-                                            }else{
-                                                dictInValidData = dict
+                                                
+                                                if isValidData{
+                                                    dict = dictValidData
+                                                }else{
+                                                    dict = dictInValidData
+                                                }
+                                                
+                                                if dict[$0.key] != nil{
+                                                    let val = dict[$0.key] as? [String:Any]
+                                                    let newVal = [valDictKey:dictValue] as? [String:Any]
+                                                    dict[$0.key] = val?.merging(newVal ?? [:], uniquingKeysWith: { current, _ in
+                                                        return current
+                                                    })
+                                                }else{
+                                                    dict.updateValue([valDictKey:dictValue], forKey:$0.key)
+                                                }
+                                                arrFilterD?.removeAll()
+                                                if isValidData{
+                                                    dictValidData = dict
+                                                    
+                                                    if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
+                                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
+                                                        
+                                                        if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
+                                                            createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:[valDictKey:dictValue]])
+                                                        }
+                                                    }
+                                                }else{
+                                                    dictInValidData = dict
+                                                }
                                             }
                                         }
                                     }else{
@@ -934,6 +957,8 @@ extension IoTConnectManager {
                                     if arrFilterD?.count ?? 0 > 0{
                                         
                                         var isValidData = skipValidation
+                                        if !(value as! String).isEmpty{
+                                        
                                         if !skipValidation,value is String{
                                             isValidData = checkisValValid(val: value as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
                                         }
@@ -954,7 +979,8 @@ extension IoTConnectManager {
                                         }
                                         break
                                     }
-                                }else{
+                                }
+                            }else{
                                     print(Log.Errors.ERR_InValidValue.rawValue)
                                     continue
                                 }

@@ -38,7 +38,7 @@ class IoTConnectManager {
     var strCPId: String!
     var strUniqueId: String!
     var strEnv: IOTCEnvironment = .PROD
-    var strDiscoveryURL: String = SDKURL.discoveryHost
+    var strDiscoveryURL: String = SDKURL.discoveryHostAZ
     var strDiscoveryURLAWS: String = SDKURL.discoveryHostAWS
     var dictReference: [String:Any]!
     var dictSyncResponse: [String:Any]!
@@ -238,6 +238,8 @@ class IoTConnectManager {
                 print("df \(df) diff\(diff) \(time) \(Date())")
                 if diff >= df{
                     validateData(data: data, skipValidation: dataSDKOptions.skipValidation)
+                }else{
+                    print("Please try to send data after DF value.")
                 }
             }else{
                 validateData(data: data, skipValidation: dataSDKOptions.skipValidation)

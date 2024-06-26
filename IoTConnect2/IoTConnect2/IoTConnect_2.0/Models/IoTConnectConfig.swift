@@ -27,14 +27,15 @@ public struct IoTConnectConfig {
     let mqttConnectionType: MqttConnectionType
     let debugConfig: DebugConfig?
     let mqttConfig: MqttConfig?
-    let sdkOptions: SDKClientOption?
+    var sdkOptions: SDKClientOption?
     
     public init( uniqueId: String, mqttConnectionType: MqttConnectionType, debugConfig: DebugConfig? = nil, mqttConfig: MqttConfig? = nil, sdkOptions: SDKClientOption) {
-        self.uniqueId = uniqueId
+        self.uniqueId = uniqueId.replacingOccurrences(of: " ", with: "")
         self.mqttConnectionType = mqttConnectionType
         self.debugConfig = debugConfig
         self.mqttConfig = mqttConfig
         self.sdkOptions = sdkOptions
+        self.sdkOptions?.cpId = sdkOptions.cpId.replacingOccurrences(of: " ", with: "")
     }
 }
 
