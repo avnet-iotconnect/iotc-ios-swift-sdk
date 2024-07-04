@@ -127,8 +127,8 @@ class ViewController: UIViewController {
 //            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<p12 file name>", ofType: nil)
 //            sdkOptions.ssl.password = "<SSL password>"
         
-        sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "clientAZ.p12", ofType: nil)
-        sdkOptions.ssl.password = "Softweb#123"
+//        sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "clientAZ.p12", ofType: nil)
+//        sdkOptions.ssl.password = "Softweb#123"
             
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
@@ -319,7 +319,7 @@ class ViewController: UIViewController {
                 }
                 self.hideLoader()
                 let msg = response as? [String:Any]
-                SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "6", msg: "Device command received ack",childId: msg?["id"] as? String ?? "")
+                SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "2", msg: "Device command received ack",childId: msg?["id"] as? String ?? "")//6
             }
             
             //callback on OTA and ack
@@ -329,7 +329,7 @@ class ViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.txtView.text = "\(msg ?? [:])"
                 }
-                SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "OTA message received ack",childId: msg?["id"] as? String ?? "")
+                SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "5",msg: "OTA message received ack",childId: msg?["id"] as? String ?? "")
             }
             
             //callbakck for module command and ack
@@ -631,10 +631,10 @@ class ViewController: UIViewController {
         
         SDKClient.shared.sendData(data: finalDict)
         
-        DispatchQueue.main.async {
-            self.isDataSent = true
-            self.tblProperty.reloadData()
-        }
+        //        DispatchQueue.main.async {
+        //            self.isDataSent = true
+        //            self.tblProperty.reloadData()
+        //        }
         
         
         //        if self.arrChildDevicesAttributes?.count ?? 0 > ip.section{
@@ -673,6 +673,10 @@ class ViewController: UIViewController {
                     $0.value = ""
                 })
             }
+        }
+        DispatchQueue.main.async {
+            self.isDataSent = true
+            self.tblProperty.reloadData()
         }
     }
     
@@ -1086,7 +1090,7 @@ extension ViewController:UITextFieldDelegate{
         let cell = v as! PropertyCell // or UITableViewCell or whatever
         let ip = self.tblProperty.indexPath(for:cell)!
         if let text = textField.text,
-           let textRange = Range(range, in: text) {
+           let textRange = Range(range, in: text) ,!isDataSent{
             let updatedText = text.replacingCharacters(in: textRange,
                                                        with: string)
             self.isDataSent = false

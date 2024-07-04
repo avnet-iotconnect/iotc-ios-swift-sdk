@@ -69,6 +69,9 @@ class IoTConnectManager {
     var twinResponsePubTopic = "$iothub/twin/GET/?$rid=0"
     var twinResponseSubTopic = "$iothub/twin/res/#"
     
+    
+    var arrAttForValidation:AttributesData?
+    
     init() {}
     
     //MARK: - Method - SDK-Initialiase
@@ -245,6 +248,7 @@ class IoTConnectManager {
                 validateData(data: data, skipValidation: dataSDKOptions.skipValidation)
             }
         }else {
+            print("sync count is 0")
             self.objCommon.manageDebugLog(code: Log.Errors.ERR_SD06.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }

@@ -682,7 +682,7 @@ extension MQTTClient: CocoaMQTTDelegate {
                                     let decoder = JSONDecoder()
                                     let decodedAttributes = try decoder.decode(AttributesData.self, from: json)
                                     IoTConnectManager.sharedInstance.attributes = decodedAttributes
-                                    
+                                    IoTConnectManager.sharedInstance.arrAttForValidation = decodedAttributes
                                 } catch {
                                     print(error)
                                 }
