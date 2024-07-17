@@ -18,7 +18,7 @@
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		4ij3m3IjBh0ed987LjZkmrGfG6Y=
+		k3zhYol37FFYbMu9ZbN+EuY7SVE=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -34,11 +34,11 @@
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		IjhB3DHcyMpqyqlQVBDtDakT/5Q=
+		9MxOKEJiTR/qWo0nMuoO6gJBvdA=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		4ij3m3IjBh0ed987LjZkmrGfG6Y=
+		k3zhYol37FFYbMu9ZbN+EuY7SVE=
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		FNNymSggykU+779y8i/ICSMb+6Q=
+		9+hqIzrlhElATU3YxzYEk2Kdu+M=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -81,7 +81,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YoN8THcWiWvBpYNqR65J330/dFWtD9VK3BOjevhoygw=
+			luvN1TIJBHKUEHbEwJ7wOaMib1ZJhI0e/fDAWh6JR4Y=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -109,14 +109,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LKAs3NtQ6P2pekRCbvwk7bSbgHwdFL9NS0PPjASKH4Y=
+			+KNUDU/sFopkKdHecmXZ/cWD+6pd5lhtGONPxHXCzSE=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YoN8THcWiWvBpYNqR65J330/dFWtD9VK3BOjevhoygw=
+			luvN1TIJBHKUEHbEwJ7wOaMib1ZJhI0e/fDAWh6JR4Y=
 			</data>
 		</dict>
 		<key>Modules/IoTConnect2.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
@@ -144,7 +144,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			sHBx9kaRtF24XMgZHrS092eOgjkzivRafiT8OEtuaFQ=
+			Os+0Q2r4EkcN7V5TIFY402mB5KwSgc0hCwc17+ilZts=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

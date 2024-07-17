@@ -14,7 +14,7 @@ public enum IOTCEnvironment: String,CaseIterable {
     case POC = "poc"
     #else
     //define Azure environment
-    case EU = "EU"
+    case EU = "EMEA"
     case AVNET = "AVNET"
     case QA = "QA"
     #endif

@@ -339,8 +339,12 @@ public class SDKClient {
     
     //Create child device callback
     public func createChildDevice(deviceId:String, deviceTag:String, displayName:String,createChildCallBack:@escaping CreateChildDeviceCallBackBlock) -> (){
-        iotConnectManager?.createChildDevice(deviceId: deviceId, deviceTag: deviceTag, displayName: displayName)
         blockHandlerCreateChildCallBack = createChildCallBack
+        if validateWithRegex(regexString: uniqueIDregex, textToValidate: deviceId) == false{
+            blockHandlerCreateChildCallBack?(Log.Errors.ERR_IN17.rawValue)
+        }else{
+            iotConnectManager?.createChildDevice(deviceId: deviceId, deviceTag: deviceTag, displayName: displayName) 
+        }
     }
     
     //Delete child device callback

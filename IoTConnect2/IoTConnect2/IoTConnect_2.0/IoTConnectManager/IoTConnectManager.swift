@@ -378,7 +378,9 @@ class IoTConnectManager {
                         dictD?.append(anotherDict: ["\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]])
                     }
                     dataDevice[Dictkeys.dKey] = dictD
+                  
                     arrCalcDictEdgeDevice[firstIndex] = dataDevice
+                    arrCalcDictEdgeDevice[firstIndex][Dictkeys.datekey] = dt
                 }else{
                     if let val = dictD?[key], let firstIndexData = arrData.firstIndex(where: {$0[key] != nil}){
                         if let valDict = val as? [String:Any]{
@@ -393,19 +395,25 @@ class IoTConnectManager {
                                         var val = dictD?[key] as? [String:Any]
                                         val?[dictValueKey] = arrValues
                                         dictD?[key] = val
+                                        
                                         arrCalcDictEdgeDevice[firstIndex]["d"] = dictD ?? [:]
+                                        arrCalcDictEdgeDevice[firstIndex][Dictkeys.datekey] = dt
                                     }else{
                                         var val = dictD?[key] as? [String:Any]
                                         val?.append(anotherDict: [dictValueKey:arrValues ?? []])
                                         dictD?[key] = val
+                                      
                                         arrCalcDictEdgeDevice[firstIndex]["d"] = dictD ?? [:]
+                                        arrCalcDictEdgeDevice[firstIndex][Dictkeys.datekey] = dt
                                     }
                                 }
                             }
                         }else{
                             let arr = arrData[firstIndexData][key] as? [String]
                             dictD?[key] = calcEdgeData(arrValues: arr ?? [], latestVal: "\(value)")
+                           
                             arrCalcDictEdgeDevice[firstIndex][Dictkeys.dKey] = dictD ?? [:]
+                            arrCalcDictEdgeDevice[firstIndex][Dictkeys.datekey] = dt
                         }
                     }else{
                         if let valDict = value as? [String:Any]{
@@ -416,7 +424,9 @@ class IoTConnectManager {
                         }else{
                             dictD?.append(anotherDict: ["\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]])
                         }
+                     
                         arrCalcDictEdgeDevice[firstIndex][Dictkeys.dKey] = dictD ?? [:]
+                        arrCalcDictEdgeDevice[firstIndex][Dictkeys.datekey] = dt
                     }
                 }
             }else{
