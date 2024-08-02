@@ -126,10 +126,7 @@ class ViewController: UIViewController {
             
 //            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<p12 file name>", ofType: nil)
 //            sdkOptions.ssl.password = "<SSL password>"
-        
-//        sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "clientAZ.p12", ofType: nil)
-//        sdkOptions.ssl.password = "Softweb#123"
-            
+
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
             sdkOptions.offlineStorage.fileCount = 10
@@ -145,6 +142,7 @@ class ViewController: UIViewController {
           
 //            SDKClient.shared.initialize(config: objConfig)
             
+        //In callback you will get error while initialising
             SDKClient.shared.initialize(config: objConfig) { error in
                 DispatchQueue.main.async {
                     print(error)
@@ -663,15 +661,6 @@ class ViewController: UIViewController {
                     arrChildAttributeData[0]["Tag"]?[0] = updatedTagArray
                 }
             }
-        }else if arrParentData.count > 0{
-            if let tagArray = arrParentData[0]["Tag"]?[0]{
-                let updatedTagArray = tagArray.map { tag  in
-                       var mutableTag = tag
-                       mutableTag.value = ""
-                       return mutableTag
-                   }
-                arrParentData[0]["Tag"]?[0] = updatedTagArray
-            }
         }else if arrSimpleDeviceData.count > 0{
             if sections > 0{
                 for i in 0...sections-1{
@@ -701,6 +690,19 @@ class ViewController: UIViewController {
                 }
             }
         }
+        
+      if arrParentData.count > 0{
+            if let tagArray = arrParentData[0]["Tag"]?[0]{
+                let updatedTagArray = tagArray.map { tag  in
+                       var mutableTag = tag
+                       mutableTag.value = ""
+                       return mutableTag
+                   }
+                arrParentData[0]["Tag"]?[0] = updatedTagArray
+                print("arrParentData \(arrParentData[0]["Tag"]?[0])")
+            }
+        }
+        
         DispatchQueue.main.async {
             self.isDataSent = true
             self.tblProperty.reloadData()
