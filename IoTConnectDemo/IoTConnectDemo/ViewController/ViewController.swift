@@ -126,10 +126,7 @@ class ViewController: UIViewController {
             
 //            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<p12 file name>", ofType: nil)
 //            sdkOptions.ssl.password = "<SSL password>"
-        
-        sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "clientAZ.p12", ofType: nil)
-        sdkOptions.ssl.password = "Softweb#123"
-            
+
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
             sdkOptions.offlineStorage.fileCount = 10
@@ -145,6 +142,7 @@ class ViewController: UIViewController {
           
 //            SDKClient.shared.initialize(config: objConfig)
             
+        //In callback you will get error while initialising
             SDKClient.shared.initialize(config: objConfig) { error in
                 DispatchQueue.main.async {
                     print(error)
@@ -191,8 +189,8 @@ class ViewController: UIViewController {
                         }
                     }
                     else if let msg = msg["sdkStatus"] as? String{
+                        self.hideLoader()
                         if msg == "error"{
-                            self.hideLoader()
                             self.presentAlert(title: "Error")
                             self.setDisconnectUI()
                         }
@@ -268,11 +266,11 @@ class ViewController: UIViewController {
                             self.arrChildAttributeData.removeAll()
                             self.arrParentData.removeAll()
                         }
-                        self.hideLoader()
                         DispatchQueue.main.async {
                             self.tblProperty.reloadData()
                         }
                         self.manageAttributeResponse(response: msg)
+//                        self.hideLoader()
                     }
                 }
             }
@@ -319,7 +317,7 @@ class ViewController: UIViewController {
                 }
                 self.hideLoader()
                 let msg = response as? [String:Any]
-                SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "6", msg: "Device command received ack",childId: msg?["id"] as? String ?? "")
+                SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "2", msg: "Device command received ack",childId: msg?["id"] as? String ?? "")//6
             }
             
             //callback on OTA and ack
@@ -329,7 +327,7 @@ class ViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.txtView.text = "\(msg ?? [:])"
                 }
-                SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "OTA message received ack",childId: msg?["id"] as? String ?? "")
+                SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "5",msg: "OTA message received ack",childId: msg?["id"] as? String ?? "")
             }
             
             //callbakck for module command and ack
@@ -503,7 +501,7 @@ class ViewController: UIViewController {
             if self.arrChildDevicesAttributes?.count ?? 0 > 0 &&
                 self.attributeData?.att?.count ?? 0 > 0{
                 for j in 0...(arrAttData?.count ?? 0)-1{
-                    print("arrAttData \(arrAttData) \(j)")
+                    print("arrAttData \(String(describing: arrAttData)) \(j)")
                     if arrAttData?[j].p?.isEmpty == true ||
                         arrAttData?[j].p == nil{
                         print("data dict load data \(dict) \(arrAttData?[j])")
@@ -521,6 +519,7 @@ class ViewController: UIViewController {
                             }
                             return false
                         }
+                        
                         
                         if arr.count > 0{
                             print("\(arrAttData?[j].p ?? "") exist \(arr) \(arrDictForChildDevices[arrDictForChildDevices.count-1]["d"] ?? "")" )
@@ -631,48 +630,82 @@ class ViewController: UIViewController {
         
         SDKClient.shared.sendData(data: finalDict)
         
-        DispatchQueue.main.async {
-            self.isDataSent = true
-            self.tblProperty.reloadData()
-        }
-        
-        
-        //        if self.arrChildDevicesAttributes?.count ?? 0 > ip.section{
-        //            arrChildAttributeData[ip.section]["Tag"]?[0][ip.row].value = updatedText
-        //        }else if arrParentData.count > 0{
-        //            arrParentData[0]["Tag"]?[0][ip.row].value = updatedText
-        //        }else if arrSimpleDeviceData.count > 0{
-        //            arrSimpleDeviceData[ip.section]["Tag"]?[0][ip.row].value = updatedText
-        //        }
-        
         if self.arrChildDevicesAttributes?.count ?? 0 > 0{
             if sections > 0{
                 for i in 0...sections-1{
-                    _ = arrChildAttributeData[i]["Tag"]?[0].map({
-                        $0.value = ""
-                    })
+//                    _ = arrChildAttributeData[i]["Tag"]?[0].map({
+//                        $0.value = ""
+//                    })
+//                    arrChildAttributeData = arrChild
+                    
+                    if let tagArray = arrChildAttributeData[i]["Tag"]?[0]{
+                        let updatedTagArray = tagArray.map { tag  in
+                               var mutableTag = tag
+                               mutableTag.value = ""
+                               return mutableTag
+                           }
+                        arrChildAttributeData[i]["Tag"]?[0] = updatedTagArray
+                    }
                 }
             }else{
-                _ = arrChildAttributeData[0]["Tag"]?[0].map({
-                    $0.value = ""
-                })
+//                _ = arrChildAttributeData[0]["Tag"]?[0].map({
+//                    $0.value = ""
+//                })
+                
+                if let tagArray = arrChildAttributeData[0]["Tag"]?[0]{
+                    let updatedTagArray = tagArray.map { tag  in
+                           var mutableTag = tag
+                           mutableTag.value = ""
+                           return mutableTag
+                       }
+                    arrChildAttributeData[0]["Tag"]?[0] = updatedTagArray
+                }
             }
-        }else if arrParentData.count > 0{
-            _ = arrParentData[0]["Tag"]?[0].map({
-                $0.value = ""
-            })
         }else if arrSimpleDeviceData.count > 0{
             if sections > 0{
                 for i in 0...sections-1{
-                    _ = arrSimpleDeviceData[i]["Tag"]?[0].map({
-                        $0.value = ""
-                    })
+//                    _ = arrSimpleDeviceData[i]["Tag"]?[0].map({
+//                        $0.value = ""
+//                    })
+                    if let tagArray = arrSimpleDeviceData[i]["Tag"]?[0]{
+                        let updatedTagArray = tagArray.map { tag  in
+                               var mutableTag = tag
+                               mutableTag.value = ""
+                               return mutableTag
+                           }
+                        arrSimpleDeviceData[i]["Tag"]?[0] = updatedTagArray
+                    }
                 }
             }else{
-                _ = arrSimpleDeviceData[0]["Tag"]?[0].map({
-                    $0.value = ""
-                })
+//                _ = arrSimpleDeviceData[0]["Tag"]?[0].map({
+//                    $0.value = ""
+//                })
+                if let tagArray = arrSimpleDeviceData[0]["Tag"]?[0]{
+                    let updatedTagArray = tagArray.map { tag  in
+                           var mutableTag = tag
+                           mutableTag.value = ""
+                           return mutableTag
+                       }
+                    arrSimpleDeviceData[0]["Tag"]?[0] = updatedTagArray
+                }
             }
+        }
+        
+      if arrParentData.count > 0{
+            if let tagArray = arrParentData[0]["Tag"]?[0]{
+                let updatedTagArray = tagArray.map { tag  in
+                       var mutableTag = tag
+                       mutableTag.value = ""
+                       return mutableTag
+                   }
+                arrParentData[0]["Tag"]?[0] = updatedTagArray
+                print("arrParentData \(arrParentData[0]["Tag"]?[0])")
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.isDataSent = true
+            self.tblProperty.reloadData()
         }
     }
     
@@ -739,6 +772,7 @@ class ViewController: UIViewController {
                 self.getTblViewHeight()
                 self.enableMessageBtns()
             }
+            self.hideLoader()
         } catch {
             self.hideLoader()
             print(error)
@@ -982,18 +1016,20 @@ class ViewController: UIViewController {
         print("arrChildDevicesAttributes \(arrChildDevicesAttributes ?? [[:]])")
         var arrTag = [String]()
         
-        for i in 0...(attributeData?.att?.count ?? 1)-1
-        {
-            for j in 0...((attributeData?.att?[i].d?.count ?? 0)-1){
-                arrTag.append(attributeData?.att?[i].d?[j].tg as? String ?? "")
+        if let att = attributeData?.att{
+            for i in 0...(attributeData?.att?.count ?? 1)-1
+            {
+                for j in 0...((attributeData?.att?[i].d?.count ?? 0)-1){
+                    arrTag.append(attributeData?.att?[i].d?[j].tg as? String ?? "")
+                }
             }
+            let parentTag = self.identity?.d?.meta?.gtw?.tg
+            arrTag.removeAll(where: {$0 == parentTag})
+            arrTag = Array(Set(arrTag))
+            vc?.tagArray = arrTag
+            print("arrTag \(arrTag)")
+            self.navigationController?.pushViewController(vc!, animated: true)
         }
-        let parentTag = self.identity?.d?.meta?.gtw?.tg
-        arrTag.removeAll(where: {$0 == parentTag})
-        arrTag = Array(Set(arrTag))
-        vc?.tagArray = arrTag
-        print("arrTag \(arrTag)")
-        self.navigationController?.pushViewController(vc!, animated: true)
     }
     
 }
@@ -1079,14 +1115,14 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
 }
 
 extension ViewController:UITextFieldDelegate{
-
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var v : UIView = textField
         repeat { v = v.superview! } while !(v is UITableViewCell)
         let cell = v as! PropertyCell // or UITableViewCell or whatever
         let ip = self.tblProperty.indexPath(for:cell)!
         if let text = textField.text,
-           let textRange = Range(range, in: text) {
+           let textRange = Range(range, in: text),!isDataSent {
             let updatedText = text.replacingCharacters(in: textRange,
                                                        with: string)
             self.isDataSent = false
@@ -1100,6 +1136,11 @@ extension ViewController:UITextFieldDelegate{
             }
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("textFieldDidBeginEditing")
+        self.isDataSent = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

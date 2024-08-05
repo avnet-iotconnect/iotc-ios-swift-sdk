@@ -140,7 +140,7 @@ public struct OfflineStorageOption {
 }
 public enum IOTCEnvironment : Swift.String, Swift.CaseIterable {
   case PROD
-  case DEV
+  case EU
   case AVNET
   case QA
   public init?(rawValue: Swift.String)

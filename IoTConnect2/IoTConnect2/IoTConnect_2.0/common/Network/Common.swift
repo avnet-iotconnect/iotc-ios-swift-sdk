@@ -14,7 +14,7 @@ public enum IOTCEnvironment: String,CaseIterable {
     case POC = "poc"
     #else
     //define Azure environment
-    case DEV = "DEV"
+    case EU = "EMEA"
     case AVNET = "AVNET"
     case QA = "QA"
     #endif
@@ -38,23 +38,28 @@ class Common {
     //MARK: Get Base URL
     func getBaseURL(strURL: String, callBack: @escaping (Bool, Any) -> ()) {
         print("BaseURL \(strURL)")
-        let dataTaskMain = URLSession.shared.dataTask(with: URL(string: strURL)!) { (data, response, error) in
-            if error == nil {
-               
-                let errorParse: Error? = nil
-                let jsonData = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-                print("getBaseURL response \(jsonData ?? "")")
-                if jsonData == nil {
-                    callBack(false, errorParse as Any)
+        if let url =  URL(string: strURL){
+            let dataTaskMain = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if error == nil {
+                    
+                    //                let errorParse: Error? = nil
+                    do{
+                        let jsonData =
+                        try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+                        print("getBaseURL response \(jsonData)")
+                        callBack(true, jsonData as Any)
+                    }catch let error{
+                        callBack(false, error as Any)
+                    }
                 } else {
-                    callBack(true, jsonData as Any)
+                    print("getBaseURL error \(String(describing: error))")
+                    callBack(false, error as Any)
                 }
-            } else {
-                print("getBaseURL error \(String(describing: error))")
-                callBack(false, error as Any)
             }
+            dataTaskMain.resume()
+        }else{
+            callBack(false, "DiscoveryUrl is wrong.")
         }
-        dataTaskMain.resume()
     }
     //MARK: Device Sync Call
     func makeSyncCall(withBaseURL strURL: String, withData dictToPass: [AnyHashable: Any]?, withBlock completionHandler: @escaping (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void) {

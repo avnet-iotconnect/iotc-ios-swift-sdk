@@ -4128,8 +4128,8 @@
           },
           {
             "kind": "Var",
-            "name": "DEV",
-            "printedName": "DEV",
+            "name": "EU",
+            "printedName": "EU",
             "children": [
               {
                 "kind": "TypeFunc",
@@ -4159,8 +4159,8 @@
               }
             ],
             "declKind": "EnumElement",
-            "usr": "s:11IoTConnect215IOTCEnvironmentO3DEVyA2CmF",
-            "mangledName": "$s11IoTConnect215IOTCEnvironmentO3DEVyA2CmF",
+            "usr": "s:11IoTConnect215IOTCEnvironmentO2EUyA2CmF",
+            "mangledName": "$s11IoTConnect215IOTCEnvironmentO2EUyA2CmF",
             "moduleName": "IoTConnect2",
             "declAttributes": [
               "RawDocComment"
@@ -7979,91 +7979,91 @@
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 1649,
+      "offset": 1651,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 1682,
+      "offset": 1684,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 1849,
+      "offset": 1851,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "Array",
-      "offset": 1919,
+      "offset": 1921,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 1949,
+      "offset": 1951,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 2026,
+      "offset": 2028,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "StringLiteral",
-      "offset": 2363,
+      "offset": 2365,
       "length": 48,
       "value": "\"$iothub\/twin\/PATCH\/properties\/reported\/?$rid=1\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "StringLiteral",
-      "offset": 2443,
+      "offset": 2445,
       "length": 41,
       "value": "\"$iothub\/twin\/PATCH\/properties\/desired\/#\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "StringLiteral",
-      "offset": 2516,
+      "offset": 2518,
       "length": 26,
       "value": "\"$iothub\/twin\/GET\/?$rid=0\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "StringLiteral",
-      "offset": 2574,
+      "offset": 2576,
       "length": 20,
       "value": "\"$iothub\/twin\/res\/#\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "StringLiteral",
-      "offset": 10694,
+      "offset": 10787,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "StringLiteral",
-      "offset": 10714,
+      "offset": 10807,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectManager.swift",
       "kind": "StringLiteral",
-      "offset": 21067,
+      "offset": 21746,
       "length": 2,
       "value": "\"\""
     },
@@ -9274,7 +9274,7 @@
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/IoTConnectManager\/IoTConnectService.swift",
       "kind": "StringLiteral",
-      "offset": 17549,
+      "offset": 17699,
       "length": 2,
       "value": "\"\""
     },
@@ -9358,7 +9358,7 @@
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/MQTTClient.swift",
       "kind": "StringLiteral",
-      "offset": 33316,
+      "offset": 33456,
       "length": 2,
       "value": "\"\""
     },
@@ -9400,9 +9400,9 @@
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/common\/Network\/Common.swift",
       "kind": "StringLiteral",
-      "offset": 282,
-      "length": 5,
-      "value": "\"DEV\""
+      "offset": 281,
+      "length": 6,
+      "value": "\"EMEA\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/common\/Network\/Common.swift",
@@ -9428,9 +9428,9 @@
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/common\/Network\/Common.swift",
       "kind": "StringLiteral",
-      "offset": 282,
-      "length": 5,
-      "value": "\"DEV\""
+      "offset": 281,
+      "length": 6,
+      "value": "\"EMEA\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/common\/Network\/Common.swift",
@@ -10184,917 +10184,924 @@
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 1118,
+      "offset": 1120,
       "length": 33,
       "value": "\"https:\/\/discovery.iotconnect.io\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 1186,
+      "offset": 1191,
+      "length": 35,
+      "value": "\"https:\/\/eudiscovery.iotconnect.io\""
+    },
+    {
+      "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
+      "kind": "StringLiteral",
+      "offset": 1261,
       "length": 61,
       "value": "\"https:\/\/jzbybwq654.execute-api.us-east-1.amazonaws.com\/Prod\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 1285,
+      "offset": 1360,
       "length": 36,
       "value": "\"https:\/\/awsdiscovery.iotconnect.io\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 1392,
+      "offset": 1467,
       "length": 40,
       "value": "\"https:\/\/discoveryconsole.iotconnect.io\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 1497,
+      "offset": 1572,
       "length": 6,
       "value": "\"?pf=\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "BooleanLiteral",
-      "offset": 2845,
+      "offset": 3047,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 2927,
+      "offset": 3129,
       "length": 7,
       "value": "\"M_ios\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 2960,
+      "offset": 3162,
       "length": 5,
       "value": "\"2.1\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 2996,
+      "offset": 3198,
       "length": 6,
       "value": "\"mqtt\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 3033,
+      "offset": 3235,
       "length": 6,
       "value": "\"http\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 3070,
+      "offset": 3272,
       "length": 6,
       "value": "\"amqp\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "FloatLiteral",
-      "offset": 3107,
+      "offset": 3309,
       "length": 4,
       "value": "10.0"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 3137,
+      "offset": 3339,
       "length": 9,
       "value": "\"isDebug\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 3177,
+      "offset": 3379,
       "length": 14,
       "value": "\"discoveryUrl\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 3221,
+      "offset": 3423,
       "length": 13,
       "value": "\"Certificate\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 3261,
+      "offset": 3463,
       "length": 10,
       "value": "\"Password\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 3301,
+      "offset": 3503,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3338,
+      "offset": 3540,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3369,
+      "offset": 3571,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "BooleanLiteral",
-      "offset": 3399,
+      "offset": 3601,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "FloatLiteral",
-      "offset": 3442,
+      "offset": 3644,
       "length": 4,
       "value": "10.0"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "Dictionary",
-      "offset": 3482,
+      "offset": 3684,
       "length": 63,
       "value": "[(\"min\", 1), (\"max\", 2), (\"sum\", 4), (\"avg\", 8), (\"count\", 16), (\"lv\", 32)]"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3593,
+      "offset": 3795,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3621,
+      "offset": 3823,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3649,
+      "offset": 3851,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3677,
+      "offset": 3879,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3723,
+      "offset": 3925,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3751,
+      "offset": 3953,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3783,
+      "offset": 3985,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3814,
+      "offset": 4016,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3861,
+      "offset": 4063,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3884,
+      "offset": 4086,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3911,
+      "offset": 4113,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3946,
+      "offset": 4148,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3969,
+      "offset": 4171,
       "length": 1,
       "value": "4"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 3992,
+      "offset": 4194,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4015,
+      "offset": 4217,
       "length": 1,
       "value": "6"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4041,
+      "offset": 4243,
       "length": 1,
       "value": "7"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4065,
+      "offset": 4267,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4098,
+      "offset": 4300,
       "length": 1,
       "value": "9"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4130,
+      "offset": 4332,
       "length": 2,
       "value": "10"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 4203,
+      "offset": 4405,
       "length": 6,
       "value": "\"cpId\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 4240,
+      "offset": 4442,
       "length": 10,
       "value": "\"uniqueId\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 4279,
+      "offset": 4481,
       "length": 8,
       "value": "\"option\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 4319,
+      "offset": 4521,
       "length": 11,
       "value": "\"attribute\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 4360,
+      "offset": 4562,
       "length": 9,
       "value": "\"setting\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 4403,
+      "offset": 4605,
       "length": 10,
       "value": "\"protocol\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 4442,
+      "offset": 4644,
       "length": 8,
       "value": "\"device\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 4482,
+      "offset": 4684,
       "length": 11,
       "value": "\"sdkConfig\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 4520,
+      "offset": 4722,
       "length": 6,
       "value": "\"rule\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4579,
+      "offset": 4781,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4622,
+      "offset": 4824,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4658,
+      "offset": 4860,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4696,
+      "offset": 4898,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4734,
+      "offset": 4936,
       "length": 1,
       "value": "4"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4769,
+      "offset": 4971,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4805,
+      "offset": 5007,
       "length": 1,
       "value": "6"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4874,
+      "offset": 5076,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4909,
+      "offset": 5111,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4943,
+      "offset": 5145,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 4977,
+      "offset": 5179,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 5011,
+      "offset": 5213,
       "length": 1,
       "value": "4"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 5045,
+      "offset": 5247,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 5079,
+      "offset": 5281,
       "length": 1,
       "value": "6"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 5113,
+      "offset": 5315,
       "length": 1,
       "value": "7"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 5147,
+      "offset": 5349,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 5181,
+      "offset": 5383,
       "length": 1,
       "value": "9"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 5215,
+      "offset": 5417,
       "length": 2,
       "value": "10"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "IntegerLiteral",
-      "offset": 5250,
+      "offset": 5452,
       "length": 2,
       "value": "12"
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5301,
+      "offset": 5503,
       "length": 4,
       "value": "\"dt\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5331,
+      "offset": 5533,
       "length": 3,
       "value": "\"d\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5359,
+      "offset": 5561,
       "length": 5,
       "value": "\"ack\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5390,
+      "offset": 5592,
       "length": 6,
       "value": "\"type\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5424,
+      "offset": 5626,
       "length": 4,
       "value": "\"st\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5457,
+      "offset": 5659,
       "length": 5,
       "value": "\"msg\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5487,
+      "offset": 5689,
       "length": 5,
       "value": "\"cid\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5550,
+      "offset": 5752,
       "length": 4,
       "value": "\"ec\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5580,
+      "offset": 5782,
       "length": 4,
       "value": "\"ct\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5610,
+      "offset": 5812,
       "length": 6,
       "value": "\"meta\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5642,
+      "offset": 5844,
       "length": 5,
       "value": "\"has\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5673,
+      "offset": 5875,
       "length": 3,
       "value": "\"p\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5726,
+      "offset": 5928,
       "length": 4,
       "value": "\"df\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5756,
+      "offset": 5958,
       "length": 4,
       "value": "\"cd\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5786,
+      "offset": 5988,
       "length": 4,
       "value": "\"at\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5817,
+      "offset": 6019,
       "length": 5,
       "value": "\"gtw\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5848,
+      "offset": 6050,
       "length": 4,
       "value": "\"tg\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5877,
+      "offset": 6079,
       "length": 3,
       "value": "\"g\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5908,
+      "offset": 6110,
       "length": 6,
       "value": "\"edge\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5940,
+      "offset": 6142,
       "length": 4,
       "value": "\"pf\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 5971,
+      "offset": 6173,
       "length": 5,
       "value": "\"hwv\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6003,
+      "offset": 6205,
       "length": 5,
       "value": "\"swv\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6033,
+      "offset": 6235,
       "length": 3,
       "value": "\"v\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6089,
+      "offset": 6291,
       "length": 6,
       "value": "\"cpId\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6126,
+      "offset": 6328,
       "length": 10,
       "value": "\"uniqueId\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6167,
+      "offset": 6369,
       "length": 3,
       "value": "\"t\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6201,
+      "offset": 6403,
       "length": 4,
       "value": "\"mt\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6236,
+      "offset": 6438,
       "length": 3,
       "value": "\"d\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6270,
+      "offset": 6472,
       "length": 5,
       "value": "\"sdk\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6306,
+      "offset": 6508,
       "length": 3,
       "value": "\"l\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6340,
+      "offset": 6542,
       "length": 3,
       "value": "\"e\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6374,
+      "offset": 6576,
       "length": 3,
       "value": "\"v\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6408,
+      "offset": 6610,
       "length": 6,
       "value": "\"data\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6445,
+      "offset": 6647,
       "length": 4,
       "value": "\"id\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6480,
+      "offset": 6682,
       "length": 4,
       "value": "\"tg\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6515,
+      "offset": 6717,
       "length": 4,
       "value": "\"dt\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6550,
+      "offset": 6752,
       "length": 3,
       "value": "\"g\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6584,
+      "offset": 6786,
       "length": 7,
       "value": "\"error\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6622,
+      "offset": 6824,
       "length": 9,
       "value": "\"desired\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6662,
+      "offset": 6864,
       "length": 6,
       "value": "\"time\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6699,
+      "offset": 6901,
       "length": 5,
       "value": "\"dtg\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6735,
+      "offset": 6937,
       "length": 5,
       "value": "\"has\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6771,
+      "offset": 6973,
       "length": 6,
       "value": "\"attr\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6808,
+      "offset": 7010,
       "length": 5,
       "value": "\"set\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6844,
+      "offset": 7046,
       "length": 3,
       "value": "\"r\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6878,
+      "offset": 7080,
       "length": 5,
       "value": "\"ota\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6921,
+      "offset": 7123,
       "length": 4,
       "value": "\"cv\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 6963,
+      "offset": 7165,
       "length": 4,
       "value": "\"sg\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7005,
+      "offset": 7207,
       "length": 4,
       "value": "\"ct\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7047,
+      "offset": 7249,
       "length": 6,
       "value": "\"guid\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7091,
+      "offset": 7293,
       "length": 9,
       "value": "\"command\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7138,
+      "offset": 7340,
       "length": 5,
       "value": "\"ack\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7181,
+      "offset": 7383,
       "length": 7,
       "value": "\"ackId\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7226,
+      "offset": 7428,
       "length": 4,
       "value": "\"ec\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7268,
+      "offset": 7470,
       "length": 4,
       "value": "\"rg\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7310,
+      "offset": 7512,
       "length": 4,
       "value": "\"dv\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7352,
+      "offset": 7554,
       "length": 4,
       "value": "\"ln\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7394,
+      "offset": 7596,
       "length": 9,
       "value": "\"rptdata\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7441,
+      "offset": 7643,
       "length": 4,
       "value": "\"mt\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7483,
+      "offset": 7685,
       "length": 4,
       "value": "\"dn\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7525,
+      "offset": 7727,
       "length": 3,
       "value": "\"p\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/Config.swift",
       "kind": "StringLiteral",
-      "offset": 7566,
+      "offset": 7768,
       "length": 9,
       "value": "\"message\""
     },
@@ -11115,56 +11122,56 @@
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 6157,
+      "offset": 6619,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 6177,
+      "offset": 6639,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 6405,
+      "offset": 6867,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 6425,
+      "offset": 6887,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 6655,
+      "offset": 7117,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 6675,
+      "offset": 7137,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "StringLiteral",
-      "offset": 7555,
+      "offset": 8017,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/kirtan.vaghela\/Desktop\/IoTConnect\/IoTConnect2\/IoTConnect2\/IoTConnect_2.0\/SDKClient.swift",
       "kind": "IntegerLiteral",
-      "offset": 10576,
+      "offset": 11038,
       "length": 1,
       "value": "0"
     }

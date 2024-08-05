@@ -38,7 +38,7 @@ class IoTConnectManager {
     var strCPId: String!
     var strUniqueId: String!
     var strEnv: IOTCEnvironment = .PROD
-    var strDiscoveryURL: String = SDKURL.discoveryHost
+    var strDiscoveryURL: String = SDKURL.discoveryHostAZ
     var strDiscoveryURLAWS: String = SDKURL.discoveryHostAWS
     var dictReference: [String:Any]!
     var dictSyncResponse: [String:Any]!
@@ -68,6 +68,9 @@ class IoTConnectManager {
     var twinPropertySubTopic = "$iothub/twin/PATCH/properties/desired/#"
     var twinResponsePubTopic = "$iothub/twin/GET/?$rid=0"
     var twinResponseSubTopic = "$iothub/twin/res/#"
+    
+    
+    var arrAttForValidation:AttributesData?
     
     init() {}
     
@@ -238,11 +241,14 @@ class IoTConnectManager {
                 print("df \(df) diff\(diff) \(time) \(Date())")
                 if diff >= df{
                     validateData(data: data, skipValidation: dataSDKOptions.skipValidation)
+                }else{
+                    print("Please try to send data after DF value.")
                 }
             }else{
                 validateData(data: data, skipValidation: dataSDKOptions.skipValidation)
             }
         }else {
+            print("sync count is 0")
             self.objCommon.manageDebugLog(code: Log.Errors.ERR_SD06.rawValue, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: false, isDebugEnabled: boolDebugYN)
         }
     }
@@ -372,7 +378,9 @@ class IoTConnectManager {
                         dictD?.append(anotherDict: ["\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]])
                     }
                     dataDevice[Dictkeys.dKey] = dictD
+                  
                     arrCalcDictEdgeDevice[firstIndex] = dataDevice
+                    arrCalcDictEdgeDevice[firstIndex][Dictkeys.datekey] = dt
                 }else{
                     if let val = dictD?[key], let firstIndexData = arrData.firstIndex(where: {$0[key] != nil}){
                         if let valDict = val as? [String:Any]{
@@ -387,19 +395,25 @@ class IoTConnectManager {
                                         var val = dictD?[key] as? [String:Any]
                                         val?[dictValueKey] = arrValues
                                         dictD?[key] = val
+                                        
                                         arrCalcDictEdgeDevice[firstIndex]["d"] = dictD ?? [:]
+                                        arrCalcDictEdgeDevice[firstIndex][Dictkeys.datekey] = dt
                                     }else{
                                         var val = dictD?[key] as? [String:Any]
                                         val?.append(anotherDict: [dictValueKey:arrValues ?? []])
                                         dictD?[key] = val
+                                      
                                         arrCalcDictEdgeDevice[firstIndex]["d"] = dictD ?? [:]
+                                        arrCalcDictEdgeDevice[firstIndex][Dictkeys.datekey] = dt
                                     }
                                 }
                             }
                         }else{
                             let arr = arrData[firstIndexData][key] as? [String]
                             dictD?[key] = calcEdgeData(arrValues: arr ?? [], latestVal: "\(value)")
+                           
                             arrCalcDictEdgeDevice[firstIndex][Dictkeys.dKey] = dictD ?? [:]
+                            arrCalcDictEdgeDevice[firstIndex][Dictkeys.datekey] = dt
                         }
                     }else{
                         if let valDict = value as? [String:Any]{
@@ -410,7 +424,9 @@ class IoTConnectManager {
                         }else{
                             dictD?.append(anotherDict: ["\(key)":["\(value)","\(value)","\(value)","\(value)",totalCount,"\(value)"]])
                         }
+                     
                         arrCalcDictEdgeDevice[firstIndex][Dictkeys.dKey] = dictD ?? [:]
+                        arrCalcDictEdgeDevice[firstIndex][Dictkeys.datekey] = dt
                     }
                 }
             }else{
