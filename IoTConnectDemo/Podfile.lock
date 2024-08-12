@@ -1,4 +1,12 @@
 PODS:
+  - AppCenter (5.0.4):
+    - AppCenter/Analytics (= 5.0.4)
+    - AppCenter/Crashes (= 5.0.4)
+  - AppCenter/Analytics (5.0.4):
+    - AppCenter/Core
+  - AppCenter/Core (5.0.4)
+  - AppCenter/Crashes (5.0.4):
+    - AppCenter/Core
   - CocoaMQTT (2.1.6):
     - CocoaMQTT/Core (= 2.1.6)
   - CocoaMQTT/Core (2.1.6):
@@ -7,11 +15,13 @@ PODS:
   - MqttCocoaAsyncSocket (1.0.8)
 
 DEPENDENCIES:
+  - AppCenter
   - CocoaMQTT (from `https://github.com/emqx/CocoaMQTT.git`, tag `2.1.6`)
   - IQKeyboardManagerSwift
 
 SPEC REPOS:
   trunk:
+    - AppCenter
     - IQKeyboardManagerSwift
     - MqttCocoaAsyncSocket
 
@@ -26,10 +36,11 @@ CHECKOUT OPTIONS:
     :tag: 2.1.6
 
 SPEC CHECKSUMS:
+  AppCenter: 85c92db0759d2792a65eb61d6842d2e86611a49a
   CocoaMQTT: 1f206228b29318eabdacad0c2e4e88575922c27a
   IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
   MqttCocoaAsyncSocket: 77d3b74f76228dd5a05d1f9526eab101d415b30c
 
-PODFILE CHECKSUM: 97edd60efc01ea1dffb9d2c36abee2122a85cdc1
+PODFILE CHECKSUM: 027dec611cb6370534dacb4564109f361ca5a7c7
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.13.0

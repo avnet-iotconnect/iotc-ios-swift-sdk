@@ -38,6 +38,9 @@ public class SDKClient {
     private var blockHandlerCreateChildCallBack:CreateChildDeviceCallBackBlock?
     private var blockHandlerDeleteChildCallBack:DeleteChildDeviceCallBackBlock?
     
+    private var cpIDRegex = "^[a-zA-Z0-9]+$"
+    private var uniqueIDregex = "^[\\w\\d—-]*$"//"^[a-zA-Z0-9-]+$"
+    
     /**
      Initialize configuration for IoTConnect SDK
      
@@ -50,8 +53,8 @@ public class SDKClient {
      - returns:
      Returns nothing
      */
-    public func initialize(config: IoTConnectConfig) {
-        //, withBlock completionHandler: @escaping (Error:String?) -> Void
+    public func initialize(config: IoTConnectConfig,errorBlock:@escaping(_ error:String)->Void) {
+        //,errorBlock:@escaping(_ error:String)->Void = {errorMsg in }
     #if IOTAWS
         print("SDKClient initialize AWS")
     #else
@@ -60,11 +63,28 @@ public class SDKClient {
         
         if config.sdkOptions!.cpId.isEmpty{
             print(Log.Errors.ERR_IN12.rawValue)
+            errorBlock (Log.Errors.ERR_IN12.rawValue)
         }else  if config.uniqueId.isEmpty{
             print(Log.Errors.ERR_IN13.rawValue)
+            errorBlock (Log.Errors.ERR_IN13.rawValue)
         }else if let ioTEnv = config.sdkOptions!.env,ioTEnv.rawValue.isEmpty{
             print(Log.Errors.ERR_IN15.rawValue)
-        }else{
+            errorBlock (Log.Errors.ERR_IN15.rawValue)
+        }else if validateWithRegex(regexString: cpIDRegex, textToValidate: config.sdkOptions!.cpId) == false{
+            errorBlock (Log.Errors.ERR_IN16.rawValue)
+        }else if validateWithRegex(regexString: uniqueIDregex, textToValidate: config.uniqueId) == false{
+            errorBlock (Log.Errors.ERR_IN17.rawValue)
+        }
+        else{
+            if let manager = iotConnectManager,let client = manager.objMQTTClient{
+                //               client.mqttObj?.disconnect()
+                print("Manager \(iotConnectManager) \(iotConnectManager.timerNotRegister)")
+                client.disconnect()
+                iotConnectManager.timerNotRegister?.invalidate()
+                iotConnectManager.timerNotRegister = nil
+                iotConnectManager = nil
+            }
+            
             iotConnectManager = IoTConnectManager(cpId: config.sdkOptions!.cpId, uniqueId: config.uniqueId, env: config.sdkOptions!.env!.rawValue, sdkOptions: config.sdkOptions, deviceCallback: { (message) in
                 if self.blockHandlerDeviceCallBack != nil {
                     self.blockHandlerDeviceCallBack!(message)
@@ -90,6 +110,12 @@ public class SDKClient {
         }
     }
     
+    
+    private func validateWithRegex(regexString:String,textToValidate:String) -> Bool{
+        let strPred = NSPredicate(format:"SELF MATCHES %@", regexString)
+        return strPred.evaluate(with: textToValidate)
+    }
+    
     /**
      Used for sending data from Device to Cloud
      
@@ -103,7 +129,9 @@ public class SDKClient {
      Returns nothing
      */
     public func sendData(data: [String:Any]) {
-        iotConnectManager.sendData(data: data)
+        if let manager = iotConnectManager{
+            manager.sendData(data: data)
+        }
     }
     
     /**
@@ -311,8 +339,12 @@ public class SDKClient {
     
     //Create child device callback
     public func createChildDevice(deviceId:String, deviceTag:String, displayName:String,createChildCallBack:@escaping CreateChildDeviceCallBackBlock) -> (){
-        iotConnectManager?.createChildDevice(deviceId: deviceId, deviceTag: deviceTag, displayName: displayName)
         blockHandlerCreateChildCallBack = createChildCallBack
+        if validateWithRegex(regexString: uniqueIDregex, textToValidate: deviceId) == false{
+            blockHandlerCreateChildCallBack?(Log.Errors.ERR_IN17.rawValue)
+        }else{
+            iotConnectManager?.createChildDevice(deviceId: deviceId, deviceTag: deviceTag, displayName: displayName) 
+        }
     }
     
     //Delete child device callback
