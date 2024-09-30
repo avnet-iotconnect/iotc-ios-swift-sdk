@@ -52,6 +52,8 @@ IoTConnect Device SDKs help you to easily and quickly connect your devices to Io
     end
     ```
 # SDK Usage
+ ## Frameworks path:
+   * There is a zip file named frameworks.zip, from where you can download frameowrksof AZ and AWs env.
 
  ## Import Framework:
    * You have to drag and drop framework in bundle.
