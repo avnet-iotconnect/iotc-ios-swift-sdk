@@ -56,6 +56,11 @@ class MQTTClient {
         if mqtt?.connState == .connected {
             mqtt!.disconnect()
         }
+        
+        if mqtt != nil{
+            mqtt = nil
+        }
+        
         mqtt = CocoaMQTT(clientID: dataSyncResponse[keyPath:"p.id"] as! String, host: dataSyncResponse[keyPath:"p.h"] as! String, port: dataSyncResponse[keyPath:"p.p"] as! UInt16)
         
         guard let mqtt = mqtt else { return  }
@@ -481,17 +486,22 @@ class MQTTClient {
         print("publishTopicOnMQTT: \(dictSDKToHub) \(topic)")
         var topicToSend = ""
         if topic == ""{
-            topicToSend = dataSyncResponse[keyPath:"p.topics.di"] as! String
+            if let diTopic = dataSyncResponse[keyPath:"p.topics.di"] as? String{
+                topicToSend = diTopic
+            }
         }else{
             topicToSend = topic
         }
-        do {
-            let jsonData =  try JSONSerialization.data(withJSONObject: dictSDKToHub, options: .prettyPrinted)
-            let  message = String(data: jsonData, encoding: .utf8)!
-            publishDataOnMQTT(dictSDKToHubForOS: dictSDKToHub, strPubTopic: topicToSend, strMessageToPass: message)// p.pub
-        } catch let error {
-            print("parse error: \(error.localizedDescription)")
-            objCommon.manageDebugLog(code: Log.Errors.ERR_CM01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+        
+        if !topicToSend.isEmpty{
+            do {
+                let jsonData =  try JSONSerialization.data(withJSONObject: dictSDKToHub, options: .prettyPrinted)
+                let  message = String(data: jsonData, encoding: .utf8)!
+                publishDataOnMQTT(dictSDKToHubForOS: dictSDKToHub, strPubTopic: topicToSend, strMessageToPass: message)// p.pub
+            } catch let error {
+                print("parse error: \(error.localizedDescription)")
+                objCommon.manageDebugLog(code: Log.Errors.ERR_CM01.rawValue, uniqueId: strUniqueID, cpId: strCPID, message: error.localizedDescription, logFlag: false, isDebugEnabled: boolDebugYN)
+            }
         }
     }
     
@@ -569,9 +579,9 @@ extension MQTTClient: CocoaMQTTDelegate {
         if ack == .accept {
             blockHandler?(["sdkStatus": "connect"], 1)
             let p = dataSyncResponse["p"] as? [String:Any]
-            let topics = p?["topics"] as? [String:Any]
-            mqtt.subscribe(topics?["c2d"] as! String, qos: .qos1)
-            
+            if let topics = p?["topics"] as? [String:Any]{
+                mqtt.subscribe(topics["c2d"] as! String, qos: .qos1)
+            }
 #if IOTAWS
             let set = topics?["set"] as? [String:Any]
             print("twinPropertySubTopic \(set?["pub"] as! String)")
@@ -677,7 +687,7 @@ extension MQTTClient: CocoaMQTTDelegate {
                                     let decoder = JSONDecoder()
                                     let decodedAttributes = try decoder.decode(AttributesData.self, from: json)
                                     IoTConnectManager.sharedInstance.attributes = decodedAttributes
-                                    
+                                    IoTConnectManager.sharedInstance.arrAttForValidation = decodedAttributes
                                 } catch {
                                     print(error)
                                 }
@@ -831,7 +841,16 @@ extension MQTTClient: CocoaMQTTDelegate {
                                               Dictkeys.ackIDKey: "",
                                               Dictkeys.commandTypeKey: CommandType.DEVICE_CONNECTION_STATUS.rawValue]], 2)
         }else{
-            blockHandler?(["sdkStatus": Log.Errors.ERR_IN14.rawValue], 1)
+            blockHandler?([Dictkeys.commandTypeKey: CommandType.DEVICE_CONNECTION_STATUS.rawValue,
+                           Dictkeys.dataKey: [Dictkeys.cpIDkey: strCPID,
+                                              Dictkeys.guidKey: "",
+                                              Dictkeys.uniqueIDKey: strUniqueID,
+                                              Dictkeys.commandKey: false,
+                                              Dictkeys.ackKey: false,
+                                              Dictkeys.ackIDKey: "",
+                                              Dictkeys.message:Log.Errors.ERR_IN14.rawValue,
+                                              Dictkeys.commandTypeKey: CommandType.DEVICE_CONNECTION_STATUS.rawValue]], 2)
+//            blockHandler?(["sdkStatus": Log.Errors.ERR_IN14.rawValue], 1)
         }
     }
 }

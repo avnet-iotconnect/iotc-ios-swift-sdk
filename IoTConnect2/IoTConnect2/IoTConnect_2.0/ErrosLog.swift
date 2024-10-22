@@ -27,6 +27,8 @@ struct Log {//class
         case ERR_IN13 = "Please give uniqueID value"
         case ERR_IN14 = "Client connection closed"
         case ERR_IN15 = "Please give env value"
+        case ERR_IN16 = "Please enter valid CPID"
+        case ERR_IN17 = "Please enter valid UniqueID"
         case ERR_SD02 = "It does not matched with payload's 'uniqueId'"
         case ERR_SD06 = "Missing required parameter 'data'"
         case ERR_SD10 = "Publish data failed : MQTT connection not found"

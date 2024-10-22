@@ -26,9 +26,9 @@ struct Att: Codable {
 }
 
 struct AttData: Codable {
-    let dt: Int?
-    let dv, ln,tw,tg: String?
-    let sq: Int?
+    var dt: Int?
+    var dv, ln,tw,tg: String?
+    var sq: Int?
     var p:String? = ""
     var value:String?
 }

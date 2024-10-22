@@ -33,39 +33,55 @@ extension IoTConnectManager {
         blockHandlerGetAttribuesCallBack = getAttributesCallback
         blockHandlerGetTwinsCallBack = getTwinsCallback
         blockHandlerGetChildDevicesCallback = getChildDevucesCallback
-        if cpId.isEmpty{
-            self.callBackDelegate?.onDeviceCommandCallback(response: nil, error: Log.Errors.ERR_IN12.rawValue)
-            self.blockHandlerDeviceCallBack(["sdkStatus": Log.Errors.ERR_IN12.rawValue])
-            print(Log.Errors.ERR_IN12.rawValue)
-            boolCanCallInialiseYN = true
-        }else  if uniqueId.isEmpty{
-            print(Log.Errors.ERR_IN13.rawValue)
-            boolCanCallInialiseYN = true
-        }else{
-            boolCanCallInialiseYN = true
-            objCommon.createDirectoryFoldersForLogs()
-            objCommon.manageDebugLog(code: Log.Info.INFO_IN04, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
-            objCommon.getBaseURL(strURL: SDKURL.discovery(strDiscoveryURL, cpId, SDKConstants.language, SDKConstants.version, strEnv.rawValue, pf)) { (status, data) in
-                if status {
-                    if let dataRef = data as? [String : Any] {
-                        self.objCommon.manageDebugLog(code: Log.Info.INFO_IN07, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
-                        self.dictReference = dataRef
-                        if self.dictReference[keyPath:"d.ec"] as? Int == 0{
-                            self.initaliseCall(uniqueId: uniqueId)
-                        }else{
-                            let errorDict = [Dictkeys.errorkey:Log.getAPIErrorMsg(errorCode: self.dictReference[keyPath:"d.ec"] as? Int ?? 15)]
-                            deviceCallback(errorDict)
-                            self.objCommon.manageDebugLog(code: self.dictReference[keyPath:"d.ec"] ?? 15, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
-                        }
-                    } else {
-                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN09.rawValue, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+        boolCanCallInialiseYN = true
+        objCommon.createDirectoryFoldersForLogs()
+        objCommon.manageDebugLog(code: Log.Info.INFO_IN04, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: boolDebugYN)
+        var discoveryURL = getDiscoveryURL()
+        objCommon.getBaseURL(strURL: SDKURL.discovery(discoveryURL, cpId, SDKConstants.language, SDKConstants.version, strEnv.rawValue, pf)) { (status, data) in
+            if status {
+                if let dataRef = data as? [String : Any] {
+                    self.objCommon.manageDebugLog(code: Log.Info.INFO_IN07, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
+                    self.dictReference = dataRef
+                    if self.dictReference[keyPath:"d.ec"] as? Int == 0{
+                        self.initaliseCall(uniqueId: uniqueId)
+                    }else{
+                        let errorDict = [Dictkeys.errorkey:Log.getAPIErrorMsg(errorCode: self.dictReference[keyPath:"d.ec"] as? Int ?? 15)]
+                        deviceCallback(errorDict)
+                        self.objCommon.manageDebugLog(code: self.dictReference[keyPath:"d.ec"] ?? 15, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
                     }
                 } else {
-                    if let error = data as? Error {
-                        self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01.rawValue, uniqueId: uniqueId, cpId: cpId, message: error.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
-                    }
+                    self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN09.rawValue, uniqueId: uniqueId, cpId: cpId, message: "", logFlag: false, isDebugEnabled: self.boolDebugYN)
+                }
+            } else {
+                if let error = data as? Error {
+                    self.callBackDelegate?.onDeviceCommandCallback(response: nil, error: error.localizedDescription)
+                    self.blockHandlerDeviceCallBack(["sdkStatus": error.localizedDescription])
+                    self.objCommon.manageDebugLog(code: Log.Errors.ERR_IN01.rawValue, uniqueId: uniqueId, cpId: cpId, message: error.localizedDescription, logFlag: false, isDebugEnabled: self.boolDebugYN)
                 }
             }
+        }
+        //        }
+    }
+    
+    func getDiscoveryURL()->String{
+        if strDiscoveryURL.isEmpty{
+#if IOTAWS
+            if strEnv.rawValue == IOTCEnvironment.PREQA.rawValue{
+                return SDKURL.discoveryHostAWS
+            }else if strEnv.rawValue == IOTCEnvironment.POC.rawValue{
+                return SDKURL.discoveryHostAWSPOC
+            }else{
+                return SDKURL.discoveryHostAWSPROD
+            }
+#else
+            if strEnv.rawValue == IOTCEnvironment.EU.rawValue{
+                return SDKURL.discoveryHostAZEMEA
+            }else{
+                return SDKURL.discoveryHostAZ
+            }
+#endif
+        }else{
+            return strDiscoveryURL
         }
     }
     
@@ -249,7 +265,7 @@ extension IoTConnectManager {
     }
     
     @objc private func reInitialise() {
-        if self.repeatTimerCount < 5{
+        if self.repeatTimerCount < 3{
             print("reInitialise")
             self.repeatTimerCount += 1
             self.objCommon.manageDebugLog(code: Log.Info.INFO_IN06, uniqueId: strUniqueId, cpId: strCPId, message: "", logFlag: true, isDebugEnabled: self.boolDebugYN)
@@ -702,84 +718,122 @@ extension IoTConnectManager {
         var dictForEdgeRuleData = [String:Any]()
         
         if arrData?.count ?? 0 > 1{
+//            print("contains child device")
             var arrDictValidData = [[String:Any]]()
             var arrDictInValidData = [[String:Any]]()
-            let arrAtt = IoTConnectManager.sharedInstance.attributes
-
+//            let arrAtt = IoTConnectManager.sharedInstance.attributes
+//            print("att \(String(describing: arrAtt?.att?.count))")
+            
             for i in 0...(arrData?.count ?? 0)-1{
                 if let dictValD = arrData?[i][Dictkeys.dKey] as? [String:Any]{
                     dictValD.forEach({ (dictkey:String,val:Any) in
-
-                        for j in 0...(arrAtt?.att?.count ?? 0)-1{
+//                        print("key_val gateway \(dictkey) \(val) i\(i)")
+                            
+                        for j in 0...(IoTConnectManager.sharedInstance.arrAttForValidation?.att?.count ?? 0)-1{
                             if let valDict = val as? [String:Any]{
                                 for (valDictKey,dictValue) in valDict{
+                                    //                                    print("valDictKey \(valDictKey) dictValue \(dictValue) dVal \(String(describing: arrAtt?.att?[j].d))")
                                     if dictValue is String{
-                                        var arrFilterD = arrAtt?.att?[j].d?.filter({$0.ln == valDictKey})
-                                        if arrFilterD?.count ?? 0 > 0{
-
+                                        //                                        var arrFilterD = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?.filter({$0.ln == valDictKey})
+                                        
+                                        let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?.firstIndex(where: {$0.ln == valDictKey})
+                                        
+                                        if  firstIndexVal != nil{
+                                            //                                        if arrFilterD?.count ?? 0 > 0{
+                                            //                                            print("arrFilterD gateway \(String(describing: arrFilterD))")
                                             var isValidData = skipValidation
-                                            if !skipValidation{
-                                                    isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
-                                            }
-                                            if isValidData{
-                                                if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
-                                                    arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
-                                                    
-                                                    if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
-                                                        createResponseForEdgeRuleDeviceTelemetryData(dict: [dictkey:[valDictKey:dictValue]])
-                                                    }
+                                            
+                                            let val = dictValue as! String
+                                            
+                                            if !val.isEmpty{
+                                                
+                                                if !skipValidation{
+                                                    //                                                    isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+                                                    isValidData = checkisValValid(val: dictValue as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?[firstIndexVal ?? 0].dv )
+                                                   
                                                 }
-                                                if arrDictValidData.count == 0{
-                                                    arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
-                                                    )
-                                                    
-                                                }else{
-                                                    if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
-                                                        var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
-                                                        let attDict = dVal?[dictkey] as? [String:Any]
-
-                                                        let newDict = [valDictKey:dictValue]
-                                                        if attDict == nil{
-                                                            dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
-                                                        }else{
-                                                            dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                                return current
-                                                            })
+                                                if isValidData{
+                                                    if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
+                                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
+                                                        
+                                                        if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
+                                                            createResponseForEdgeRuleDeviceTelemetryData(dict: [dictkey:[valDictKey:dictValue]])
                                                         }
-                                                        arrDictValidData[index][Dictkeys.dKey]  = dVal
-                                                    }else{
+                                                    }
+                                                    if arrDictValidData.count == 0{
                                                         arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
                                                         )
-                                                    }
-                                                }
-                                            }else{
-                                                if arrDictInValidData.count == 0{
-                                                    arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
-                                                                              
-                                                    )
-                                                }else{
-                                                    if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
-                                                        var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
-                                                        let attDict = dVal?[dictkey] as? [String:Any]
-                                                        
-                                                        let newDict = [valDictKey:dictValue]
-                                                        if attDict == nil{
-                                                            dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
-                                                        }else{
-                                                            dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                                return current
-                                                            })
-                                                        }
-                                                       
-                                                        arrDictInValidData[index][Dictkeys.dKey]  = dVal
                                                         
                                                     }else{
-                                                        arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
-                                                        )
+                                                        if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+                                                            var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
+                                                            let attDict = dVal?[dictkey] as? [String:Any]
+                                                            //                                                        print("attDict \(String(describing: attDict))")
+                                                            let newDict = [valDictKey:dictValue]
+                                                            if attDict == nil{
+                                                                dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
+                                                            }else{
+                                                                dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
+                                                                    return current
+                                                                })
+                                                            }
+                                                            arrDictValidData[index][Dictkeys.dKey]  = dVal
+                                                            //                                                        print("arrDictValidData \(arrDictValidData)")
+                                                        }else{
+                                                            arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+                                                            )
+                                                            //                                                        print("arrDictValidData \(arrDictValidData)")
+                                                        }
+                                                    }
+                                                }else{
+                                                    //                                            dict = dictInValidData
+                                                    var isEdgeValidForFaulty = false
+                                                    
+                                                    if boolEdgeDevice == 1{
+                                                        isEdgeValidForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?[firstIndexVal ?? 0].fltDataTime)
+                                                        
+                                                    }else{
+                                                        isEdgeValidForFaulty = true
+                                                    }
+                                                    
+                                                    if isEdgeValidForFaulty == true{
+                                                        
+                                                        IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?[firstIndexVal ?? 0].fltDataTime = Date()
+                                                        
+                                                        print("New faulty data \(IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?[firstIndexVal ?? 0]) \(Date())")
+                                                        
+                                                        if arrDictInValidData.count == 0{
+                                                            arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+                                                                                      
+                                                            )
+                                                            //                                                    print("arrDictInValidData \(arrDictInValidData)")
+                                                        }else{
+                                                            if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+                                                                var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
+                                                                let attDict = dVal?[dictkey] as? [String:Any]
+                                                                
+                                                                let newDict = [valDictKey:dictValue]
+                                                                if attDict == nil{
+                                                                    dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
+                                                                }else{
+                                                                    dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
+                                                                        return current
+                                                                    })
+                                                                }
+                                                                
+                                                                arrDictInValidData[index][Dictkeys.dKey]  = dVal
+                                                                //                                                        print("arrDictInValidData \(arrDictInValidData)")
+                                                                
+                                                            }else{
+                                                                arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+                                                                )
+                                                                //                                                        print("arrDictInValidData \(arrDictInValidData)")
+                                                            }
+                                                        }
                                                     }
                                                 }
+                                                //                                                arrFilterD?.removeAll()
                                             }
-                                            arrFilterD?.removeAll()
                                         }
                                     }else{
                                         print(Log.Errors.ERR_InValidValue.rawValue)
@@ -788,50 +842,78 @@ extension IoTConnectManager {
                                 }
                             }else{
                                 if val is String{
-                                    let arrFilterD = arrAtt?.att?[j].d?.filter({$0.ln == dictkey})
-                                    if arrFilterD?.count ?? 0 > 0{
+//                                    let arrFilterD = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?.filter({$0.ln == dictkey})
+                                    
+                                    let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?.firstIndex(where: {$0.ln == dictkey})
+                                    
+                                    if firstIndexVal != nil{
+                                        //                                    if arrFilterD?.count ?? 0 > 0{
+                                        //                                print("arrFilterD \(arrFilterD)")
+                                        //                                    isDataFound = true
                                         var isValidData = skipValidation
                                         
-                                        if !skipValidation{
-                                            isValidData = checkisValValid(val: val as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
-                                        }
-                                        if isValidData{
-                                            if boolEdgeDevice == 1, let _ = Double(val as? String ?? ""){
-                                                arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:val],id: arrData?[i][Dictkeys.idkey] as? String,tg: arrData?[i][Dictkeys.tagkey] as? String,dt: arrData?[0][Dictkeys.datekey] as? String ?? "")
+                                        let value = val as! String
+                                        var isEdgeValidForFaulty = false
+                                        
+                                        if !value.isEmpty{
+                                            if !skipValidation{
+                                                isValidData = checkisValValid(val: val as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?[firstIndexVal ?? 0].dv)
+                                            }
+                                            if isValidData{
+                                                //                                        dictValidData.append(anotherDict: [dictkey:val])
                                                 
-                                                if edgeRules != nil,!(val as? String ?? "").isEmpty{
-                                                    createResponseForEdgeRuleDeviceTelemetryData(dict:[dictkey:val])
+                                                if boolEdgeDevice == 1, let _ = Double(val as? String ?? ""){
+                                                    arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:val],id: arrData?[i][Dictkeys.idkey] as? String,tg: arrData?[i][Dictkeys.tagkey] as? String,dt: arrData?[0][Dictkeys.datekey] as? String ?? "")
+                                                    
+                                                    if edgeRules != nil,!(val as? String ?? "").isEmpty{
+                                                        createResponseForEdgeRuleDeviceTelemetryData(dict:[dictkey:val])
+                                                    }
+                                                    
                                                 }
-                                                
-                                            }
-                                            //issue same id key
-                                            if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
-                                                var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
-                                                let newDict = [dictkey:val]
-                                                dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                    return current
-                                                })
-                                                arrDictValidData[index][Dictkeys.dKey]  = dVal
+                                                //issue same id key
+                                                if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+                                                    var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
+                                                    let newDict = [dictkey:val]
+                                                    dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
+                                                        return current
+                                                    })
+                                                    arrDictValidData[index][Dictkeys.dKey]  = dVal
+                                                }else{
+                                                    arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]]
+                                                                            
+                                                    )
+                                                }
+                                                //                                            print("arrDictValidData gateway \(arrDictValidData)")
                                             }else{
-                                                arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]]
-                                                                        
-                                                )
+                                                if boolEdgeDevice == 1{
+                                                    isEdgeValidForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?[firstIndexVal ?? 0].fltDataTime)
+                                                    
+                                                    
+                                                }else{
+                                                    isEdgeValidForFaulty = true
+                                                }
+                                                if isEdgeValidForFaulty{
+                                                    
+                                                    IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?[firstIndexVal ?? 0].fltDataTime = Date()
+                                                    
+                                                    print("New faulty data \( IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?[firstIndexVal ?? 0]) \(Date())")
+                                                    
+                                                    
+                                                    if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.tagkey] as? String  == arrData?[i][Dictkeys.tagkey] as? String}) {
+                                                        var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
+                                                        
+                                                        let newDict = [dictkey:val]
+                                                        dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
+                                                            return current
+                                                        })
+                                                        arrDictInValidData[index][Dictkeys.dKey]  = dVal
+                                                    }else{
+                                                        arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]])
+                                                    }
+                                                }
                                             }
-
-                                        }else{
-                                            if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.tagkey] as? String  == arrData?[i][Dictkeys.tagkey] as? String}) {
-                                                var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
-
-                                                let newDict = [dictkey:val]
-                                                dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
-                                                    return current
-                                                })
-                                                arrDictInValidData[index][Dictkeys.dKey]  = dVal
-                                            }else{
-                                                arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]])
-                                            }
+                                            //                                    break
                                         }
-    //                                    break
                                     }
                                 }else{
                                     print(Log.Errors.ERR_InValidValue.rawValue)
@@ -848,75 +930,177 @@ extension IoTConnectManager {
                                                       ] ?? "",Dictkeys.dKey:arrDictValidData]
                 
                 if boolEdgeDevice == 1{
+//                    print("dictValidData edgeDevice \(dictValidData)")
                     sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0][Dictkeys.idkey] as? String ?? "", tag: arrData?[0][Dictkeys.tagkey] as? String ?? "")
                 }else{
                     let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
                     prevSendDataTime = Date()
                     objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
                 }
+//                print("final dictValidData gateway \(dictValidData)")
             }
             
             if !arrDictInValidData.isEmpty{
                 dictInValidData = [Dictkeys.datekey:data[Dictkeys.datekey] ?? "",Dictkeys.dKey:arrDictInValidData]
                 
-                if boolEdgeDevice == 1{
-                    
-                }else{
+//                if boolEdgeDevice == 1{
+//
+//                }else{
                     let topic = dictSyncResponse[keyPath:"p.topics.flt"] as! String
                     prevSendDataTime = Date()
                     objMQTTClient.publishTopicOnMQTT(withData: dictInValidData, topic: topic)
-                }
+//                    print("final dictInValidData gateway \(dictInValidData)")
+//                }
             }
         }else{
+//            print("count is 1")
             let dictValD = arrData?[0][Dictkeys.dKey] as? [String:Any]
             
-            if dictValD == nil{
+            if dictValD == nil || ((dictValD?.isEmpty) == true){
                 print(Log.Errors.ERR_InValidValue.rawValue)
             }else{
                 dictValD?.forEach {
+//                    print("key_val \($0.key) \($0.value)")
                     let dictValDKey = $0.key
                     let value = $0.value
-                    let arrAtt = IoTConnectManager.sharedInstance.attributes
-                    for i in 0...(arrAtt?.att?.count ?? 0)-1{
-                        if let valDict = value as? [String:Any]{
-                            for (valDictKey,dictValue) in valDict{
-                                if dictValue is String{
-                                    var arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == valDictKey})
-                                    if arrFilterD?.count ?? 0 > 0{
-                                        var dict = [String:Any]()
-                                        var isValidData = skipValidation
-                                        if !skipValidation{
-                                            isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
-                                        }
+//                    let arrAtt = IoTConnectManager.sharedInstance.attributes
+//                    print("att \(String(describing: arrAtt?.att?.count))")
+//                    print("att \(String(describing: arrAtt?.att?.count))")
+                    
+                    if IoTConnectManager.sharedInstance.arrAttForValidation?.att?.count ?? 0 > 0{
+                        for i in 0...(IoTConnectManager.sharedInstance.arrAttForValidation?.att?.count ?? 0)-1{
+                            //print("arrAtt?.att \(i)")
+                            if let valDict = value as? [String:Any]{
+                                for (valDictKey,dictValue) in valDict{
+                                    if dictValue is String{
+//                                        var arrFilterD = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.filter({$0.ln == valDictKey})
+
+                                        let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.firstIndex(where: {$0.ln == valDictKey})
                                         
-                                        if isValidData{
-                                            dict = dictValidData
-                                        }else{
-                                            dict = dictInValidData
-                                        }
-                                        
-                                        if dict[$0.key] != nil{
-                                            let val = dict[$0.key] as? [String:Any]
-                                            let newVal = [valDictKey:dictValue] as? [String:Any]
-                                            dict[$0.key] = val?.merging(newVal ?? [:], uniquingKeysWith: { current, _ in
-                                                return current
-                                            })
-                                        }else{
-                                            dict.updateValue([valDictKey:dictValue], forKey:$0.key)
-                                        }
-                                        arrFilterD?.removeAll()
-                                        if isValidData{
-                                            dictValidData = dict
+                                        if firstIndexVal != nil{
+//                                        if arrFilterD?.count ?? 0 > 0{
+                                            //                                        print("arrFilterD \(String(describing: arrFilterD))")
+                                            var dict = [String:Any]()
+                                            var isValidData = skipValidation
                                             
-                                            if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
-                                                arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
-                                                
-                                                if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
-                                                    createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:[valDictKey:dictValue]])
+                                            var value = dictValue as! String
+                                            
+                                            if !value.isEmpty{
+                                                if !skipValidation{
+//                                                    isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+                                                    isValidData = checkisValValid(val: dictValue as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dv)
                                                 }
+                                                
+                                                if isValidData{
+                                                    dict = dictValidData
+                                                }else{
+                                                    dict = dictInValidData
+                                                }
+                                                
+                                                if dict[$0.key] != nil{
+                                                    let val = dict[$0.key] as? [String:Any]
+                                                    let newVal = [valDictKey:dictValue] as? [String:Any]
+                                                    dict[$0.key] = val?.merging(newVal ?? [:], uniquingKeysWith: { current, _ in
+                                                        return current
+                                                    })
+                                                    //                                            print("dictValidData \(valDictKey) \(dictValidData)")
+                                                }else{
+                                                    dict.updateValue([valDictKey:dictValue], forKey:$0.key)
+                                                }
+//                                                arrFilterD?.removeAll()
+                                                if isValidData{
+                                                    dictValidData = dict
+                                                    
+                                                    if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
+                                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
+                                                        
+                                                        if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
+                                                            createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:[valDictKey:dictValue]])
+                                                        }
+                                                    }
+                                                }else{
+                                                    var isEdgeValidForFaulty = false
+                                                    if boolEdgeDevice == 1{
+                                                        isEdgeValidForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime)
+                                                    }else{
+                                                        isEdgeValidForFaulty = true
+                                                    }
+                                                    
+                                                    if  isEdgeValidForFaulty == true{
+                                                        dictInValidData = dict
+                                                        
+                                                        IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime = Date()
+                                                        
+                                                        print("New fauty data \(IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0])")
+                                                    }
+                                                }
+                                                //                                        print("dictValidData \(valDictKey) \(dictValidData)")
+                                                //                                        print("dictInValidData \(valDictKey) \(dictInValidData)")
                                             }
-                                        }else{
-                                            dictInValidData = dict
+                                        }
+                                    }else{
+                                        print(Log.Errors.ERR_InValidValue.rawValue)
+                                        continue
+                                    }
+                                }
+                            }else{
+                                if value is String{
+//                                    let arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == dictValDKey})
+                                    
+                                    let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.firstIndex(where: {$0.ln == dictValDKey})
+                                    
+//                                    if arrFilterD?.count ?? 0 > 0{
+                                        if firstIndexVal != nil{
+                                        
+                                        var isValidData = skipValidation
+                                        
+                                        if !(value as! String).isEmpty{
+                                            if !skipValidation,value is String{
+//                                                isValidData = checkisValValid(val: value as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+                                                isValidData = checkisValValid(val: value as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dv)
+                                            }
+                                            
+                                            if isValidData{
+                                                dictValidData.append(anotherDict: [$0.key:$0.value])
+                                                //                                        print("dictValidData \(dictValidData)")
+                                                
+                                                if boolEdgeDevice == 1, let _ = Double(value as? String ?? ""){
+                                                    arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:value],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "")
+                                                    
+                                                    if edgeRules != nil{
+                                                        createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:value])
+                                                    }
+                                                }
+                                            }else{
+                                                if boolEdgeDevice == 1{
+//                                                    let faultTime = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime
+                                                    let isValiForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime)
+                                                    
+                                                    if isValiForFaulty{
+                                                      
+                                                        dictInValidData.append(anotherDict: [$0.key:$0.value])
+                                                        
+                                                        IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime = Date()
+                                                        
+                                                        print("New faulty data \(IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0])")
+                                                        
+                                                    }
+                                                    
+//                                                    var diffSinceLast = Date.seconds(faultTime ?? Date())
+                                                    
+//                                                    let diffSinceLast = Calendar.current.dateComponents([.second], from: faultTime ?? Date(), to: Date()).second
+                                                   
+//                                                    if diffSinceLast ?? 0 > 60{
+//                                                        print("Edge Device Fault data \($0.key) GT 60")
+//                                                        dictInValidData.append(anotherDict: [$0.key:$0.value])
+//                                                    }
+                                                   
+                                                }else {
+                                                    dictInValidData.append(anotherDict: [$0.key:$0.value])
+                                                }
+                                                //                                        print("dictInValidData \(dictInValidData)")
+                                            }
+                                            break
                                         }
                                     }
                                 }else{
@@ -924,37 +1108,9 @@ extension IoTConnectManager {
                                     continue
                                 }
                             }
-                        }else{
-                            if value is String{
-                                let arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == dictValDKey})
-                                if arrFilterD?.count ?? 0 > 0{
-                                    
-                                    var isValidData = skipValidation
-                                    if !skipValidation,value is String{
-                                        isValidData = checkisValValid(val: value as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
-                                    }
-                                    
-                                    if isValidData{
-                                        dictValidData.append(anotherDict: [$0.key:$0.value])
-//                                        print("dictValidData \(dictValidData)")
-                                        
-                                        if boolEdgeDevice == 1, let _ = Double(value as? String ?? ""){
-                                            arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:value],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "")
-                                            
-                                            if edgeRules != nil{
-                                                createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:value])
-                                            }
-                                        }
-                                    }else{
-                                        dictInValidData.append(anotherDict: [$0.key:$0.value])
-                                    }
-                                    break
-                                }
-                            }else{
-                                print(Log.Errors.ERR_InValidValue.rawValue)
-                                continue
-                            }
                         }
+                    }else{
+                        print(Log.Errors.ERR_InValidValue.rawValue)
                     }
                 }
             }
@@ -966,6 +1122,7 @@ extension IoTConnectManager {
                     let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
                     objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
                 }else{
+//                    print("dictValidData edgeDevice \(dictValidData)")
                     sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0][Dictkeys.idkey] as? String ?? "", tag: arrData?[0][Dictkeys.tagkey] as? String ?? "")
                 }
             }
@@ -977,11 +1134,11 @@ extension IoTConnectManager {
                                                    Dictkeys.tagkey:arrData?[0][Dictkeys.tagkey],
                                                    Dictkeys.dKey:dictInValidData]]]
                 
-                if boolEdgeDevice != 1{
+//                if boolEdgeDevice != 1{
                     prevSendDataTime = Date()
                     let topic = dictSyncResponse[keyPath:"p.topics.flt"] as! String
                     objMQTTClient.publishTopicOnMQTT(withData: dictInValidData, topic: topic)
-                }
+//                }
             }
         }
        
@@ -1143,6 +1300,1176 @@ extension IoTConnectManager {
                     dictForEdgeRuleData.append(anotherDict: [dictkey:dictVal])
                 }
             })
+//            print("dictForEdgeRuleData \(dictForEdgeRuleData)")
+        }
+    }
+    
+//    func validateData(data: [String:Any],skipValidation:Bool){
+//        let arrData = data[Dictkeys.dKey] as? [[String:Any]]
+//        var dictValidData = [String:Any]()
+//        var dictInValidData = [String:Any]()
+//        let boolEdgeDevice = dictSyncResponse[keyPath: "meta.edge"] as? Int
+//        var dictForEdgeRuleData = [String:Any]()
+//        
+//        if arrData?.count ?? 0 > 1{
+////            print("contains child device")
+//            var arrDictValidData = [[String:Any]]()
+//            var arrDictInValidData = [[String:Any]]()
+////            let arrAtt = IoTConnectManager.sharedInstance.attributes
+////            print("att \(String(describing: arrAtt?.att?.count))")
+//            
+//            for i in 0...(arrData?.count ?? 0)-1{
+//                if let dictValD = arrData?[i][Dictkeys.dKey] as? [String:Any]{
+//                    dictValD.forEach({ (dictkey:String,val:Any) in
+////                        print("key_val gateway \(dictkey) \(val) i\(i)")
+//                            
+//                        for j in 0...(IoTConnectManager.sharedInstance.arrAttForValidation?.att?.count ?? 0)-1{
+//                            if let valDict = val as? [String:Any]{
+//                                for (valDictKey,dictValue) in valDict{
+//                                    //                                    print("valDictKey \(valDictKey) dictValue \(dictValue) dVal \(String(describing: arrAtt?.att?[j].d))")
+//                                    if dictValue is String{
+//                                        //                                        var arrFilterD = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?.filter({$0.ln == valDictKey})
+//                                        
+//                                        let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.firstIndex(where: {$0.ln == valDictKey})
+//                                        
+//                                        if  firstIndexVal != nil{
+//                                            //                                        if arrFilterD?.count ?? 0 > 0{
+//                                            //                                            print("arrFilterD gateway \(String(describing: arrFilterD))")
+//                                            var isValidData = skipValidation
+//                                            
+//                                            let val = dictValue as! String
+//                                            
+//                                            if !val.isEmpty{
+//                                                
+//                                                if !skipValidation{
+//                                                    //                                                    isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+//                                                    isValidData = checkisValValid(val: dictValue as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dv )
+//                                                    //
+//                                                }
+//                                                if isValidData{
+//                                                    if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
+//                                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
+//                                                        
+//                                                        if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
+//                                                            createResponseForEdgeRuleDeviceTelemetryData(dict: [dictkey:[valDictKey:dictValue]])
+//                                                        }
+//                                                    }
+//                                                    if arrDictValidData.count == 0{
+//                                                        arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+//                                                        )
+//                                                        
+//                                                    }else{
+//                                                        if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+//                                                            var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
+//                                                            let attDict = dVal?[dictkey] as? [String:Any]
+//                                                            //                                                        print("attDict \(String(describing: attDict))")
+//                                                            let newDict = [valDictKey:dictValue]
+//                                                            if attDict == nil{
+//                                                                dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
+//                                                            }else{
+//                                                                dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                                    return current
+//                                                                })
+//                                                            }
+//                                                            arrDictValidData[index][Dictkeys.dKey]  = dVal
+//                                                            //                                                        print("arrDictValidData \(arrDictValidData)")
+//                                                        }else{
+//                                                            arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+//                                                            )
+//                                                            //                                                        print("arrDictValidData \(arrDictValidData)")
+//                                                        }
+//                                                    }
+//                                                }else{
+//                                                    //                                            dict = dictInValidData
+//                                                    var isEdgeValidForFaulty = false
+//                                                    
+//                                                    if boolEdgeDevice == 1{
+//                                                        isEdgeValidForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime)
+//                                                        
+//                                                    }else{
+//                                                        isEdgeValidForFaulty = true
+//                                                    }
+//                                                    
+//                                                    if isEdgeValidForFaulty == true{
+//                                                        
+//                                                        IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime = Date()
+//                                                        
+//                                                        print("New faulty data \(IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0]) \(Date())")
+//                                                        
+//                                                        if arrDictInValidData.count == 0{
+//                                                            arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+//                                                                                      
+//                                                            )
+//                                                            //                                                    print("arrDictInValidData \(arrDictInValidData)")
+//                                                        }else{
+//                                                            if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+//                                                                var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
+//                                                                let attDict = dVal?[dictkey] as? [String:Any]
+//                                                                
+//                                                                let newDict = [valDictKey:dictValue]
+//                                                                if attDict == nil{
+//                                                                    dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
+//                                                                }else{
+//                                                                    dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                                        return current
+//                                                                    })
+//                                                                }
+//                                                                
+//                                                                arrDictInValidData[index][Dictkeys.dKey]  = dVal
+//                                                                //                                                        print("arrDictInValidData \(arrDictInValidData)")
+//                                                                
+//                                                            }else{
+//                                                                arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+//                                                                )
+//                                                                //                                                        print("arrDictInValidData \(arrDictInValidData)")
+//                                                            }
+//                                                        }
+//                                                    }
+//                                                }
+//                                                //                                                arrFilterD?.removeAll()
+//                                            }
+//                                        }
+//                                    }else{
+//                                        print(Log.Errors.ERR_InValidValue.rawValue)
+//                                        continue
+//                                    }
+//                                }
+//                            }else{
+//                                if val is String{
+////                                    let arrFilterD = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[j].d?.filter({$0.ln == dictkey})
+//                                    
+//                                    let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.firstIndex(where: {$0.ln == dictkey})
+//                                    
+//                                    if firstIndexVal != nil{
+//                                        //                                    if arrFilterD?.count ?? 0 > 0{
+//                                        //                                print("arrFilterD \(arrFilterD)")
+//                                        //                                    isDataFound = true
+//                                        var isValidData = skipValidation
+//                                        
+//                                        let value = val as! String
+//                                        var isEdgeValidForFaulty = false
+//                                        
+//                                        if !value.isEmpty{
+//                                            if !skipValidation{
+//                                                isValidData = checkisValValid(val: val as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dv)
+//                                            }
+//                                            if isValidData{
+//                                                //                                        dictValidData.append(anotherDict: [dictkey:val])
+//                                                
+//                                                if boolEdgeDevice == 1, let _ = Double(val as? String ?? ""){
+//                                                    arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:val],id: arrData?[i][Dictkeys.idkey] as? String,tg: arrData?[i][Dictkeys.tagkey] as? String,dt: arrData?[0][Dictkeys.datekey] as? String ?? "")
+//                                                    
+//                                                    if edgeRules != nil,!(val as? String ?? "").isEmpty{
+//                                                        createResponseForEdgeRuleDeviceTelemetryData(dict:[dictkey:val])
+//                                                    }
+//                                                    
+//                                                }
+//                                                //issue same id key
+//                                                if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+//                                                    var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
+//                                                    let newDict = [dictkey:val]
+//                                                    dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                        return current
+//                                                    })
+//                                                    arrDictValidData[index][Dictkeys.dKey]  = dVal
+//                                                }else{
+//                                                    arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]]
+//                                                                            
+//                                                    )
+//                                                }
+//                                                //                                            print("arrDictValidData gateway \(arrDictValidData)")
+//                                            }else{
+//                                                if boolEdgeDevice == 1{
+//                                                    isEdgeValidForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime)
+//                                                    
+//                                                    
+//                                                }else{
+//                                                    isEdgeValidForFaulty = true
+//                                                }
+//                                                if isEdgeValidForFaulty{
+//                                                    
+//                                                    IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime = Date()
+//                                                    
+//                                                    print("New faulty data \( IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0]) \(Date())")
+//                                                    
+//                                                    
+//                                                    if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.tagkey] as? String  == arrData?[i][Dictkeys.tagkey] as? String}) {
+//                                                        var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
+//                                                        
+//                                                        let newDict = [dictkey:val]
+//                                                        dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                            return current
+//                                                        })
+//                                                        arrDictInValidData[index][Dictkeys.dKey]  = dVal
+//                                                    }else{
+//                                                        arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]])
+//                                                    }
+//                                                }
+//                                            }
+//                                            //                                    break
+//                                        }
+//                                    }
+//                                }else{
+//                                    print(Log.Errors.ERR_InValidValue.rawValue)
+//                                    continue
+//                                }
+//                            }
+//                        }
+//                    })
+//                }
+//            }
+//            
+//            if !arrDictValidData.isEmpty{
+//                dictValidData = [Dictkeys.datekey:data[Dictkeys.datekey
+//                                                      ] ?? "",Dictkeys.dKey:arrDictValidData]
+//                
+//                if boolEdgeDevice == 1{
+////                    print("dictValidData edgeDevice \(dictValidData)")
+//                    sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0][Dictkeys.idkey] as? String ?? "", tag: arrData?[0][Dictkeys.tagkey] as? String ?? "")
+//                }else{
+//                    let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
+//                    prevSendDataTime = Date()
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
+//                }
+//               
+////                print("final dictValidData gateway \(dictValidData)")
+//            }
+//            
+//            if !arrDictInValidData.isEmpty{
+//                dictInValidData = [Dictkeys.datekey:data[Dictkeys.datekey] ?? "",Dictkeys.dKey:arrDictInValidData]
+//                
+////                if boolEdgeDevice == 1{
+////
+////                }else{
+//                    let topic = dictSyncResponse[keyPath:"p.topics.flt"] as! String
+//                    prevSendDataTime = Date()
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictInValidData, topic: topic)
+////                    print("final dictInValidData gateway \(dictInValidData)")
+////                }
+//            }
+//        }else{
+////            print("count is 1")
+//            let dictValD = arrData?[0][Dictkeys.dKey] as? [String:Any]
+//            
+//            if dictValD == nil || ((dictValD?.isEmpty) == true){
+//                print(Log.Errors.ERR_InValidValue.rawValue)
+//            }else{
+//                dictValD?.forEach {
+////                    print("key_val \($0.key) \($0.value)")
+//                    let dictValDKey = $0.key
+//                    let value = $0.value
+////                    let arrAtt = IoTConnectManager.sharedInstance.attributes
+////                    print("att \(String(describing: arrAtt?.att?.count))")
+////                    print("att \(String(describing: arrAtt?.att?.count))")
+//                    
+//                    if IoTConnectManager.sharedInstance.arrAttForValidation?.att?.count ?? 0 > 0{
+//                        for i in 0...(IoTConnectManager.sharedInstance.arrAttForValidation?.att?.count ?? 0)-1{
+//                            //print("arrAtt?.att \(i)")
+//                            if let valDict = value as? [String:Any]{
+//                                for (valDictKey,dictValue) in valDict{
+//                                    if dictValue is String{
+////                                        var arrFilterD = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.filter({$0.ln == valDictKey})
+//
+//                                        let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.firstIndex(where: {$0.ln == valDictKey})
+//                                        
+//                                        if firstIndexVal != nil{
+////                                        if arrFilterD?.count ?? 0 > 0{
+//                                            //                                        print("arrFilterD \(String(describing: arrFilterD))")
+//                                            var dict = [String:Any]()
+//                                            var isValidData = skipValidation
+//                                            
+//                                            var value = dictValue as! String
+//                                            
+//                                            if !value.isEmpty{
+//                                                if !skipValidation{
+////                                                    isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+//                                                    isValidData = checkisValValid(val: dictValue as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dv)
+//                                                    //IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dt
+//                                                }
+//                                                
+//                                                if isValidData{
+//                                                    dict = dictValidData
+//                                                }else{
+//                                                    dict = dictInValidData
+//                                                }
+//                                                
+//                                                if dict[$0.key] != nil{
+//                                                    let val = dict[$0.key] as? [String:Any]
+//                                                    let newVal = [valDictKey:dictValue] as? [String:Any]
+//                                                    dict[$0.key] = val?.merging(newVal ?? [:], uniquingKeysWith: { current, _ in
+//                                                        return current
+//                                                    })
+//                                                    //                                            print("dictValidData \(valDictKey) \(dictValidData)")
+//                                                }else{
+//                                                    dict.updateValue([valDictKey:dictValue], forKey:$0.key)
+//                                                }
+////                                                arrFilterD?.removeAll()
+//                                                if isValidData{
+//                                                    dictValidData = dict
+//                                                    
+//                                                    if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
+//                                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
+//                                                        
+//                                                        if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
+//                                                            createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:[valDictKey:dictValue]])
+//                                                        }
+//                                                    }
+//                                                }else{
+//                                                    var isEdgeValidForFaulty = false
+//                                                    if boolEdgeDevice == 1{
+//                                                        isEdgeValidForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime)
+//                                                        
+//                                                       
+//                                                    }
+//                                                    
+//                                                    if  isEdgeValidForFaulty == true{
+//                                                        dictInValidData = dict
+//                                                        
+//                                                        IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime = Date()
+//                                                        
+//                                                        print("New fauty data \(IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0])")
+//                                                    }
+//                                                }
+//                                                //                                        print("dictValidData \(valDictKey) \(dictValidData)")
+//                                                //                                        print("dictInValidData \(valDictKey) \(dictInValidData)")
+//                                            }
+//                                        }
+//                                    }else{
+//                                        print(Log.Errors.ERR_InValidValue.rawValue)
+//                                        continue
+//                                    }
+//                                }
+//                            }else{
+//                                if value is String{
+////                                    let arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == dictValDKey})
+//                                    
+//                                    let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.firstIndex(where: {$0.ln == dictValDKey})
+//                                    
+////                                    if arrFilterD?.count ?? 0 > 0{
+//                                        if firstIndexVal != nil{
+//                                        
+//                                        var isValidData = skipValidation
+//                                        
+//                                        if !(value as! String).isEmpty{
+//                                            if !skipValidation,value is String{
+////                                                isValidData = checkisValValid(val: value as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+//                                                isValidData = checkisValValid(val: value as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dv)
+//                                            }
+//                                            
+//                                            if isValidData{
+//                                                dictValidData.append(anotherDict: [$0.key:$0.value])
+//                                                //                                        print("dictValidData \(dictValidData)")
+//                                                
+//                                                if boolEdgeDevice == 1, let _ = Double(value as? String ?? ""){
+//                                                    arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:value],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "")
+//                                                    
+//                                                    if edgeRules != nil{
+//                                                        createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:value])
+//                                                    }
+//                                                }
+//                                            }else{
+//                                                if boolEdgeDevice == 1{
+////                                                    let faultTime = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime
+//                                                    let isValiForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime)
+//                                                    
+//                                                    if isValiForFaulty{
+//                                                      
+//                                                        dictInValidData.append(anotherDict: [$0.key:$0.value])
+//                                                        
+//                                                        IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime = Date()
+//                                                        
+//                                                        print("New faulty data \(IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0])")
+//                                                        
+//                                                    }
+//                                                    
+////                                                    var diffSinceLast = Date.seconds(faultTime ?? Date())
+//                                                    
+////                                                    let diffSinceLast = Calendar.current.dateComponents([.second], from: faultTime ?? Date(), to: Date()).second
+//                                                   
+////                                                    if diffSinceLast ?? 0 > 60{
+////                                                        print("Edge Device Fault data \($0.key) GT 60")
+////                                                        dictInValidData.append(anotherDict: [$0.key:$0.value])
+////                                                    }
+//                                                   
+//                                                }else {
+//                                                    dictInValidData.append(anotherDict: [$0.key:$0.value])
+//                                                }
+//                                                //                                        print("dictInValidData \(dictInValidData)")
+//                                            }
+//                                            break
+//                                        }
+//                                    }
+//                                }else{
+//                                    print(Log.Errors.ERR_InValidValue.rawValue)
+//                                    continue
+//                                }
+//                            }
+//                        }
+//                    }else{
+//                        print(Log.Errors.ERR_InValidValue.rawValue)
+//                    }
+//                }
+//            }
+//
+//            if !dictValidData.isEmpty{
+//                if boolEdgeDevice != 1{
+//                    dictValidData = [Dictkeys.datekey:data[Dictkeys.datekey] ?? "",Dictkeys.dKey:[[Dictkeys.datekey:arrData?[0][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[0][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[0][Dictkeys.tagkey] ?? "",Dictkeys.dKey:dictValidData]]]
+//                    prevSendDataTime = Date()
+//                    let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
+//                }else{
+////                    print("dictValidData edgeDevice \(dictValidData)")
+//                    sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0][Dictkeys.idkey] as? String ?? "", tag: arrData?[0][Dictkeys.tagkey] as? String ?? "")
+//                }
+//            }
+//            
+//            if !dictInValidData.isEmpty{
+//                dictInValidData = [Dictkeys.datekey:data[Dictkeys.datekey] ?? "",
+//                                   Dictkeys.dKey:[[Dictkeys.datekey:arrData?[0][Dictkeys.datekey],
+//                                                   Dictkeys.idkey:arrData?[0][Dictkeys.idkey],
+//                                                   Dictkeys.tagkey:arrData?[0][Dictkeys.tagkey],
+//                                                   Dictkeys.dKey:dictInValidData]]]
+//                
+////                if boolEdgeDevice != 1{
+//                    prevSendDataTime = Date()
+//                    let topic = dictSyncResponse[keyPath:"p.topics.flt"] as! String
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictInValidData, topic: topic)
+////                }
+//            }
+//        }
+//       
+//        func checkisValValid(val:String,dt:Int,dv:String?)-> Bool{
+//            switch dt{
+//            case SupportedDataType.intValue:
+//                if Int32(val) != nil{
+//                    if validateNumber(value: val, dv: dv, dataType: SupportedDataType.intValue) == true{
+//                        return true
+//                    }else{
+//                        return false
+//                    }
+//                }else{
+//                    if val.isEmpty && (dv == nil || dv?.isEmpty == true){
+//                        return true
+//                    }
+//                    if !val.isEmpty{
+//                        if let doubleVal = Double(val){
+//                            let roundVal = Int32(round(doubleVal))
+//                            if validateNumber(value: "\(roundVal)", dv: dv, dataType: SupportedDataType.intValue) == true{
+//                                return true
+//                            }else{
+//                                return false
+//                            }
+//                        }
+//                    }
+//                    return false
+//                }
+//                
+//            case SupportedDataType.boolValue:
+//                let isValid = self.validateBoolValue(value: val, dv: dv)
+//                if isValid{
+//                    return true
+//                }else{
+//                    return false
+//                }
+//            case SupportedDataType.strVal:
+//                //remaining
+//                let isValid = self.validateNumber(value: val, dv: dv, dataType: SupportedDataType.decimalVal)
+//                if isValid{
+//                    return true
+//                }else{
+//                    return false
+//                }
+//            case SupportedDataType.bitValue:
+//                let isValid = self.validateBit(value: val, dv: dv)
+//                
+//                if isValid{
+//                    return true
+//                }else{
+//                    return false
+//                }
+//                
+//            case SupportedDataType.dateValue:
+//                let isValid = validateDate(value: val, dateFormat: "YYYY-MM-dd", dv: dv)
+//                
+//                if (isValid){
+//                    return true
+//                }else{
+//                    return false
+//                }
+//                
+//            case SupportedDataType.dateTimeVal:
+//                let isValid = validateDate(value: val, dateFormat:"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" , dv: dv)
+//                if isValid{
+//                    return true
+//                }else{
+//                    return false
+//                }
+//                
+//            case SupportedDataType.decimalVal:
+//                if let floatVal = Float(val){
+//                    //range is -7.9*1028
+//                    if floatVal.isLessThanOrEqualTo(8121.2) &&
+//                        floatVal >= -8121.2
+//                    {
+//                        if validateNumber(value: val, dv: dv, dataType: SupportedDataType.decimalVal) == true{
+//                            return true
+//                        }else{
+//                            return false
+//                        }
+//                    }else{
+//                        return false
+//                    }
+//                }
+//                if val.isEmpty && (dv == nil || dv?.isEmpty == true){
+//                    return true
+//                }
+//                return false
+//                
+//            case SupportedDataType.latLongVal:
+//                //[10,8] [11,8]
+//                if validateLatLong(value: val,dv: dv){
+//                    return true
+//                }
+//                
+//                return false
+//                
+//            case SupportedDataType.longVal:
+//                if Int64(val) != nil{
+//                    if validateNumber(value: val, dv: dv, dataType: SupportedDataType.longVal) == true{
+//                        return true
+//                    }else{
+//                        return false
+//                    }
+//                }else{
+//                    if val.isEmpty && (dv == nil || dv?.isEmpty == true){
+//                        return true
+//                    }
+//                    if !val.isEmpty{
+//                        if let doubleVal = Double(val){
+//                            let roundVal = Int64(round(doubleVal))
+//                            if validateNumber(value: "\(roundVal)", dv: dv, dataType: SupportedDataType.intValue) == true{
+//                                return true
+//                            }else{
+//                                return false
+//                            }
+//                        }
+//                    }
+//                    return false
+//                }
+//                
+//            case SupportedDataType.timeVal:
+//                if dv == nil || dv?.isEmpty == true{
+//                    if val.isEmpty == true{
+//                        return true
+//                    }
+//                }
+//                let arrVal = val.components(separatedBy: ":")
+//                if arrVal.count >= 3{
+//                    let isValid = validateDate(value: val, dateFormat: "HH:mm:ss", dv: dv)
+//                    
+//                    if isValid{
+//                        return true
+//                    }else{
+//                        return false
+//                    }
+//                }else
+//                {
+//                    return false
+//                }
+//                
+//            default:
+//                return false
+//            }
+//        }
+//        
+//        func createResponseForEdgeRuleDeviceTelemetryData(dict:[String:Any]){
+//            dict.forEach({ (dictkey:String,dictVal:Any) in
+//                if let valDict = dictVal as? [String:Any]{
+//                        if dictForEdgeRuleData[dictkey] != nil{
+//                            var dict = dictForEdgeRuleData[dictkey] as? [String:Any]
+//                            dict?.append(anotherDict:valDict)
+//                            dictForEdgeRuleData[dictkey] = dict
+//                        }else{
+//                            dictForEdgeRuleData.append(anotherDict: dict)
+//                        }
+//                }else{
+//                    dictForEdgeRuleData.append(anotherDict: [dictkey:dictVal])
+//                }
+//            })
+////            print("dictForEdgeRuleData \(dictForEdgeRuleData)")
+//        }
+//    }
+    
+//    func validateData(data: [String:Any],skipValidation:Bool){
+//        let arrData = data[Dictkeys.dKey] as? [[String:Any]]
+//        var dictValidData = [String:Any]()
+//        var dictInValidData = [String:Any]()
+//        let boolEdgeDevice = dictSyncResponse[keyPath: "meta.edge"] as? Int
+//        var dictForEdgeRuleData = [String:Any]()
+//        
+//        if arrData?.count ?? 0 > 1{
+//            //contains child device
+//            var arrDictValidData = [[String:Any]]()
+//            var arrDictInValidData = [[String:Any]]()
+////            let arrAtt = IoTConnectManager.sharedInstance.attributes
+//            
+//            for i in 0...(arrData?.count ?? 0)-1{
+//                if let dictValD = arrData?[i][Dictkeys.dKey] as? [String:Any]{
+//                    dictValD.forEach({ (dictkey:String,val:Any) in
+//                        
+////                        for j in 0...(arrAtt?.att?.count ?? 0)-1{
+//                        for j in 0...(IoTConnectManager.sharedInstance.arrAttForValidation?.att?.count ?? 0)-1{
+//                            if let valDict = val as? [String:Any]{
+//                                for (valDictKey,dictValue) in valDict{
+//                                    if dictValue is String{
+//                                        //                                        var arrFilterD = arrAtt?.att?[j].d?.filter({$0.ln == valDictKey})
+//                                        //                                        if arrFilterD?.count ?? 0 > 0{
+//                                        let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.firstIndex(where: {$0.ln == valDictKey})
+//                                        
+//                                        if  firstIndexVal != nil{
+//                                            
+//                                            var isValidData = skipValidation
+//                                            
+//                                            if !(dictValue as! String).isEmpty{
+//                                                
+//                                                if !skipValidation{
+//                                                    //                                                    isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+//                                                    isValidData = checkisValValid(val: dictValue as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dv )
+//                                                }
+//                                                if isValidData{
+//                                                    if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
+//                                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
+//                                                        
+//                                                        if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
+//                                                            createResponseForEdgeRuleDeviceTelemetryData(dict: [dictkey:[valDictKey:dictValue]])
+//                                                        }
+//                                                    }
+//                                                    if arrDictValidData.count == 0{
+//                                                        arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+//                                                        )
+//                                                        
+//                                                    }else{
+//                                                        if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+//                                                            var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
+//                                                            let attDict = dVal?[dictkey] as? [String:Any]
+//                                                            
+//                                                            let newDict = [valDictKey:dictValue]
+//                                                            if attDict == nil{
+//                                                                dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
+//                                                            }else{
+//                                                                dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                                    return current
+//                                                                })
+//                                                            }
+//                                                            arrDictValidData[index][Dictkeys.dKey]  = dVal
+//                                                        }else{
+//                                                            arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+//                                                            )
+//                                                        }
+//                                                    }
+//                                                }else{
+//                                                    var isEdgeValidForFaulty = false
+//                                                    
+//                                                    if boolEdgeDevice == 1{
+//                                                        isEdgeValidForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime)
+//                                                    }else{
+//                                                        isEdgeValidForFaulty = true
+//                                                    }
+//                                                    
+//                                                    if isEdgeValidForFaulty == true{
+//                                                        IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime = Date()
+//
+//                                                        print("New faulty data \(IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0]) \(Date())")
+//                                                        
+//                                                        if arrDictInValidData.count == 0{
+//                                                            arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+//                                                                                      
+//                                                            )
+//                                                        }else{
+//                                                            if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+//                                                                var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
+//                                                                let attDict = dVal?[dictkey] as? [String:Any]
+//                                                                
+//                                                                let newDict = [valDictKey:dictValue]
+//                                                                if attDict == nil{
+//                                                                    dVal?.append(anotherDict: [dictkey:[valDictKey:dictValue]])
+//                                                                }else{
+//                                                                    dVal?[dictkey] = attDict?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                                        return current
+//                                                                    })
+//                                                                }
+//                                                                
+//                                                                arrDictInValidData[index][Dictkeys.dKey]  = dVal
+//                                                                
+//                                                            }else{
+//                                                                arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:[valDictKey:dictValue]]]
+//                                                                )
+//                                                            }
+//                                                        }
+//                                                    }
+//                                                }
+//                                                //                                                arrFilterD?.removeAll()
+//                                            }
+//                                        }
+//                                    }else{
+//                                        print(Log.Errors.ERR_InValidValue.rawValue)
+//                                        continue
+//                                    }
+//                                }
+//                            }else{
+//                                if val is String{
+//                                    //                                    let arrFilterD = arrAtt?.att?[j].d?.filter({$0.ln == dictkey})
+//                                    let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.firstIndex(where: {$0.ln == dictkey})
+//                                    
+//                                    //                                    if arrFilterD?.count ?? 0 > 0{
+//                                    if firstIndexVal != nil{
+//                                        var isValidData = skipValidation
+//                                        
+//                                        let value = val as! String
+//                                        var isEdgeValidForFaulty = false
+//                                        
+//                                        if !(val as! String).isEmpty{
+//                                            if !skipValidation{
+//                                                //                                                isValidData = checkisValValid(val: val as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+//                                                isValidData = checkisValValid(val: val as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dv)
+//                                            }
+//                                            if isValidData{
+//                                                if boolEdgeDevice == 1, let _ = Double(val as? String ?? ""){
+//                                                    arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictkey:val],id: arrData?[i][Dictkeys.idkey] as? String,tg: arrData?[i][Dictkeys.tagkey] as? String,dt: arrData?[0][Dictkeys.datekey] as? String ?? "")
+//                                                    
+//                                                    if edgeRules != nil,!(val as? String ?? "").isEmpty{
+//                                                        createResponseForEdgeRuleDeviceTelemetryData(dict:[dictkey:val])
+//                                                    }
+//                                                    
+//                                                }
+//                                                //issue same id key
+//                                                if let index = arrDictValidData.firstIndex(where: {$0[Dictkeys.idkey] as? String  == arrData?[i][Dictkeys.idkey] as? String}) {
+//                                                    var dVal = arrDictValidData[index][Dictkeys.dKey] as? [String:Any]
+//                                                    let newDict = [dictkey:val]
+//                                                    dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                        return current
+//                                                    })
+//                                                    arrDictValidData[index][Dictkeys.dKey]  = dVal
+//                                                }else{
+//                                                    arrDictValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]]
+//                                                                            
+//                                                    )
+//                                                }
+//                                                
+//                                            }else{
+//                                                if boolEdgeDevice == 1{
+//                                                    isEdgeValidForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime)
+//                                                }else{
+//                                                    isEdgeValidForFaulty = true
+//                                                }
+//                                                
+//                                                if isEdgeValidForFaulty{
+//                                                    IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime = Date()
+//                                                    
+//                                                    print("New faulty data \( IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0]) \(Date())")
+//                                                    
+//                                                    if let index = arrDictInValidData.firstIndex(where: {$0[Dictkeys.tagkey] as? String  == arrData?[i][Dictkeys.tagkey] as? String}) {
+//                                                        var dVal = arrDictInValidData[index][Dictkeys.dKey] as? [String:Any]
+//                                                        
+//                                                        let newDict = [dictkey:val]
+//                                                        dVal = dVal?.merging(newDict , uniquingKeysWith: { current, _ in
+//                                                            return current
+//                                                        })
+//                                                        arrDictInValidData[index][Dictkeys.dKey]  = dVal
+//                                                    }else{
+//                                                        arrDictInValidData.append([Dictkeys.datekey:arrData?[i][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[i][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[i][Dictkeys.tagkey] ?? "",Dictkeys.dKey:[dictkey:val]])
+//                                                    }
+//                                                }
+//                                            }
+//                                            //                                    break
+//                                        }
+//                                    }
+//                                }else{
+//                                    print(Log.Errors.ERR_InValidValue.rawValue)
+//                                    continue
+//                                }
+//                            }
+//                        }
+//                    })
+//                }
+//            }
+//            
+//            if !arrDictValidData.isEmpty{
+//                dictValidData = [Dictkeys.datekey:data[Dictkeys.datekey
+//                                                      ] ?? "",Dictkeys.dKey:arrDictValidData]
+//                
+//                if boolEdgeDevice == 1{
+//                    sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0][Dictkeys.idkey] as? String ?? "", tag: arrData?[0][Dictkeys.tagkey] as? String ?? "")
+//                }else{
+//                    let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
+//                    prevSendDataTime = Date()
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
+//                }
+//            }
+//            
+//            if !arrDictInValidData.isEmpty{
+//                dictInValidData = [Dictkeys.datekey:data[Dictkeys.datekey] ?? "",Dictkeys.dKey:arrDictInValidData]
+//                
+////                if boolEdgeDevice == 1{
+////                    
+////                }else{
+//                    let topic = dictSyncResponse[keyPath:"p.topics.flt"] as! String
+//                    prevSendDataTime = Date()
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictInValidData, topic: topic)
+////                }
+//            }
+//        }else{
+//            //"count is 1
+//            let dictValD = arrData?[0][Dictkeys.dKey] as? [String:Any]
+//            
+//            if dictValD == nil || ((dictValD?.isEmpty) == true){
+//                print(Log.Errors.ERR_InValidValue.rawValue)
+//            }else{
+//                dictValD?.forEach {
+//                    let dictValDKey = $0.key
+//                    let value = $0.value
+//                    let arrAtt = IoTConnectManager.sharedInstance.attributes
+//                    
+//                    if arrAtt?.att?.count ?? 0 > 0{
+//                        for i in 0...(arrAtt?.att?.count ?? 0)-1{
+//                            if let valDict = value as? [String:Any]{
+//                                for (valDictKey,dictValue) in valDict{
+//                                    if dictValue is String{
+////                                        var arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == valDictKey})
+//                                        let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.firstIndex(where: {$0.ln == valDictKey})
+////                                        if arrFilterD?.count ?? 0 > 0{
+//                                        if firstIndexVal != nil{
+//                                            var dict = [String:Any]()
+//                                            var isValidData = skipValidation
+//                                            
+//                                            if (dictValue as! String).isEmpty{
+//                                                if !skipValidation{
+////                                                    isValidData = checkisValValid(val: dictValue as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+//                                                    isValidData = checkisValValid(val: dictValue as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dv)
+//                                                }
+//                                                
+//                                                if isValidData{
+//                                                    dict = dictValidData
+//                                                }else{
+//                                                    dict = dictInValidData
+//                                                }
+//                                                
+//                                                if dict[$0.key] != nil{
+//                                                    let val = dict[$0.key] as? [String:Any]
+//                                                    let newVal = [valDictKey:dictValue] as? [String:Any]
+//                                                    dict[$0.key] = val?.merging(newVal ?? [:], uniquingKeysWith: { current, _ in
+//                                                        return current
+//                                                    })
+//                                                }else{
+//                                                    dict.updateValue([valDictKey:dictValue], forKey:$0.key)
+//                                                }
+////                                                arrFilterD?.removeAll()
+//                                                if isValidData{
+//                                                    dictValidData = dict
+//                                                    
+//                                                    if boolEdgeDevice == 1, let _ = Double(dictValue as? String ?? ""){
+//                                                        arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:[valDictKey:dictValue]],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "" )
+//                                                        
+//                                                        if edgeRules != nil,!(dictValue as? String ?? "").isEmpty{
+//                                                            createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:[valDictKey:dictValue]])
+//                                                        }
+//                                                    }
+//                                                }else{
+//                                                    var isEdgeValidForFaulty = false
+//                                                    
+//                                                    if boolEdgeDevice == 1{
+//                                                        isEdgeValidForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime)
+//                                                    }
+//                                                    if  isEdgeValidForFaulty == true{
+//                                                        dictInValidData = dict
+//                                                        
+//                                                        IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime = Date()
+//                                                        
+//                                                        print("New fauty data \(IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0])")
+//                                                    }
+////                                                    dictInValidData = dict
+//                                                }
+//                                            }
+//                                        }
+//                                    }else{
+//                                        print(Log.Errors.ERR_InValidValue.rawValue)
+//                                        continue
+//                                    }
+//                                }
+//                            }else{
+//                                if value is String{
+////                                    let arrFilterD = arrAtt?.att?[i].d?.filter({$0.ln == dictValDKey})
+//                                    let firstIndexVal = IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?.firstIndex(where: {$0.ln == dictValDKey})
+//                                    
+////                                    if arrFilterD?.count ?? 0 > 0{
+//                                    if firstIndexVal != nil{
+//                                        
+//                                        var isValidData = skipValidation
+//                                        if !(value as! String).isEmpty{
+//                                        
+//                                        if !skipValidation,value is String{
+////                                            isValidData = checkisValValid(val: value as! String, dt: arrFilterD?[0].dt ?? 0, dv: arrFilterD?[0].dv)
+//                                            isValidData = checkisValValid(val: value as! String, dt: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dt ?? 0, dv: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].dv)
+//                                        }
+//                                        
+//                                        if isValidData{
+//                                            dictValidData.append(anotherDict: [$0.key:$0.value])
+//                                            //                                        print("dictValidData \(dictValidData)")
+//                                            
+//                                            if boolEdgeDevice == 1, let _ = Double(value as? String ?? ""){
+//                                                arrDataEdgeDevices = storeEdgeDeviceData(arr: arrDataEdgeDevices, dictVal: [dictValDKey:value],id: arrData?[0][Dictkeys.idkey] as? String ?? "",tg: arrData?[0][Dictkeys.tagkey] as? String ?? "",dt: arrData?[0][Dictkeys.datekey] as? String ?? "")
+//                                                
+//                                                if edgeRules != nil{
+//                                                    createResponseForEdgeRuleDeviceTelemetryData(dict: [dictValDKey:value])
+//                                                }
+//                                            }
+//                                        }else{
+//                                            if boolEdgeDevice == 1{
+//                                                let isValiForFaulty =  checkEdgeDeviceFaultTime(faultTime: IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime)
+//                                                
+//                                                if isValiForFaulty{
+//                                                  
+//                                                    dictInValidData.append(anotherDict: [$0.key:$0.value])
+//                                                    IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0].fltDataTime = Date()
+//                                                    
+//                                                    print("New faulty data \(IoTConnectManager.sharedInstance.arrAttForValidation?.att?[i].d?[firstIndexVal ?? 0])")
+//                                                }
+//                                            }else{
+//                                                dictInValidData.append(anotherDict: [$0.key:$0.value])
+//                                            }
+//                                        }
+//                                        break
+//                                    }
+//                                }
+//                            }else{
+//                                    print(Log.Errors.ERR_InValidValue.rawValue)
+//                                    continue
+//                                }
+//                            }
+//                        }
+//                    }else{
+//                        print(Log.Errors.ERR_InValidValue.rawValue)
+//                    }
+//                }
+//            }
+//
+//            if !dictValidData.isEmpty{
+//                if boolEdgeDevice != 1{
+//                    dictValidData = [Dictkeys.datekey:data[Dictkeys.datekey] ?? "",Dictkeys.dKey:[[Dictkeys.datekey:arrData?[0][Dictkeys.datekey] ?? "",Dictkeys.idkey:arrData?[0][Dictkeys.idkey] ?? "",Dictkeys.tagkey:arrData?[0][Dictkeys.tagkey] ?? "",Dictkeys.dKey:dictValidData]]]
+//                    prevSendDataTime = Date()
+//                    let topic = dictSyncResponse[keyPath:"p.topics.rpt"] as! String
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictValidData, topic: topic)
+//                }else{
+//                    sendMessageForEdgeRuleMatch(dictValidData: dictValidData, dictDeviceTelemetry: dictForEdgeRuleData,id: arrData?[0][Dictkeys.idkey] as? String ?? "", tag: arrData?[0][Dictkeys.tagkey] as? String ?? "")
+//                }
+//            }
+//            
+//            if !dictInValidData.isEmpty{
+//                dictInValidData = [Dictkeys.datekey:data[Dictkeys.datekey] ?? "",
+//                                   Dictkeys.dKey:[[Dictkeys.datekey:arrData?[0][Dictkeys.datekey],
+//                                                   Dictkeys.idkey:arrData?[0][Dictkeys.idkey],
+//                                                   Dictkeys.tagkey:arrData?[0][Dictkeys.tagkey],
+//                                                   Dictkeys.dKey:dictInValidData]]]
+//                
+////                if boolEdgeDevice != 1{
+//                    prevSendDataTime = Date()
+//                    let topic = dictSyncResponse[keyPath:"p.topics.flt"] as! String
+//                    objMQTTClient.publishTopicOnMQTT(withData: dictInValidData, topic: topic)
+////                }
+//            }
+//        }
+//       
+//        func checkisValValid(val:String,dt:Int,dv:String?)-> Bool{
+//            switch dt{
+//            case SupportedDataType.intValue:
+//                if Int32(val) != nil{
+//                    if validateNumber(value: val, dv: dv, dataType: SupportedDataType.intValue) == true{
+//                        return true
+//                    }else{
+//                        return false
+//                    }
+//                }else{
+//                    if val.isEmpty && (dv == nil || dv?.isEmpty == true){
+//                        return true
+//                    }
+//                    if !val.isEmpty{
+//                        if let doubleVal = Double(val){
+//                            let roundVal = Int32(round(doubleVal))
+//                            if validateNumber(value: "\(roundVal)", dv: dv, dataType: SupportedDataType.intValue) == true{
+//                                return true
+//                            }else{
+//                                return false
+//                            }
+//                        }
+//                    }
+//                    return false
+//                }
+//                
+//            case SupportedDataType.boolValue:
+//                let isValid = self.validateBoolValue(value: val, dv: dv)
+//                if isValid{
+//                    return true
+//                }else{
+//                    return false
+//                }
+//            case SupportedDataType.strVal:
+//                //remaining
+//                let isValid = self.validateNumber(value: val, dv: dv, dataType: SupportedDataType.decimalVal)
+//                if isValid{
+//                    return true
+//                }else{
+//                    return false
+//                }
+//            case SupportedDataType.bitValue:
+//                let isValid = self.validateBit(value: val, dv: dv)
+//                
+//                if isValid{
+//                    return true
+//                }else{
+//                    return false
+//                }
+//                
+//            case SupportedDataType.dateValue:
+//                let isValid = validateDate(value: val, dateFormat: "YYYY-MM-dd", dv: dv)
+//                
+//                if (isValid){
+//                    return true
+//                }else{
+//                    return false
+//                }
+//                
+//            case SupportedDataType.dateTimeVal:
+//                let isValid = validateDate(value: val, dateFormat:"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" , dv: dv)
+//                if isValid{
+//                    return true
+//                }else{
+//                    return false
+//                }
+//                
+//            case SupportedDataType.decimalVal:
+//                if let floatVal = Float(val){
+//                    //range is -7.9*1028
+//                    if floatVal.isLessThanOrEqualTo(8121.2) &&
+//                        floatVal >= -8121.2
+//                    {
+//                        if validateNumber(value: val, dv: dv, dataType: SupportedDataType.decimalVal) == true{
+//                            return true
+//                        }else{
+//                            return false
+//                        }
+//                    }else{
+//                        return false
+//                    }
+//                }
+//                if val.isEmpty && (dv == nil || dv?.isEmpty == true){
+//                    return true
+//                }
+//                return false
+//                
+//            case SupportedDataType.latLongVal:
+//                //[10,8] [11,8]
+//                if validateLatLong(value: val,dv: dv){
+//                    return true
+//                }
+//                
+//                return false
+//                
+//            case SupportedDataType.longVal:
+//                if Int64(val) != nil{
+//                    if validateNumber(value: val, dv: dv, dataType: SupportedDataType.longVal) == true{
+//                        return true
+//                    }else{
+//                        return false
+//                    }
+//                }else{
+//                    if val.isEmpty && (dv == nil || dv?.isEmpty == true){
+//                        return true
+//                    }
+//                    if !val.isEmpty{
+//                        if let doubleVal = Double(val){
+//                            let roundVal = Int64(round(doubleVal))
+//                            if validateNumber(value: "\(roundVal)", dv: dv, dataType: SupportedDataType.intValue) == true{
+//                                return true
+//                            }else{
+//                                return false
+//                            }
+//                        }
+//                    }
+//                    return false
+//                }
+//                
+//            case SupportedDataType.timeVal:
+//                if dv == nil || dv?.isEmpty == true{
+//                    if val.isEmpty == true{
+//                        return true
+//                    }
+//                }
+//                let arrVal = val.components(separatedBy: ":")
+//                if arrVal.count >= 3{
+//                    let isValid = validateDate(value: val, dateFormat: "HH:mm:ss", dv: dv)
+//                    
+//                    if isValid{
+//                        return true
+//                    }else{
+//                        return false
+//                    }
+//                }else
+//                {
+//                    return false
+//                }
+//                
+//            default:
+//                return false
+//            }
+//        }
+//        
+//        func createResponseForEdgeRuleDeviceTelemetryData(dict:[String:Any]){
+//            dict.forEach({ (dictkey:String,dictVal:Any) in
+//                if let valDict = dictVal as? [String:Any]{
+//                        if dictForEdgeRuleData[dictkey] != nil{
+//                            var dict = dictForEdgeRuleData[dictkey] as? [String:Any]
+//                            dict?.append(anotherDict:valDict)
+//                            dictForEdgeRuleData[dictkey] = dict
+//                        }else{
+//                            dictForEdgeRuleData.append(anotherDict: dict)
+//                        }
+//                }else{
+//                    dictForEdgeRuleData.append(anotherDict: [dictkey:dictVal])
+//                }
+//            })
+//        }
+//    }
+    
+    func checkEdgeDeviceFaultTime(faultTime:Date?)->Bool{
+        if faultTime == nil{
+            print("Edge Valid for faulty")
+            return true
+        }
+        
+        //        let diffSinceLast = Calendar.current.dateComponents([.second], from: faultTime ?? Date(), to: Date()).second
+        //
+        //        if diffSinceLast ?? 0 > 60{
+        ////            print("Edge Device Fault data \($0.key) GT 60")
+        ////            dictInValidData.append(anotherDict: [$0.key:$0.value])
+        //            print("Edge Valid for faulty")
+        //            return true
+        //        }else{
+        //            print("Edge not Valid for faulty")
+        //            return false
+        //        }
+        
+        let Dateformatter = DateFormatter()
+        
+        let distanceBetweenDates: TimeInterval? = Date().timeIntervalSince(faultTime ?? Date())
+        
+        let secbetweenDates = Int(distanceBetweenDates!)
+        
+        if secbetweenDates > 60{
+            print("Edge Valid for faulty")
+            return true
+        }else{
+            print("Edge not Valid for faulty \(faultTime) \(Date()) \(secbetweenDates)")
+            return false
         }
     }
     

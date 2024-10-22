@@ -34,4 +34,5 @@ struct AttData: Codable {
     var p:String? = ""
     var value:String?
     var connectedTime:Date?
+    var fltDataTime:Date?
 }

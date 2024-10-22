@@ -36,14 +36,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnGetTwins: UIButton!
     @IBOutlet weak var btnChildDevicesOperation: UIButton!
     @IBOutlet weak var viewDropDown: UIView!
-    @IBOutlet weak var txtFieldDropDown: DropDown!
-    
+    @IBOutlet weak var btnDropDown: UIButton!
+    @IBOutlet weak var imgArrow: UIImageView!
+
 //MARK: Variable
     private var btnConnectTitle = "CONNECT"
     private var btnDisConnectTitle = "DISCONNECT"
     private let tblViewRowheight = 44.0
     private var noOfSecrions = 0
-    private var env:IOTCEnvironment = .PROD
+    private var env:IOTCEnvironment? //= .PROD
     private var devivceStatus:DeviceConnectionStatus = .disconnected
     private let radioController: RadioButtonController = RadioButtonController()
     private var noOfAttributes = 0
@@ -61,6 +62,10 @@ class ViewController: UIViewController {
     private var isDeviceGateway = false
     private var isDeviceEdge = false
     private var is204WillCalled = false
+    private var isDataSent = false
+    private var btnEnvDropDown = DropDown()
+    
+    lazy var dropDown:DropDown = btnEnvDropDown
     
 //MARK: view lifecycle
     override func viewDidLoad() {
@@ -109,22 +114,25 @@ class ViewController: UIViewController {
     //MARK: - Custom Methods
     func connectSDK() {
         //This code works for certificate authentication
-      
-        if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
-             self.viewLoader.isHidden = false
+//        if !txtCPID.text!.isEmpty && !txtUniqueID.text!.isEmpty{
+            DispatchQueue.main.async {
+                self.viewLoader.isHidden = false
+                self.txtCPID.resignFirstResponder()
+                self.txtUniqueID.resignFirstResponder()
+            }
             
             //DeviceCertificate.pfx
             var sdkOptions = SDKClientOption()
             
-            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "client2301AWS.p12", ofType: nil)
-            sdkOptions.ssl.password = "Softweb#123"
-            
+//            sdkOptions.ssl.certificatePath = Bundle.main.path(forResource: "<p12 file name>", ofType: nil)
+//            sdkOptions.ssl.password = "<SSL password>"
+
             //Offline Storage Configuration
             sdkOptions.offlineStorage.availSpaceInMb = 0
             sdkOptions.offlineStorage.fileCount = 10
             sdkOptions.cpId = txtCPID.text?.replacingOccurrences(of: " ", with: "") ?? ""
             sdkOptions.env = env
-            sdkOptions.pf = .aws
+            sdkOptions.pf = .az
             
             //for device PK
             //this is base64 string for SmplPk device
@@ -132,16 +140,24 @@ class ViewController: UIViewController {
             
             let objConfig =  IoTConnectConfig(uniqueId: txtUniqueID.text?.replacingOccurrences(of: " ", with: "")  ?? "", mqttConnectionType: .certificateAuthentication, sdkOptions: sdkOptions)
           
-            SDKClient.shared.initialize(config: objConfig)
+//            SDKClient.shared.initialize(config: objConfig)
+            
+        //In callback you will get error while initialising
+            SDKClient.shared.initialize(config: objConfig) { error in
+                DispatchQueue.main.async {
+                    print(error)
+                    self.viewLoader.isHidden = true
+                    self.txtView.text = "\(error)"
+                }
+            }
             
             //callback fro connect,disconnect,identity,attribute,get child device and get twins reponse
             SDKClient.shared.getDeviceCallBack { (message) in
-                print("message: ", message as Any)
+                print("getDeviceCallBack message: ", message as Any)
                 DispatchQueue.main.async {
-                    self.viewLoader.isHidden = true
+//                    self.viewLoader.isHidden = true
                     self.txtView.text = "\(message ?? "")"
-                    self.txtUniqueID.resignFirstResponder()
-                    self.txtCPID.resignFirstResponder()
+                    self.view.resignFirstResponder()
                 }
                 if let msg = message as? [String:Any]{
                     if let msg = msg["d"] as? [String:Any]{
@@ -163,6 +179,7 @@ class ViewController: UIViewController {
                             }
                             else   if  msg["ct"] as? Int == CommandType.GET_DEVICE_TEMPLATE_TWIN.rawValue{
                                 print("GET_DEVICE_TEMPLATE_TWIN \(msg)")
+                                self.hideLoader()
                                 DispatchQueue.main.async {
                                     self.txtView.text = "\(msg)"
                                 }
@@ -172,6 +189,7 @@ class ViewController: UIViewController {
                         }
                     }
                     else if let msg = msg["sdkStatus"] as? String{
+                        self.hideLoader()
                         if msg == "error"{
                             self.presentAlert(title: "Error")
                             self.setDisconnectUI()
@@ -183,16 +201,19 @@ class ViewController: UIViewController {
                             commandType == CommandType.DEVICE_RELEASED.rawValue ||
                             commandType == CommandType.STOP_OPERATION.rawValue ||
                             commandType == CommandType.DEVICE_CONNECTION_STATUS.rawValue{
+                            self.hideLoader()
                             SDKClient.shared.dispose()
                             self.setDisconnectUI()
                         }
                     }
                     else if let msgError = msg["error"]{
+                        self.hideLoader()
                         DispatchQueue.main.async {
                             self.txtView.text = msgError as? String
                         }
                         self.setDisconnectUI()
                     }else{
+                        self.hideLoader()
                         print("Message \(msg)")
                     }
                 }else if let msgData = message as? Data{
@@ -224,6 +245,7 @@ class ViewController: UIViewController {
                     }
                 })
                 
+                self.hideLoader()
                 SDKClient.shared.updateTwin(key: keyToSend, value: valToSend)
                 DispatchQueue.main.async {
                     self.txtView.text = "\(twinMessage ?? "")"
@@ -248,6 +270,7 @@ class ViewController: UIViewController {
                             self.tblProperty.reloadData()
                         }
                         self.manageAttributeResponse(response: msg)
+//                        self.hideLoader()
                     }
                 }
             }
@@ -257,6 +280,7 @@ class ViewController: UIViewController {
                 self.arrChildAttributeData.removeAll()
                 self.isGetDevicesCalled = false
                 self.arrSimpleDeviceData.removeAll()
+                self.hideLoader()
                 if self.is204Received{
                     self.arrParentData.removeAll()
                 }
@@ -267,6 +291,7 @@ class ViewController: UIViewController {
                             self.noOfSecrions = msg.count
                             self.is204Received = true
                             self.arrChildDevicesAttributes = msg
+                            self.hideLoader()
                             if  self.is201Received{
                                 self.getChildDevicesAttributes()
                             }
@@ -278,6 +303,7 @@ class ViewController: UIViewController {
             //callback for refresh edge rule
             SDKClient.shared.onRuleChangeCommand { response in
                 print("Response on rule change \(response ?? [:])")
+                self.hideLoader()
                 DispatchQueue.main.async {
                     self.txtView.text = "\(response ?? "")"
                 }
@@ -286,46 +312,69 @@ class ViewController: UIViewController {
             //callback for device command and sending ack
             SDKClient.shared.onDeviceCommand { response in
                 print("response onDeviceCommand vc \(response ?? [:])")
-                self.txtView.text = "\(response ?? "")"
+                DispatchQueue.main.async {
+                    self.txtView.text = "\(response ?? "")"
+                }
+                self.hideLoader()
                 let msg = response as? [String:Any]
-                SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "6", msg: "Device command received ack",childId: msg?["id"] as? String ?? "")
+                SDKClient.shared.sendAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "2", msg: "Device command received ack",childId: msg?["id"] as? String ?? "")//6
             }
             
             //callback on OTA and ack
             SDKClient.shared.onOTACommand { response in
                 let msg = response as? [String:Any]
-                self.txtView.text = "\(msg ?? [:])"
-                SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "OTA message received ack",childId: msg?["id"] as? String ?? "")
+                self.hideLoader()
+                DispatchQueue.main.async {
+                    self.txtView.text = "\(msg ?? [:])"
+                }
+                SDKClient.shared.sendOTAAckCmd(ackGuid: msg?["ack"] as? String ?? "", status: "5",msg: "OTA message received ack",childId: msg?["id"] as? String ?? "")
             }
             
             //callbakck for module command and ack
             SDKClient.shared.onModuleCommand { response in
                 print("On module command response \(response ?? [:])")
                 let msg = response as? [String:Any]
-                self.txtView.text = "\(msg ?? [:])"
+                self.hideLoader()
+                DispatchQueue.main.async {
+                    self.txtView.text = "\(msg ?? [:])"
+                }
                 SDKClient.shared.sendAckModule(ackGuid: msg?["ack"] as? String ?? "", status: "0",msg: "Cloud message received",childId: msg?["id"] as? String ?? "")
             }
-        }
-        else{
-            if txtCPID.text!.isEmpty{
-                presentAlert(title: "Please enter CPID value")
-            }else{
-                presentAlert(title: "Please enter unique ID value")
-            }
-        }
+//        }
+//        else{
+//            if txtCPID.text!.isEmpty{
+//                presentAlert(title: "Please enter CPID value")
+//            }else{
+//                presentAlert(title: "Please enter unique ID value")
+//            }
+//        }
     }
     
     func setUpDropDown(){
+        DispatchQueue.main.async {
+            self.btnDropDown.layer.borderColor = UIColor.black.cgColor
+            self.btnDropDown.layer.borderWidth = 1.0
+            self.imgArrow.transform =  CGAffineTransform(rotationAngle: CGFloat.pi * 2)
+        }
         let arrEnvValues: [String] = IOTCEnvironment.allCases.map { $0.rawValue }
         let arrEnv = IOTCEnvironment.allCases
-        txtFieldDropDown.optionArray = arrEnvValues
-        txtFieldDropDown.arrowSize = 20.0
-        txtFieldDropDown.arrowColor = .black
-        self.env = arrEnv[0]
-        txtFieldDropDown.text = arrEnv[0].rawValue
-        txtFieldDropDown.didSelect{(selectedText , index ,id) in
-            self.env = arrEnv[index]
+        btnEnvDropDown.dataSource = arrEnvValues
+        btnEnvDropDown.selectionAction = { [weak self] (index,item) in
+            self?.env = arrEnv[index]
+            self?.btnDropDown.setTitle(arrEnvValues[index], for: .normal)
+            self?.imgArrow.transform =  CGAffineTransform(rotationAngle: CGFloat.pi * 2)
         }
+        btnEnvDropDown.anchorView = btnDropDown
+       btnEnvDropDown.bottomOffset = CGPoint(x: 0, y: btnDropDown.bounds.height+5)
+        
+//        txtFieldDropDown.optionArray = arrEnvValues
+//        txtFieldDropDown.arrowSize = 20.0
+//        txtFieldDropDown.arrowColor = .black
+//        self.env = arrEnv[0]
+//        txtFieldDropDown.text = arrEnv[0].rawValue
+//        txtFieldDropDown.didSelect{(selectedText , index ,id) in
+//            self.env = arrEnv[index]
+//        }
     }
     
     //get SimpleDevice Data
@@ -448,11 +497,11 @@ class ViewController: UIViewController {
             if self.arrChildDevicesAttributes?.count ?? 0 > 0{
                 dataSection = self.arrChildDevicesAttributes?[i] ?? [:]
             }
-
+            
             if self.arrChildDevicesAttributes?.count ?? 0 > 0 &&
                 self.attributeData?.att?.count ?? 0 > 0{
                 for j in 0...(arrAttData?.count ?? 0)-1{
-                    print("arrAttData \(arrAttData) \(j)")
+                    print("arrAttData \(String(describing: arrAttData)) \(j)")
                     if arrAttData?[j].p?.isEmpty == true ||
                         arrAttData?[j].p == nil{
                         print("data dict load data \(dict) \(arrAttData?[j])")
@@ -465,11 +514,12 @@ class ViewController: UIViewController {
                                 if let _ = itemd["\(arrAttData?[j].p ?? "")"] as? [String:Any]
                                     ,itemd["id"] as? String == dataSection["id"] as? String      //issue same object
                                 {
-                                   return true
+                                    return true
                                 }
                             }
                             return false
                         }
+                        
                         
                         if arr.count > 0{
                             print("\(arrAttData?[j].p ?? "") exist \(arr) \(arrDictForChildDevices[arrDictForChildDevices.count-1]["d"] ?? "")" )
@@ -516,26 +566,26 @@ class ViewController: UIViewController {
                 }
                 
                 finalDict = ["dt":now(),
-                                 "d":[["dt":now(),
-                                      "id":txtUniqueID.text ?? "",
-                                      "tg":parentTag,
-                                       "d":dict]]] as [String : Any]
+                             "d":[["dt":now(),
+                                   "id":txtUniqueID.text ?? "",
+                                   "tg":parentTag,
+                                   "d":dict]]] as [String : Any]
             }
         }
         
         if arrParentData.count > 0 &&
-          self.arrChildDevicesAttributes?.count ?? 0 > 0{
+            self.arrChildDevicesAttributes?.count ?? 0 > 0{
             var dictParentData = [String:Any]()
             let parentData = arrParentData[0]["Tag"]
             let arrData = parentData?[0]
- 
+            
             for k in 0...(arrData?.count ?? 0)-1{
                 //                print("arrParentData \(arrParentData[k])")
                 if arrData?[k].p?.isEmpty == true ||
                     arrData?[k].p == nil{
                     dictParentData.append(anotherDict:  ["\(arrData?[k].ln! ?? "")": arrData?[k].value ?? ""])
                 }else{
-                     if dictParentData["\(arrData?[k].p ?? "")"] != nil{//arrAttData?[j].p{
+                    if dictParentData["\(arrData?[k].p ?? "")"] != nil{//arrAttData?[j].p{
                         let val = dictParentData["\(arrData?[k].p ?? "")"] as? [String:Any]
                         let newVal = ["\(arrData?[k].ln! ?? "")":arrData?[k].value ?? ""] as? [String:Any]
                         
@@ -557,26 +607,106 @@ class ViewController: UIViewController {
             finalDict = ["dt":now(),
                          "d":arrDictForChildDevices]
         }
-       
+        
         print("finalDict \(finalDict)")
-        DispatchQueue.main.async {
-            self.viewLoader.isHidden = true
-        }
+        self.hideLoader()
         //Format for sending data to SDK
         //dateTime format "2023-08-24T05:52:11.392Z"
         
-//        ["d":
-//        [[
-//         "d":
-//        [
-//        <ln>: <value>],
-//        "dt": <dateTime>, "id": <id>, "tg": <tag>
-//        ]
-//        ],
-//         "dt": <dateTime>
-//        ]
+        //        ["d":
+        //        [[
+        //         "d":
+        //        [
+        //        <ln>: <value>],
+        //        "dt": <dateTime>, "id": <id>, "tg": <tag>
+        //        ]
+        //        ],
+        //         "dt": <dateTime>
+        //        ]
+        
+        DispatchQueue.main.async {
+            self.txtView.text = "\(finalDict)"
+        }
         
         SDKClient.shared.sendData(data: finalDict)
+        
+        if self.arrChildDevicesAttributes?.count ?? 0 > 0{
+            if sections > 0{
+                for i in 0...sections-1{
+//                    _ = arrChildAttributeData[i]["Tag"]?[0].map({
+//                        $0.value = ""
+//                    })
+//                    arrChildAttributeData = arrChild
+                    
+                    if let tagArray = arrChildAttributeData[i]["Tag"]?[0]{
+                        let updatedTagArray = tagArray.map { tag  in
+                               var mutableTag = tag
+                               mutableTag.value = ""
+                               return mutableTag
+                           }
+                        arrChildAttributeData[i]["Tag"]?[0] = updatedTagArray
+                    }
+                }
+            }else{
+//                _ = arrChildAttributeData[0]["Tag"]?[0].map({
+//                    $0.value = ""
+//                })
+                
+                if let tagArray = arrChildAttributeData[0]["Tag"]?[0]{
+                    let updatedTagArray = tagArray.map { tag  in
+                           var mutableTag = tag
+                           mutableTag.value = ""
+                           return mutableTag
+                       }
+                    arrChildAttributeData[0]["Tag"]?[0] = updatedTagArray
+                }
+            }
+        }else if arrSimpleDeviceData.count > 0{
+            if sections > 0{
+                for i in 0...sections-1{
+//                    _ = arrSimpleDeviceData[i]["Tag"]?[0].map({
+//                        $0.value = ""
+//                    })
+                    if let tagArray = arrSimpleDeviceData[i]["Tag"]?[0]{
+                        let updatedTagArray = tagArray.map { tag  in
+                               var mutableTag = tag
+                               mutableTag.value = ""
+                               return mutableTag
+                           }
+                        arrSimpleDeviceData[i]["Tag"]?[0] = updatedTagArray
+                    }
+                }
+            }else{
+//                _ = arrSimpleDeviceData[0]["Tag"]?[0].map({
+//                    $0.value = ""
+//                })
+                if let tagArray = arrSimpleDeviceData[0]["Tag"]?[0]{
+                    let updatedTagArray = tagArray.map { tag  in
+                           var mutableTag = tag
+                           mutableTag.value = ""
+                           return mutableTag
+                       }
+                    arrSimpleDeviceData[0]["Tag"]?[0] = updatedTagArray
+                }
+            }
+        }
+        
+      if arrParentData.count > 0{
+            if let tagArray = arrParentData[0]["Tag"]?[0]{
+                let updatedTagArray = tagArray.map { tag  in
+                       var mutableTag = tag
+                       mutableTag.value = ""
+                       return mutableTag
+                   }
+                arrParentData[0]["Tag"]?[0] = updatedTagArray
+                print("arrParentData \(arrParentData[0]["Tag"]?[0])")
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.isDataSent = true
+            self.tblProperty.reloadData()
+        }
     }
     
     //parse Identity reponse and idenitfy device type
@@ -606,6 +736,7 @@ class ViewController: UIViewController {
                     }
                 }
             } else {
+              hideLoader()
               print("Error parsing syncCall Response")
             }
         }
@@ -641,7 +772,9 @@ class ViewController: UIViewController {
                 self.getTblViewHeight()
                 self.enableMessageBtns()
             }
+            self.hideLoader()
         } catch {
+            self.hideLoader()
             print(error)
         }
     }
@@ -683,6 +816,7 @@ class ViewController: UIViewController {
      
         tblViewHeightConstraint.constant =  Double(totalCount) * tblViewRowheight
         print("total rows \(totalCount)")
+        self.hideLoader()
         DispatchQueue.main.async {
             self.tblProperty.reloadData()
         }
@@ -712,6 +846,10 @@ class ViewController: UIViewController {
                 self.viewLblTag.isHidden = true
                 self.tblProperty.isHidden = true
                 self.manageBtnControl(btn: self.btnChildDevicesOperation, isEnable: false)
+//                self.txtFieldDropDown.isEnabled = false
+                self.btnDropDown.isEnabled = true
+                self.txtCPID.isEnabled = true
+                self.txtUniqueID.isEnabled = true
             }
         }
         disableMsgBtns()
@@ -724,6 +862,10 @@ class ViewController: UIViewController {
             self.btnConnect.setTitle(self.btnDisConnectTitle, for: .normal)
             self.btnStatus.backgroundColor = .green
             self.lblStatus.text = statusText.connected.rawValue
+//            self.txtFieldDropDown.isEnabled = true
+            self.btnDropDown.isEnabled = false
+            self.txtCPID.isEnabled = false
+            self.txtUniqueID.isEnabled = false
             
             if boolBtnEnable{
                 self.enableMessageBtns()
@@ -769,6 +911,12 @@ class ViewController: UIViewController {
         }
     }
     
+    func hideLoader(){
+        DispatchQueue.main.async {
+            self.viewLoader.isHidden = true
+        }
+    }
+    
     //get current date time
     func now() -> String {
         return toString(fromDateTime: Date())
@@ -793,8 +941,23 @@ class ViewController: UIViewController {
     
     //MARK: IBAction events
     
+    @IBAction func btnDropDownTapped(_ sender: Any) {
+        
+        DispatchQueue.main.async {
+            if (DropDown.VisibleDropDown != nil) && DropDown.VisibleDropDown?.isHidden == false {
+                self.imgArrow.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+            }else{
+                self.imgArrow.transform =  CGAffineTransform(rotationAngle: CGFloat.pi * 2)
+            }  
+        }
+        self.btnEnvDropDown.show()
+    }
+    
+    
+    
     @IBAction func btnConnectTapped(_ sender: Any) {
-        if txtFieldDropDown.text != "" ||  ((txtFieldDropDown.text?.isEmpty) == nil){
+//        if txtFieldDropDown.text != "" ||  ((txtFieldDropDown.text?.isEmpty) == nil){
+        if env != nil{
             if self.devivceStatus == .disconnected{
                 connectSDK()
             }else{
@@ -816,6 +979,7 @@ class ViewController: UIViewController {
     @IBAction func btnSendDataTapped(_ sender: Any) {
         DispatchQueue.main.async {
             self.viewLoader.isHidden = false
+            self.view.resignFirstResponder()
         }
         if self.arrChildAttributeData.count > 0{
             loadData(data: arrChildAttributeData)
@@ -852,18 +1016,20 @@ class ViewController: UIViewController {
         print("arrChildDevicesAttributes \(arrChildDevicesAttributes ?? [[:]])")
         var arrTag = [String]()
         
-        for i in 0...(attributeData?.att?.count ?? 1)-1
-        {
-            for j in 0...((attributeData?.att?[i].d?.count ?? 0)-1){
-                arrTag.append(attributeData?.att?[i].d?[j].tg as? String ?? "")
+        if let att = attributeData?.att{
+            for i in 0...(attributeData?.att?.count ?? 1)-1
+            {
+                for j in 0...((attributeData?.att?[i].d?.count ?? 0)-1){
+                    arrTag.append(attributeData?.att?[i].d?[j].tg as? String ?? "")
+                }
             }
+            let parentTag = self.identity?.d?.meta?.gtw?.tg
+            arrTag.removeAll(where: {$0 == parentTag})
+            arrTag = Array(Set(arrTag))
+            vc?.tagArray = arrTag
+            print("arrTag \(arrTag)")
+            self.navigationController?.pushViewController(vc!, animated: true)
         }
-        let parentTag = self.identity?.d?.meta?.gtw?.tg
-        arrTag.removeAll(where: {$0 == parentTag})
-        arrTag = Array(Set(arrTag))
-        vc?.tagArray = arrTag
-        print("arrTag \(arrTag)")
-        self.navigationController?.pushViewController(vc!, animated: true)
     }
     
 }
@@ -932,6 +1098,10 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         let cell : PropertyCell = tableView.dequeueReusableCell(withIdentifier: "PropertyCell", for: indexPath) as! PropertyCell
         cell.selectionStyle = .none
         cell.txtField.delegate = self
+        if isDataSent{
+            cell.txtField.text = ""
+        }
+
         if self.arrChildAttributeData.count > indexPath.section, self.arrChildAttributeData.count > 0{
             cell.setAttData(data: (arrChildAttributeData[indexPath.section]["Tag"]?[0])!,index: indexPath.row)
         }else if arrParentData.count > 0{
@@ -945,16 +1115,17 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
 }
 
 extension ViewController:UITextFieldDelegate{
-
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var v : UIView = textField
         repeat { v = v.superview! } while !(v is UITableViewCell)
         let cell = v as! PropertyCell // or UITableViewCell or whatever
         let ip = self.tblProperty.indexPath(for:cell)!
         if let text = textField.text,
-           let textRange = Range(range, in: text) {
+           let textRange = Range(range, in: text),!isDataSent {
             let updatedText = text.replacingCharacters(in: textRange,
                                                        with: string)
+            self.isDataSent = false
             //update the updated textfield value in model
             if self.arrChildDevicesAttributes?.count ?? 0 > ip.section{
                 arrChildAttributeData[ip.section]["Tag"]?[0][ip.row].value = updatedText
@@ -965,6 +1136,17 @@ extension ViewController:UITextFieldDelegate{
             }
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("textFieldDidBeginEditing")
+        self.isDataSent = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        DispatchQueue.main.async {
+            self.view.resignFirstResponder()
+        }
     }
 }
 
@@ -978,3 +1160,6 @@ extension Dictionary where Key == String, Value == Any {
         }
     }
 }
+
+
+

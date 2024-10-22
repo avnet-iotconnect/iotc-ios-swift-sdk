@@ -10,6 +10,7 @@ target 'IoTConnectDemo' do
   # Pods for IoTConnectDemo
 	 pod 'IQKeyboardManagerSwift'
    pod 'CocoaMQTT', :git => 'https://github.com/emqx/CocoaMQTT.git', :tag => '2.1.6'
+   pod 'AppCenter'
 end
 
 target 'IoTConnectDemo_AWS' do
@@ -19,5 +20,6 @@ target 'IoTConnectDemo_AWS' do
   # Pods for IoTConnectDemo
    pod 'IQKeyboardManagerSwift'
    pod 'CocoaMQTT', :git => 'https://github.com/emqx/CocoaMQTT.git', :tag => '2.1.6'
+   pod 'AppCenter'
 end
 

@@ -1,7 +1,6 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
-// swift-module-flags: -target arm64-apple-ios14.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name IoTConnect2
-// swift-module-flags-ignorable: -enable-bare-slash-regex
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target arm64-apple-ios14.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name IoTConnect2
 import CocoaMQTT
 import CommonCrypto
 import Foundation
@@ -141,7 +140,7 @@ public struct OfflineStorageOption {
 }
 public enum IOTCEnvironment : Swift.String, Swift.CaseIterable {
   case PROD
-  case DEV
+  case EU
   case AVNET
   case QA
   public init?(rawValue: Swift.String)
@@ -220,7 +219,7 @@ public typealias CreateChildDeviceCallBackBlock = (Any?) -> ()
 public typealias DeleteChildDeviceCallBackBlock = (Any?) -> ()
 @_hasMissingDesignatedInitializers public class SDKClient {
   public static let shared: IoTConnect2.SDKClient
-  public func initialize(config: IoTConnect2.IoTConnectConfig)
+  public func initialize(config: IoTConnect2.IoTConnectConfig, errorBlock: @escaping (_ error: Swift.String) -> Swift.Void)
   public func sendData(data: [Swift.String : Any])
   public func sendLog(data: [Swift.String : Any]?)
   public func sendAck(data: [[Swift.String : Any]], msgType: Swift.String)
